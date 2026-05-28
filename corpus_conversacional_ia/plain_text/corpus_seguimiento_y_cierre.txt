@@ -1,0 +1,309 @@
+Seguimiento y cierre
+Mesa de Ayuda de Calidad · Dream Team de Calidad y Mejoramiento Continuo
+
+INTENCION: consultar_estado
+USUARIO: ¿En qué estado está mi ticket?
+ASISTENTE: Para consultar el estado necesito el número de ticket o identificar la solicitud. Si el sistema encuentra el registro, te indicaré estado actual, responsable y última actualización permitida.
+PALABRAS_CLAVE: estado, está, consultar, necesito, número, identificar, sistema, encuentra, registro, indicaré
+APRENDIZAJE: Mantener flujo, trazabilidad y control de permisos.
+---
+INTENCION: consultar_ticket
+USUARIO: Busca el ticket DT-0001
+ASISTENTE: Voy a buscar el ticket en la base de datos. Si existe y tienes permiso para verlo, puedo mostrar estado, responsable, prioridad, área y último seguimiento.
+PALABRAS_CLAVE: busca, 0001, buscar, base, datos, existe, permiso, verlo, mostrar, estado
+APRENDIZAJE: Mantener flujo, trazabilidad y control de permisos.
+---
+INTENCION: agregar_comentario
+USUARIO: Quiero agregar un comentario
+ASISTENTE: Puedes agregarlo como seguimiento del ticket. El comentario debe ser claro, relacionado con el caso y conservar trazabilidad. No reemplaza la evidencia cuando esta es obligatoria.
+PALABRAS_CLAVE: quiero, agregar, comentario, puedes, agregarlo, seguimiento, claro, relacionado, conservar, trazabilidad
+APRENDIZAJE: Mantener flujo, trazabilidad y control de permisos.
+---
+INTENCION: agregar_evidencia
+USUARIO: Quiero subir una evidencia
+ASISTENTE: Adjunta el soporte al ticket y describe qué demuestra. La evidencia debe estar relacionada con la solicitud y ser verificable para auditoría.
+PALABRAS_CLAVE: quiero, subir, evidencia, adjunta, soporte, describe, demuestra, estar, relacionada, verificable
+APRENDIZAJE: Mantener flujo, trazabilidad y control de permisos.
+---
+INTENCION: cerrar_ticket
+USUARIO: ¿Cómo cierro un ticket?
+ASISTENTE: Antes de cerrar, valida que exista respuesta final, evidencia suficiente, responsable definido y que el solicitante haya sido informado si aplica. El cierre debe quedar registrado con comentario final.
+PALABRAS_CLAVE: cómo, cierro, antes, cerrar, valida, exista, respuesta, final, evidencia, suficiente
+APRENDIZAJE: Mantener flujo, trazabilidad y control de permisos.
+---
+INTENCION: reabrir_ticket
+USUARIO: Necesito reabrir un ticket cerrado
+ASISTENTE: La reapertura debe justificarse. Indica por qué el cierre no resolvió el caso, qué evidencia nueva existe o qué actividad quedó pendiente.
+PALABRAS_CLAVE: necesito, reabrir, cerrado, reapertura, justificarse, indica, cierre, resolvió, evidencia, nueva
+APRENDIZAJE: Mantener flujo, trazabilidad y control de permisos.
+---
+INTENCION: escalar_ticket
+USUARIO: Este ticket no avanza
+ASISTENTE: Si el ticket está detenido, revisa responsable, fecha de última gestión, evidencia y causa de espera. Si supera el tiempo permitido, puede escalarse al jefe general con justificación.
+PALABRAS_CLAVE: avanza, está, detenido, revisa, responsable, fecha, última, gestión, evidencia, causa
+APRENDIZAJE: Mantener flujo, trazabilidad y control de permisos.
+---
+INTENCION: ampliar_espera
+USUARIO: Necesito más tiempo para resolver
+ASISTENTE: Puedes solicitar ampliación de espera con una causa clara, nueva fecha estimada y comentario de seguimiento. No debe usarse para ocultar inactividad.
+PALABRAS_CLAVE: necesito, tiempo, resolver, puedes, solicitar, ampliación, espera, causa, clara, nueva
+APRENDIZAJE: Mantener flujo, trazabilidad y control de permisos.
+---
+INTENCION: vencimiento
+USUARIO: ¿Qué significa ticket vencido?
+ASISTENTE: Un ticket vencido es aquel que superó el tiempo definido sin cierre o sin la acción esperada. Debe revisarse prioridad, responsable y causa del incumplimiento.
+PALABRAS_CLAVE: significa, vencido, aquel, superó, tiempo, definido, cierre, acción, esperada, revisarse
+APRENDIZAJE: Mantener flujo, trazabilidad y control de permisos.
+---
+INTENCION: satisfaccion
+USUARIO: El usuario no quedó satisfecho
+ASISTENTE: Registra el comentario del usuario, revisa si el cierre fue adecuado y evalúa reapertura, acción correctiva o mejora si el caso revela falla del proceso.
+PALABRAS_CLAVE: quedó, satisfecho, registra, comentario, revisa, cierre, adecuado, evalúa, reapertura, acción
+APRENDIZAJE: Mantener flujo, trazabilidad y control de permisos.
+---
+INTENCION: consultar_estado
+USUARIO: Estado de mi solicitud
+ASISTENTE: Para consultar eso necesito identificar el ticket. Si lo encuentro y tienes permiso, te mostraré estado, responsable, prioridad y último movimiento.
+PALABRAS_CLAVE: estado, consultar, necesito, identificar, encuentro, permiso, mostraré, responsable, prioridad, último
+APRENDIZAJE: Aprender sinónimos operativos del flujo.
+---
+INTENCION: consultar_estado
+USUARIO: Cómo va el caso
+ASISTENTE: Para consultar eso necesito identificar el ticket. Si lo encuentro y tienes permiso, te mostraré estado, responsable, prioridad y último movimiento.
+PALABRAS_CLAVE: cómo, consultar, necesito, identificar, encuentro, permiso, mostraré, estado, responsable, prioridad
+APRENDIZAJE: Aprender sinónimos operativos del flujo.
+---
+INTENCION: consultar_estado
+USUARIO: Qué pasó con el ticket
+ASISTENTE: Para consultar eso necesito identificar el ticket. Si lo encuentro y tienes permiso, te mostraré estado, responsable, prioridad y último movimiento.
+PALABRAS_CLAVE: pasó, consultar, necesito, identificar, encuentro, permiso, mostraré, estado, responsable, prioridad
+APRENDIZAJE: Aprender sinónimos operativos del flujo.
+---
+INTENCION: consultar_estado
+USUARIO: En qué va mi requerimiento
+ASISTENTE: Para consultar eso necesito identificar el ticket. Si lo encuentro y tienes permiso, te mostraré estado, responsable, prioridad y último movimiento.
+PALABRAS_CLAVE: requerimiento, consultar, necesito, identificar, encuentro, permiso, mostraré, estado, responsable, prioridad
+APRENDIZAJE: Aprender sinónimos operativos del flujo.
+---
+INTENCION: cerrar_ticket
+USUARIO: Finalizar el caso
+ASISTENTE: Para finalizarlo, verifica evidencia, respuesta final, validación del solicitante si aplica y comentario de cierre. El sistema debe conservar la trazabilidad.
+PALABRAS_CLAVE: finalizar, finalizarlo, verifica, evidencia, respuesta, final, validación, solicitante, aplica, comentario
+APRENDIZAJE: Aprender sinónimos operativos del flujo.
+---
+INTENCION: cerrar_ticket
+USUARIO: Dar por terminado el ticket
+ASISTENTE: Para finalizarlo, verifica evidencia, respuesta final, validación del solicitante si aplica y comentario de cierre. El sistema debe conservar la trazabilidad.
+PALABRAS_CLAVE: terminado, finalizarlo, verifica, evidencia, respuesta, final, validación, solicitante, aplica, comentario
+APRENDIZAJE: Aprender sinónimos operativos del flujo.
+---
+INTENCION: cerrar_ticket
+USUARIO: Marcar como cerrado
+ASISTENTE: Para finalizarlo, verifica evidencia, respuesta final, validación del solicitante si aplica y comentario de cierre. El sistema debe conservar la trazabilidad.
+PALABRAS_CLAVE: marcar, cerrado, finalizarlo, verifica, evidencia, respuesta, final, validación, solicitante, aplica
+APRENDIZAJE: Aprender sinónimos operativos del flujo.
+---
+INTENCION: cerrar_ticket
+USUARIO: Cerrar la solicitud
+ASISTENTE: Para finalizarlo, verifica evidencia, respuesta final, validación del solicitante si aplica y comentario de cierre. El sistema debe conservar la trazabilidad.
+PALABRAS_CLAVE: cerrar, finalizarlo, verifica, evidencia, respuesta, final, validación, solicitante, aplica, comentario
+APRENDIZAJE: Aprender sinónimos operativos del flujo.
+---
+INTENCION: escalar_ticket
+USUARIO: Pasarlo al jefe
+ASISTENTE: Puedes escalarlo si hay bloqueo, vencimiento o decisión pendiente. Registra la justificación y conserva los comentarios previos del responsable.
+PALABRAS_CLAVE: pasarlo, jefe, puedes, escalarlo, bloqueo, vencimiento, decisión, pendiente, registra, justificación
+APRENDIZAJE: Aprender sinónimos operativos del flujo.
+---
+INTENCION: escalar_ticket
+USUARIO: Subir el caso
+ASISTENTE: Puedes escalarlo si hay bloqueo, vencimiento o decisión pendiente. Registra la justificación y conserva los comentarios previos del responsable.
+PALABRAS_CLAVE: subir, puedes, escalarlo, bloqueo, vencimiento, decisión, pendiente, registra, justificación, conserva
+APRENDIZAJE: Aprender sinónimos operativos del flujo.
+---
+INTENCION: escalar_ticket
+USUARIO: Pedir revisión superior
+ASISTENTE: Puedes escalarlo si hay bloqueo, vencimiento o decisión pendiente. Registra la justificación y conserva los comentarios previos del responsable.
+PALABRAS_CLAVE: pedir, revisión, superior, puedes, escalarlo, bloqueo, vencimiento, decisión, pendiente, registra
+APRENDIZAJE: Aprender sinónimos operativos del flujo.
+---
+INTENCION: escalar_ticket
+USUARIO: Esto está bloqueado
+ASISTENTE: Puedes escalarlo si hay bloqueo, vencimiento o decisión pendiente. Registra la justificación y conserva los comentarios previos del responsable.
+PALABRAS_CLAVE: está, bloqueado, puedes, escalarlo, bloqueo, vencimiento, decisión, pendiente, registra, justificación
+APRENDIZAJE: Aprender sinónimos operativos del flujo.
+---
+INTENCION: agregar_evidencia
+USUARIO: Subir soporte
+ASISTENTE: Adjunta el soporte al ticket y explica qué prueba. La evidencia debe quedar vinculada al caso para revisión posterior.
+PALABRAS_CLAVE: subir, soporte, adjunta, explica, prueba, evidencia, quedar, vinculada, revisión, posterior
+APRENDIZAJE: Aprender sinónimos operativos del flujo.
+---
+INTENCION: agregar_evidencia
+USUARIO: Adjuntar archivo
+ASISTENTE: Adjunta el soporte al ticket y explica qué prueba. La evidencia debe quedar vinculada al caso para revisión posterior.
+PALABRAS_CLAVE: adjuntar, archivo, adjunta, soporte, explica, prueba, evidencia, quedar, vinculada, revisión
+APRENDIZAJE: Aprender sinónimos operativos del flujo.
+---
+INTENCION: agregar_evidencia
+USUARIO: Agregar captura
+ASISTENTE: Adjunta el soporte al ticket y explica qué prueba. La evidencia debe quedar vinculada al caso para revisión posterior.
+PALABRAS_CLAVE: agregar, captura, adjunta, soporte, explica, prueba, evidencia, quedar, vinculada, revisión
+APRENDIZAJE: Aprender sinónimos operativos del flujo.
+---
+INTENCION: agregar_evidencia
+USUARIO: Montar evidencia
+ASISTENTE: Adjunta el soporte al ticket y explica qué prueba. La evidencia debe quedar vinculada al caso para revisión posterior.
+PALABRAS_CLAVE: montar, evidencia, adjunta, soporte, explica, prueba, quedar, vinculada, revisión, posterior
+APRENDIZAJE: Aprender sinónimos operativos del flujo.
+---
+INTENCION: reabrir_ticket
+USUARIO: Volver a abrir
+ASISTENTE: La reapertura requiere una justificación concreta y, de ser posible, evidencia nueva o explicación de lo que quedó sin resolver.
+PALABRAS_CLAVE: volver, abrir, reapertura, requiere, justificación, concreta, posible, evidencia, nueva, explicación
+APRENDIZAJE: Aprender sinónimos operativos del flujo.
+---
+INTENCION: reabrir_ticket
+USUARIO: El cierre no sirvió
+ASISTENTE: La reapertura requiere una justificación concreta y, de ser posible, evidencia nueva o explicación de lo que quedó sin resolver.
+PALABRAS_CLAVE: cierre, sirvió, reapertura, requiere, justificación, concreta, posible, evidencia, nueva, explicación
+APRENDIZAJE: Aprender sinónimos operativos del flujo.
+---
+INTENCION: reabrir_ticket
+USUARIO: El problema sigue
+ASISTENTE: La reapertura requiere una justificación concreta y, de ser posible, evidencia nueva o explicación de lo que quedó sin resolver.
+PALABRAS_CLAVE: problema, sigue, reapertura, requiere, justificación, concreta, posible, evidencia, nueva, explicación
+APRENDIZAJE: Aprender sinónimos operativos del flujo.
+---
+INTENCION: reabrir_ticket
+USUARIO: Necesito reactivar el caso
+ASISTENTE: La reapertura requiere una justificación concreta y, de ser posible, evidencia nueva o explicación de lo que quedó sin resolver.
+PALABRAS_CLAVE: necesito, reactivar, reapertura, requiere, justificación, concreta, posible, evidencia, nueva, explicación
+APRENDIZAJE: Aprender sinónimos operativos del flujo.
+---
+INTENCION: corregir_ticket
+USUARIO: ¿Qué hago si hay descripción muy corta?
+ASISTENTE: Pide ampliar contexto: qué ocurrió, cuándo, dónde, impacto y evidencia. No se debe borrar información; se debe aclarar formalmente.
+PALABRAS_CLAVE: descripción muy corta, corregir, seguimiento
+APRENDIZAJE: Corregir sin perder trazabilidad.
+---
+INTENCION: corregir_ticket
+USUARIO: ¿Qué hago si hay sin área responsable?
+ASISTENTE: Solicita definir área principal o clasificarla con ayuda del asistente. No se debe borrar información; se debe aclarar formalmente.
+PALABRAS_CLAVE: sin área responsable, corregir, seguimiento
+APRENDIZAJE: Corregir sin perder trazabilidad.
+---
+INTENCION: corregir_ticket
+USUARIO: ¿Qué hago si hay prioridad inflada?
+ASISTENTE: Pide justificar urgencia con impacto, vencimiento o riesgo real. No se debe borrar información; se debe aclarar formalmente.
+PALABRAS_CLAVE: prioridad inflada, corregir, seguimiento
+APRENDIZAJE: Corregir sin perder trazabilidad.
+---
+INTENCION: corregir_ticket
+USUARIO: ¿Qué hago si hay sin evidencia?
+ASISTENTE: Permite radicación, pero marca evidencia pendiente si el cierre exige soporte. No se debe borrar información; se debe aclarar formalmente.
+PALABRAS_CLAVE: sin evidencia, corregir, seguimiento
+APRENDIZAJE: Corregir sin perder trazabilidad.
+---
+INTENCION: corregir_ticket
+USUARIO: ¿Qué hago si hay ticket duplicado?
+ASISTENTE: Sugiere buscar casos similares y relacionar el nuevo comentario al ticket existente. No se debe borrar información; se debe aclarar formalmente.
+PALABRAS_CLAVE: ticket duplicado, corregir, seguimiento
+APRENDIZAJE: Corregir sin perder trazabilidad.
+---
+INTENCION: corregir_ticket
+USUARIO: ¿Qué hago si hay cierre sin respuesta final?
+ASISTENTE: Indica que debe agregarse respuesta final antes del cierre. No se debe borrar información; se debe aclarar formalmente.
+PALABRAS_CLAVE: cierre sin respuesta final, corregir, seguimiento
+APRENDIZAJE: Corregir sin perder trazabilidad.
+---
+INTENCION: corregir_ticket
+USUARIO: ¿Qué hago si hay comentarios desordenados?
+ASISTENTE: Sugiere resumir estado actual y próximo paso en un comentario claro. No se debe borrar información; se debe aclarar formalmente.
+PALABRAS_CLAVE: comentarios desordenados, corregir, seguimiento
+APRENDIZAJE: Corregir sin perder trazabilidad.
+---
+INTENCION: explicar_estado_ticket
+USUARIO: ¿Qué significa estado abierto?
+ASISTENTE: El caso fue creado y aún requiere gestión. La interpretación final depende del flujo configurado en la app.
+PALABRAS_CLAVE: abierto, estado, ticket
+APRENDIZAJE: Entrenar explicación de estados.
+---
+INTENCION: explicar_estado_ticket
+USUARIO: Mi solicitud aparece como abierto
+ASISTENTE: El caso fue creado y aún requiere gestión. Revisa el último comentario para conocer el siguiente paso.
+PALABRAS_CLAVE: abierto, solicitud, estado
+APRENDIZAJE: Responder desde la perspectiva del usuario.
+---
+INTENCION: explicar_estado_ticket
+USUARIO: ¿Qué significa estado asignado?
+ASISTENTE: Ya existe un responsable definido para atenderlo. La interpretación final depende del flujo configurado en la app.
+PALABRAS_CLAVE: asignado, estado, ticket
+APRENDIZAJE: Entrenar explicación de estados.
+---
+INTENCION: explicar_estado_ticket
+USUARIO: Mi solicitud aparece como asignado
+ASISTENTE: Ya existe un responsable definido para atenderlo. Revisa el último comentario para conocer el siguiente paso.
+PALABRAS_CLAVE: asignado, solicitud, estado
+APRENDIZAJE: Responder desde la perspectiva del usuario.
+---
+INTENCION: explicar_estado_ticket
+USUARIO: ¿Qué significa estado en revisión?
+ASISTENTE: El responsable está validando información, evidencia o impacto. La interpretación final depende del flujo configurado en la app.
+PALABRAS_CLAVE: en revisión, estado, ticket
+APRENDIZAJE: Entrenar explicación de estados.
+---
+INTENCION: explicar_estado_ticket
+USUARIO: Mi solicitud aparece como en revisión
+ASISTENTE: El responsable está validando información, evidencia o impacto. Revisa el último comentario para conocer el siguiente paso.
+PALABRAS_CLAVE: en revisión, solicitud, estado
+APRENDIZAJE: Responder desde la perspectiva del usuario.
+---
+INTENCION: explicar_estado_ticket
+USUARIO: ¿Qué significa estado en espera?
+ASISTENTE: El caso depende de información, autorización o evidencia adicional. La interpretación final depende del flujo configurado en la app.
+PALABRAS_CLAVE: en espera, estado, ticket
+APRENDIZAJE: Entrenar explicación de estados.
+---
+INTENCION: explicar_estado_ticket
+USUARIO: Mi solicitud aparece como en espera
+ASISTENTE: El caso depende de información, autorización o evidencia adicional. Revisa el último comentario para conocer el siguiente paso.
+PALABRAS_CLAVE: en espera, solicitud, estado
+APRENDIZAJE: Responder desde la perspectiva del usuario.
+---
+INTENCION: explicar_estado_ticket
+USUARIO: ¿Qué significa estado vencido?
+ASISTENTE: El tiempo esperado fue superado y requiere revisión prioritaria. La interpretación final depende del flujo configurado en la app.
+PALABRAS_CLAVE: vencido, estado, ticket
+APRENDIZAJE: Entrenar explicación de estados.
+---
+INTENCION: explicar_estado_ticket
+USUARIO: Mi solicitud aparece como vencido
+ASISTENTE: El tiempo esperado fue superado y requiere revisión prioritaria. Revisa el último comentario para conocer el siguiente paso.
+PALABRAS_CLAVE: vencido, solicitud, estado
+APRENDIZAJE: Responder desde la perspectiva del usuario.
+---
+INTENCION: explicar_estado_ticket
+USUARIO: ¿Qué significa estado cerrado?
+ASISTENTE: El caso tiene conclusión registrada y no requiere acciones activas. La interpretación final depende del flujo configurado en la app.
+PALABRAS_CLAVE: cerrado, estado, ticket
+APRENDIZAJE: Entrenar explicación de estados.
+---
+INTENCION: explicar_estado_ticket
+USUARIO: Mi solicitud aparece como cerrado
+ASISTENTE: El caso tiene conclusión registrada y no requiere acciones activas. Revisa el último comentario para conocer el siguiente paso.
+PALABRAS_CLAVE: cerrado, solicitud, estado
+APRENDIZAJE: Responder desde la perspectiva del usuario.
+---
+INTENCION: explicar_estado_ticket
+USUARIO: ¿Qué significa estado reabierto?
+ASISTENTE: El cierre anterior no resolvió completamente el caso o apareció evidencia nueva. La interpretación final depende del flujo configurado en la app.
+PALABRAS_CLAVE: reabierto, estado, ticket
+APRENDIZAJE: Entrenar explicación de estados.
+---
+INTENCION: explicar_estado_ticket
+USUARIO: Mi solicitud aparece como reabierto
+ASISTENTE: El cierre anterior no resolvió completamente el caso o apareció evidencia nueva. Revisa el último comentario para conocer el siguiente paso.
+PALABRAS_CLAVE: reabierto, solicitud, estado
+APRENDIZAJE: Responder desde la perspectiva del usuario.
+---

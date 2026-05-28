@@ -1,0 +1,99 @@
+Reportes e indicadores
+Mesa de Ayuda de Calidad · Dream Team de Calidad y Mejoramiento Continuo
+
+INTENCION: consultar_tickets_abiertos
+USUARIO: ¿Cómo reviso tickets abiertos?
+ASISTENTE: El indicador de tickets abiertos muestra cantidad de casos activos que aún requieren gestión. Puedo consultarlo si el sistema tiene los datos y filtros requeridos, como rango de fechas, área o responsable.
+PALABRAS_CLAVE: tickets abiertos, indicador, kpi, reporte
+APRENDIZAJE: Distinguir explicación de KPI y consulta real de datos.
+---
+INTENCION: consultar_tickets_abiertos
+USUARIO: Dame un reporte de tickets abiertos
+ASISTENTE: Para generar el reporte de tickets abiertos, necesito definir periodo, área y nivel de detalle. El resultado debe mostrar dato principal, tendencia y casos que requieren acción.
+PALABRAS_CLAVE: tickets abiertos, reporte, periodo, área
+APRENDIZAJE: Pedir filtros antes de calcular si faltan datos.
+---
+INTENCION: consultar_tickets_vencidos
+USUARIO: ¿Cómo reviso tickets vencidos?
+ASISTENTE: El indicador de tickets vencidos muestra casos que superaron el tiempo definido de atención. Puedo consultarlo si el sistema tiene los datos y filtros requeridos, como rango de fechas, área o responsable.
+PALABRAS_CLAVE: tickets vencidos, indicador, kpi, reporte
+APRENDIZAJE: Distinguir explicación de KPI y consulta real de datos.
+---
+INTENCION: consultar_tickets_vencidos
+USUARIO: Dame un reporte de tickets vencidos
+ASISTENTE: Para generar el reporte de tickets vencidos, necesito definir periodo, área y nivel de detalle. El resultado debe mostrar dato principal, tendencia y casos que requieren acción.
+PALABRAS_CLAVE: tickets vencidos, reporte, periodo, área
+APRENDIZAJE: Pedir filtros antes de calcular si faltan datos.
+---
+INTENCION: kpi_tiempo_cierre
+USUARIO: ¿Cómo reviso tiempo promedio de cierre?
+ASISTENTE: El indicador de tiempo promedio de cierre muestra promedio entre radicación y cierre de tickets. Puedo consultarlo si el sistema tiene los datos y filtros requeridos, como rango de fechas, área o responsable.
+PALABRAS_CLAVE: tiempo promedio de cierre, indicador, kpi, reporte
+APRENDIZAJE: Distinguir explicación de KPI y consulta real de datos.
+---
+INTENCION: kpi_tiempo_cierre
+USUARIO: Dame un reporte de tiempo promedio de cierre
+ASISTENTE: Para generar el reporte de tiempo promedio de cierre, necesito definir periodo, área y nivel de detalle. El resultado debe mostrar dato principal, tendencia y casos que requieren acción.
+PALABRAS_CLAVE: tiempo promedio de cierre, reporte, periodo, área
+APRENDIZAJE: Pedir filtros antes de calcular si faltan datos.
+---
+INTENCION: kpi_area
+USUARIO: ¿Cómo reviso casos por área?
+ASISTENTE: El indicador de casos por área muestra distribución de solicitudes según área responsable. Puedo consultarlo si el sistema tiene los datos y filtros requeridos, como rango de fechas, área o responsable.
+PALABRAS_CLAVE: casos por área, indicador, kpi, reporte
+APRENDIZAJE: Distinguir explicación de KPI y consulta real de datos.
+---
+INTENCION: kpi_area
+USUARIO: Dame un reporte de casos por área
+ASISTENTE: Para generar el reporte de casos por área, necesito definir periodo, área y nivel de detalle. El resultado debe mostrar dato principal, tendencia y casos que requieren acción.
+PALABRAS_CLAVE: casos por área, reporte, periodo, área
+APRENDIZAJE: Pedir filtros antes de calcular si faltan datos.
+---
+INTENCION: kpi_reincidencia
+USUARIO: ¿Cómo reviso reincidencias?
+ASISTENTE: El indicador de reincidencias muestra temas o problemas repetidos en un periodo. Puedo consultarlo si el sistema tiene los datos y filtros requeridos, como rango de fechas, área o responsable.
+PALABRAS_CLAVE: reincidencias, indicador, kpi, reporte
+APRENDIZAJE: Distinguir explicación de KPI y consulta real de datos.
+---
+INTENCION: kpi_reincidencia
+USUARIO: Dame un reporte de reincidencias
+ASISTENTE: Para generar el reporte de reincidencias, necesito definir periodo, área y nivel de detalle. El resultado debe mostrar dato principal, tendencia y casos que requieren acción.
+PALABRAS_CLAVE: reincidencias, reporte, periodo, área
+APRENDIZAJE: Pedir filtros antes de calcular si faltan datos.
+---
+INTENCION: kpi_satisfaccion
+USUARIO: ¿Cómo reviso satisfacción?
+ASISTENTE: El indicador de satisfacción muestra percepción del solicitante después del cierre. Puedo consultarlo si el sistema tiene los datos y filtros requeridos, como rango de fechas, área o responsable.
+PALABRAS_CLAVE: satisfacción, indicador, kpi, reporte
+APRENDIZAJE: Distinguir explicación de KPI y consulta real de datos.
+---
+INTENCION: kpi_satisfaccion
+USUARIO: Dame un reporte de satisfacción
+ASISTENTE: Para generar el reporte de satisfacción, necesito definir periodo, área y nivel de detalle. El resultado debe mostrar dato principal, tendencia y casos que requieren acción.
+PALABRAS_CLAVE: satisfacción, reporte, periodo, área
+APRENDIZAJE: Pedir filtros antes de calcular si faltan datos.
+---
+INTENCION: kpi_mejoras
+USUARIO: ¿Cómo reviso mejoras generadas?
+ASISTENTE: El indicador de mejoras generadas muestra acciones de mejora derivadas de tickets. Puedo consultarlo si el sistema tiene los datos y filtros requeridos, como rango de fechas, área o responsable.
+PALABRAS_CLAVE: mejoras generadas, indicador, kpi, reporte
+APRENDIZAJE: Distinguir explicación de KPI y consulta real de datos.
+---
+INTENCION: kpi_mejoras
+USUARIO: Dame un reporte de mejoras generadas
+ASISTENTE: Para generar el reporte de mejoras generadas, necesito definir periodo, área y nivel de detalle. El resultado debe mostrar dato principal, tendencia y casos que requieren acción.
+PALABRAS_CLAVE: mejoras generadas, reporte, periodo, área
+APRENDIZAJE: Pedir filtros antes de calcular si faltan datos.
+---
+INTENCION: kpi_responsable
+USUARIO: ¿Cómo reviso carga por responsable?
+ASISTENTE: El indicador de carga por responsable muestra cantidad de tickets asignados a cada usuario. Puedo consultarlo si el sistema tiene los datos y filtros requeridos, como rango de fechas, área o responsable.
+PALABRAS_CLAVE: carga por responsable, indicador, kpi, reporte
+APRENDIZAJE: Distinguir explicación de KPI y consulta real de datos.
+---
+INTENCION: kpi_responsable
+USUARIO: Dame un reporte de carga por responsable
+ASISTENTE: Para generar el reporte de carga por responsable, necesito definir periodo, área y nivel de detalle. El resultado debe mostrar dato principal, tendencia y casos que requieren acción.
+PALABRAS_CLAVE: carga por responsable, reporte, periodo, área
+APRENDIZAJE: Pedir filtros antes de calcular si faltan datos.
+---

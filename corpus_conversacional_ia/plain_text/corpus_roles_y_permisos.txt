@@ -1,0 +1,63 @@
+Roles y permisos
+Mesa de Ayuda de Calidad · Dream Team de Calidad y Mejoramiento Continuo
+
+INTENCION: explicar_rol
+USUARIO: ¿Qué puede hacer el solicitante?
+ASISTENTE: El rol de solicitante puede crear solicitudes, aportar información, adjuntar evidencia y consultar el avance permitido. La acción exacta depende de los permisos configurados en la aplicación.
+PALABRAS_CLAVE: solicitante, rol, permiso
+APRENDIZAJE: Entrenar explicación de roles sin prometer permisos no configurados.
+---
+INTENCION: validar_permiso
+USUARIO: Soy solicitante, ¿puedo cerrar un ticket?
+ASISTENTE: Depende de los permisos configurados y del estado del ticket. Debes validar si el rol de solicitante tiene autorización para cierre y si el caso cumple evidencia y respuesta final.
+PALABRAS_CLAVE: solicitante, cerrar, permiso
+APRENDIZAJE: No asumir permisos; validar configuración.
+---
+INTENCION: explicar_rol
+USUARIO: ¿Qué puede hacer el analista de calidad?
+ASISTENTE: El rol de analista de calidad puede revisar casos asignados, solicitar evidencia, responder seguimientos y proponer acciones. La acción exacta depende de los permisos configurados en la aplicación.
+PALABRAS_CLAVE: analista de calidad, rol, permiso
+APRENDIZAJE: Entrenar explicación de roles sin prometer permisos no configurados.
+---
+INTENCION: validar_permiso
+USUARIO: Soy analista de calidad, ¿puedo cerrar un ticket?
+ASISTENTE: Depende de los permisos configurados y del estado del ticket. Debes validar si el rol de analista de calidad tiene autorización para cierre y si el caso cumple evidencia y respuesta final.
+PALABRAS_CLAVE: analista de calidad, cerrar, permiso
+APRENDIZAJE: No asumir permisos; validar configuración.
+---
+INTENCION: explicar_rol
+USUARIO: ¿Qué puede hacer el jefe general?
+ASISTENTE: El rol de jefe general puede revisar prioridades, desbloquear casos, escalar decisiones y validar cierres según permisos. La acción exacta depende de los permisos configurados en la aplicación.
+PALABRAS_CLAVE: jefe general, rol, permiso
+APRENDIZAJE: Entrenar explicación de roles sin prometer permisos no configurados.
+---
+INTENCION: validar_permiso
+USUARIO: Soy jefe general, ¿puedo cerrar un ticket?
+ASISTENTE: Depende de los permisos configurados y del estado del ticket. Debes validar si el rol de jefe general tiene autorización para cierre y si el caso cumple evidencia y respuesta final.
+PALABRAS_CLAVE: jefe general, cerrar, permiso
+APRENDIZAJE: No asumir permisos; validar configuración.
+---
+INTENCION: explicar_rol
+USUARIO: ¿Qué puede hacer el super admin?
+ASISTENTE: El rol de super admin puede administrar usuarios, reglas, conocimientos, aprendizajes y configuración general. La acción exacta depende de los permisos configurados en la aplicación.
+PALABRAS_CLAVE: super admin, rol, permiso
+APRENDIZAJE: Entrenar explicación de roles sin prometer permisos no configurados.
+---
+INTENCION: validar_permiso
+USUARIO: Soy super admin, ¿puedo cerrar un ticket?
+ASISTENTE: Depende de los permisos configurados y del estado del ticket. Debes validar si el rol de super admin tiene autorización para cierre y si el caso cumple evidencia y respuesta final.
+PALABRAS_CLAVE: super admin, cerrar, permiso
+APRENDIZAJE: No asumir permisos; validar configuración.
+---
+INTENCION: explicar_rol
+USUARIO: ¿Qué puede hacer el auditoría?
+ASISTENTE: El rol de auditoría puede revisar trazabilidad, evidencias, cumplimiento y coherencia del cierre. La acción exacta depende de los permisos configurados en la aplicación.
+PALABRAS_CLAVE: auditoría, rol, permiso
+APRENDIZAJE: Entrenar explicación de roles sin prometer permisos no configurados.
+---
+INTENCION: validar_permiso
+USUARIO: Soy auditoría, ¿puedo cerrar un ticket?
+ASISTENTE: Depende de los permisos configurados y del estado del ticket. Debes validar si el rol de auditoría tiene autorización para cierre y si el caso cumple evidencia y respuesta final.
+PALABRAS_CLAVE: auditoría, cerrar, permiso
+APRENDIZAJE: No asumir permisos; validar configuración.
+---

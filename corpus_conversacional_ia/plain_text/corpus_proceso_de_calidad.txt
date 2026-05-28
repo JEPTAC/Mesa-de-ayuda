@@ -1,0 +1,345 @@
+Proceso de calidad
+Mesa de Ayuda de Calidad · Dream Team de Calidad y Mejoramiento Continuo
+
+INTENCION: registrar_no_conformidad
+USUARIO: ¿Cómo manejo un caso de no conformidad?
+ASISTENTE: Un caso de no conformidad debe describirse el incumplimiento, evidencia, proceso afectado, impacto y responsable inicial. En la Mesa de Ayuda debe quedar documentado como ticket, con comentarios de seguimiento y evidencia asociada para mantener la trazabilidad.
+PALABRAS_CLAVE: no conformidad, calidad, proceso, evidencia
+APRENDIZAJE: La IA debe explicar el criterio de calidad y conectarlo con la mesa de ayuda.
+---
+INTENCION: registrar_no_conformidad
+USUARIO: Tengo un problema de no conformidad
+ASISTENTE: Regístralo con una descripción concreta, indica proceso afectado, adjunta soporte y define el impacto. Si requiere análisis, deja el ticket en revisión hasta completar la validación.
+PALABRAS_CLAVE: no conformidad, problema, registrar, impacto
+APRENDIZAJE: Transformar un relato en datos estructurados.
+---
+INTENCION: registrar_no_conformidad
+USUARIO: ¿Qué evidencia sirve para no conformidad?
+ASISTENTE: Sirve cualquier soporte verificable: documento, captura, acta, correo, foto, formato diligenciado, historial del sistema o comentario técnico. Lo importante es que pruebe el hecho reportado y permita seguimiento.
+PALABRAS_CLAVE: no conformidad, evidencia, soporte, verificable
+APRENDIZAJE: Orientar sin aceptar evidencias débiles como definitivas.
+---
+INTENCION: registrar_no_conformidad
+USUARIO: Redáctame una respuesta para un caso de no conformidad
+ASISTENTE: Puedes responder así: Se registra el caso relacionado con no conformidad. Se revisará la evidencia aportada, se validará el impacto en el proceso y se definirá la acción correspondiente con responsable y fecha de seguimiento.
+PALABRAS_CLAVE: no conformidad, redactar, respuesta, caso
+APRENDIZAJE: Ofrecer redacción base sin cerrar el caso automáticamente.
+---
+INTENCION: accion_correctiva
+USUARIO: ¿Cómo manejo un caso de acción correctiva?
+ASISTENTE: Un caso de acción correctiva debe orientarse a eliminar la causa raíz y no solo a corregir el efecto inmediato. En la Mesa de Ayuda debe quedar documentado como ticket, con comentarios de seguimiento y evidencia asociada para mantener la trazabilidad.
+PALABRAS_CLAVE: acción correctiva, calidad, proceso, evidencia
+APRENDIZAJE: La IA debe explicar el criterio de calidad y conectarlo con la mesa de ayuda.
+---
+INTENCION: accion_correctiva
+USUARIO: Tengo un problema de acción correctiva
+ASISTENTE: Regístralo con una descripción concreta, indica proceso afectado, adjunta soporte y define el impacto. Si requiere análisis, deja el ticket en revisión hasta completar la validación.
+PALABRAS_CLAVE: acción correctiva, problema, registrar, impacto
+APRENDIZAJE: Transformar un relato en datos estructurados.
+---
+INTENCION: accion_correctiva
+USUARIO: ¿Qué evidencia sirve para acción correctiva?
+ASISTENTE: Sirve cualquier soporte verificable: documento, captura, acta, correo, foto, formato diligenciado, historial del sistema o comentario técnico. Lo importante es que pruebe el hecho reportado y permita seguimiento.
+PALABRAS_CLAVE: acción correctiva, evidencia, soporte, verificable
+APRENDIZAJE: Orientar sin aceptar evidencias débiles como definitivas.
+---
+INTENCION: accion_correctiva
+USUARIO: Redáctame una respuesta para un caso de acción correctiva
+ASISTENTE: Puedes responder así: Se registra el caso relacionado con acción correctiva. Se revisará la evidencia aportada, se validará el impacto en el proceso y se definirá la acción correspondiente con responsable y fecha de seguimiento.
+PALABRAS_CLAVE: acción correctiva, redactar, respuesta, caso
+APRENDIZAJE: Ofrecer redacción base sin cerrar el caso automáticamente.
+---
+INTENCION: accion_preventiva
+USUARIO: ¿Cómo manejo un caso de acción preventiva?
+ASISTENTE: Un caso de acción preventiva busca reducir la probabilidad de ocurrencia antes de que el problema se materialice. En la Mesa de Ayuda debe quedar documentado como ticket, con comentarios de seguimiento y evidencia asociada para mantener la trazabilidad.
+PALABRAS_CLAVE: acción preventiva, calidad, proceso, evidencia
+APRENDIZAJE: La IA debe explicar el criterio de calidad y conectarlo con la mesa de ayuda.
+---
+INTENCION: accion_preventiva
+USUARIO: Tengo un problema de acción preventiva
+ASISTENTE: Regístralo con una descripción concreta, indica proceso afectado, adjunta soporte y define el impacto. Si requiere análisis, deja el ticket en revisión hasta completar la validación.
+PALABRAS_CLAVE: acción preventiva, problema, registrar, impacto
+APRENDIZAJE: Transformar un relato en datos estructurados.
+---
+INTENCION: accion_preventiva
+USUARIO: ¿Qué evidencia sirve para acción preventiva?
+ASISTENTE: Sirve cualquier soporte verificable: documento, captura, acta, correo, foto, formato diligenciado, historial del sistema o comentario técnico. Lo importante es que pruebe el hecho reportado y permita seguimiento.
+PALABRAS_CLAVE: acción preventiva, evidencia, soporte, verificable
+APRENDIZAJE: Orientar sin aceptar evidencias débiles como definitivas.
+---
+INTENCION: accion_preventiva
+USUARIO: Redáctame una respuesta para un caso de acción preventiva
+ASISTENTE: Puedes responder así: Se registra el caso relacionado con acción preventiva. Se revisará la evidencia aportada, se validará el impacto en el proceso y se definirá la acción correspondiente con responsable y fecha de seguimiento.
+PALABRAS_CLAVE: acción preventiva, redactar, respuesta, caso
+APRENDIZAJE: Ofrecer redacción base sin cerrar el caso automáticamente.
+---
+INTENCION: mejora_continua
+USUARIO: ¿Cómo manejo un caso de mejora continua?
+ASISTENTE: Un caso de mejora continua requiere identificar oportunidad, beneficio esperado, responsable y seguimiento. En la Mesa de Ayuda debe quedar documentado como ticket, con comentarios de seguimiento y evidencia asociada para mantener la trazabilidad.
+PALABRAS_CLAVE: mejora continua, calidad, proceso, evidencia
+APRENDIZAJE: La IA debe explicar el criterio de calidad y conectarlo con la mesa de ayuda.
+---
+INTENCION: mejora_continua
+USUARIO: Tengo un problema de mejora continua
+ASISTENTE: Regístralo con una descripción concreta, indica proceso afectado, adjunta soporte y define el impacto. Si requiere análisis, deja el ticket en revisión hasta completar la validación.
+PALABRAS_CLAVE: mejora continua, problema, registrar, impacto
+APRENDIZAJE: Transformar un relato en datos estructurados.
+---
+INTENCION: mejora_continua
+USUARIO: ¿Qué evidencia sirve para mejora continua?
+ASISTENTE: Sirve cualquier soporte verificable: documento, captura, acta, correo, foto, formato diligenciado, historial del sistema o comentario técnico. Lo importante es que pruebe el hecho reportado y permita seguimiento.
+PALABRAS_CLAVE: mejora continua, evidencia, soporte, verificable
+APRENDIZAJE: Orientar sin aceptar evidencias débiles como definitivas.
+---
+INTENCION: mejora_continua
+USUARIO: Redáctame una respuesta para un caso de mejora continua
+ASISTENTE: Puedes responder así: Se registra el caso relacionado con mejora continua. Se revisará la evidencia aportada, se validará el impacto en el proceso y se definirá la acción correspondiente con responsable y fecha de seguimiento.
+PALABRAS_CLAVE: mejora continua, redactar, respuesta, caso
+APRENDIZAJE: Ofrecer redacción base sin cerrar el caso automáticamente.
+---
+INTENCION: validar_evidencia
+USUARIO: ¿Cómo manejo un caso de evidencia?
+ASISTENTE: Un caso de evidencia debe ser clara, verificable, fechada y relacionada con el caso. En la Mesa de Ayuda debe quedar documentado como ticket, con comentarios de seguimiento y evidencia asociada para mantener la trazabilidad.
+PALABRAS_CLAVE: evidencia, calidad, proceso, evidencia
+APRENDIZAJE: La IA debe explicar el criterio de calidad y conectarlo con la mesa de ayuda.
+---
+INTENCION: validar_evidencia
+USUARIO: Tengo un problema de evidencia
+ASISTENTE: Regístralo con una descripción concreta, indica proceso afectado, adjunta soporte y define el impacto. Si requiere análisis, deja el ticket en revisión hasta completar la validación.
+PALABRAS_CLAVE: evidencia, problema, registrar, impacto
+APRENDIZAJE: Transformar un relato en datos estructurados.
+---
+INTENCION: validar_evidencia
+USUARIO: ¿Qué evidencia sirve para evidencia?
+ASISTENTE: Sirve cualquier soporte verificable: documento, captura, acta, correo, foto, formato diligenciado, historial del sistema o comentario técnico. Lo importante es que pruebe el hecho reportado y permita seguimiento.
+PALABRAS_CLAVE: evidencia, evidencia, soporte, verificable
+APRENDIZAJE: Orientar sin aceptar evidencias débiles como definitivas.
+---
+INTENCION: validar_evidencia
+USUARIO: Redáctame una respuesta para un caso de evidencia
+ASISTENTE: Puedes responder así: Se registra el caso relacionado con evidencia. Se revisará la evidencia aportada, se validará el impacto en el proceso y se definirá la acción correspondiente con responsable y fecha de seguimiento.
+PALABRAS_CLAVE: evidencia, redactar, respuesta, caso
+APRENDIZAJE: Ofrecer redacción base sin cerrar el caso automáticamente.
+---
+INTENCION: analisis_causa_raiz
+USUARIO: ¿Cómo manejo un caso de causa raíz?
+ASISTENTE: Un caso de causa raíz puede analizarse con 5 porqués, Ishikawa o revisión de factores del proceso. En la Mesa de Ayuda debe quedar documentado como ticket, con comentarios de seguimiento y evidencia asociada para mantener la trazabilidad.
+PALABRAS_CLAVE: causa raíz, calidad, proceso, evidencia
+APRENDIZAJE: La IA debe explicar el criterio de calidad y conectarlo con la mesa de ayuda.
+---
+INTENCION: analisis_causa_raiz
+USUARIO: Tengo un problema de causa raíz
+ASISTENTE: Regístralo con una descripción concreta, indica proceso afectado, adjunta soporte y define el impacto. Si requiere análisis, deja el ticket en revisión hasta completar la validación.
+PALABRAS_CLAVE: causa raíz, problema, registrar, impacto
+APRENDIZAJE: Transformar un relato en datos estructurados.
+---
+INTENCION: analisis_causa_raiz
+USUARIO: ¿Qué evidencia sirve para causa raíz?
+ASISTENTE: Sirve cualquier soporte verificable: documento, captura, acta, correo, foto, formato diligenciado, historial del sistema o comentario técnico. Lo importante es que pruebe el hecho reportado y permita seguimiento.
+PALABRAS_CLAVE: causa raíz, evidencia, soporte, verificable
+APRENDIZAJE: Orientar sin aceptar evidencias débiles como definitivas.
+---
+INTENCION: analisis_causa_raiz
+USUARIO: Redáctame una respuesta para un caso de causa raíz
+ASISTENTE: Puedes responder así: Se registra el caso relacionado con causa raíz. Se revisará la evidencia aportada, se validará el impacto en el proceso y se definirá la acción correspondiente con responsable y fecha de seguimiento.
+PALABRAS_CLAVE: causa raíz, redactar, respuesta, caso
+APRENDIZAJE: Ofrecer redacción base sin cerrar el caso automáticamente.
+---
+INTENCION: trazabilidad
+USUARIO: ¿Cómo manejo un caso de trazabilidad?
+ASISTENTE: Un caso de trazabilidad debe quedar registro de fecha, usuario, acción, comentario y soporte. En la Mesa de Ayuda debe quedar documentado como ticket, con comentarios de seguimiento y evidencia asociada para mantener la trazabilidad.
+PALABRAS_CLAVE: trazabilidad, calidad, proceso, evidencia
+APRENDIZAJE: La IA debe explicar el criterio de calidad y conectarlo con la mesa de ayuda.
+---
+INTENCION: trazabilidad
+USUARIO: Tengo un problema de trazabilidad
+ASISTENTE: Regístralo con una descripción concreta, indica proceso afectado, adjunta soporte y define el impacto. Si requiere análisis, deja el ticket en revisión hasta completar la validación.
+PALABRAS_CLAVE: trazabilidad, problema, registrar, impacto
+APRENDIZAJE: Transformar un relato en datos estructurados.
+---
+INTENCION: trazabilidad
+USUARIO: ¿Qué evidencia sirve para trazabilidad?
+ASISTENTE: Sirve cualquier soporte verificable: documento, captura, acta, correo, foto, formato diligenciado, historial del sistema o comentario técnico. Lo importante es que pruebe el hecho reportado y permita seguimiento.
+PALABRAS_CLAVE: trazabilidad, evidencia, soporte, verificable
+APRENDIZAJE: Orientar sin aceptar evidencias débiles como definitivas.
+---
+INTENCION: trazabilidad
+USUARIO: Redáctame una respuesta para un caso de trazabilidad
+ASISTENTE: Puedes responder así: Se registra el caso relacionado con trazabilidad. Se revisará la evidencia aportada, se validará el impacto en el proceso y se definirá la acción correspondiente con responsable y fecha de seguimiento.
+PALABRAS_CLAVE: trazabilidad, redactar, respuesta, caso
+APRENDIZAJE: Ofrecer redacción base sin cerrar el caso automáticamente.
+---
+INTENCION: auditoria
+USUARIO: ¿Cómo manejo un caso de auditoría?
+ASISTENTE: Un caso de auditoría requiere hallazgo, criterio, evidencia, responsable y plan de acción. En la Mesa de Ayuda debe quedar documentado como ticket, con comentarios de seguimiento y evidencia asociada para mantener la trazabilidad.
+PALABRAS_CLAVE: auditoría, calidad, proceso, evidencia
+APRENDIZAJE: La IA debe explicar el criterio de calidad y conectarlo con la mesa de ayuda.
+---
+INTENCION: auditoria
+USUARIO: Tengo un problema de auditoría
+ASISTENTE: Regístralo con una descripción concreta, indica proceso afectado, adjunta soporte y define el impacto. Si requiere análisis, deja el ticket en revisión hasta completar la validación.
+PALABRAS_CLAVE: auditoría, problema, registrar, impacto
+APRENDIZAJE: Transformar un relato en datos estructurados.
+---
+INTENCION: auditoria
+USUARIO: ¿Qué evidencia sirve para auditoría?
+ASISTENTE: Sirve cualquier soporte verificable: documento, captura, acta, correo, foto, formato diligenciado, historial del sistema o comentario técnico. Lo importante es que pruebe el hecho reportado y permita seguimiento.
+PALABRAS_CLAVE: auditoría, evidencia, soporte, verificable
+APRENDIZAJE: Orientar sin aceptar evidencias débiles como definitivas.
+---
+INTENCION: auditoria
+USUARIO: Redáctame una respuesta para un caso de auditoría
+ASISTENTE: Puedes responder así: Se registra el caso relacionado con auditoría. Se revisará la evidencia aportada, se validará el impacto en el proceso y se definirá la acción correspondiente con responsable y fecha de seguimiento.
+PALABRAS_CLAVE: auditoría, redactar, respuesta, caso
+APRENDIZAJE: Ofrecer redacción base sin cerrar el caso automáticamente.
+---
+INTENCION: indicador_calidad
+USUARIO: ¿Cómo manejo un caso de indicador?
+ASISTENTE: Un caso de indicador debe tener fórmula, periodicidad, fuente de datos, meta y responsable. En la Mesa de Ayuda debe quedar documentado como ticket, con comentarios de seguimiento y evidencia asociada para mantener la trazabilidad.
+PALABRAS_CLAVE: indicador, calidad, proceso, evidencia
+APRENDIZAJE: La IA debe explicar el criterio de calidad y conectarlo con la mesa de ayuda.
+---
+INTENCION: indicador_calidad
+USUARIO: Tengo un problema de indicador
+ASISTENTE: Regístralo con una descripción concreta, indica proceso afectado, adjunta soporte y define el impacto. Si requiere análisis, deja el ticket en revisión hasta completar la validación.
+PALABRAS_CLAVE: indicador, problema, registrar, impacto
+APRENDIZAJE: Transformar un relato en datos estructurados.
+---
+INTENCION: indicador_calidad
+USUARIO: ¿Qué evidencia sirve para indicador?
+ASISTENTE: Sirve cualquier soporte verificable: documento, captura, acta, correo, foto, formato diligenciado, historial del sistema o comentario técnico. Lo importante es que pruebe el hecho reportado y permita seguimiento.
+PALABRAS_CLAVE: indicador, evidencia, soporte, verificable
+APRENDIZAJE: Orientar sin aceptar evidencias débiles como definitivas.
+---
+INTENCION: indicador_calidad
+USUARIO: Redáctame una respuesta para un caso de indicador
+ASISTENTE: Puedes responder así: Se registra el caso relacionado con indicador. Se revisará la evidencia aportada, se validará el impacto en el proceso y se definirá la acción correspondiente con responsable y fecha de seguimiento.
+PALABRAS_CLAVE: indicador, redactar, respuesta, caso
+APRENDIZAJE: Ofrecer redacción base sin cerrar el caso automáticamente.
+---
+INTENCION: gestion_riesgo
+USUARIO: ¿Cómo manejo un caso de riesgo?
+ASISTENTE: Un caso de riesgo debe evaluar probabilidad, impacto, control existente y acción de tratamiento. En la Mesa de Ayuda debe quedar documentado como ticket, con comentarios de seguimiento y evidencia asociada para mantener la trazabilidad.
+PALABRAS_CLAVE: riesgo, calidad, proceso, evidencia
+APRENDIZAJE: La IA debe explicar el criterio de calidad y conectarlo con la mesa de ayuda.
+---
+INTENCION: gestion_riesgo
+USUARIO: Tengo un problema de riesgo
+ASISTENTE: Regístralo con una descripción concreta, indica proceso afectado, adjunta soporte y define el impacto. Si requiere análisis, deja el ticket en revisión hasta completar la validación.
+PALABRAS_CLAVE: riesgo, problema, registrar, impacto
+APRENDIZAJE: Transformar un relato en datos estructurados.
+---
+INTENCION: gestion_riesgo
+USUARIO: ¿Qué evidencia sirve para riesgo?
+ASISTENTE: Sirve cualquier soporte verificable: documento, captura, acta, correo, foto, formato diligenciado, historial del sistema o comentario técnico. Lo importante es que pruebe el hecho reportado y permita seguimiento.
+PALABRAS_CLAVE: riesgo, evidencia, soporte, verificable
+APRENDIZAJE: Orientar sin aceptar evidencias débiles como definitivas.
+---
+INTENCION: gestion_riesgo
+USUARIO: Redáctame una respuesta para un caso de riesgo
+ASISTENTE: Puedes responder así: Se registra el caso relacionado con riesgo. Se revisará la evidencia aportada, se validará el impacto en el proceso y se definirá la acción correspondiente con responsable y fecha de seguimiento.
+PALABRAS_CLAVE: riesgo, redactar, respuesta, caso
+APRENDIZAJE: Ofrecer redacción base sin cerrar el caso automáticamente.
+---
+INTENCION: etapa_proceso_calidad
+USUARIO: Explícame la etapa de identificación del problema
+ASISTENTE: Describe el hecho sin juicios personales, indicando fecha, área, evidencia y efecto observado. En la Mesa de Ayuda se debe registrar cada avance como comentario o actualización del ticket.
+PALABRAS_CLAVE: identificación del problema, proceso, calidad, etapa
+APRENDIZAJE: Entrenar explicación de etapas del flujo de calidad.
+---
+INTENCION: etapa_proceso_calidad
+USUARIO: ¿Qué reviso en identificación del problema?
+ASISTENTE: Describe el hecho sin juicios personales, indicando fecha, área, evidencia y efecto observado.
+PALABRAS_CLAVE: identificación del problema, revisar, calidad
+APRENDIZAJE: Convertir etapas en listas de verificación.
+---
+INTENCION: etapa_proceso_calidad
+USUARIO: Explícame la etapa de análisis inicial
+ASISTENTE: Revisa si el caso tiene evidencia suficiente, área responsable, prioridad correcta y posible impacto en el proceso. En la Mesa de Ayuda se debe registrar cada avance como comentario o actualización del ticket.
+PALABRAS_CLAVE: análisis inicial, proceso, calidad, etapa
+APRENDIZAJE: Entrenar explicación de etapas del flujo de calidad.
+---
+INTENCION: etapa_proceso_calidad
+USUARIO: ¿Qué reviso en análisis inicial?
+ASISTENTE: Revisa si el caso tiene evidencia suficiente, área responsable, prioridad correcta y posible impacto en el proceso.
+PALABRAS_CLAVE: análisis inicial, revisar, calidad
+APRENDIZAJE: Convertir etapas en listas de verificación.
+---
+INTENCION: etapa_proceso_calidad
+USUARIO: Explícame la etapa de asignación de responsable
+ASISTENTE: El responsable debe tener competencia y permiso para atender el caso; si no existe, se escala para configuración. En la Mesa de Ayuda se debe registrar cada avance como comentario o actualización del ticket.
+PALABRAS_CLAVE: asignación de responsable, proceso, calidad, etapa
+APRENDIZAJE: Entrenar explicación de etapas del flujo de calidad.
+---
+INTENCION: etapa_proceso_calidad
+USUARIO: ¿Qué reviso en asignación de responsable?
+ASISTENTE: El responsable debe tener competencia y permiso para atender el caso; si no existe, se escala para configuración.
+PALABRAS_CLAVE: asignación de responsable, revisar, calidad
+APRENDIZAJE: Convertir etapas en listas de verificación.
+---
+INTENCION: etapa_proceso_calidad
+USUARIO: Explícame la etapa de plan de acción
+ASISTENTE: Debe incluir actividad, responsable, fecha, evidencia esperada y criterio de cierre. En la Mesa de Ayuda se debe registrar cada avance como comentario o actualización del ticket.
+PALABRAS_CLAVE: plan de acción, proceso, calidad, etapa
+APRENDIZAJE: Entrenar explicación de etapas del flujo de calidad.
+---
+INTENCION: etapa_proceso_calidad
+USUARIO: ¿Qué reviso en plan de acción?
+ASISTENTE: Debe incluir actividad, responsable, fecha, evidencia esperada y criterio de cierre.
+PALABRAS_CLAVE: plan de acción, revisar, calidad
+APRENDIZAJE: Convertir etapas en listas de verificación.
+---
+INTENCION: etapa_proceso_calidad
+USUARIO: Explícame la etapa de verificación de eficacia
+ASISTENTE: No basta con ejecutar la acción; se debe validar si resolvió la causa o redujo la recurrencia. En la Mesa de Ayuda se debe registrar cada avance como comentario o actualización del ticket.
+PALABRAS_CLAVE: verificación de eficacia, proceso, calidad, etapa
+APRENDIZAJE: Entrenar explicación de etapas del flujo de calidad.
+---
+INTENCION: etapa_proceso_calidad
+USUARIO: ¿Qué reviso en verificación de eficacia?
+ASISTENTE: No basta con ejecutar la acción; se debe validar si resolvió la causa o redujo la recurrencia.
+PALABRAS_CLAVE: verificación de eficacia, revisar, calidad
+APRENDIZAJE: Convertir etapas en listas de verificación.
+---
+INTENCION: etapa_proceso_calidad
+USUARIO: Explícame la etapa de cierre documental
+ASISTENTE: El cierre debe dejar respuesta final, evidencia, conclusión y trazabilidad completa. En la Mesa de Ayuda se debe registrar cada avance como comentario o actualización del ticket.
+PALABRAS_CLAVE: cierre documental, proceso, calidad, etapa
+APRENDIZAJE: Entrenar explicación de etapas del flujo de calidad.
+---
+INTENCION: etapa_proceso_calidad
+USUARIO: ¿Qué reviso en cierre documental?
+ASISTENTE: El cierre debe dejar respuesta final, evidencia, conclusión y trazabilidad completa.
+PALABRAS_CLAVE: cierre documental, revisar, calidad
+APRENDIZAJE: Convertir etapas en listas de verificación.
+---
+INTENCION: diferenciar_acciones_calidad
+USUARIO: ¿Qué diferencia hay entre corrección y otras acciones?
+ASISTENTE: Corrección: Soluciona el efecto inmediato del problema. En la Mesa de Ayuda debe quedar claro si se trata de contención, corrección, acción correctiva, preventiva o mejora.
+PALABRAS_CLAVE: corrección, acción, calidad, diferencia
+APRENDIZAJE: Enseñar diferencias de gestión de calidad.
+---
+INTENCION: diferenciar_acciones_calidad
+USUARIO: ¿Qué diferencia hay entre acción correctiva y otras acciones?
+ASISTENTE: Acción correctiva: Busca eliminar la causa raíz para evitar repetición. En la Mesa de Ayuda debe quedar claro si se trata de contención, corrección, acción correctiva, preventiva o mejora.
+PALABRAS_CLAVE: acción correctiva, acción, calidad, diferencia
+APRENDIZAJE: Enseñar diferencias de gestión de calidad.
+---
+INTENCION: diferenciar_acciones_calidad
+USUARIO: ¿Qué diferencia hay entre acción preventiva y otras acciones?
+ASISTENTE: Acción preventiva: Reduce un riesgo antes de que se convierta en problema. En la Mesa de Ayuda debe quedar claro si se trata de contención, corrección, acción correctiva, preventiva o mejora.
+PALABRAS_CLAVE: acción preventiva, acción, calidad, diferencia
+APRENDIZAJE: Enseñar diferencias de gestión de calidad.
+---
+INTENCION: diferenciar_acciones_calidad
+USUARIO: ¿Qué diferencia hay entre plan de mejora y otras acciones?
+ASISTENTE: Plan de mejora: Aumenta desempeño, control o eficiencia de un proceso. En la Mesa de Ayuda debe quedar claro si se trata de contención, corrección, acción correctiva, preventiva o mejora.
+PALABRAS_CLAVE: plan de mejora, acción, calidad, diferencia
+APRENDIZAJE: Enseñar diferencias de gestión de calidad.
+---
+INTENCION: diferenciar_acciones_calidad
+USUARIO: ¿Qué diferencia hay entre contención y otras acciones?
+ASISTENTE: Contención: Controla temporalmente el impacto mientras se define solución de fondo. En la Mesa de Ayuda debe quedar claro si se trata de contención, corrección, acción correctiva, preventiva o mejora.
+PALABRAS_CLAVE: contención, acción, calidad, diferencia
+APRENDIZAJE: Enseñar diferencias de gestión de calidad.
+---

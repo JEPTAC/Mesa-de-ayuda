@@ -1,0 +1,15 @@
+Total conversaciones: 285
+Total conocimientos únicos: 216
+
+Cobertura por categoría:
+- Aprendizaje controlado: 7
+- Conversaciones del área: 64
+- Conversaciones difíciles: 8
+- Conversaciones normales: 34
+- Proceso de calidad: 57
+- Radicación: 38
+- Reportes e indicadores: 16
+- Roles y permisos: 10
+- Seguimiento y cierre: 51
+
+Archivos generados en docs/, data/, plain_text/ y sql/.

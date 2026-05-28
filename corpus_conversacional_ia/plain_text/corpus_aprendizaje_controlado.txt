@@ -1,0 +1,45 @@
+Aprendizaje controlado
+Mesa de Ayuda de Calidad · Dream Team de Calidad y Mejoramiento Continuo
+
+INTENCION: aprendizaje_pendiente
+USUARIO: Aprende que los tickets sin evidencia no deben cerrarse
+ASISTENTE: He registrado ese aprendizaje como pendiente de aprobación. No lo usaré como regla oficial hasta que el Super Admin lo revise y lo apruebe.
+PALABRAS_CLAVE: aprende, evidencia, cerrarse, registrado, aprendizaje, pendiente, aprobación, usaré, regla, oficial
+APRENDIZAJE: Nunca convertir aprendizaje en regla oficial sin aprobación.
+---
+INTENCION: aprendizaje_pendiente
+USUARIO: Recuerda que Calidad revisa las solicitudes de auditoría
+ASISTENTE: Puedo guardarlo como aprendizaje pendiente. Para convertirlo en conocimiento oficial debe revisarse y aprobarse en el panel de aprendizaje.
+PALABRAS_CLAVE: recuerda, revisa, auditoría, guardarlo, aprendizaje, pendiente, convertirlo, conocimiento, oficial, revisarse
+APRENDIZAJE: Nunca convertir aprendizaje en regla oficial sin aprobación.
+---
+INTENCION: feedback_respuesta
+USUARIO: Esto no era así, corrige esa respuesta
+ASISTENTE: Gracias por la corrección. Registraré el comentario para revisión. Si hay una regla oficial diferente, el Super Admin puede actualizar la base de conocimiento.
+PALABRAS_CLAVE: corrige, respuesta, gracias, corrección, registraré, comentario, revisión, regla, oficial, diferente
+APRENDIZAJE: Nunca convertir aprendizaje en regla oficial sin aprobación.
+---
+INTENCION: feedback_respuesta
+USUARIO: No respondas eso así
+ASISTENTE: Entendido. Registraré la observación para mejorar la respuesta. Si deseas, puedo proponer una versión corregida para aprobación.
+PALABRAS_CLAVE: respondas, entendido, registraré, observación, mejorar, respuesta, deseas, proponer, versión, corregida
+APRENDIZAJE: Nunca convertir aprendizaje en regla oficial sin aprobación.
+---
+INTENCION: conocimiento_obsoleto
+USUARIO: Esa información ya no aplica
+ASISTENTE: Marcaré la observación como posible conocimiento obsoleto. Debe revisarse antes de desactivar o reemplazar la respuesta oficial.
+PALABRAS_CLAVE: información, aplica, marcaré, observación, posible, conocimiento, obsoleto, revisarse, antes, desactivar
+APRENDIZAJE: Nunca convertir aprendizaje en regla oficial sin aprobación.
+---
+INTENCION: aprendizaje_pendiente
+USUARIO: Guarda esta instrucción
+ASISTENTE: La guardaré como aprendizaje pendiente. No quedará activa hasta que sea validada por el administrador correspondiente.
+PALABRAS_CLAVE: guarda, instrucción, guardaré, aprendizaje, pendiente, quedará, activa, hasta, validada, administrador
+APRENDIZAJE: Nunca convertir aprendizaje en regla oficial sin aprobación.
+---
+INTENCION: resumir_aprendizaje
+USUARIO: ¿Qué aprendiste de esta conversación?
+ASISTENTE: Detecté posibles aprendizajes sobre criterios de atención, evidencia y seguimiento. Puedo enviarlos a revisión para que se aprueben o descarten.
+PALABRAS_CLAVE: aprendiste, conversación, detecté, posibles, aprendizajes, criterios, atención, evidencia, seguimiento, enviarlos
+APRENDIZAJE: Nunca convertir aprendizaje en regla oficial sin aprobación.
+---
