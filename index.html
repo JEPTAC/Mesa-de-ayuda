@@ -17,28 +17,26 @@ window.pdfjsLib = pdfjsLib;
 pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.9.155/build/pdf.worker.min.mjs";
 </script>
 <style>
-:root{--blue:#0b3b82;--blue2:#0d5bd2;--gold:#f7bf24;--gray:#eff3f8;--ink:#172033;--muted:#7b8797;--ok:#0da678;--warn:#f59e0b;--bad:#ef4444;--panel:#ffffff;--line:#e4eaf2;--shadow:0 24px 60px rgba(13,37,76,.13);--radius:28px}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;font-family:"Century Gothic","Avenir Next",Arial,sans-serif;color:var(--ink);background:radial-gradient(circle at 12% -5%,rgba(247,191,36,.28),transparent 32%),linear-gradient(145deg,#f6f8fc,#eef3fb 42%,#ffffff)}
-body{overflow-x:hidden}
-button,input,select,textarea{font-family:inherit}
-button{border:0;cursor:pointer}
-.app-shell{min-height:100vh;display:grid;grid-template-columns:300px 1fr;transition:.35s ease}
-.sidebar{position:sticky;top:0;height:100vh;padding:24px;background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(255,255,255,.68));border-right:1px solid rgba(228,234,242,.8);backdrop-filter:blur(16px);z-index:10}
-.brand{display:flex;align-items:center;gap:12px;margin-bottom:24px}
-.brand img{width:172px;max-width:100%;height:auto;filter:drop-shadow(0 12px 22px rgba(11,59,130,.12))}
-.brand-mini{width:42px;height:42px;border-radius:16px;background:linear-gradient(135deg,var(--blue),var(--blue2));display:grid;place-items:center;color:#fff;font-weight:900;box-shadow:0 18px 36px rgba(13,91,210,.25)}
-.user-card{padding:18px;border:1px solid var(--line);border-radius:24px;background:#fff;box-shadow:var(--shadow);display:flex;gap:12px;align-items:center;margin-bottom:18px}
-.avatar{width:54px;height:54px;border-radius:18px;object-fit:cover;background:linear-gradient(135deg,#fff,#dbeafe);border:1px solid #e7edf7}
-.user-name{font-weight:900;font-size:14px;line-height:1.2}.user-role{font-size:12px;color:var(--muted);margin-top:4px}.user-status{font-size:11px;color:var(--ok);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px}
-.nav{display:grid;gap:8px}.nav button{display:flex;align-items:center;gap:11px;width:100%;padding:14px 14px;border-radius:18px;background:transparent;color:#506176;font-size:14px;text-align:left;transition:.22s ease}.nav button:hover,.nav button.active{background:linear-gradient(135deg,#0b3b82,#0d5bd2);color:#fff;box-shadow:0 18px 35px rgba(13,91,210,.22);transform:translateY(-1px)}
-.nav .icon{font-size:18px;width:24px;text-align:center}.side-footer{position:absolute;left:24px;right:24px;bottom:24px;display:grid;gap:10px}.mode-pill{padding:10px 12px;border-radius:16px;font-size:12px;color:#506176;background:#f8fafc;border:1px solid var(--line);display:flex;gap:8px;align-items:center}.dot{width:9px;height:9px;border-radius:99px;background:var(--warn);box-shadow:0 0 0 6px rgba(245,158,11,.12)}.dot.on{background:var(--ok);box-shadow:0 0 0 6px rgba(13,166,120,.12)}
-.main{padding:28px;min-width:0}.topbar{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:22px}.mobile-menu{display:none;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px;box-shadow:var(--shadow)}.page-title h1{margin:0;font-size:clamp(26px,4vw,44px);letter-spacing:-1.1px}.page-title p{margin:8px 0 0;color:var(--muted);font-size:15px}.top-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn{border-radius:16px;padding:12px 16px;font-weight:900;transition:.22s ease;display:inline-flex;align-items:center;gap:8px}.btn:hover{transform:translateY(-1px);filter:saturate(1.1)}.btn.primary{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;box-shadow:0 16px 34px rgba(13,91,210,.25)}.btn.ghost{background:#fff;color:#27364f;border:1px solid var(--line)}.btn.gold{background:linear-gradient(135deg,#ffd95c,#f59e0b);color:#4b3500}.btn.danger{background:#fff1f2;color:#be123c;border:1px solid #fecdd3}.btn.ok{background:#e8fff7;color:#047857;border:1px solid #a7f3d0}.btn.small{padding:9px 12px;border-radius:13px;font-size:12px}
-.grid{display:grid;gap:18px}.grid.cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}.grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.card{background:rgba(255,255,255,.9);border:1px solid rgba(228,234,242,.9);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;min-width:0}.metric{position:relative;overflow:hidden}.metric:after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:rgba(247,191,36,.16)}.metric .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:900}.metric .value{font-size:32px;font-weight:900;margin-top:9px;letter-spacing:-1px}.metric .hint{font-size:12px;color:var(--muted);margin-top:6px}.section-title{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}.section-title h2{margin:0;font-size:20px}.section-title span{font-size:12px;color:var(--muted)}
-.table-wrap{overflow:auto;border-radius:22px;border:1px solid var(--line)}table{width:100%;border-collapse:collapse;background:#fff}th,td{padding:14px 13px;text-align:left;border-bottom:1px solid var(--line);font-size:13px;vertical-align:top}th{font-size:11px;color:#617085;text-transform:uppercase;letter-spacing:.7px;background:#f8fafc}tr:hover td{background:#fbfdff}.tag{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:7px 10px;font-size:11px;font-weight:900;white-space:nowrap}.tag.blue{background:#eaf2ff;color:#0b57c7}.tag.gold{background:#fff7db;color:#9a6700}.tag.green{background:#e8fff7;color:#047857}.tag.red{background:#fff1f2;color:#be123c}.tag.gray{background:#f1f5f9;color:#475569}.tag.purple{background:#f3e8ff;color:#7e22ce}
-.form{display:grid;gap:14px}.field{display:grid;gap:7px}.field label{font-size:12px;color:#536379;text-transform:uppercase;letter-spacing:.65px;font-weight:900}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:#fff;border-radius:16px;padding:13px 14px;color:var(--ink);outline:0;transition:.2s ease}.field textarea{min-height:116px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#88b8ff;box-shadow:0 0 0 5px rgba(13,91,210,.08)}.filters{display:grid;grid-template-columns:1.3fr repeat(3,.8fr);gap:10px;margin-bottom:14px}.empty{padding:26px;border:1px dashed #cbd5e1;border-radius:24px;color:var(--muted);text-align:center;background:#fbfdff}.ticket-view{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:18px}.timeline{display:grid;gap:12px}.step{display:flex;gap:12px;align-items:flex-start}.step-dot{width:28px;height:28px;border-radius:12px;background:#eaf2ff;color:#0d5bd2;display:grid;place-items:center;font-weight:900;flex:0 0 auto}.step strong{font-size:14px}.step p{margin:4px 0 0;color:var(--muted);font-size:12px}.chat-box{height:310px;overflow:auto;border:1px solid var(--line);border-radius:22px;background:#f8fafc;padding:14px;display:grid;align-content:start;gap:10px}.msg{max-width:88%;padding:12px 13px;border-radius:18px;background:#fff;border:1px solid var(--line);font-size:13px}.msg.me{justify-self:end;background:#eaf2ff;border-color:#cfe2ff}.msg small{display:block;color:#7c8aa0;margin-top:5px}.kanban{display:grid;grid-template-columns:repeat(5,minmax(220px,1fr));gap:14px;overflow:auto;padding-bottom:6px}.lane{background:rgba(255,255,255,.75);border:1px solid var(--line);border-radius:24px;padding:14px;min-height:240px}.lane h3{margin:0 0 12px;font-size:14px}.mini-ticket{padding:14px;border-radius:18px;background:#fff;border:1px solid var(--line);box-shadow:0 12px 22px rgba(13,37,76,.07);margin-bottom:10px;transition:.2s}.mini-ticket:hover{transform:translateY(-2px)}.mini-ticket strong{display:block;font-size:13px;margin-bottom:6px}.mini-ticket p{margin:0;color:var(--muted);font-size:12px;line-height:1.4}.profile-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}.profile-card{padding:16px;border-radius:24px;background:#fff;border:1px solid var(--line);box-shadow:0 15px 35px rgba(13,37,76,.08);display:flex;gap:12px;align-items:center}.profile-card img{width:62px;height:62px;border-radius:20px;object-fit:cover}.ai-layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:18px}.ai-chat{height:440px;overflow:auto;border-radius:26px;background:#f8fafc;border:1px solid var(--line);padding:16px;display:grid;align-content:start;gap:12px}.bot,.human{padding:14px 15px;border-radius:20px;font-size:14px;line-height:1.45;max-width:88%}.bot{background:#fff;border:1px solid var(--line)}.human{justify-self:end;background:#eaf2ff;border:1px solid #cfe2ff}.game-stage{display:grid;gap:16px}.scenario{padding:20px;border-radius:26px;background:linear-gradient(135deg,#0b3b82,#0d5bd2);color:#fff;box-shadow:0 22px 42px rgba(13,91,210,.24)}.scenario h3{margin:0 0 8px}.scenario p{margin:0;opacity:.9;line-height:1.5}.answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.answer{padding:15px;border-radius:18px;background:#fff;border:1px solid var(--line);font-weight:900;text-align:left}.answer:hover{border-color:#9cc4ff;transform:translateY(-1px)}.login-page{min-height:100vh;display:grid;place-items:center;padding:24px}.login-card{width:min(1100px,100%);display:grid;grid-template-columns:1.05fr .95fr;overflow:hidden;border-radius:36px;background:rgba(255,255,255,.92);box-shadow:0 40px 100px rgba(13,37,76,.18);border:1px solid rgba(255,255,255,.8)}.login-hero{position:relative;padding:42px;background:radial-gradient(circle at 20% 12%,rgba(255,217,92,.6),transparent 32%),linear-gradient(145deg,#0b3b82,#0d5bd2);color:#fff;min-height:610px}.login-hero img.logo-login{width:min(390px,100%);padding:15px;background:#fff;border-radius:24px;box-shadow:0 26px 55px rgba(0,0,0,.14)}.dance-box{position:absolute;left:42px;right:42px;bottom:42px;display:flex;align-items:center;gap:18px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.26);padding:18px;border-radius:28px;backdrop-filter:blur(10px)}.dance-box img{width:112px;height:112px;border-radius:24px;object-fit:cover;background:#fff}.dance-box h1{margin:0;font-size:34px;line-height:1}.dance-box p{margin:10px 0 0;opacity:.86}.login-form{padding:42px;display:grid;align-content:center;gap:18px}.login-form h2{font-size:34px;margin:0;letter-spacing:-1px}.login-form p{margin:0;color:var(--muted);line-height:1.5}.swal2-popup{border-radius:30px!important;font-family:"Century Gothic","Avenir Next",Arial,sans-serif!important}.popup-gif{width:150px;height:150px;object-fit:contain;border-radius:26px;background:#f8fafc}.popup-layout{display:flex;gap:16px;align-items:center;text-align:left}.popup-layout h3{margin:0 0 8px;font-size:22px}.popup-layout p{margin:0;color:#64748b;line-height:1.45}.hidden{display:none!important}.float-ai{position:fixed;right:22px;bottom:84px;z-index:80;border:0;border-radius:999px;padding:14px 18px;background:linear-gradient(135deg,#0b3b82,#0d5bd2);color:#fff;font-weight:900;box-shadow:0 22px 48px rgba(13,91,210,.28);display:flex;gap:9px;align-items:center}.float-ai:hover{transform:translateY(-2px);filter:saturate(1.1)}.toast{position:fixed;right:18px;bottom:18px;background:#172033;color:#fff;border-radius:18px;padding:13px 16px;box-shadow:0 24px 60px rgba(0,0,0,.24);z-index:99;opacity:0;transform:translateY(12px)}
+:root{--blue:#0b3b82;--blue2:#0d5bd2;--gold:#f7bf24;--gray:#eff3f8;--ink:#172033;--muted:#6b7a8f;--ok:#0ea56a;--warn:#f59e0b;--bad:#ef4444;--line:#e6ebf3;--shadow:0 26px 60px rgba(13,37,76,.12);--radius:28px}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Century Gothic","Avenir Next",Arial,sans-serif;color:var(--ink);background:radial-gradient(circle at 12% -5%,rgba(247,191,36,.22),transparent 32%),linear-gradient(145deg,#f6f8fc,#eef3fb 42%,#ffffff)}body{overflow-x:hidden}button,input,select,textarea{font-family:inherit}button{cursor:pointer;border:0}a{text-decoration:none;color:inherit}
+.app-shell{min-height:100vh;display:grid;grid-template-columns:310px 1fr}.sidebar{position:sticky;top:0;height:100vh;padding:24px;background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(255,255,255,.72));border-right:1px solid rgba(228,234,242,.9);backdrop-filter:blur(16px);z-index:20}.brand{display:grid;justify-items:center;gap:10px;margin-bottom:18px}.brand img{width:220px;max-width:100%;height:auto;filter:drop-shadow(0 12px 25px rgba(11,59,130,.12))}.brand small{color:var(--muted);text-align:center;line-height:1.45}.user-card{padding:18px;border:1px solid var(--line);border-radius:24px;background:#fff;box-shadow:var(--shadow);display:flex;gap:12px;align-items:center;margin-bottom:18px}.avatar{width:58px;height:58px;border-radius:18px;object-fit:cover;background:linear-gradient(135deg,#fff,#dbeafe);border:1px solid #e7edf7}.user-name{font-weight:900;font-size:14px;line-height:1.2}.user-role{font-size:12px;color:var(--muted);margin-top:4px}.user-status{font-size:11px;color:var(--ok);margin-top:4px;line-height:1.35}
+.nav{display:grid;gap:8px}.nav button{display:flex;align-items:center;gap:11px;width:100%;padding:14px 14px;border-radius:18px;background:transparent;color:#506176;font-size:14px;text-align:left;transition:.22s ease}.nav button:hover,.nav button.active{background:linear-gradient(135deg,#0b3b82,#0d5bd2);color:#fff;box-shadow:0 18px 35px rgba(13,91,210,.22);transform:translateY(-1px)}.nav .icon{font-size:18px;width:24px;text-align:center}.side-footer{position:absolute;left:24px;right:24px;bottom:24px;display:grid;gap:10px}.mode-pill{padding:10px 12px;border-radius:16px;font-size:12px;color:#506176;background:#f8fafc;border:1px solid var(--line);display:flex;gap:8px;align-items:center}.dot{width:9px;height:9px;border-radius:99px;background:var(--warn);box-shadow:0 0 0 6px rgba(245,158,11,.12)}.dot.on{background:var(--ok);box-shadow:0 0 0 6px rgba(13,166,120,.12)}
+.main{padding:28px;min-width:0}.topbar{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:22px}.mobile-menu{display:none;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px;box-shadow:var(--shadow)}.page-title h1{margin:0;font-size:clamp(26px,4vw,44px);letter-spacing:-1.1px}.page-title p{margin:8px 0 0;color:var(--muted);font-size:15px}.top-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn{border-radius:16px;padding:12px 16px;font-weight:900;transition:.22s ease;display:inline-flex;align-items:center;gap:8px}.btn:hover{transform:translateY(-1px);filter:saturate(1.1)}.btn.primary{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;box-shadow:0 16px 34px rgba(13,91,210,.25)}.btn.ghost{background:#fff;color:#27364f;border:1px solid var(--line)}.btn.gold{background:linear-gradient(135deg,#ffd95c,#f59e0b);color:#4b3500}.btn.danger{background:#fff1f2;color:#be123c;border:1px solid #fecdd3}.btn.ok{background:#e8fff7;color:#047857;border:1px solid #a7f3d0}.btn.small{padding:9px 12px;border-radius:13px;font-size:12px}.btn.text{background:#edf4ff;color:#0b57c7}
+.grid{display:grid;gap:18px}.grid.cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}.grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.card{background:rgba(255,255,255,.92);border:1px solid rgba(228,234,242,.92);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;min-width:0}.metric{position:relative;overflow:hidden}.metric:after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:rgba(247,191,36,.16)}.metric .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:900}.metric .value{font-size:32px;font-weight:900;margin-top:9px;letter-spacing:-1px}.metric .hint{font-size:12px;color:var(--muted);margin-top:6px}.section-title{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}.section-title h2{margin:0;font-size:20px}.section-title span{font-size:12px;color:var(--muted)}
+.table-wrap{overflow:auto;border-radius:22px;border:1px solid var(--line)}table{width:100%;border-collapse:collapse;background:#fff}th,td{padding:14px 13px;text-align:left;border-bottom:1px solid var(--line);font-size:13px;vertical-align:top}th{font-size:11px;color:#617085;text-transform:uppercase;letter-spacing:.7px;background:#f8fafc}tr:hover td{background:#fbfdff}.clickable-row{cursor:pointer}.tag{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:7px 10px;font-size:11px;font-weight:900;white-space:nowrap}.tag.blue{background:#eaf2ff;color:#0b57c7}.tag.gold{background:#fff7db;color:#9a6700}.tag.green{background:#e8fff7;color:#047857}.tag.red{background:#fff1f2;color:#be123c}.tag.gray{background:#f1f5f9;color:#475569}.tag.purple{background:#f3e8ff;color:#7e22ce}
+.form{display:grid;gap:14px}.field{display:grid;gap:7px}.field label{font-size:12px;color:#536379;text-transform:uppercase;letter-spacing:.65px;font-weight:900}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:#fff;border-radius:16px;padding:13px 14px;color:var(--ink);outline:0;transition:.2s ease}.field textarea{min-height:116px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#88b8ff;box-shadow:0 0 0 5px rgba(13,91,210,.08)}.filters{display:grid;grid-template-columns:1.3fr repeat(3,.8fr);gap:10px;margin-bottom:14px}.empty{padding:26px;border:1px dashed #cbd5e1;border-radius:24px;color:var(--muted);text-align:center;background:#fbfdff;line-height:1.6}
+.ticket-view{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:18px}.timeline{display:grid;gap:12px}.step{display:flex;gap:12px;align-items:flex-start}.step-dot{width:28px;height:28px;border-radius:12px;background:#eaf2ff;color:#0d5bd2;display:grid;place-items:center;font-weight:900;flex:0 0 auto}.step strong{font-size:14px}.step p{margin:4px 0 0;color:var(--muted);font-size:12px}.chat-box{height:310px;overflow:auto;border:1px solid var(--line);border-radius:22px;background:#f8fafc;padding:14px;display:grid;align-content:start;gap:10px}.msg{max-width:88%;padding:12px 13px;border-radius:18px;background:#fff;border:1px solid var(--line);font-size:13px}.msg.me{justify-self:end;background:#eaf2ff;border-color:#cfe2ff}.msg small{display:block;color:#7c8aa0;margin-top:5px}
+.kanban{display:grid;grid-template-columns:repeat(5,minmax(220px,1fr));gap:14px;overflow:auto;padding-bottom:6px}.lane{background:rgba(255,255,255,.78);border:1px solid var(--line);border-radius:24px;padding:14px;min-height:220px}.lane h3{margin:0 0 12px;font-size:14px}.mini-ticket{padding:14px;border-radius:18px;background:#fff;border:1px solid var(--line);box-shadow:0 12px 22px rgba(13,37,76,.07);margin-bottom:10px;transition:.2s}.mini-ticket:hover{transform:translateY(-2px)}.mini-ticket strong{display:block;font-size:13px;margin-bottom:6px}.mini-ticket p{margin:0;color:var(--muted);font-size:12px;line-height:1.4}
+.profile-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}.profile-card{padding:16px;border-radius:24px;background:#fff;border:1px solid var(--line);box-shadow:0 15px 35px rgba(13,37,76,.08);display:flex;gap:12px;align-items:center}.profile-card img{width:62px;height:62px;border-radius:20px;object-fit:cover}.profile-card p{margin:6px 0 0;color:var(--muted);font-size:12px;line-height:1.45}
+.ai-layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:18px}.ai-chat{height:440px;overflow:auto;border-radius:26px;background:#f8fafc;border:1px solid var(--line);padding:16px;display:grid;align-content:start;gap:12px}.bot,.human{padding:14px 15px;border-radius:20px;font-size:14px;line-height:1.45;max-width:88%}.bot{background:#fff;border:1px solid var(--line)}.human{justify-self:end;background:#eaf2ff;border:1px solid #cfe2ff}
+.game-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.game-tabs button{padding:10px 14px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-weight:900}.game-tabs button.active{background:linear-gradient(135deg,#0b3b82,#0d5bd2);color:#fff}.game-stage{display:grid;gap:16px}.scenario{padding:20px;border-radius:26px;background:linear-gradient(135deg,#0b3b82,#0d5bd2);color:#fff;box-shadow:0 22px 42px rgba(13,91,210,.24)}.scenario h3{margin:0 0 8px}.scenario p{margin:0;opacity:.92;line-height:1.5}.answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.answer{padding:15px;border-radius:18px;background:#fff;border:1px solid var(--line);font-weight:900;text-align:left}.answer:hover{border-color:#9cc4ff;transform:translateY(-1px)}.reaction-pad{display:grid;place-items:center;min-height:220px;border-radius:24px;background:linear-gradient(135deg,#e2e8f0,#f8fafc);border:1px solid var(--line);font-weight:900;font-size:22px;cursor:pointer;transition:.2s}.reaction-pad.go{background:linear-gradient(135deg,#10b981,#34d399);color:#fff;transform:scale(1.02)}.compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.compare-card{padding:16px;border-radius:18px;border:1px solid var(--line);background:#fff}.rank-chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:#eff6ff;color:#0b57c7;font-size:12px;font-weight:900}.mini-note{font-size:12px;color:var(--muted);line-height:1.55}
+.attach-list{display:grid;gap:10px;margin-top:10px}.attach-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff}.attach-meta{display:grid;gap:3px}.attach-meta strong{font-size:13px}.attach-meta span{font-size:11px;color:var(--muted)}.attach-actions{display:flex;gap:8px;flex-wrap:wrap}
+.login-page{min-height:100vh;display:grid;place-items:center;padding:24px}.login-card{width:min(1120px,100%);display:grid;grid-template-columns:1.05fr .95fr;overflow:hidden;border-radius:36px;background:rgba(255,255,255,.94);box-shadow:0 40px 100px rgba(13,37,76,.18);border:1px solid rgba(255,255,255,.85)}.login-hero{position:relative;padding:42px;background:radial-gradient(circle at 20% 12%,rgba(255,217,92,.6),transparent 32%),linear-gradient(145deg,#0b3b82,#0d5bd2);color:#fff;min-height:610px;display:grid;align-content:start;justify-items:center}.login-hero img.logo-login{width:min(530px,100%);padding:15px;background:#fff;border-radius:24px;box-shadow:0 26px 55px rgba(0,0,0,.14)}.hero-note{margin-top:16px;color:rgba(255,255,255,.88);text-align:center;max-width:480px;line-height:1.6}.dance-box{position:absolute;left:42px;right:42px;bottom:42px;display:flex;align-items:center;gap:18px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.26);padding:18px;border-radius:28px;backdrop-filter:blur(10px)}.dance-box img{width:112px;height:112px;border-radius:24px;object-fit:cover;background:#fff}.dance-box h1{margin:0;font-size:34px;line-height:1}.dance-box p{margin:10px 0 0;opacity:.88}.login-form{padding:42px;display:grid;align-content:center;gap:18px}.login-form h2{font-size:34px;margin:0;letter-spacing:-1px}.login-form p{margin:0;color:var(--muted);line-height:1.55}
+.swal2-popup{border-radius:30px!important;font-family:"Century Gothic","Avenir Next",Arial,sans-serif!important}.popup-gif{width:150px;height:150px;object-fit:contain;border-radius:26px;background:#f8fafc}.popup-layout{display:flex;gap:16px;align-items:center;text-align:left}.popup-layout h3{margin:0 0 8px;font-size:22px}.popup-layout p{margin:0;color:#64748b;line-height:1.45}.hidden{display:none!important}.float-ai{position:fixed;right:22px;bottom:84px;z-index:80;border:0;border-radius:999px;padding:14px 18px;background:linear-gradient(135deg,#0b3b82,#0d5bd2);color:#fff;font-weight:900;box-shadow:0 22px 48px rgba(13,91,210,.28);display:flex;gap:9px;align-items:center}.float-ai:hover{transform:translateY(-2px);filter:saturate(1.1)}.toast{position:fixed;right:18px;bottom:18px;background:#172033;color:#fff;border-radius:18px;padding:13px 16px;box-shadow:0 24px 60px rgba(0,0,0,.24);z-index:99;opacity:0;transform:translateY(12px)}
+.pulse{animation:pulseGlow 2.1s infinite}@keyframes pulseGlow{0%{box-shadow:0 0 0 0 rgba(13,91,210,.18)}70%{box-shadow:0 0 0 16px rgba(13,91,210,0)}100%{box-shadow:0 0 0 0 rgba(13,91,210,0)}}
 @media(max-width:1180px){.grid.cols-4{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.cols-3,.ticket-view,.ai-layout{grid-template-columns:1fr}.filters{grid-template-columns:1fr 1fr}.login-card{grid-template-columns:1fr}.login-hero{min-height:410px}.dance-box{position:relative;left:auto;right:auto;bottom:auto;margin-top:28px}.kanban{grid-template-columns:repeat(5,260px)}}
-@media(max-width:820px){.app-shell{grid-template-columns:1fr}.sidebar{position:fixed;left:-320px;transition:.3s ease;width:300px}.sidebar.open{left:0}.mobile-menu{display:inline-flex}.main{padding:18px}.topbar{align-items:flex-start}.top-actions{justify-content:flex-start}.grid.cols-4,.grid.cols-3,.grid.cols-2,.filters,.answers{grid-template-columns:1fr}.login-page{padding:12px}.login-hero,.login-form{padding:24px}.dance-box{display:grid}.page-title h1{font-size:28px}.ticket-view{display:block}.card{padding:17px;border-radius:22px}.table-wrap{max-width:calc(100vw - 36px)}}
+@media(max-width:820px){.app-shell{grid-template-columns:1fr}.sidebar{position:fixed;left:-320px;transition:.3s ease;width:300px}.sidebar.open{left:0}.mobile-menu{display:inline-flex}.main{padding:18px}.topbar{align-items:flex-start}.top-actions{justify-content:flex-start}.grid.cols-4,.grid.cols-3,.grid.cols-2,.filters,.answers,.compare-grid{grid-template-columns:1fr}.login-page{padding:12px}.login-hero,.login-form{padding:24px}.dance-box{display:grid}.page-title h1{font-size:28px}.ticket-view{display:block}.card{padding:17px;border-radius:22px}.table-wrap{max-width:calc(100vw - 36px)}}
 </style>
 </head>
 <body>
@@ -48,1011 +46,347 @@ button{border:0;cursor:pointer}
 const SUPABASE_URL = "https://iiixelwmlayesisdjija.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_znJonosT4GNNLooIoE74rQ_Kg9H2uMQ";
 const sb = SUPABASE_URL && SUPABASE_ANON_KEY && window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
 const assets = {
-logo:"assets/logo.png",
-loginDance:"assets/login_dance.gif",
-sent:["assets/enviado_rabbids.gif","assets/enviado_penguin.gif"],
-working:"assets/soporte_trabajando.gif",
-document:"assets/documento_proceso.gif",
-missing:"assets/no_encontrado.gif",
-extend:"assets/ampliar_espera.gif",
-done:"assets/cierre_final.gif"
+  logo:"assets/logo.png",
+  loginDance:"assets/login_dance.gif",
+  fun:"assets/fun_dancing.gif",
+  sad:"assets/sad_wait.gif",
+  sent:["assets/enviado_rabbids.gif","assets/enviado_penguin.gif"],
+  working:"assets/soporte_trabajando.gif",
+  document:"assets/documento_proceso.gif",
+  missing:"assets/no_encontrado.gif",
+  extend:"assets/ampliar_espera.gif",
+  done:"assets/cierre_final.gif"
 };
+const sounds={created:"assets/tu-solicitud-fue-creada.mp3",waiting:"assets/hay-que-saber-esperar.mp3",ready:"assets/listo-ya-esta-tu-sol.mp3"};
 const tables={users:"dt_users",tickets:"dt_tickets",ai:"dt_ai_memories",scores:"dt_game_scores"};
-let state={view:"dashboard",user:null,users:[],tickets:[],aiMemories:[],scores:[],selectedTicket:null,charts:{},filters:{q:"",status:"Todos",assignee:"Todos",priority:"Todos"},aiHistory:[]};
-const roles=["Analista de calidad","Jefe de auditoría interna","Jefe general","Solicitante"];
+const AI_ENGINE_VERSION="DT-AI-MESA-3.0 N1 FULL";
+
 const categories=["Procedimiento","Auditoría","Indicador/KPI","Documento","Mejora continua","Capacitación","Riesgo/Hallazgo","Consulta general"];
-const statusFlow=["Enviada","Sin aceptar","En proceso","Espera ampliada","Resuelta","Cerrada"];
 const priorities=["Baja","Media","Alta","Crítica"];
-const defaultUsers=[
-{id:"juan-esteban-perez",name:"Juan Esteban Pérez",role:"Super Admin / Desarrollador",roleKey:"super_admin",area:"Calidad y mejora continua",canAnswerTickets:true,canManageUsers:true,canSeeKPIs:true,canCloseTickets:true,canExtendWait:true,isSuperAdmin:true,statusText:"Desarrollador y administrador principal de la Mesa de Ayuda de Calidad.",avatar:"assets/enviado_penguin.gif",pinHash:"0ca4a4f1cff90553b0473d52fe0127f3a0e311477ae449c214a14bc863af4c09",active:true},
-{id:"juan-camilo-montoya",name:"Juan Camilo Montoya",role:"Analista de calidad",roleKey:"analista_calidad",area:"Calidad y mejora continua",canAnswerTickets:true,canManageUsers:false,canSeeKPIs:true,canCloseTickets:true,canExtendWait:true,isSuperAdmin:false,statusText:"Disponible para atender solicitudes, revisar procesos y apoyar documentación.",avatar:"assets/soporte_trabajando.gif",pinHash:"ed5955c149f00ce17ba64acd89ffa3963f5c42dc3e62ac2b45acd45c2bfeda1b",active:true},
-{id:"maria-fernanda-zamudio",name:"María Fernanda Zamudio",role:"Analista de calidad",roleKey:"analista_calidad",area:"Calidad y mejora continua",canAnswerTickets:true,canManageUsers:false,canSeeKPIs:true,canCloseTickets:true,canExtendWait:true,isSuperAdmin:false,statusText:"Apoyo en gestión documental, procedimientos, indicadores y seguimiento.",avatar:"assets/documento_proceso.gif",pinHash:"90de4e454ee7dc8a0a33a006ecb48ae76cd8d29a182c38e6a2b129c466a7d8b8",active:true},
-{id:"luis-grajales",name:"Luis Grajales",role:"Jefe de auditoría interna",roleKey:"jefe_auditoria_interna",area:"Auditoría interna",canAnswerTickets:true,canManageUsers:false,canSeeKPIs:true,canCloseTickets:true,canExtendWait:true,isSuperAdmin:false,statusText:"Enfocado en auditoría, hallazgos, trazabilidad y cierre con evidencia.",avatar:"assets/ampliar_espera.gif",pinHash:"7f25da57311a420ee12b065d163eecab55538f34ec017db5d34628914fc48dde",active:true},
-{id:"yessica-castro",name:"Yessica Castro",role:"Jefe general",roleKey:"jefe_general",area:"Auditoría y calidad",canAnswerTickets:true,canManageUsers:false,canSeeKPIs:true,canCloseTickets:true,canExtendWait:true,isSuperAdmin:false,statusText:"Dirección general de calidad, auditoría, seguimiento y mejora continua.",avatar:"assets/login_dance.gif",pinHash:"dca4277d226c9d940715a39f26f4f4093342d88b966bdc6c08c01ff4bcb5f446",active:true}
+const statusFlow=["Enviada","Sin aceptar","En proceso","Espera ampliada","Resuelta","Cerrada"];
+const gameScenarios=[
+  {q:"Una solicitud llega con un pantallazo, pero no explica el problema ni el proceso afectado.",options:["Pedir aclaración con comentario trazable","Cerrar de una vez","Asignarla a todo el equipo","Dejarla en silencio"],ok:0,learn:"Cuando una solicitud llega incompleta, se debe pedir aclaración con comentario trazable antes de avanzar."},
+  {q:"Un hallazgo de auditoría necesita evidencia, acción correctiva y seguimiento.",options:["Marcarlo como baja prioridad","Solicitar evidencia y plan de acción","Cerrar con un ok","Moverlo a consulta general"],ok:1,learn:"Los hallazgos requieren evidencia, acción correctiva y verificación antes de cerrar."},
+  {q:"Una solicitud documental ya está siendo trabajada por el analista responsable.",options:["Cambiarla a En proceso y documentar avance","Dejarla en Enviada","Cerrarla sin evidencia","Duplicarla"],ok:0,learn:"Las solicitudes documentales deben avanzar a En proceso cuando ya se trabaja en el entregable y deben dejar huella del avance."},
+  {q:"Una dependencia pide capacitación pero no define población ni objetivo.",options:["Pedir población, objetivo y tema","Marcarla como crítica sin revisar","Asignarla a cualquiera","Ignorarla"],ok:0,learn:"Las capacitaciones deben tener población, objetivo, tema y resultado esperado."}
 ];
-const AI_ENGINE_VERSION="DT-AI-MESA-2.0";
+
 const aiKnowledge=[
-{
-"id": "saludo",
-"intent": "saludo",
-"keywords": [
-"hola",
-"buenas",
-"hey",
-"saludos",
-"ayuda"
-],
-"answer": "¡Hola! Soy la IA del Dream Team de Calidad. Te puedo ayudar a radicar solicitudes, consultar radicados, ordenar procedimientos, analizar KPIs, preparar respuestas y dejar trazabilidad sin enredarte.",
-"route": "chat"
-},
-{
-"id": "crear_solicitud",
-"intent": "radicacion",
-"keywords": [
-"crear solicitud",
-"radicar",
-"registrar solicitud",
-"necesito pedir",
-"ayudame a crear",
-"hacer ticket",
-"mesa de ayuda"
-],
-"answer": "Para crear una solicitud fuerte necesito cinco datos: quién solicita, área de origen, qué necesita, por qué lo necesita y qué evidencia tiene. Con eso puedo proponerte asunto, categoría, prioridad, modalidad, responsable y descripción lista para pegar.",
-"route": "draft"
-},
-{
-"id": "consulta_radicado",
-"intent": "consulta",
-"keywords": [
-"radicado",
-"codigo",
-"código",
-"consultar",
-"estado de solicitud",
-"dt-"
-],
-"answer": "Para consultar una solicitud usa el código tipo DT-0001. El sistema debe mostrar estado, responsable, línea de tiempo, chat y evidencia. Si no aparece, revisa que el código esté completo y sin espacios.",
-"route": "lookup"
-},
-{
-"id": "roles",
-"intent": "roles",
-"keywords": [
-"rol",
-"roles",
-"analista",
-"jefe",
-"solicitante",
-"usuarios",
-"permisos"
-],
-"answer": "Juan Esteban Pérez es el Super Admin / Desarrollador. Los analistas y jefes responden solicitudes. El usuario general no necesita cuenta: radica y consulta por radicado. Solo el Super Admin administra usuarios internos, roles y configuración.",
-"route": "policy"
-},
-{
-"id": "procedimiento",
-"intent": "procedimiento",
-"keywords": [
-"procedimiento",
-"proceso",
-"flujo",
-"caracterización",
-"caracterizacion",
-"manual",
-"paso a paso"
-],
-"answer": "Para un procedimiento conviene pedir: nombre del proceso, versión actual, cambio requerido, responsable del proceso, evidencia, riesgo de no actualizarlo y fecha esperada. La respuesta debe dejar trazabilidad de revisión, ajuste, validación y publicación.",
-"route": "quality"
-},
-{
-"id": "auditoria",
-"intent": "auditoria",
-"keywords": [
-"auditoría",
-"auditoria",
-"hallazgo",
-"no conformidad",
-"observación",
-"observacion",
-"criterio",
-"evidencia"
-],
-"answer": "Para auditoría separa criterio, condición, evidencia, causa probable, responsable, acción inmediata, acción correctiva y fecha de verificación. Eso evita cierres débiles o respuestas sin soporte.",
-"route": "quality"
-},
-{
-"id": "kpis",
-"intent": "indicadores",
-"keywords": [
-"kpi",
-"indicador",
-"productividad",
-"gráfica",
-"grafica",
-"dashboard",
-"panel",
-"medición",
-"medicion"
-],
-"answer": "Los KPIs base son solicitudes recibidas, cerradas, abiertas, tiempo promedio de aceptación, tiempo promedio de cierre, carga por responsable, categorías más frecuentes, ampliaciones de espera y solicitudes vencidas.",
-"route": "analytics"
-},
-{
-"id": "tiempos",
-"intent": "sla",
-"keywords": [
-"tiempo",
-"demora",
-"respuesta",
-"sla",
-"vencido",
-"plazo",
-"rapidez",
-"espera"
-],
-"answer": "Mide tres tiempos: recepción a aceptación, aceptación a resolución y resolución a cierre. Cuando una solicitud se demora, el responsable debe ampliar espera con comentario y nueva expectativa.",
-"route": "analytics"
-},
-{
-"id": "documental",
-"intent": "documental",
-"keywords": [
-"documento",
-"pdf",
-"formato",
-"acta",
-"matriz",
-"procedimiento documentado",
-"archivo"
-],
-"answer": "Si la solicitud es documental, puede quedar En proceso mientras se elabora o revisa. Se debe dejar avance, versión, evidencia y cierre solo cuando el entregable esté validado.",
-"route": "quality"
-},
-{
-"id": "trazabilidad",
-"intent": "trazabilidad",
-"keywords": [
-"trazabilidad",
-"seguimiento",
-"historial",
-"línea de tiempo",
-"linea de tiempo",
-"evidencia",
-"registro"
-],
-"answer": "Una trazabilidad fuerte responde: quién solicita, de dónde viene, a quién se asigna, qué se hizo, cuándo cambió de estado, qué evidencia soporta el cierre y quién valida.",
-"route": "quality"
-},
-{
-"id": "prioridad",
-"intent": "priorizacion",
-"keywords": [
-"prioridad",
-"crítica",
-"critica",
-"alta",
-"media",
-"baja",
-"urgente"
-],
-"answer": "Usa Crítica cuando bloquea operación o compromete auditoría/gerencia; Alta cuando impacta plazo o cumplimiento; Media cuando requiere gestión normal; Baja cuando es mejora o consulta sin urgencia.",
-"route": "triage"
-},
-{
-"id": "modalidad",
-"intent": "triage",
-"keywords": [
-"modalidad",
-"presencial",
-"documental",
-"mixta",
-"visita",
-"reunion",
-"reunión"
-],
-"answer": "Documental aplica para formatos, procedimientos, matrices y análisis. Presencial aplica cuando se requiere observar, levantar información o validar en campo. Mixta aplica cuando hay revisión documental y acompañamiento presencial.",
-"route": "triage"
-},
-{
-"id": "asignacion",
-"intent": "asignacion",
-"keywords": [
-"responsable",
-"asignar",
-"a quién",
-"a quien",
-"analista asignado",
-"derivar"
-],
-"answer": "Asigna según naturaleza: procedimiento/documento a analistas de calidad; auditoría, hallazgos o verificación a jefatura de auditoría/calidad; temas estratégicos o saturación al jefe general.",
-"route": "triage"
-},
-{
-"id": "ampliar_espera",
-"intent": "espera",
-"keywords": [
-"ampliar espera",
-"más tiempo",
-"mas tiempo",
-"demora grande",
-"solicitud grande",
-"aplazar",
-"prórroga",
-"prorroga"
-],
-"answer": "Cuando el caso es grande, el responsable debe usar Ampliar espera, explicar motivo, nueva expectativa y avance. El solicitante verá el comentario y la solicitud queda trazable.",
-"route": "workflow"
-},
-{
-"id": "cierre",
-"intent": "cierre",
-"keywords": [
-"cerrar",
-"cierre",
-"terminado",
-"resuelto",
-"finalizado",
-"notificar"
-],
-"answer": "Para cerrar bien: confirma resultado, deja evidencia, resume qué se hizo, indica fecha de cierre y notifica al solicitante. No cierres si falta validación o soporte mínimo.",
-"route": "workflow"
-},
-{
-"id": "chat_interno",
-"intent": "comunicacion",
-"keywords": [
-"chat",
-"mensaje",
-"comentario",
-"conversación",
-"conversacion",
-"actualización",
-"actualizacion"
-],
-"answer": "El chat interno debe usarse para avances, aclaraciones, evidencia y decisiones. Evita mensajes sueltos tipo ‘ok’; escribe qué cambió, quién queda responsable y cuál es el siguiente paso.",
-"route": "workflow"
-},
-{
-"id": "solicitud_incompleta",
-"intent": "validacion",
-"keywords": [
-"incompleta",
-"no entiendo",
-"falta información",
-"falta informacion",
-"sin evidencia",
-"mal radicada"
-],
-"answer": "Si la solicitud llega incompleta, no la cierres ni la ignores. Pide aclaración concreta: qué requiere, proceso afectado, evidencia, plazo esperado y contacto responsable.",
-"route": "triage"
-},
-{
-"id": "no_encontrado",
-"intent": "busqueda",
-"keywords": [
-"no aparece",
-"no encontró",
-"no encontro",
-"no sale",
-"perdida",
-"perdido",
-"buscar solicitud"
-],
-"answer": "Primero revisa código completo, nombre del solicitante, responsable y fecha aproximada. Si no hay coincidencia, el sistema debe orientar al usuario y no inventar información.",
-"route": "lookup"
-},
-{
-"id": "saturacion",
-"intent": "capacidad",
-"keywords": [
-"saturado",
-"muchas solicitudes",
-"carga",
-"capacidad",
-"cola",
-"atrasado",
-"represado"
-],
-"answer": "Cuando hay muchas solicitudes, revisa carga por responsable, antigüedad de tickets, prioridades críticas y categorías repetidas. Luego reasigna o amplía espera con comentario.",
-"route": "analytics"
-},
-{
-"id": "pareto",
-"intent": "analitica",
-"keywords": [
-"pareto",
-"80/20",
-"más pedido",
-"mas pedido",
-"frecuente",
-"causa principal"
-],
-"answer": "Un Pareto de categorías muestra qué solicitudes consumen más capacidad. Si pocas categorías concentran la mayoría de tickets, ahí está la primera oportunidad de estandarización o capacitación.",
-"route": "analytics"
-},
-{
-"id": "mejora_continua",
-"intent": "mejora",
-"keywords": [
-"mejora continua",
-"mejorar",
-"acción de mejora",
-"accion de mejora",
-"oportunidad",
-"optimizar"
-],
-"answer": "Convierte la mejora en solicitud trazable: problema actual, efecto, propuesta, responsable, indicador esperado y evidencia de cierre. Sin indicador, la mejora queda en intención.",
-"route": "quality"
-},
-{
-"id": "riesgos",
-"intent": "riesgo",
-"keywords": [
-"riesgo",
-"control",
-"mitigar",
-"impacto",
-"probabilidad",
-"matriz"
-],
-"answer": "Para riesgos registra causa, evento, consecuencia, control existente, responsable, nivel de riesgo y acción de tratamiento. Luego valida si el control quedó documentado y aplicado.",
-"route": "quality"
-},
-{
-"id": "capacitacion",
-"intent": "capacitacion",
-"keywords": [
-"capacitación",
-"capacitacion",
-"inducción",
-"induccion",
-"entrenamiento",
-"socialización",
-"socializacion"
-],
-"answer": "Una capacitación debe quedar con objetivo, población, tema, evidencia de asistencia, material usado, evaluación rápida y compromisos. Eso permite medir cobertura y efectividad.",
-"route": "quality"
-},
-{
-"id": "responder_usuario",
-"intent": "respuesta",
-"keywords": [
-"cómo respondo",
-"como respondo",
-"redacta respuesta",
-"qué le digo",
-"que le digo",
-"mensaje al usuario"
-],
-"answer": "Responde con estructura breve: saludo, estado actual, acción realizada, evidencia o avance, siguiente paso y fecha estimada. Mantén tono claro, humano y trazable.",
-"route": "writing"
-},
-{
-"id": "tono",
-"intent": "tono",
-"keywords": [
-"tono",
-"amigable",
-"curioso",
-"formal",
-"informal",
-"humano"
-],
-"answer": "Usa un tono cercano pero responsable: claro, breve, sin tecnicismos innecesarios y con trazabilidad. La app puede ser curiosa, pero los cierres deben sonar profesionales.",
-"route": "writing"
-},
-{
-"id": "calidad_municipal",
-"intent": "contexto",
-"keywords": [
-"alcaldía",
-"alcaldia",
-"municipal",
-"gobierno",
-"calidad pública",
-"calidad publica",
-"proceso público",
-"publico"
-],
-"answer": "En contexto municipal importa dejar evidencia, responsable, fecha y trazabilidad. La mesa debe ayudar a ordenar solicitudes internas sin volver complejo el acceso del ciudadano o usuario general.",
-"route": "context"
-},
-{
-"id": "supabase",
-"intent": "tecnico",
-"keywords": [
-"supabase",
-"base de datos",
-"guardar",
-"tabla",
-"dt_tickets",
-"dt_users",
-"dt_ai_memories"
-],
-"answer": "La app guarda usuarios en dt_users, solicitudes en dt_tickets, memorias de IA en dt_ai_memories y ranking en dt_game_scores. Si algo no aparece, revisa conexión y políticas RLS.",
-"route": "tech"
-},
-{
-"id": "github_pages",
-"intent": "tecnico",
-"keywords": [
-"github",
-"github pages",
-"publicar",
-"hosting",
-"subir app",
-"index"
-],
-"answer": "Para GitHub Pages sube index.html y la carpeta assets completa. Si no subes assets, logo y GIFs no cargan. El HTML usa Supabase como base de datos.",
-"route": "tech"
-},
-{
-"id": "seguridad",
-"intent": "seguridad",
-"keywords": [
-"seguridad",
-"key",
-"clave",
-"service role",
-"anon",
-"publishable",
-"rls"
-],
-"answer": "En el HTML solo debe ir la key pública/publishable. Nunca pongas service_role en frontend. Las tablas deben tener RLS y políticas acordes al flujo de prueba o producción.",
-"route": "tech"
-},
-{
-"id": "aprendizaje",
-"intent": "aprendizaje",
-"keywords": [
-"aprende",
-"entrenar",
-"memoria",
-"documentos",
-"pdf",
-"base de conocimiento"
-],
-"answer": "La IA aprende de memorias manuales, documentos cargados, cierres de tickets, ampliaciones de espera y respuestas del juego. Cada aprendizaje queda guardado y luego entra al modelo de búsqueda por relevancia.",
-"route": "ai"
-},
-{
-"id": "modelo_matematico",
-"intent": "ai_model",
-"keywords": [
-"modelo matemático",
-"modelo matematico",
-"scoring",
-"algoritmo",
-"clasificador",
-"relevancia"
-],
-"answer": "El modelo usa puntaje ponderado: coincidencia de intención, cobertura de palabras clave, similitud de tokens, contexto de tickets y memoria entrenada. La respuesta con mayor score gana; si el score es bajo, pide más datos o genera borrador guiado.",
-"route": "ai"
-},
-{
-"id": "juego_ia",
-"intent": "gamificacion",
-"keywords": [
-"juego",
-"ranking",
-"reto",
-"puntos",
-"marco",
-"elogio"
-],
-"answer": "El juego entrena criterio operativo. Cada respuesta correcta suma puntos y refuerza memorias sobre trazabilidad, prioridad, cierre, evidencia y atención al usuario.",
-"route": "game"
-},
-{
-"id": "procedimiento_vencido",
-"intent": "workflow",
-"keywords": [
-"vencido",
-"fuera de tiempo",
-"se pasó",
-"se paso",
-"incumplido"
-],
-"answer": "Si una solicitud se venció, deja comentario de causa, acción inmediata, nueva fecha y responsable. Luego analiza si el vencimiento se repite por categoría o por carga del responsable.",
-"route": "workflow"
-},
-{
-"id": "evidencia",
-"intent": "evidencia",
-"keywords": [
-"evidencia",
-"soporte",
-"captura",
-"link",
-"drive",
-"adjunto",
-"prueba"
-],
-"answer": "La evidencia puede ser enlace, archivo, acta, captura, PDF o descripción verificable. Sin evidencia, el cierre queda débil y no sirve para auditoría ni mejora continua.",
-"route": "quality"
-},
-{
-"id": "indicador_sugerido",
-"intent": "analytics",
-"keywords": [
-"qué indicador",
-"que indicador",
-"medir esto",
-"cómo mido",
-"como mido",
-"metrica",
-"métrica"
-],
-"answer": "Propón indicador con nombre, fórmula, fuente de datos, frecuencia, meta y responsable. Ejemplo: Tiempo promedio de cierre = horas totales de cierre / solicitudes cerradas.",
-"route": "analytics"
-},
-{
-"id": "clasificar_solicitud",
-"intent": "triage",
-"keywords": [
-"clasifica",
-"clasificar",
-"categoría",
-"categoria",
-"qué categoría",
-"que categoria"
-],
-"answer": "Clasifico por intención: documento/formato va a Documento; flujo o paso a paso a Procedimiento; medición a Indicador/KPI; hallazgo a Auditoría o Riesgo/Hallazgo; formación a Capacitación.",
-"route": "triage"
-},
-{
-"id": "solicitante_externo",
-"intent": "usuarios",
-"keywords": [
-"usuario general",
-"solicitante",
-"externo",
-"sin cuenta",
-"radicar sin usuario"
-],
-"answer": "El solicitante no necesita usuario interno. Debe radicar con nombre, correo, área, asunto, descripción y responsable. Luego consulta por código de radicado.",
-"route": "policy"
-},
-{
-"id": "jefe_general",
-"intent": "roles",
-"keywords": [
-"yessica",
-"jefe general",
-"jefe de calidad",
-"administrar usuarios",
-"crear usuarios"
-],
-"answer": "El jefe general revisa KPIs, puede responder solicitudes, validar cierres y mirar carga global. La administración de usuarios internos queda reservada al Super Admin / Desarrollador.",
-"route": "policy"
-},
-{
-"id": "analistas",
-"intent": "roles",
-"keywords": [
-"juan esteban",
-"juan camilo",
-"maria fernanda",
-"maría fernanda",
-"analistas",
-"analista de calidad"
-],
-"answer": "Los analistas de calidad atienden solicitudes operativas de procedimientos, documentos, indicadores, capacitaciones, mejoras y consultas. Deben aceptar, comentar, ampliar espera si aplica y resolver con evidencia.",
-"route": "policy"
-},
-{
-"id": "auditoria_interna",
-"intent": "roles",
-"keywords": [
-"luis",
-"grajales",
-"auditoría interna",
-"auditoria interna",
-"jefe de auditoria"
-],
-"answer": "Auditoría interna debe enfocarse en hallazgos, verificaciones, evidencias, acciones correctivas y control de cierre. No todo ticket es hallazgo; primero se clasifica por impacto y evidencia.",
-"route": "policy"
-},
-{
-"id": "pqr_vs_mesa",
-"intent": "alcance",
-"keywords": [
-"pqrs",
-"pqr",
-"ventanilla",
-"mesa de ayuda",
-"alcance"
-],
-"answer": "Esta mesa está pensada para Calidad y Mejora Continua. Puede orientar solicitudes internas, procedimientos, auditoría, indicadores y documentos; no reemplaza automáticamente sistemas formales de PQRS o ventanilla externa.",
-"route": "scope"
-},
-{
-"id": "respuesta_gruesa",
-"intent": "writing",
-"keywords": [
-"respuesta gruesa",
-"respuesta completa",
-"explica mejor",
-"detallado",
-"bien elaborado"
-],
-"answer": "Para una respuesta gruesa usa: contexto del caso, análisis del problema, acción propuesta, evidencia necesaria, responsable, plazo, riesgo de no actuar y cierre esperado. Así la respuesta no queda floja.",
-"route": "writing"
-},
-{
-"id": "validar_solicitud",
-"intent": "validation",
-"keywords": [
-"validar solicitud",
-"está bien",
-"esta bien",
-"lógica",
-"logica",
-"coherente"
-],
-"answer": "Una solicitud es lógica si tiene asunto claro, necesidad concreta, proceso de origen, responsable probable, evidencia o contexto y resultado esperado. Si falta algo, pide aclaración antes de aceptar.",
-"route": "triage"
-},
-{
-"id": "convertir_idea",
-"intent": "draft",
-"keywords": [
-"convertir idea",
-"ordenar idea",
-"no sé cómo pedir",
-"no se como pedir",
-"ayúdame a redactar",
-"ayudame a redactar"
-],
-"answer": "Cuéntame la idea en lenguaje normal. Yo la convierto en asunto, categoría, prioridad, modalidad, descripción, evidencia sugerida y responsable probable para que puedas radicarla mejor.",
-"route": "draft"
-},
-{
-"id": "pdf_resumen",
-"intent": "documents",
-"keywords": [
-"leer pdf",
-"resumir pdf",
-"documento cargado",
-"archivo cargado",
-"extraer texto"
-],
-"answer": "Cuando subas un PDF o texto, la IA extrae contenido útil y lo guarda como memoria. Luego puede responder usando ese material, siempre que el archivo tenga texto legible.",
-"route": "documents"
-},
-{
-"id": "whatsapp_estado",
-"intent": "profile",
-"keywords": [
-"estado",
-"estado tipo whatsapp",
-"avatar",
-"gif",
-"foto perfil",
-"perfil"
-],
-"answer": "Cada usuario puede tener avatar o GIF y un estado corto. Eso ayuda a ver disponibilidad, pero la trazabilidad real la dan los tickets, estados y comentarios.",
-"route": "profile"
-},
-{
-"id": "productividad_equipo",
-"intent": "analytics",
-"keywords": [
-"productividad equipo",
-"productividad general",
-"medir equipo",
-"efectividad",
-"rendimiento"
-],
-"answer": "La productividad debe verse por volumen, tiempo, calidad de cierre y carga. No basta contar tickets cerrados: revisa complejidad, vencimientos, ampliaciones y evidencia de cierre.",
-"route": "analytics"
-},
-{
-"id": "mejor_responsable",
-"intent": "assignment",
-"keywords": [
-"quién debe responder",
-"quien debe responder",
-"a quien asigno",
-"mejor responsable"
-],
-"answer": "El mejor responsable depende de tema e impacto: documentos/procedimientos a analistas; hallazgos/verificación a auditoría; prioridades críticas o decisiones transversales al jefe general.",
-"route": "triage"
-},
-{
-"id": "acciones_correctivas",
-"intent": "audit",
-"keywords": [
-"acción correctiva",
-"accion correctiva",
-"acción inmediata",
-"accion inmediata",
-"plan de mejora"
-],
-"answer": "Diferencia acción inmediata de acción correctiva: la inmediata contiene el problema; la correctiva ataca causa raíz. Ambas deben tener responsable, fecha y evidencia.",
-"route": "audit"
-},
-{
-"id": "causa_raiz",
-"intent": "audit",
-"keywords": [
-"causa raíz",
-"causa raiz",
-"ishikawa",
-"5 porqués",
-"5 porques",
-"problema repetido"
-],
-"answer": "Para causa raíz usa 5 porqués o espina de pescado. Si el problema se repite, no cierres solo con corrección; deja acción correctiva y verificación posterior.",
-"route": "audit"
-},
-{
-"id": "formulario_solicitud",
-"intent": "draft",
-"keywords": [
-"formulario",
-"campos",
-"qué campos",
-"que campos",
-"datos necesarios"
-],
-"answer": "Campos mínimos: solicitante, correo, área origen, responsable, categoría, prioridad, modalidad, asunto, descripción y evidencia. Para casos críticos agrega fecha requerida e impacto.",
-"route": "draft"
-},
-{
-"id": "calidad_cierre",
-"intent": "closure_quality",
-"keywords": [
-"calidad del cierre",
-"cierre bueno",
-"cierre débil",
-"cierre debil",
-"validación final",
-"validacion final"
-],
-"answer": "Un buen cierre tiene resultado concreto, evidencia, trazabilidad de cambios, responsable y validación. Un cierre débil dice ‘listo’ sin demostrar qué se resolvió.",
-"route": "workflow"
-},
-{
-"id": "automatizacion",
-"intent": "tech",
-"keywords": [
-"automatizar",
-"notificación",
-"notificacion",
-"correo",
-"alerta",
-"popup"
-],
-"answer": "Las notificaciones deben aparecer al enviar, aceptar, ampliar espera, poner en proceso, resolver y cerrar. Cada evento debe dejar línea de tiempo para auditoría del flujo.",
-"route": "tech"
-}
+  {id:"saludo",intent:"saludo",keywords:["hola","buenas","hey","saludos","ayuda"],answer:"Hola. Soy la IA del Dream Team de Calidad. Puedo ayudarte a radicar solicitudes, consultar radicados, redactar respuestas, clasificar prioridades y aprender de documentos.",route:"chat"},
+  {id:"crear_solicitud",intent:"radicacion",keywords:["crear solicitud","radicar","registrar solicitud","ayudame a crear","mesa de ayuda"],answer:"Para crear una solicitud sólida necesito quién solicita, área de origen, qué necesita, por qué lo necesita y qué evidencia tiene. Con eso te propongo asunto, categoría, prioridad, modalidad y descripción clara.",route:"draft"},
+  {id:"consulta_radicado",intent:"consulta",keywords:["radicado","codigo","código","estado solicitud","consultar ticket"],answer:"Para consultar una solicitud usa el código exacto, por ejemplo DT-0001. Si la solicitud está en espera, te mostraré el estado, el responsable y los tiempos relevantes.",route:"lookup"},
+  {id:"prioridades",intent:"prioridad",keywords:["prioridad alta","urgente","critica","crítica","cuando es alta"],answer:"Usa prioridad alta o crítica cuando hay impacto en auditoría, cumplimiento, operación, fechas comprometidas o gerencia. Las consultas simples o sin urgencia normalmente van en prioridad media o baja.",route:"guide"},
+  {id:"mejora_texto",intent:"redaccion",keywords:["redactar","mejorar texto","hacer mas claro","menos largo","resumir solicitud"],answer:"Puedo convertir una idea larga en una solicitud corta, clara y accionable: asunto directo, contexto mínimo útil, impacto, evidencia y resultado esperado.",route:"chat"},
+  {id:"espera",intent:"tiempos",keywords:["espera","demora","tiempo","ampliar espera","respuesta"],answer:"Si una solicitud requiere más tiempo, se debe documentar el motivo, el responsable y la nueva expectativa. La espera ampliada debe dejar trazabilidad clara.",route:"guide"}
 ];
-const baseBot=aiKnowledge.map(x=>({keys:x.keywords,answer:x.answer}));
-const aiStopWords=new Set(["de","la","el","los","las","un","una","unos","unas","y","o","a","en","por","para","con","sin","que","como","cómo","cual","cuál","cuando","cuándo","donde","dónde","me","mi","mis","tu","tus","su","sus","del","al","lo","es","son","esto","eso","este","esta","se","le","les","hay","tengo","necesito"]);
-const scenarios=[
-{
-"q": "Un área pide actualizar un procedimiento, pero no adjunta evidencia ni explica el cambio requerido.",
-"options": [
-"Radicar como crítica y cerrar rápido",
-"Solicitar aclaración y dejar trazabilidad",
-"Asignar a todos los analistas",
-"Eliminar la solicitud"
-],
-"ok": 1,
-"learn": "Cuando una solicitud llega incompleta, se debe pedir aclaración con comentario trazable antes de avanzar."
-},
-{
-"q": "Una solicitud documental requiere elaborar un formato y no exige visita presencial.",
-"options": [
-"Marcar En proceso y documentar avance",
-"Cerrar sin evidencia",
-"Pedir ampliación automática",
-"Pasarla a auditoría interna siempre"
-],
-"ok": 0,
-"learn": "Las solicitudes documentales pueden permanecer En proceso mientras se elabora el entregable, dejando avances claros."
-},
-{
-"q": "Un ticket lleva más tiempo del previsto porque requiere análisis de varias áreas.",
-"options": [
-"Ignorarlo",
-"Ampliar espera con comentario claro",
-"Cambiar prioridad a baja",
-"Crear otro ticket idéntico"
-],
-"ok": 1,
-"learn": "Si un ticket exige más tiempo, se amplía la espera con motivo, nueva expectativa y responsable."
-},
-{
-"q": "El jefe quiere saber qué más le piden al área de calidad durante el mes.",
-"options": [
-"Revisar categoría más frecuente en KPIs",
-"Leer ticket por ticket sin filtro",
-"Borrar solicitudes cerradas",
-"Solo mirar chats"
-],
-"ok": 0,
-"learn": "La categoría más frecuente ayuda a detectar demanda, carga operativa y oportunidades de mejora."
-},
-{
-"q": "Un usuario dice que su solicitud no aparece, pero escribió el código incompleto.",
-"options": [
-"Mostrar mensaje de no encontrado y orientar búsqueda",
-"Cerrar sesión",
-"Crear una alerta crítica",
-"Cambiar todos los filtros"
-],
-"ok": 0,
-"learn": "Cuando una búsqueda no encuentra coincidencias, el sistema debe orientar al usuario y sugerir revisar código, nombre o responsable."
-},
-{
-"q": "Una dependencia pide capacitación, pero no define público objetivo ni tema concreto.",
-"options": [
-"Pedir población, objetivo y tema",
-"Cerrar por falta de datos",
-"Asignar como auditoría",
-"Marcar como baja sin revisar"
-],
-"ok": 0,
-"learn": "Las capacitaciones deben tener objetivo, población, tema, evidencia de asistencia y evaluación mínima."
-},
-{
-"q": "Un hallazgo se quiere cerrar solo con un mensaje de 'ya quedó'.",
-"options": [
-"Aceptar el cierre",
-"Solicitar evidencia y acción correctiva",
-"Borrar el chat",
-"Cambiarlo a consulta general"
-],
-"ok": 1,
-"learn": "Los hallazgos requieren evidencia, acción inmediata/correctiva y verificación antes de cerrar."
-},
-{
-"q": "Hay muchas solicitudes de formatos repetidos.",
-"options": [
-"Crear plantilla y publicar lineamiento",
-"Responder una por una para siempre",
-"Poner todas como críticas",
-"Dejar sin responsable"
-],
-"ok": 0,
-"learn": "Cuando una categoría se repite, conviene estandarizar plantilla, capacitar y reducir reproceso."
-},
-{
-"q": "Una solicitud crítica afecta auditoría de cierre de mes.",
-"options": [
-"Prioridad crítica y responsable definido",
-"Prioridad baja porque es documental",
-"Esperar sin comentario",
-"No registrarla"
-],
-"ok": 0,
-"learn": "La prioridad crítica aplica cuando hay impacto en cumplimiento, auditoría, operación o gerencia."
-},
-{
-"q": "El usuario redacta una solicitud confusa pero con buena intención.",
-"options": [
-"Usar IA para convertir idea en solicitud clara",
-"Rechazarla sin explicar",
-"Asignarla a todos",
-"Responder con un emoji"
-],
-"ok": 0,
-"learn": "La IA debe ayudar a convertir lenguaje normal en solicitud clara con asunto, categoría, prioridad y descripción."
-}
+
+const defaultUsers=[
+  {id:"juan-esteban-perez",name:"Juan Esteban Pérez",role:"Super Admin / Desarrollador",roleKey:"super_admin",area:"Calidad y mejora continua",canAnswerTickets:true,canManageUsers:true,canSeeKPIs:true,canCloseTickets:true,canExtendWait:true,isSuperAdmin:true,statusText:"Desarrollador y administrador principal de la Mesa de Ayuda de Calidad.",avatar:"assets/enviado_penguin.gif",pinHash:"0ca4a4f1cff90553b0473d52fe0127f3a0e311477ae449c214a14bc863af4c09",active:true},
+  {id:"juan-camilo-montoya",name:"Juan Camilo Montoya",role:"Analista de calidad",roleKey:"analista_calidad",area:"Calidad y mejora continua",canAnswerTickets:true,canManageUsers:false,canSeeKPIs:true,canCloseTickets:true,canExtendWait:true,isSuperAdmin:false,statusText:"Disponible para atender solicitudes, revisar procesos y apoyar documentación.",avatar:"assets/soporte_trabajando.gif",pinHash:"ed5955c149f00ce17ba64acd89ffa3963f5c42dc3e62ac2b45acd45c2bfeda1b",active:true},
+  {id:"maria-fernanda-zamudio",name:"María Fernanda Zamudio",role:"Analista de calidad",roleKey:"analista_calidad",area:"Calidad y mejora continua",canAnswerTickets:true,canManageUsers:false,canSeeKPIs:true,canCloseTickets:true,canExtendWait:true,isSuperAdmin:false,statusText:"Apoyo en gestión documental, procedimientos, indicadores y seguimiento.",avatar:"assets/documento_proceso.gif",pinHash:"90de4e454ee7dc8a0a33a006ecb48ae76cd8d29a182c38e6a2b129c466a7d8b8",active:true},
+  {id:"luis-grisales",name:"Luis Grisales",role:"Jefe de auditoría interna",roleKey:"jefe_auditoria_interna",area:"Auditoría interna",canAnswerTickets:true,canManageUsers:false,canSeeKPIs:true,canCloseTickets:true,canExtendWait:true,isSuperAdmin:false,statusText:"Enfocado en auditoría, hallazgos, trazabilidad y cierre con evidencia.",avatar:"assets/ampliar_espera.gif",pinHash:"7f25da57311a420ee12b065d163eecab55538f34ec017db5d34628914fc48dde",active:true},
+  {id:"yessica-castro",name:"Yessica Castro",role:"Jefe general",roleKey:"jefe_general",area:"Auditoría y calidad",canAnswerTickets:true,canManageUsers:false,canSeeKPIs:true,canCloseTickets:true,canExtendWait:true,isSuperAdmin:false,statusText:"Dirección general de calidad, auditoría, seguimiento y mejora continua.",avatar:"assets/login_dance.gif",pinHash:"dca4277d226c9d940715a39f26f4f4093342d88b966bdc6c08c01ff4bcb5f446",active:true}
 ];
+
+let audioPlayer=null;
+let state={view:"dashboard",user:null,users:[],tickets:[],aiMemories:[],scores:[],advancedKnowledge:[],selectedTicketId:null,selectedTicket:null,filters:{q:"",status:"Todos",assignee:"Todos",priority:"Todos"},aiHistory:[],charts:{},gameMode:"quiz",reactionStart:0,reactionCanClick:false,currentScenario:null};
+
 function uid(prefix="id"){return prefix+"_"+Date.now().toString(36)+"_"+Math.random().toString(36).slice(2,8)}
-function slug(text){return String(text).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"")}
+function slug(text){return String(text||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"")}
 function now(){return new Date().toISOString()}
-function fmt(date){if(!date)return"—";return new Intl.DateTimeFormat("es-CO",{dateStyle:"medium",timeStyle:"short"}).format(new Date(date))}
+function fmt(date){if(!date)return "—";return new Intl.DateTimeFormat("es-CO",{dateStyle:"medium",timeStyle:"short"}).format(new Date(date))}
 function hoursBetween(a,b){if(!a||!b)return 0;return Math.max(0,(new Date(b)-new Date(a))/36e5)}
-function initials(name){return String(name||"DT").split(" ").filter(Boolean).slice(0,2).map(x=>x[0]).join("").toUpperCase()}
-async function hashPin(pin){const enc=new TextEncoder().encode(String(pin));const buf=await crypto.subtle.digest("SHA-256",enc);return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join("")}
 function escapeHtml(s){return String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[m]))}
-function normalize(row){return row&&row.payload?{...row.payload,id:row.id,created_at:row.created_at,updated_at:row.updated_at}:row}
-function payloadOf(item){const p={...item};delete p.created_at;delete p.updated_at;return p}
 function storageKey(table){return "dtc_"+table}
 function localList(table){return JSON.parse(localStorage.getItem(storageKey(table))||"[]")}
 function localSave(table,rows){localStorage.setItem(storageKey(table),JSON.stringify(rows))}
-async function listRecords(table){if(sb){try{const {data,error}=await sb.from(table).select("*").order("updated_at",{ascending:false});if(!error&&data)return data.map(normalize)}catch(e){}}return localList(table)}
-async function saveRecord(table,item){item.updated_at=now();item.created_at=item.created_at||now();if(sb){try{const row={id:item.id,payload:payloadOf(item),created_at:item.created_at,updated_at:item.updated_at};const {data,error}=await sb.from(table).upsert(row).select().single();if(!error&&data)return normalize(data)}catch(e){}}const rows=localList(table);const ix=rows.findIndex(x=>x.id===item.id);if(ix>=0)rows[ix]=item;else rows.unshift(item);localSave(table,rows);return item}
-async function removeRecord(table,id){if(sb){try{await sb.from(table).delete().eq("id",id)}catch(e){}}localSave(table,localList(table).filter(x=>x.id!==id))}
-async function seed(){let users=await listRecords(tables.users);if(!users.length){for(const u of defaultUsers){await saveRecord(tables.users,{id:u.id||slug(u.name),...u,created_at:now(),updated_at:now(),active:true})}users=await listRecords(tables.users)}state.users=users;state.tickets=await listRecords(tables.tickets);state.aiMemories=await listRecords(tables.ai);if(state.aiMemories.length<10){for(const k of aiKnowledge){await saveRecord(tables.ai,{id:"base_"+k.id,key:k.keywords.join(","),answer:k.answer,intent:k.intent,route:k.route,createdBy:"Modelo base",created_at:now(),updated_at:now(),active:true})}state.aiMemories=await listRecords(tables.ai)}state.scores=await listRecords(tables.scores)}
-function hasLead(){return state.user&&["Jefe de auditoría interna","Jefe general","Administrador"].includes(state.user.role)}
-function isInternal(){return state.user&&state.user.role!=="Solicitante"}
-function canManageUsers(){return !!(state.user&&(state.user.isSuperAdmin===true||state.user.roleKey==="super_admin"||state.user.role==="Super Admin / Desarrollador"))}
-function responders(){return state.users.filter(u=>u.active!==false&&u.role!=="Solicitante")}
+function normalize(row){return row&&row.payload?{...row.payload,id:row.id,created_at:row.created_at,updated_at:row.updated_at}:row}
+function payloadOf(item){const p={...item};delete p.created_at;delete p.updated_at;return p}
+function responders(){return state.users.filter(u=>u.active!==false && u.role!=="Solicitante")}
+function isInternal(){return state.user && state.user.role!=="Solicitante"}
+function hasLead(){return !!(state.user && ["Jefe de auditoría interna","Jefe general","Administrador","Super Admin / Desarrollador"].includes(state.user.role))}
+function userName(id){return state.users.find(u=>u.id===id)?.name||"Sin asignar"}
+function humanSize(bytes){const n=Number(bytes||0);if(!n)return "0 KB";if(n<1024)return n+" B";if(n<1048576)return (n/1024).toFixed(1)+" KB";return (n/1048576).toFixed(2)+" MB"}
+function playSound(src){try{if(audioPlayer){audioPlayer.pause();audioPlayer.currentTime=0}audioPlayer=new Audio(src);audioPlayer.volume=.95;audioPlayer.play().catch(()=>{})}catch(e){}}
 function modeLabel(){return sb?"Supabase conectado":"Modo local activo"}
 function modeOn(){return !!sb}
+function randomSentGif(){return assets.sent[Math.floor(Math.random()*assets.sent.length)]}
 function toast(text){const el=document.getElementById("toast");el.textContent=text;gsap.to(el,{opacity:1,y:0,duration:.25});setTimeout(()=>gsap.to(el,{opacity:0,y:12,duration:.25}),2600)}
 function popup(title,text,gif){Swal.fire({html:`<div class="popup-layout"><img class="popup-gif" src="${gif}"><div><h3>${escapeHtml(title)}</h3><p>${escapeHtml(text)}</p></div></div>`,showConfirmButton:true,confirmButtonText:"Entendido",confirmButtonColor:"#0d5bd2",background:"#ffffff"})}
-function randomSentGif(){return assets.sent[Math.floor(Math.random()*assets.sent.length)]}
-function setupLogin(){const app=document.getElementById("app");app.innerHTML=`<div class="login-page"><div class="login-card"><section class="login-hero"><img class="logo-login" src="${assets.logo}" alt="Dream Team de Calidad"><div class="dance-box"><img src="${assets.loginDance}" alt="Animación"><div><h1>Mesa de ayuda con flow.</h1><p>Radica, mide, conversa, aprende y cierra solicitudes con trazabilidad real.</p></div></div></section><section class="login-form"><h2>Ingresar</h2><p>Selecciona tu usuario interno. Los solicitantes no necesitan cuenta: radican o consultan por código.</p><div class="field"><label>Perfil</label><select id="loginUser"><option value="guest">Radicar o consultar sin usuario</option>${responders().map(u=>`<option value="${u.id}">${escapeHtml(u.name)} · ${escapeHtml(u.role)}</option>`).join("")}</select></div><div class="field" id="pinBox"><label>PIN</label><input id="loginPin" type="password" inputmode="numeric" autocomplete="current-password" placeholder="PIN del usuario interno"></div><button class="btn primary" id="loginBtn">Entrar a la mesa</button><button class="btn ghost" id="guestBtn">Radicar / consultar</button><button class="btn gold" type="button" onclick="loginGuest().then(()=>setView('ai'))">Probar IA</button><div class="mode-pill"><span class="dot ${modeOn()?"on":""}"></span>${modeLabel()}</div></section></div></div>`;document.getElementById("loginUser").addEventListener("change",e=>{document.getElementById("pinBox").style.display=e.target.value==="guest"?"none":"grid"});document.getElementById("pinBox").style.display="none";document.getElementById("guestBtn").onclick=()=>loginGuest();document.getElementById("loginBtn").onclick=login;gsap.from(".login-card",{opacity:0,y:30,duration:.55,ease:"power2.out"})}
-async function loginGuest(){state.user={id:"guest_"+Date.now(),name:"Solicitante general",role:"Solicitante",area:"Usuario general",statusText:"Radicando solicitudes",avatar:assets.loginDance};state.view="create";renderApp();popup("Bienvenido","Puedes radicar una solicitud o consultar el estado por código. La cuenta solo aplica para analistas y jefes.",assets.loginDance)}
-async function login(){const id=document.getElementById("loginUser").value;if(id==="guest")return loginGuest();const u=state.users.find(x=>x.id===id);const pin=document.getElementById("loginPin").value.trim();if(!u)return popup("No encontré ese usuario","Revisa el perfil seleccionado o vuelve a cargar la aplicación.",assets.missing);const hp=await hashPin(pin);if(hp!==u.pinHash)return popup("PIN incorrecto","Ese PIN no coincide con el usuario seleccionado. Verifica la contraseña asignada a tu usuario.",assets.missing);state.user=u;state.view="dashboard";renderApp();toast("Sesión iniciada")}
-function renderApp(){const app=document.getElementById("app");app.innerHTML=`<div class="app-shell"><aside class="sidebar" id="sidebar"><div class="brand"><img src="${assets.logo}" alt="Dream Team de Calidad"></div><div class="user-card"><img class="avatar" src="${state.user.avatar||assets.loginDance}" onerror="this.src='${assets.loginDance}'"><div><div class="user-name">${escapeHtml(state.user.name)}</div><div class="user-role">${escapeHtml(state.user.role)}</div><div class="user-status">${escapeHtml(state.user.statusText||"Disponible")}</div></div></div><nav class="nav">${navHtml()}</nav><div class="side-footer"><div class="mode-pill"><span class="dot ${modeOn()?"on":""}"></span>${modeLabel()}</div><button class="btn ghost small" onclick="logout()">Salir</button></div></aside><main class="main"><header class="topbar"><button class="mobile-menu" onclick="toggleMenu()">☰</button><div class="page-title"><h1>${pageTitle()}</h1><p>${pageSub()}</p></div><div class="top-actions"><button class="btn primary" onclick="setView('create')">Nueva solicitud</button><button class="btn ghost" onclick="refreshData()">Actualizar</button></div></header><div id="view"></div></main><button class="float-ai" onclick="setView('ai')">🤖 IA Calidad</button></div>`;renderView();setTimeout(()=>gsap.from("#view .card, #view .metric, #view .lane",{opacity:0,y:20,duration:.38,stagger:.035,ease:"power2.out"}),0)}
-function navButton(view,icon,label){return `<button class="${state.view===view?"active":""}" onclick="setView('${view}')"><span class="icon">${icon}</span>${label}</button>`}
-function navHtml(){if(!isInternal())return `${navButton("create","➕","Radicar / consultar")}${navButton("ai","🤖","IA Calidad")}`;return `${navButton("dashboard","📊","Panel")}${navButton("tickets","🎫","Solicitudes")}${navButton("create","➕","Nueva solicitud")}${navButton("kpis","📈","KPIs")}${navButton("team","👥","Equipo")}${navButton("ai","🤖","IA Calidad")}${navButton("game","🎮","Reto")}`}
-function pageTitle(){return {dashboard:"Centro de control",tickets:"Solicitudes trazables",create:"Nueva solicitud",kpis:"KPIs y productividad",team:"Equipo Dream Team",ai:"IA de Calidad",game:"Reto de criterio"}[state.view]||"Mesa de ayuda"}
-function pageSub(){return {dashboard:"Vista rápida de carga, tiempos y estados.",tickets:"Seguimiento de origen, responsable, prioridad y conversación.",create:"Radica con contexto claro para evitar reprocesos.",kpis:"Mide demanda, tiempos, categorías y responsables.",team:"Usuarios, estados y perfiles del área.",ai:"Chatbot entrenable con tickets, documentos y buenas prácticas.",game:"Aprende jugando y alimenta la memoria del sistema."}[state.view]||""}
-function setView(v){if(!isInternal()&&!['create','ai'].includes(v))v="create";state.view=v;state.selectedTicket=null;renderApp()}
-function toggleMenu(){document.getElementById("sidebar").classList.toggle("open")}
-function logout(){state.user=null;setupLogin()}
-async function refreshData(){state.users=await listRecords(tables.users);state.tickets=await listRecords(tables.tickets);state.aiMemories=await listRecords(tables.ai);state.scores=await listRecords(tables.scores);renderApp();toast("Información actualizada")}
-function renderView(){const el=document.getElementById("view");if(state.view==="dashboard")el.innerHTML=dashboardHtml();if(state.view==="tickets")el.innerHTML=ticketsHtml();if(state.view==="create")el.innerHTML=createHtml();if(state.view==="kpis")el.innerHTML=kpisHtml();if(state.view==="team")el.innerHTML=teamHtml();if(state.view==="ai")el.innerHTML=aiHtml();if(state.view==="game")el.innerHTML=gameHtml();bindView()}
-function metrics(){const total=state.tickets.length;const open=state.tickets.filter(t=>!["Resuelta","Cerrada"].includes(t.status)).length;const closed=state.tickets.filter(t=>["Resuelta","Cerrada"].includes(t.status));const avg=closed.length?closed.reduce((a,t)=>a+hoursBetween(t.created_at,t.finishedAt||t.updated_at),0)/closed.length:0;const extended=state.tickets.filter(t=>t.status==="Espera ampliada").length;return{total,open,closed:closed.length,avg,extended,rate:total?Math.round(closed.length*100/total):0}}
-function dashboardHtml(){const m=metrics();return `<div class="grid cols-4"><div class="metric card"><div class="label">Solicitudes</div><div class="value">${m.total}</div><div class="hint">Radicadas en el sistema</div></div><div class="metric card"><div class="label">Abiertas</div><div class="value">${m.open}</div><div class="hint">Pendientes de gestión</div></div><div class="metric card"><div class="label">Cierre</div><div class="value">${m.rate}%</div><div class="hint">Resueltas o cerradas</div></div><div class="metric card"><div class="label">Tiempo prom.</div><div class="value">${m.avg.toFixed(1)}h</div><div class="hint">Desde radicación hasta cierre</div></div></div><div class="grid cols-2" style="margin-top:18px"><div class="card"><div class="section-title"><h2>Mapa de estados</h2><span>arrastre visual operativo</span></div><div class="kanban">${statusFlow.slice(0,5).map(s=>laneHtml(s)).join("")}</div></div><div class="card"><div class="section-title"><h2>KPIs rápidos</h2><span>categoría y responsable</span></div><div class="grid cols-2"><canvas id="chartStatus"></canvas><canvas id="chartAssignee"></canvas></div></div></div><div class="card" style="margin-top:18px"><div class="section-title"><h2>Últimas solicitudes</h2><span>${state.tickets.slice(0,8).length} registros recientes</span></div>${ticketTable(state.tickets.slice(0,8))}</div>`}
-function laneHtml(status){const list=state.tickets.filter(t=>t.status===status).slice(0,8);return `<div class="lane"><h3>${escapeHtml(status)} · ${list.length}</h3>${list.map(t=>`<div class="mini-ticket" onclick="openTicket('${t.id}')"><strong>${escapeHtml(t.code||t.id)}</strong><p>${escapeHtml(t.title)}</p><p>${escapeHtml(userName(t.assignedTo)||"Sin asignar")}</p></div>`).join("")||`<div class="empty">Sin registros</div>`}</div>`}
-function ticketsHtml(){return `<div class="card"><div class="filters"><input id="fQ" placeholder="Buscar por código, solicitante, responsable o tema" value="${escapeHtml(state.filters.q)}"><select id="fStatus"><option>Todos</option>${statusFlow.map(x=>`<option ${state.filters.status===x?"selected":""}>${x}</option>`).join("")}</select><select id="fAssignee"><option>Todos</option>${state.users.map(u=>`<option value="${u.id}" ${state.filters.assignee===u.id?"selected":""}>${escapeHtml(u.name)}</option>`).join("")}</select><select id="fPriority"><option>Todos</option>${priorities.map(x=>`<option ${state.filters.priority===x?"selected":""}>${x}</option>`).join("")}</select></div><div class="section-title"><h2>Listado de solicitudes</h2><span>${filteredTickets().length} coincidencias</span></div>${ticketTable(filteredTickets())}</div>`}
-function filteredTickets(){const q=state.filters.q.toLowerCase().trim();return state.tickets.filter(t=>{const text=[t.code,t.title,t.description,t.requesterName,t.requesterArea,userName(t.assignedTo),t.category].join(" ").toLowerCase();return(!q||text.includes(q))&&(state.filters.status==="Todos"||t.status===state.filters.status)&&(state.filters.assignee==="Todos"||t.assignedTo===state.filters.assignee)&&(state.filters.priority==="Todos"||t.priority===state.filters.priority)})}
-function ticketTable(list){if(!list.length)return `<div class="empty">No hay solicitudes para mostrar.</div>`;return `<div class="table-wrap"><table><thead><tr><th>Código</th><th>Solicitud</th><th>Origen</th><th>Responsable</th><th>Estado</th><th>Prioridad</th><th>Actualización</th><th></th></tr></thead><tbody>${list.map(t=>`<tr><td><strong>${escapeHtml(t.code)}</strong></td><td>${escapeHtml(t.title)}<br><span style="color:#7b8797">${escapeHtml(t.category)} · ${escapeHtml(t.modality)}</span></td><td>${escapeHtml(t.requesterArea||"—")}<br><span style="color:#7b8797">${escapeHtml(t.requesterName||"—")}</span></td><td>${escapeHtml(userName(t.assignedTo)||"Sin asignar")}</td><td>${statusTag(t.status)}</td><td>${priorityTag(t.priority)}</td><td>${fmt(t.updated_at||t.created_at)}</td><td><button class="btn ghost small" onclick="openTicket('${t.id}')">Ver</button></td></tr>`).join("")}</tbody></table></div>`}
-function statusTag(s){const c={"Enviada":"blue","Sin aceptar":"gray","En proceso":"gold","Espera ampliada":"purple","Resuelta":"green","Cerrada":"green"}[s]||"gray";return `<span class="tag ${c}">${escapeHtml(s)}</span>`}
-function priorityTag(p){const c={"Baja":"gray","Media":"blue","Alta":"gold","Crítica":"red"}[p]||"gray";return `<span class="tag ${c}">${escapeHtml(p||"Media")}</span>`}
-function userName(id){return state.users.find(u=>u.id===id)?.name}
-function createHtml(){return `<div class="grid cols-2"><div class="card"><div class="section-title"><h2>Radicar solicitud</h2><span>origen + responsable + trazabilidad</span></div><form class="form" id="ticketForm"><div class="grid cols-2"><div class="field"><label>Nombre del solicitante</label><input name="requesterName" required value="${state.user.role==="Solicitante"?"":escapeHtml(state.user.name)}"></div><div class="field"><label>Correo</label><input name="requesterEmail" type="email" placeholder="correo@empresa.com"></div></div><div class="grid cols-2"><div class="field"><label>Área / proceso de origen</label><input name="requesterArea" required placeholder="Ej. Logística, cartera, ventas, producción"></div><div class="field"><label>Responsable</label><select name="assignedTo" required>${responders().map(u=>`<option value="${u.id}">${escapeHtml(u.name)} · ${escapeHtml(u.role)}</option>`).join("")}</select></div></div><div class="grid cols-3"><div class="field"><label>Categoría</label><select name="category">${categories.map(c=>`<option>${c}</option>`).join("")}</select></div><div class="field"><label>Prioridad</label><select name="priority">${priorities.map(p=>`<option ${p==="Media"?"selected":""}>${p}</option>`).join("")}</select></div><div class="field"><label>Modalidad</label><select name="modality"><option>Documental</option><option>Presencial</option><option>Mixta</option></select></div></div><div class="field"><label>Asunto</label><input name="title" required placeholder="Describe el tema en una línea"></div><div class="field"><label>Descripción completa</label><textarea name="description" required placeholder="Qué necesitas, por qué se solicita, evidencia disponible y resultado esperado"></textarea></div><div class="field"><label>Enlace o evidencia opcional</label><input name="evidence" placeholder="Drive, PDF, imagen, acta, formato, captura"></div><button class="btn primary" type="submit">Enviar solicitud</button></form></div><div style="display:grid;gap:18px"><div class="card"><div class="section-title"><h2>Asistente IA para radicar</h2><span>${AI_ENGINE_VERSION}</span></div><div class="form"><div class="field"><label>Describe la necesidad en lenguaje normal</label><textarea id="draftIdea" placeholder="Ej. Necesito que calidad me ayude a actualizar el procedimiento de entrega porque auditoría pidió evidencia y no sé cómo radicarlo"></textarea></div><button class="btn gold" type="button" onclick="generateTicketDraft()">Crear borrador con IA</button><div class="empty">La IA analiza intención, prioridad, modalidad y posible responsable. Luego completa el formulario para que solo revises y envíes.</div></div></div><div class="card"><div class="section-title"><h2>Consulta rápida</h2><span>para usuario general</span></div><div class="form"><div class="field"><label>Código de solicitud</label><input id="lookupCode" placeholder="DT-0001"></div><button class="btn ghost" onclick="lookupTicket()">Buscar solicitud</button><div class="empty">Cuando la solicitud exista, se abrirá su trazabilidad completa con mensajes, estado y responsable.</div></div></div></div></div>`}
-function kpisHtml(){return `<div class="grid cols-4">${Object.entries(metrics()).slice(0,4).map(([k,v])=>`<div class="metric card"><div class="label">${k}</div><div class="value">${typeof v==="number"?Number(v).toFixed(k==="avg"?1:0):v}</div><div class="hint">Indicador operativo</div></div>`).join("")}</div><div class="grid cols-2" style="margin-top:18px"><div class="card"><div class="section-title"><h2>Por categoría</h2><span>demanda del área</span></div><canvas id="chartCategory"></canvas></div><div class="card"><div class="section-title"><h2>Por responsable</h2><span>carga operativa</span></div><canvas id="chartResponsible"></canvas></div><div class="card"><div class="section-title"><h2>Por estado</h2><span>flujo actual</span></div><canvas id="chartKStatus"></canvas></div><div class="card"><div class="section-title"><h2>Tiempo promedio por responsable</h2><span>horas de resolución</span></div><canvas id="chartTime"></canvas></div></div>`}
-function teamHtml(){const creator=canManageUsers()?`<div class="card"><div class="section-title"><h2>Crear usuario</h2><span>solo Super Admin</span></div><form class="form" id="userForm"><div class="field"><label>Nombre</label><input name="name" required></div><div class="field"><label>Rol</label><select name="role">${roles.map(r=>`<option>${r}</option>`).join("")}</select></div><div class="field"><label>Área</label><input name="area" value="Calidad y mejora continua"></div><div class="field"><label>PIN</label><input name="pin" type="password" inputmode="numeric" required></div><div class="field"><label>Foto, GIF o avatar</label><input name="avatar" placeholder="URL o ruta del GIF"></div><div class="field"><label>Estado</label><input name="statusText" placeholder="Ej. En auditoría, vuelvo en la tarde"></div><button class="btn primary" type="submit">Guardar usuario</button></form></div>`:`<div class="card"><div class="section-title"><h2>Creación de usuarios</h2><span>acceso restringido</span></div><div class="empty">Solo el Super Admin puede crear usuarios internos y asignar roles. Los solicitantes no requieren usuario: consultan por radicado.</div></div>`;return `<div class="grid cols-2"><div class="card"><div class="section-title"><h2>Perfiles internos</h2><span>${responders().length} usuarios</span></div><div class="profile-grid">${responders().map(u=>`<div class="profile-card"><img src="${u.avatar||assets.loginDance}" onerror="this.src='${assets.loginDance}'"><div><strong>${escapeHtml(u.name)}</strong><div class="user-role">${escapeHtml(u.role)}</div><div class="user-status">${escapeHtml(u.statusText||"Disponible")}</div></div></div>`).join("")}</div></div>${creator}</div>`}
-function aiHtml(){return `<div class="ai-layout"><div class="card"><div class="section-title"><h2>Chatbot de Calidad</h2><span>${AI_ENGINE_VERSION} · ${state.aiMemories.length} memorias</span></div><div class="ai-chat" id="aiChat">${state.aiHistory.map(m=>`<div class="${m.me?"human":"bot"}">${escapeHtml(m.text)}</div>`).join("")||`<div class="bot">Hola, soy la IA del Dream Team de Calidad. Puedo ayudarte a crear solicitudes, consultar radicados, redactar respuestas, clasificar prioridades, explicar KPIs, ordenar procedimientos y aprender de documentos.</div>`}</div><div class="form" style="margin-top:12px"><div class="field"><label>Mensaje</label><input id="aiPrompt" placeholder="Ej. ayúdame a crear una solicitud para actualizar un procedimiento"></div><button class="btn primary" onclick="askAI()">Conversar</button></div></div><div class="card"><div class="section-title"><h2>Entrenar IA</h2><span>memoria + documentos + tickets</span></div><div class="form"><div class="field"><label>Subir documento</label><input id="knowledgeFile" type="file" accept=".pdf,.txt,.csv,.md,.json"></div><button class="btn ghost" onclick="learnFromFile()">Leer y aprender</button><div class="field"><label>Pregunta o palabra clave</label><input id="learnKey" placeholder="Ej. remanente, auditoría, procedimiento"></div><div class="field"><label>Respuesta esperada</label><textarea id="learnAnswer" placeholder="Escribe cómo debe responder el bot"></textarea></div><button class="btn gold" onclick="manualLearn()">Guardar memoria</button><div class="empty">Modelo matemático: intención + palabras clave + similitud de tokens + memorias + tickets. Aprende de cierres, ampliaciones, documentos y juego.</div></div></div></div>`}
-function gameHtml(){const sc=scenarios[Math.floor(Math.random()*scenarios.length)];state.currentScenario=sc;const rank=state.scores.sort((a,b)=>(b.points||0)-(a.points||0)).slice(0,8);return `<div class="grid cols-2"><div class="card"><div class="section-title"><h2>Reto de calidad</h2><span>selecciona la mejor acción</span></div><div class="game-stage"><div class="scenario"><h3>Caso operativo</h3><p>${escapeHtml(sc.q)}</p></div><div class="answers">${sc.options.map((o,i)=>`<button class="answer" onclick="answerGame(${i})">${escapeHtml(o)}</button>`).join("")}</div></div></div><div class="card"><div class="section-title"><h2>Ranking</h2><span>marcos y elogios</span></div>${rank.length?`<div class="table-wrap"><table><thead><tr><th>Usuario</th><th>Puntos</th><th>Marco</th></tr></thead><tbody>${rank.map((r,i)=>`<tr><td>${escapeHtml(r.userName)}</td><td><strong>${r.points||0}</strong></td><td>${["🏆 Leyenda","🥇 Crack","🥈 Pro","🥉 Firme","⭐ En ascenso"][Math.min(i,4)]}</td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">Aún no hay partidas. Resuelve el primer reto y abre el ranking.</div>`}</div></div>`}
-function bindView(){if(state.view==="dashboard"){chartPair("chartStatus",countBy(state.tickets,"status"),"doughnut");chartPair("chartAssignee",countBy(state.tickets,"assignedTo",userName),"bar")}if(state.view==="tickets"){["fQ","fStatus","fAssignee","fPriority"].forEach(id=>document.getElementById(id).addEventListener("input",e=>{const map={fQ:"q",fStatus:"status",fAssignee:"assignee",fPriority:"priority"};state.filters[map[id]]=e.target.value;renderView()}))}if(state.view==="create"){document.getElementById("ticketForm").addEventListener("submit",submitTicket)}if(state.view==="team"){const uf=document.getElementById("userForm");if(uf)uf.addEventListener("submit",submitUser)}if(state.view==="kpis"){chartPair("chartCategory",countBy(state.tickets,"category"),"bar");chartPair("chartResponsible",countBy(state.tickets,"assignedTo",userName),"bar");chartPair("chartKStatus",countBy(state.tickets,"status"),"doughnut");chartPair("chartTime",avgTimeByResponsible(),"bar")}}
-function countBy(rows,key,map){const out={};rows.forEach(r=>{const k=map?map(r[key])||"Sin dato":r[key]||"Sin dato";out[k]=(out[k]||0)+1});return out}
-function avgTimeByResponsible(){const grouped={};state.tickets.filter(t=>["Resuelta","Cerrada"].includes(t.status)).forEach(t=>{const name=userName(t.assignedTo)||"Sin responsable";(grouped[name]||(grouped[name]=[])).push(hoursBetween(t.created_at,t.finishedAt||t.updated_at))});const out={};Object.keys(grouped).forEach(k=>out[k]=Number((grouped[k].reduce((a,b)=>a+b,0)/grouped[k].length).toFixed(1)));return out}
-function chartPair(id,data,type){const el=document.getElementById(id);if(!el||!window.Chart)return;const labels=Object.keys(data);const values=Object.values(data);if(state.charts[id])state.charts[id].destroy();state.charts[id]=new Chart(el,{type,data:{labels:labels.length?labels:["Sin datos"],datasets:[{data:values.length?values:[0],borderWidth:1,borderRadius:10}]},options:{responsive:true,plugins:{legend:{display:type==="doughnut",position:"bottom"}},scales:type==="bar"?{y:{beginAtZero:true,ticks:{precision:0}}}:undefined}})}
-async function submitTicket(e){e.preventDefault();const fd=new FormData(e.target);const code="DT-"+String(state.tickets.length+1).padStart(4,"0");const ticket={id:uid("ticket"),code,requesterName:fd.get("requesterName"),requesterEmail:fd.get("requesterEmail"),requesterArea:fd.get("requesterArea"),assignedTo:fd.get("assignedTo"),category:fd.get("category"),priority:fd.get("priority"),modality:fd.get("modality"),title:fd.get("title"),description:fd.get("description"),evidence:fd.get("evidence"),status:"Enviada",createdBy:state.user.id,acceptedAt:null,finishedAt:null,extendedReason:"",chat:[{by:state.user.name,text:"Solicitud radicada.",at:now()}],timeline:[{label:"Radicación",text:"Solicitud enviada al responsable.",at:now()}],created_at:now(),updated_at:now()};await saveRecord(tables.tickets,ticket);state.tickets=await listRecords(tables.tickets);popup("Solicitud enviada",`Tu código es ${code}. Guárdalo para consultar el estado. Ya está en la bandeja de ${userName(ticket.assignedTo)}.`,randomSentGif());e.target.reset();state.view=isInternal()?"tickets":"create";renderApp()}
-function roleConfig(role){const key=role==="Analista de calidad"?"analista_calidad":role==="Jefe de auditoría interna"?"jefe_auditoria_interna":role==="Jefe general"?"jefe_general":role==="Super Admin / Desarrollador"?"super_admin":"solicitante";const canAnswer=role!=="Solicitante";return{roleKey:key,canAnswerTickets:canAnswer,canManageUsers:key==="super_admin",canSeeKPIs:canAnswer,canCloseTickets:canAnswer,canExtendWait:canAnswer,isSuperAdmin:key==="super_admin"}}
-async function submitUser(e){e.preventDefault();if(!canManageUsers())return popup("Acceso restringido","Solo el Super Admin puede crear usuarios internos.",assets.missing);const fd=new FormData(e.target);const name=fd.get("name").trim();const role=fd.get("role");const perms=roleConfig(role);const user={id:slug(name)||uid("user"),name,role,...perms,area:fd.get("area"),pinHash:await hashPin(fd.get("pin")),avatar:fd.get("avatar")||assets.loginDance,statusText:fd.get("statusText")||"Disponible",active:true,created_at:now(),updated_at:now()};await saveRecord(tables.users,user);state.users=await listRecords(tables.users);toast("Usuario creado");renderApp()}
-function openTicket(id){const t=state.tickets.find(x=>x.id===id);if(!t)return popup("No encontré la solicitud","La información no coincide con ningún ticket activo.",assets.missing);state.selectedTicket=t;document.getElementById("view").innerHTML=ticketDetailHtml(t);bindTicketDetail(t);if(["Enviada","Sin aceptar"].includes(t.status))popup("Aún no está aceptada","La solicitud ya fue enviada, pero todavía no aparece como aceptada por el responsable.",assets.working);if(t.modality==="Documental"&&t.status==="En proceso")popup("Documento en proceso","Esta solicitud no requiere presencialidad inmediata. El responsable está elaborando o revisando el entregable.",assets.document);gsap.from("#view .card",{opacity:0,y:20,duration:.35,stagger:.04})}
-function lookupTicket(){const q=document.getElementById("lookupCode").value.trim().toLowerCase();const t=state.tickets.find(x=>(x.code||"").toLowerCase()===q||x.id.toLowerCase()===q);if(!t)return popup("No lo encontré","Ese código no coincide. Revisa si escribiste completo el consecutivo, por ejemplo DT-0001.",assets.missing);state.view="tickets";renderApp();openTicket(t.id)}
-function ticketDetailHtml(t){return `<div class="ticket-view"><div class="card"><div class="section-title"><h2>${escapeHtml(t.code)} · ${escapeHtml(t.title)}</h2><span>${fmt(t.created_at)}</span></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">${statusTag(t.status)}${priorityTag(t.priority)}<span class="tag blue">${escapeHtml(t.category)}</span><span class="tag gray">${escapeHtml(t.modality)}</span></div><p style="line-height:1.6;color:#46556b">${escapeHtml(t.description)}</p><div class="grid cols-2"><div class="field"><label>Origen</label><input value="${escapeHtml(t.requesterArea||"")}" disabled></div><div class="field"><label>Solicitante</label><input value="${escapeHtml(t.requesterName||"")}" disabled></div><div class="field"><label>Responsable</label><input value="${escapeHtml(userName(t.assignedTo)||"")}" disabled></div><div class="field"><label>Evidencia</label><input value="${escapeHtml(t.evidence||"Sin enlace")}" disabled></div></div><div class="section-title" style="margin-top:18px"><h2>Línea de tiempo</h2><span>${t.timeline?.length||0} eventos</span></div><div class="timeline">${(t.timeline||[]).map((s,i)=>`<div class="step"><div class="step-dot">${i+1}</div><div><strong>${escapeHtml(s.label)}</strong><p>${escapeHtml(s.text)} · ${fmt(s.at)}</p></div></div>`).join("")}</div><div class="top-actions" style="margin-top:18px">${ticketActions(t)}</div></div><div class="card"><div class="section-title"><h2>Chat de la solicitud</h2><span>conversación interna</span></div><div class="chat-box" id="chatBox">${(t.chat||[]).map(m=>`<div class="msg ${m.by===state.user.name?"me":""}">${escapeHtml(m.text)}<small>${escapeHtml(m.by)} · ${fmt(m.at)}</small></div>`).join("")}</div><div class="form" style="margin-top:12px"><div class="field"><label>Mensaje</label><textarea id="chatMsg" placeholder="Escribe una actualización, evidencia o pregunta"></textarea></div><button class="btn primary" onclick="sendChat('${t.id}')">Enviar mensaje</button></div></div></div>`}
-function ticketActions(t){let actions=`<button class="btn ghost" onclick="setView('tickets')">Volver</button>`;if(isInternal()&&t.assignedTo===state.user.id&&["Enviada","Sin aceptar"].includes(t.status))actions+=`<button class="btn ok" onclick="acceptTicket('${t.id}')">Aceptar</button>`;if(isInternal()&&t.assignedTo===state.user.id&&["En proceso","Espera ampliada"].includes(t.status))actions+=`<button class="btn gold" onclick="extendTicket('${t.id}')">Ampliar espera</button><button class="btn ok" onclick="resolveTicket('${t.id}')">Resolver</button>`;if((hasLead()||t.createdBy===state.user.id)&&t.status==="Resuelta")actions+=`<button class="btn primary" onclick="closeTicket('${t.id}')">Cerrar y notificar</button>`;return actions}
-function bindTicketDetail(t){setTimeout(()=>{const box=document.getElementById("chatBox");if(box)box.scrollTop=box.scrollHeight},50)}
-async function updateTicket(t,label,text,status){t.status=status||t.status;t.updated_at=now();t.timeline=t.timeline||[];t.timeline.push({label,text,at:now()});await saveRecord(tables.tickets,t);state.tickets=await listRecords(tables.tickets);openTicket(t.id)}
-async function acceptTicket(id){const t=state.tickets.find(x=>x.id===id);t.acceptedAt=now();t.chat=t.chat||[];t.chat.push({by:state.user.name,text:"Acepté la solicitud. Inicio gestión y revisión de alcance.",at:now()});await updateTicket(t,"Aceptación","Responsable aceptó la solicitud.","En proceso");toast("Solicitud aceptada")}
-async function extendTicket(id){const t=state.tickets.find(x=>x.id===id);const res=await Swal.fire({title:"Ampliar espera",input:"textarea",inputLabel:"Comentario para el solicitante",inputPlaceholder:"Explica el motivo y la nueva expectativa",showCancelButton:true,confirmButtonText:"Guardar ampliación",confirmButtonColor:"#0d5bd2"});if(!res.value)return;t.extendedReason=res.value;t.chat=t.chat||[];t.chat.push({by:state.user.name,text:"Se amplía la espera: "+res.value,at:now()});await updateTicket(t,"Espera ampliada",res.value,"Espera ampliada");popup("Espera ampliada","El solicitante verá el comentario y la justificación de la nueva espera.",assets.extend)}
-async function resolveTicket(id){const t=state.tickets.find(x=>x.id===id);t.finishedAt=now();t.chat=t.chat||[];t.chat.push({by:state.user.name,text:"Solicitud resuelta. Queda lista para validación y cierre.",at:now()});await updateTicket(t,"Resolución","Responsable marcó la solicitud como resuelta.","Resuelta");await autoLearn("cierre "+t.category,`Caso resuelto: ${t.title}. Aprendizaje: ${t.description}`);toast("Solicitud resuelta")}
-async function closeTicket(id){const t=state.tickets.find(x=>x.id===id);t.finishedAt=t.finishedAt||now();t.chat=t.chat||[];t.chat.push({by:state.user.name,text:"Solicitud cerrada y notificada al solicitante.",at:now()});await updateTicket(t,"Cierre","Solicitud cerrada y notificada.","Cerrada");popup("¡Listo, esto ya quedó fino!","La solicitud fue cerrada. El Dream Team hizo de las suyas: trazabilidad completa, evidencia y cierre con estilo.",assets.done);if(window.confetti)confetti({particleCount:140,spread:85,origin:{y:.75}})}
-async function sendChat(id){const t=state.tickets.find(x=>x.id===id);const msg=document.getElementById("chatMsg").value.trim();if(!msg)return;t.chat=t.chat||[];t.chat.push({by:state.user.name,text:msg,at:now()});t.updated_at=now();await saveRecord(tables.tickets,t);state.tickets=await listRecords(tables.tickets);openTicket(id)}
-async function askAI(){const input=document.getElementById("aiPrompt");const q=input.value.trim();if(!q)return;state.aiHistory.push({me:true,text:q});const result=composeAI(q);state.aiHistory.push({me:false,text:result.answer});if(result.learn&&q.length>28){await autoLearn("interaccion,"+result.intent,`Pregunta frecuente: ${q}. Respuesta útil: ${result.answer.slice(0,900)}`)}input.value="";renderView();const chat=document.getElementById("aiChat");setTimeout(()=>chat.scrollTop=chat.scrollHeight,30)}
-function normalizeTextAI(text){return String(text||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9ñ\s-]/g," ").replace(/\s+/g," ").trim()}
-function tokensAI(text){return normalizeTextAI(text).split(" ").filter(t=>t.length>2&&!aiStopWords.has(t))}
-function overlapScore(a,b){const A=new Set(tokensAI(a));const B=new Set(tokensAI(b));if(!A.size||!B.size)return 0;let hit=0;A.forEach(x=>{if(B.has(x))hit++});return hit/Math.sqrt(A.size*B.size)}
-function keywordScore(q,keys){const clean=normalizeTextAI(q);if(!keys||!keys.length)return 0;let hits=0;keys.forEach(k=>{const kk=normalizeTextAI(k);if(kk&&clean.includes(kk))hits+=kk.split(" ").length>1?1.35:1});return Math.min(1,hits/Math.max(2,keys.length*.42))}
-function inferIntent(q){const clean=normalizeTextAI(q);const rules=[
-{intent:"radicacion",rx:/crear|radicar|solicitud|ticket|pedir|ayudame a redactar|convertir idea/},
-{intent:"consulta",rx:/dt-|radicado|consultar|estado|buscar|no aparece/},
-{intent:"auditoria",rx:/auditoria|hallazgo|no conformidad|accion correctiva|evidencia/},
-{intent:"indicadores",rx:/kpi|indicador|productividad|grafica|dashboard|medir|pareto/},
-{intent:"procedimiento",rx:/procedimiento|proceso|flujo|manual|caracterizacion/},
-{intent:"documental",rx:/documento|pdf|formato|acta|matriz|archivo/},
-{intent:"sla",rx:/tiempo|demora|espera|vencido|plazo|respuesta/},
-{intent:"roles",rx:/rol|usuario|analista|jefe|solicitante|permiso/},
-{intent:"ai_model",rx:/modelo matematico|scoring|algoritmo|clasificador|ia|chatbot|aprende/}
-];return (rules.find(r=>r.rx.test(clean))||{intent:"general"}).intent}
-function rankKnowledge(q){const intent=inferIntent(q);const qTokens=tokensAI(q).join(" ");const memoryRows=state.aiMemories.map(m=>({source:"Memoria",id:m.id,intent:m.intent||"memoria",keywords:String(m.key||"").split(/[,;]+/),answer:m.answer||"",route:m.route||"memory"}));const all=[...aiKnowledge.map(k=>({...k,source:"Base"})),...memoryRows];return all.map(k=>{const keyText=(k.keywords||[]).join(" ");const s1=keywordScore(q,k.keywords||[]);const s2=overlapScore(qTokens,keyText+" "+k.answer);const s3=k.intent===intent?1:0;const score=.48*s1+.32*s2+.20*s3;return {...k,score}}).sort((a,b)=>b.score-a.score)}
-function findTicketAI(q){const clean=normalizeTextAI(q);const code=(clean.match(/dt-?\s*\d{1,6}/)||[])[0];if(code){const compact=code.replace(/\s+/g,"").toUpperCase().replace("DT","DT-");const t=state.tickets.find(x=>normalizeTextAI(x.code)===normalizeTextAI(compact)||normalizeTextAI(x.code).replace("-","")===normalizeTextAI(compact).replace("-",""));if(t)return t}const ranked=state.tickets.map(t=>({t,score:overlapScore(q,[t.code,t.title,t.description,t.category,t.requesterName,t.requesterArea,userName(t.assignedTo)].join(" "))})).sort((a,b)=>b.score-a.score);return ranked[0]?.score>.28?ranked[0].t:null}
-function draftTicketFromText(text){const clean=normalizeTextAI(text);const category=clean.match(/auditoria|hallazgo|no conformidad/) ? "Auditoría" : clean.match(/indicador|kpi|dashboard|grafica|medir/) ? "Indicador/KPI" : clean.match(/capacitacion|induccion|entrenamiento/) ? "Capacitación" : clean.match(/riesgo|control/) ? "Riesgo/Hallazgo" : clean.match(/documento|formato|pdf|acta|matriz/) ? "Documento" : clean.match(/procedimiento|proceso|flujo|manual/) ? "Procedimiento" : clean.match(/mejora|optimizar/) ? "Mejora continua" : "Consulta general";
-const priority=clean.match(/urgente|critica|crítica|auditoria|vencido|bloquea|gerencia/) ? "Alta" : clean.match(/simple|consulta|cuando puedan|baja/) ? "Baja" : "Media";
-const modality=clean.match(/visita|presencial|campo|reunion|reunión|acompañamiento/) ? "Presencial" : clean.match(/documento|formato|pdf|acta|matriz|procedimiento/) ? "Documental" : "Mixta";
-const title=makeTitleFromText(text,category);
-const assignee=suggestAssignee(category,priority);
-const description=`Necesidad identificada: ${text.trim()}\n\nResultado esperado: recibir orientación, ajuste, revisión o soporte del área de Calidad y Mejora Continua según el alcance de la solicitud.\n\nInformación mínima sugerida: proceso afectado, evidencia disponible, plazo esperado, impacto y persona de contacto.\n\nCriterio de cierre: dejar evidencia del análisis realizado, respuesta entregada y validación del solicitante.`;
-return {category,priority,modality,title,description,assignedTo:assignee}}
-function makeTitleFromText(text,category){const clean=String(text||"").replace(/\s+/g," ").trim();let first=clean.split(/[\.\n]/)[0].slice(0,86);if(first.length<12)first=`Solicitud de ${category.toLowerCase()}`;return first.charAt(0).toUpperCase()+first.slice(1)}
-function suggestAssignee(category,priority){const jefe=state.users.find(u=>u.role==="Jefe general");const audit=state.users.find(u=>u.role.includes("auditoría")||u.role.includes("auditoria"));const analysts=state.users.filter(u=>u.role==="Analista de calidad");if(priority==="Alta"&&jefe)return jefe.id;if(["Auditoría","Riesgo/Hallazgo"].includes(category)&&audit)return audit.id;return (analysts[0]||jefe||audit||state.users[0]||{}).id||""}
-function composeAI(q){const intent=inferIntent(q);const ticket=findTicketAI(q);if(ticket){return {intent,learn:false,answer:`Encontré una solicitud relacionada: ${ticket.code} · ${ticket.title}.\n\nEstado actual: ${ticket.status}.\nResponsable: ${userName(ticket.assignedTo)||"sin asignar"}.\nOrigen: ${ticket.requesterArea||"sin dato"}.\nÚltima actualización: ${fmt(ticket.updated_at)}.\n\nSiguiente lectura recomendada: revisa la línea de tiempo y el chat para confirmar si falta evidencia, aceptación o cierre.`}}
-if(intent==="radicacion"||/crear|radicar|ticket|solicitud|redactar|convertir/i.test(q)){const d=draftTicketFromText(q);return {intent,learn:true,answer:`Te dejo un borrador listo para radicar:\n\nAsunto: ${d.title}\nCategoría: ${d.category}\nPrioridad: ${d.priority}\nModalidad: ${d.modality}\nResponsable sugerido: ${userName(d.assignedTo)||"por definir"}\n\nDescripción sugerida:\n${d.description}\n\nTip: copia esto al formulario o usa el botón \"Crear borrador con IA\" en Nueva solicitud para que el sistema complete los campos.`}}
-const ranked=rankKnowledge(q);const top=ranked[0];const second=ranked[1];if(top&&top.score>.18){let confidence=top.score>.62?"alta":top.score>.38?"media":"orientativa";let answer=`${top.answer}\n\nLectura IA: intención detectada ${intent}; confianza ${confidence}; fuente ${top.source}.`;if(second&&second.score>.22&&second.id!==top.id)answer+=`\n\nTambién puede servir: ${second.answer}`;return {intent,learn:top.score<.42,answer}}
-const d=draftTicketFromText(q);return {intent,learn:true,answer:`No tengo una coincidencia exacta todavía, pero puedo ayudarte a aterrizarlo. Por lo que escribiste, lo clasificaría así:\n\nAsunto: ${d.title}\nCategoría probable: ${d.category}\nPrioridad probable: ${d.priority}\nModalidad probable: ${d.modality}\nResponsable sugerido: ${userName(d.assignedTo)||"por definir"}\n\nPara responder mejor necesito: proceso de origen, evidencia disponible, plazo esperado e impacto de no atenderlo.`}}
-function generateTicketDraft(){const idea=document.getElementById("draftIdea")?.value.trim();if(!idea)return popup("Falta la idea","Escribe la necesidad en lenguaje normal para que la IA arme el borrador.",assets.missing);const d=draftTicketFromText(idea);const form=document.getElementById("ticketForm");if(!form)return;form.elements["category"].value=d.category;form.elements["priority"].value=d.priority;form.elements["modality"].value=d.modality;if(d.assignedTo)form.elements["assignedTo"].value=d.assignedTo;form.elements["title"].value=d.title;form.elements["description"].value=d.description;popup("Borrador creado","La IA completó asunto, categoría, prioridad, modalidad, descripción y responsable sugerido. Revisa los datos y envía la solicitud.",assets.sent[0]);autoLearn("borrador solicitud,"+d.category,`Idea convertida en solicitud. Asunto: ${d.title}. Categoría: ${d.category}. Prioridad: ${d.priority}.`)}
-async function manualLearn(){const key=document.getElementById("learnKey").value.trim();const answer=document.getElementById("learnAnswer").value.trim();if(!key||!answer)return popup("Falta información","Agrega una palabra clave y la respuesta esperada para entrenar la IA.",assets.missing);await autoLearn(key,answer);document.getElementById("learnKey").value="";document.getElementById("learnAnswer").value="";toast("Memoria guardada");renderView()}
-async function autoLearn(key,answer){const item={id:uid("mem"),key,answer,createdBy:state.user?.name||"Sistema",created_at:now(),updated_at:now()};await saveRecord(tables.ai,item);state.aiMemories=await listRecords(tables.ai)}
-async function learnFromFile(){const file=document.getElementById("knowledgeFile").files[0];if(!file)return popup("No hay archivo","Selecciona un PDF, TXT, CSV, JSON o Markdown para alimentar la base de conocimiento.",assets.missing);let text="";if(file.type==="application/pdf"||file.name.toLowerCase().endsWith(".pdf")){text=await readPdf(file)}else{text=await file.text()}const compact=text.replace(/\s+/g," ").trim().slice(0,4200);if(!compact)return popup("Archivo sin texto","No pude extraer texto útil del documento.",assets.missing);await autoLearn(file.name,`Aprendizaje desde documento ${file.name}: ${compact}`);popup("Documento leído","La IA incorporó el contenido del archivo a su base de respuestas internas.",assets.document);renderView()}
-async function readPdf(file){if(!window.pdfjsLib){return ""}const buf=await file.arrayBuffer();const pdf=await window.pdfjsLib.getDocument({data:new Uint8Array(buf)}).promise;let out="";for(let i=1;i<=pdf.numPages;i++){const page=await pdf.getPage(i);const content=await page.getTextContent();out+=content.items.map(it=>it.str).join(" ")+"\n"}return out}
-async function answerGame(ix){const sc=state.currentScenario;if(!sc)return;const ok=ix===sc.ok;let score=state.scores.find(s=>s.userId===state.user.id);if(!score)score={id:uid("score"),userId:state.user.id,userName:state.user.name,points:0,created_at:now(),updated_at:now()};score.points=(score.points||0)+(ok?10:2);score.updated_at=now();await saveRecord(tables.scores,score);await autoLearn("juego calidad",sc.learn);state.scores=await listRecords(tables.scores);if(ok){popup("Respuesta potente","Sumaste 10 puntos. Este criterio quedó reforzado en la memoria de la IA.",assets.sent[1]);if(window.confetti)confetti({particleCount:90,spread:70,origin:{y:.75}})}else{popup("Casi, pero no era la mejor ruta","Sumaste 2 puntos por participar. Revisa la trazabilidad: la mejor acción era: "+sc.options[sc.ok],assets.extend)}renderView()}
-window.setView=setView;window.toggleMenu=toggleMenu;window.logout=logout;window.refreshData=refreshData;window.openTicket=openTicket;window.lookupTicket=lookupTicket;window.acceptTicket=acceptTicket;window.extendTicket=extendTicket;window.resolveTicket=resolveTicket;window.closeTicket=closeTicket;window.sendChat=sendChat;window.askAI=askAI;window.manualLearn=manualLearn;window.learnFromFile=learnFromFile;window.generateTicketDraft=generateTicketDraft;window.answerGame=answerGame;
-window.addEventListener("DOMContentLoaded",async()=>{if(window.pdfjsLib)window.pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.9.155/build/pdf.worker.min.mjs";await seed();setupLogin()});
+function statusTag(status){const map={"Enviada":"blue","Sin aceptar":"gold","En proceso":"purple","Espera ampliada":"gold","Resuelta":"green","Cerrada":"gray"};return `<span class="tag ${map[status]||'gray'}">${escapeHtml(status)}</span>`}
+function priorityTag(priority){const map={"Baja":"gray","Media":"blue","Alta":"gold","Crítica":"red"};return `<span class="tag ${map[priority]||'gray'}">${escapeHtml(priority)}</span>`}
+function ageHours(ticket){return hoursBetween(ticket.created_at,now())}
+function maxTicketCode(){const nums=state.tickets.map(t=>Number(String(t.code||"").replace(/\D/g,""))).filter(Boolean);return nums.length?Math.max(...nums):0}
+
+async function hashPin(pin){const enc=new TextEncoder().encode(String(pin));const buf=await crypto.subtle.digest("SHA-256",enc);return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join("")}
+async function listRecords(table){if(sb){try{const {data,error}=await sb.from(table).select("*").order("updated_at",{ascending:false});if(!error&&data)return data.map(normalize)}catch(e){}}return localList(table)}
+async function saveRecord(table,item){item.updated_at=now();item.created_at=item.created_at||now();if(sb){try{const row={id:item.id,payload:payloadOf(item),created_at:item.created_at,updated_at:item.updated_at};const {data,error}=await sb.from(table).upsert(row).select().single();if(!error&&data)return normalize(data)}catch(e){}}
+const rows=localList(table);const ix=rows.findIndex(x=>x.id===item.id);if(ix>=0)rows[ix]=item;else rows.unshift(item);localSave(table,rows);return item}
+async function removeRecord(table,id){if(sb){try{await sb.from(table).delete().eq("id",id)}catch(e){}}localSave(table,localList(table).filter(x=>x.id!==id))}
+
+async function filesToAttachments(list){const files=[...(list||[])].slice(0,8);return Promise.all(files.map(file=>new Promise(resolve=>{const r=new FileReader();r.onload=()=>resolve({id:uid("file"),name:file.name,type:file.type||"application/octet-stream",size:file.size||0,data:r.result,uploadedAt:now()});r.readAsDataURL(file)})))}
+function attachmentsHtml(items,label){const arr=(items||[]);if(!arr.length)return `<div class="empty">No hay ${label.toLowerCase()} cargados.</div>`;return `<div class="section-title" style="margin-top:18px"><h2>${label}</h2><span>${arr.length} archivo(s)</span></div><div class="attach-list">${arr.map(a=>`<div class="attach-item"><div class="attach-meta"><strong>${escapeHtml(a.name)}</strong><span>${escapeHtml(a.type||'archivo')} · ${humanSize(a.size)}</span></div><div class="attach-actions"><button class="btn ghost small" onclick="downloadAttachment('${a.ticketId}','${a.scope}','${a.id}')">Descargar</button></div></div>`).join("")}</div>`}
+function downloadAttachment(ticketId,scope,fileId){const t=state.tickets.find(x=>x.id===ticketId)||state.selectedTicket;if(!t)return popup("Archivo no disponible","No encontré la solicitud asociada al adjunto.",assets.missing);const list=scope==="resolution"?(t.resolutionFiles||[]):(t.attachments||[]);const file=list.find(x=>x.id===fileId);if(!file||!file.data)return popup("Archivo no disponible","El adjunto no está cargado o ya no se encuentra disponible.",assets.missing);const link=document.createElement('a');link.href=file.data;link.download=file.name||'archivo';document.body.appendChild(link);link.click();link.remove()}
+
+async function seed(){
+  let users=await listRecords(tables.users);
+  if(!users.length){
+    for(const u of defaultUsers){await saveRecord(tables.users,{id:u.id,...u,created_at:now(),updated_at:now()})}
+    users=await listRecords(tables.users)
+  }
+  state.users=users;
+  state.tickets=await listRecords(tables.tickets);
+  state.aiMemories=await listRecords(tables.ai);
+  if(state.aiMemories.length<10){
+    for(const k of aiKnowledge){await saveRecord(tables.ai,{id:"base_"+k.id,key:k.keywords.join(","),intent:k.intent,answer:k.answer,createdBy:"Modelo base",route:k.route,active:true,created_at:now(),updated_at:now()})}
+    state.aiMemories=await listRecords(tables.ai)
+  }
+  state.scores=await listRecords(tables.scores);
+  try{const adv=await fetch('ia_nivel1_data/knowledge_seed.json').then(r=>r.ok?r.json():[]);state.advancedKnowledge=(adv||[]).map(x=>({id:x.id,intent:x.intent_id||x.category_id||'general',keywords:x.keywords||[x.question,x.title],answer:x.answer||'',source:'Nivel 1'}))}catch(e){state.advancedKnowledge=[]}
+}
+
+function setupLogin(){
+  const app=document.getElementById("app");
+  app.innerHTML=`<div class="login-page"><div class="login-card"><section class="login-hero"><img class="logo-login" src="${assets.logo}" alt="Dream Team de Calidad"><div class="hero-note">Mesa de Ayuda de Calidad y Mejoramiento Continuo. Radica, consulta, conversa con la IA y juega para fortalecer criterios del equipo.</div><div class="dance-box pulse"><img src="${assets.fun}" alt="Animación"><div><h1>Una mesa de ayuda con power.</h1><p>Traza solicitudes, mide productividad, adjunta documentos, conversa con la IA y mantén cada caso con evidencia real.</p></div></div></section><section class="login-form"><h2>Ingresar</h2><p>Selecciona tu usuario interno. Los solicitantes externos no requieren cuenta: pueden radicar, consultar por código, usar la IA y entrar a los juegos.</p><div class="field"><label>Perfil</label><select id="loginUser"><option value="guest">Radicar o consultar sin usuario</option>${responders().map(u=>`<option value="${u.id}">${escapeHtml(u.name)} · ${escapeHtml(u.role)}</option>`).join("")}</select></div><div class="field" id="pinBox"><label>PIN</label><input id="loginPin" type="password" inputmode="numeric" autocomplete="current-password" placeholder="PIN del usuario interno"></div><button class="btn primary" id="loginBtn">Entrar a la mesa</button><button class="btn ghost" id="guestBtn">Entrar como solicitante</button><button class="btn gold" type="button" onclick="loginGuest('ai')">Probar IA</button><div class="mode-pill"><span class="dot ${modeOn()?"on":""}"></span>${modeLabel()}</div></section></div></div>`;
+  document.getElementById("loginUser").addEventListener("change",e=>{document.getElementById("pinBox").style.display=e.target.value==="guest"?"none":"grid"});
+  document.getElementById("pinBox").style.display="none";
+  document.getElementById("guestBtn").onclick=()=>loginGuest();
+  document.getElementById("loginBtn").onclick=login;
+  gsap.from(".login-card",{opacity:0,y:30,duration:.55,ease:"power2.out"})
+}
+
+async function loginGuest(view="create"){
+  state.user={id:"guest_"+Date.now(),name:"Solicitante general",role:"Solicitante",area:"Usuario general",statusText:"Radicando solicitudes",avatar:assets.fun,gameAlias:""};
+  state.view=view;
+  renderApp();
+  popup("Bienvenido","Puedes radicar una solicitud, consultar por radicado, usar la IA o entrar a los juegos de calidad.",assets.fun)
+}
+
+async function login(){
+  const id=document.getElementById("loginUser").value;
+  if(id==="guest")return loginGuest();
+  const u=state.users.find(x=>x.id===id);
+  const pin=document.getElementById("loginPin").value.trim();
+  if(!u)return popup("No encontré ese usuario","Revisa el perfil seleccionado o vuelve a cargar la aplicación.",assets.missing);
+  const hp=await hashPin(pin);
+  if(hp!==u.pinHash)return popup("PIN incorrecto","El PIN no coincide con el usuario seleccionado.",assets.missing);
+  state.user={...u,gameAlias:u.name};
+  state.view="dashboard";
+  renderApp();
+  popup("Ingreso exitoso","Bienvenido al Dream Team de Calidad y Mejoramiento Continuo.",assets.fun)
+}
+
+function logout(){state.user=null;state.view="dashboard";state.selectedTicket=null;state.selectedTicketId=null;setupLogin()}
+function toggleMenu(){document.getElementById("sidebar")?.classList.toggle("open")}
+async function refreshData(){const current=state.view;const selected=state.selectedTicketId;state.users=await listRecords(tables.users);state.tickets=await listRecords(tables.tickets);state.aiMemories=await listRecords(tables.ai);state.scores=await listRecords(tables.scores);if(selected){state.selectedTicketId=selected;state.selectedTicket=state.tickets.find(t=>t.id===selected)||null;if(state.selectedTicket)state.view="detail";else state.view=current}else state.view=current;renderApp();toast("Información actualizada")}
+
+function navButton(view,icon,label){return `<button class="${state.view===view?'active':''}" onclick="setView('${view}')"><span class="icon">${icon}</span><span>${label}</span></button>`}
+function navHtml(){if(!isInternal())return `${navButton('create','➕','Radicar / consultar')}${navButton('ai','🤖','IA Calidad')}${navButton('game','🎮','Juegos IA')}`;return `${navButton('dashboard','📊','Panel')}${navButton('tickets','🎫','Solicitudes')}${navButton('create','➕','Nueva solicitud')}${navButton('kpis','📈','KPIs')}${navButton('team','👥','Equipo')}${navButton('ai','🤖','IA Calidad')}${navButton('game','🎮','Juegos IA')}`}
+function pageTitle(){return {dashboard:"Centro de control",tickets:"Solicitudes trazables",detail:"Solicitud trazable",create:"Nueva solicitud",kpis:"KPIs y productividad",team:"Equipo Dream Team",ai:"IA de Calidad",game:"Juegos IA de calidad"}[state.view]||"Mesa de ayuda"}
+function pageSub(){return {dashboard:"Productividad, carga, tiempos y radar general del proceso.",tickets:"Revisa el origen, responsable, estado y trazabilidad de cada caso.",detail:"Consulta puntual con línea de tiempo, adjuntos, chat y cierre.",create:"Radica solicitudes y deja claro de dónde viene, para quién va y qué se espera.",kpis:"Indicadores para medir lo que más le piden al área y cuánto tarda en responder.",team:"Usuarios internos, roles y permisos del Dream Team.",ai:"Chatbot entrenable para apoyar solicitudes, respuestas y aprendizaje.",game:"Tres modos de juego para reforzar criterio, rapidez y comparación."}[state.view]||""}
+function setView(v){if(!isInternal()&&!['create','ai','game'].includes(v))v='create';state.view=v;if(v!=='detail'){state.selectedTicketId=null;state.selectedTicket=null}renderApp()}
+
+function renderApp(){
+  const app=document.getElementById("app");
+  app.innerHTML=`<div class="app-shell"><aside class="sidebar" id="sidebar"><div class="brand"><img src="${assets.logo}" alt="Dream Team de Calidad"><small>Mesa de ayuda de calidad y mejoramiento continuo.</small></div><div class="user-card"><img class="avatar" src="${state.user.avatar||assets.loginDance}" onerror="this.src='${assets.loginDance}'"><div><div class="user-name">${escapeHtml(state.user.name)}</div><div class="user-role">${escapeHtml(state.user.role)}</div><div class="user-status">${escapeHtml(state.user.statusText||'Disponible')}</div></div></div><nav class="nav">${navHtml()}</nav><div class="side-footer"><div class="mode-pill"><span class="dot ${modeOn()?"on":""}"></span>${modeLabel()}</div><button class="btn ghost small" onclick="logout()">Salir</button></div></aside><main class="main"><header class="topbar"><button class="mobile-menu" onclick="toggleMenu()">☰</button><div class="page-title"><h1>${pageTitle()}</h1><p>${pageSub()}</p></div><div class="top-actions"><button class="btn primary" onclick="setView('create')">Nueva solicitud</button><button class="btn ghost" onclick="refreshData()">Actualizar</button></div></header><div id="view"></div></main><button class="float-ai" onclick="setView('ai')">🤖 IA Calidad</button></div>`;
+  renderView();
+  setTimeout(()=>gsap.from("#view .card, #view .metric, #view .lane",{opacity:0,y:18,duration:.38,stagger:.03,ease:"power2.out"}),0)
+}
+
+function renderView(){
+  const el=document.getElementById("view");
+  if(state.view==="dashboard")el.innerHTML=dashboardHtml();
+  if(state.view==="tickets")el.innerHTML=ticketsHtml();
+  if(state.view==="detail")el.innerHTML=detailHtml(state.selectedTicket || state.tickets.find(t=>t.id===state.selectedTicketId));
+  if(state.view==="create")el.innerHTML=createHtml();
+  if(state.view==="kpis")el.innerHTML=kpisHtml();
+  if(state.view==="team")el.innerHTML=teamHtml();
+  if(state.view==="ai")el.innerHTML=aiHtml();
+  if(state.view==="game")el.innerHTML=gameHtml();
+  bindView()
+}
+
+function bindView(){
+  if(state.view==="dashboard"){
+    chartPair("chartStatus",countBy(state.tickets,"status"),"doughnut");
+    chartPair("chartAssignee",countBy(state.tickets,"assignedTo",userName),"bar");
+  }
+  if(state.view==="tickets"){
+    ["fQ","fStatus","fAssignee","fPriority"].forEach(id=>document.getElementById(id)?.addEventListener("input",e=>{const map={fQ:"q",fStatus:"status",fAssignee:"assignee",fPriority:"priority"};state.filters[map[id]]=e.target.value;renderView()}))
+  }
+  if(state.view==="create")document.getElementById("ticketForm")?.addEventListener("submit",submitTicket);
+  if(state.view==="kpis"){
+    chartPair("chartCategory",countBy(state.tickets,"category"),"bar");
+    chartPair("chartResponsible",countBy(state.tickets,"assignedTo",userName),"bar");
+    chartPair("chartKStatus",countBy(state.tickets,"status"),"doughnut");
+    chartPair("chartTime",avgTimeByResponsible(),"bar");
+  }
+  if(state.view==="detail"){const box=document.getElementById("chatBox");if(box)box.scrollTop=box.scrollHeight}
+  if(state.view==="game"){
+    document.querySelectorAll("[data-game]").forEach(btn=>btn.onclick=()=>{state.gameMode=btn.dataset.game;renderView()});
+    if(state.gameMode==="reaction")prepareReaction();
+  }
+}
+
+function dashboardHtml(){
+  const total=state.tickets.length;
+  const open=state.tickets.filter(t=>!["Resuelta","Cerrada"].includes(t.status)).length;
+  const waiting=state.tickets.filter(t=>["Enviada","Sin aceptar","Espera ampliada"].includes(t.status)).length;
+  const ready=state.tickets.filter(t=>t.status==="Resuelta").length;
+  return `<div class="grid cols-4"><div class="card metric"><div class="label">Solicitudes totales</div><div class="value">${total}</div><div class="hint">Histórico cargado</div></div><div class="card metric"><div class="label">Abiertas</div><div class="value">${open}</div><div class="hint">Aún en gestión</div></div><div class="card metric"><div class="label">En espera</div><div class="value">${waiting}</div><div class="hint">Pendientes o ampliadas</div></div><div class="card metric"><div class="label">Resueltas</div><div class="value">${ready}</div><div class="hint">Listas para validar o cerrar</div></div></div><div class="grid cols-2" style="margin-top:18px"><div class="card"><div class="section-title"><h2>Distribución por estado</h2><span>lectura rápida</span></div><canvas id="chartStatus" height="220"></canvas></div><div class="card"><div class="section-title"><h2>Solicitudes por responsable</h2><span>carga operativa</span></div><canvas id="chartAssignee" height="220"></canvas></div></div><div class="card" style="margin-top:18px"><div class="section-title"><h2>Kanban operativo</h2><span>${state.tickets.length} solicitudes</span></div><div class="kanban">${statusFlow.map(st=>`<div class="lane"><h3>${escapeHtml(st)}</h3>${state.tickets.filter(t=>t.status===st).slice(0,6).map(t=>`<div class="mini-ticket" onclick="openTicket('${t.id}')"><strong>${escapeHtml(t.code)} · ${escapeHtml(t.title)}</strong><p>${escapeHtml(t.requesterArea||'Sin área')} · ${escapeHtml(userName(t.assignedTo))}</p></div>`).join("")||`<div class="empty">Sin solicitudes</div>`}</div>`).join("")}</div></div>`
+}
+
+function filteredTickets(){
+  return state.tickets.filter(t=>{
+    const q=state.filters.q.trim().toLowerCase();
+    const matchQ=!q || [t.code,t.title,t.description,t.requesterName,t.requesterArea,userName(t.assignedTo)].join(" ").toLowerCase().includes(q);
+    const matchStatus=state.filters.status==="Todos" || t.status===state.filters.status;
+    const matchAssignee=state.filters.assignee==="Todos" || t.assignedTo===state.filters.assignee;
+    const matchPriority=state.filters.priority==="Todos" || t.priority===state.filters.priority;
+    return matchQ && matchStatus && matchAssignee && matchPriority;
+  })
+}
+
+function ticketsHtml(){
+  const rows=filteredTickets();
+  return `<div class="card"><div class="filters"><input id="fQ" placeholder="Buscar por código, solicitante, responsable o tema" value="${escapeHtml(state.filters.q)}"><select id="fStatus"><option>Todos</option>${statusFlow.map(x=>`<option ${state.filters.status===x?"selected":""}>${x}</option>`).join("")}</select><select id="fAssignee"><option>Todos</option>${state.users.map(u=>`<option value="${u.id}" ${state.filters.assignee===u.id?"selected":""}>${escapeHtml(u.name)}</option>`).join("")}</select><select id="fPriority"><option>Todos</option>${priorities.map(x=>`<option ${state.filters.priority===x?"selected":""}>${x}</option>`).join("")}</select></div><div class="section-title"><h2>Listado de solicitudes</h2><span>${rows.length} coincidencias</span></div>${rows.length?`<div class="table-wrap"><table><thead><tr><th>Código</th><th>Solicitud</th><th>Estado</th><th>Responsable</th><th>Prioridad</th><th>Actualizado</th></tr></thead><tbody>${rows.map(t=>`<tr class="clickable-row" onclick="openTicket('${t.id}')"><td><strong>${escapeHtml(t.code)}</strong><br><span style="color:#7c8aa0">${escapeHtml(t.requesterName||'')}</span></td><td>${escapeHtml(t.title)}<br><span style="color:#7c8aa0">${escapeHtml(t.requesterArea||'')}</span></td><td>${statusTag(t.status)}</td><td>${escapeHtml(userName(t.assignedTo))}</td><td>${priorityTag(t.priority)}</td><td>${fmt(t.updated_at)}</td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">No hay coincidencias con los filtros aplicados.</div>`}</div>`
+}
+
+function createHtml(){
+  return `<div class="grid cols-2"><div class="card"><div class="section-title"><h2>Radicar solicitud</h2><span>origen + responsable + trazabilidad + adjuntos</span></div><form class="form" id="ticketForm"><div class="grid cols-2"><div class="field"><label>Nombre del solicitante</label><input name="requesterName" required value="${state.user.role==='Solicitante'?'':escapeHtml(state.user.name)}"></div><div class="field"><label>Correo</label><input name="requesterEmail" type="email" placeholder="correo@empresa.com"></div></div><div class="grid cols-2"><div class="field"><label>Área / proceso de origen</label><input name="requesterArea" required placeholder="Ej. Logística, cartera, ventas, producción"></div><div class="field"><label>Responsable</label><select name="assignedTo" required>${responders().map(u=>`<option value="${u.id}">${escapeHtml(u.name)} · ${escapeHtml(u.role)}</option>`).join("")}</select></div></div><div class="grid cols-3"><div class="field"><label>Categoría</label><select name="category">${categories.map(c=>`<option>${c}</option>`).join("")}</select></div><div class="field"><label>Prioridad</label><select name="priority">${priorities.map(p=>`<option ${p==='Media'?'selected':''}>${p}</option>`).join("")}</select></div><div class="field"><label>Modalidad</label><select name="modality"><option>Documental</option><option>Presencial</option><option>Mixta</option></select></div></div><div class="field"><label>Asunto</label><input name="title" required placeholder="Describe el tema en una línea"></div><div class="field"><label>Descripción completa</label><textarea name="description" required placeholder="Qué necesitas, por qué se solicita, evidencia disponible y resultado esperado"></textarea></div><div class="grid cols-2"><div class="field"><label>Enlace o evidencia opcional</label><input name="evidence" placeholder="Drive, PDF, imagen, acta, formato, captura"></div><div class="field"><label>Adjuntar documentos</label><input id="ticketAttachments" type="file" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.png,.jpg,.jpeg,.webp,.txt"></div></div><button class="btn primary pulse" type="submit">Enviar solicitud</button></form></div><div style="display:grid;gap:18px"><div class="card"><div class="section-title"><h2>Asistente IA para radicar</h2><span>${AI_ENGINE_VERSION}</span></div><div class="form"><div class="field"><label>Describe la necesidad en lenguaje normal</label><textarea id="draftIdea" placeholder="Ej. Necesito que calidad me ayude a actualizar el procedimiento de entrega porque auditoría pidió evidencia y no sé cómo radicarlo"></textarea></div><button class="btn gold" type="button" onclick="generateTicketDraft()">Crear borrador con IA</button><div class="empty">La IA analiza intención, prioridad, modalidad y responsable. Luego completa el formulario y te ayuda a redactar corto, claro y útil.</div></div></div><div class="card"><div class="section-title"><h2>Consulta rápida</h2><span>para usuario general</span></div><div class="form"><div class="field"><label>Código de solicitud</label><input id="lookupCode" placeholder="DT-0001"></div><button class="btn ghost" onclick="lookupTicket()">Buscar solicitud</button><div class="empty">Si existe el radicado, verás solo esa solicitud con su trazabilidad, adjuntos, tiempos y mensajes.</div></div></div></div></div>`
+}
+
+async function submitTicket(e){
+  e.preventDefault();
+  const fd=new FormData(e.target);
+  const attachments=await filesToAttachments(document.getElementById('ticketAttachments')?.files);
+  const ticket={
+    id:uid('ticket'),
+    code:'DT-'+String(maxTicketCode()+1).padStart(4,'0'),
+    requesterName:fd.get('requesterName'),
+    requesterEmail:fd.get('requesterEmail'),
+    requesterArea:fd.get('requesterArea'),
+    assignedTo:fd.get('assignedTo'),
+    category:fd.get('category'),
+    priority:fd.get('priority'),
+    modality:fd.get('modality'),
+    title:fd.get('title'),
+    description:fd.get('description'),
+    evidence:fd.get('evidence'),
+    attachments:(attachments||[]).map(a=>({...a,ticketId:'',scope:'general'})),
+    resolutionFiles:[],
+    status:'Enviada',
+    createdBy:state.user.id,
+    acceptedAt:null,
+    finishedAt:null,
+    extendedReason:'',
+    chat:[{by:state.user.name,text:'Solicitud radicada.',at:now()}],
+    timeline:[{label:'Radicación',text:'Solicitud enviada al responsable.',at:now()}],
+    created_at:now(),updated_at:now()
+  };
+  ticket.attachments=ticket.attachments.map(a=>({...a,ticketId:ticket.id,scope:'general'}));
+  await saveRecord(tables.tickets,ticket);
+  state.tickets=await listRecords(tables.tickets);
+  playSound(sounds.created);
+  popup('Solicitud enviada',`Tu código es ${ticket.code}. Guárdalo para consultar el estado. Ya está en la bandeja de ${userName(ticket.assignedTo)}.`,randomSentGif());
+  if(window.confetti)confetti({particleCount:90,spread:70,origin:{y:.76}});
+  e.target.reset();
+  state.selectedTicketId=ticket.id;state.selectedTicket=ticket;state.view='detail';renderApp()
+}
+
+function lookupTicket(){
+  const q=(document.getElementById('lookupCode')?.value||'').trim().toLowerCase();
+  const t=state.tickets.find(x=>(x.code||'').toLowerCase()===q || x.id.toLowerCase()===q);
+  if(!t)return popup('No lo encontré','Ese código no coincide. Revisa si escribiste completo el consecutivo, por ejemplo DT-0001.',assets.missing);
+  openTicket(t.id,true)
+}
+
+function openTicket(id,fromLookup=false){
+  const t=state.tickets.find(x=>x.id===id);
+  if(!t)return popup('No encontré la solicitud','La información no coincide con ningún ticket activo.',assets.missing);
+  state.selectedTicketId=id;state.selectedTicket=t;state.view='detail';renderApp();
+  const fresh=state.tickets.find(x=>x.id===id)||t;state.selectedTicket=fresh;
+  if(fromLookup||state.user?.role==='Solicitante'){
+    const waiting=['Enviada','Sin aceptar','Espera ampliada'];
+    if((!fresh.acceptedAt) && ['Enviada','Sin aceptar'].includes(fresh.status) && ageHours(fresh)>=3){playSound(sounds.waiting);popup('Tu solicitud sigue pendiente de aceptación',`El radicado ${fresh.code} lleva más de 3 horas sin ser aceptado. Ya puedes escalar o insistir con evidencia adicional.`,assets.sad)}
+    else if(waiting.includes(fresh.status)){playSound(sounds.waiting);popup('Tu solicitud sigue en espera',`El radicado ${fresh.code} todavía está en gestión. Revisa el comentario más reciente y el responsable asignado.`,fresh.status==='Espera ampliada'?assets.extend:assets.working)}
+    else if(fresh.modality==='Documental'&&fresh.status==='En proceso'){popup('Documento en proceso','Esta solicitud no requiere presencialidad inmediata. El responsable está elaborando o revisando el entregable.',assets.document)}
+    else if(['Resuelta','Cerrada'].includes(fresh.status)){playSound(sounds.ready);popup('¡Listo! Ya está tu solicitud',`El radicado ${fresh.code} ya tiene resultado. Revisa el cierre, los adjuntos y la evidencia cargada.`,assets.done)}
+    else popup('Solicitud encontrada',`Abrimos el detalle completo del radicado ${fresh.code}.`,assets.fun)
+  }
+}
+
+function ticketActions(t){
+  const backView=isInternal()?'tickets':'create';
+  let actions=`<button class="btn ghost" onclick="setView('${backView}')">Volver</button>`;
+  if(isInternal() && t.assignedTo===state.user.id && ['Enviada','Sin aceptar'].includes(t.status))actions+=`<button class="btn ok" onclick="acceptTicket('${t.id}')">Aceptar</button>`;
+  if(isInternal() && t.assignedTo===state.user.id && ['En proceso','Espera ampliada'].includes(t.status))actions+=`<button class="btn gold" onclick="extendTicket('${t.id}')">Ampliar espera</button><button class="btn ok" onclick="resolveTicket('${t.id}')">Resolver</button>`;
+  if((hasLead() || t.createdBy===state.user.id) && t.status==='Resuelta')actions+=`<button class="btn primary" onclick="closeTicket('${t.id}')">Cerrar y notificar</button>`;
+  return actions
+}
+
+function detailHtml(t){
+  if(!t)return `<div class="empty">No encontré la solicitud seleccionada.</div>`;
+  return `<div class="ticket-view"><div class="card"><div class="section-title"><h2>${escapeHtml(t.code)} · ${escapeHtml(t.title)}</h2><span>${fmt(t.created_at)}</span></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">${statusTag(t.status)}${priorityTag(t.priority)}<span class="tag blue">${escapeHtml(t.category)}</span><span class="tag gray">${escapeHtml(t.modality)}</span></div><p style="line-height:1.6;color:#46556b">${escapeHtml(t.description)}</p><div class="grid cols-2"><div class="field"><label>Origen</label><input value="${escapeHtml(t.requesterArea||'')}" disabled></div><div class="field"><label>Solicitante</label><input value="${escapeHtml(t.requesterName||'')}" disabled></div><div class="field"><label>Responsable</label><input value="${escapeHtml(userName(t.assignedTo)||'')}" disabled></div><div class="field"><label>Evidencia</label><input value="${escapeHtml(t.evidence||'Sin enlace')}" disabled></div></div>${attachmentsHtml(t.attachments||[],'Adjuntos de la solicitud')}${(['Resuelta','Cerrada'].includes(t.status)?attachmentsHtml(t.resolutionFiles||[],'Adjuntos de la respuesta'):'')}<div class="section-title" style="margin-top:18px"><h2>Línea de tiempo</h2><span>${t.timeline?.length||0} eventos</span></div><div class="timeline">${(t.timeline||[]).map((s,i)=>`<div class="step"><div class="step-dot">${i+1}</div><div><strong>${escapeHtml(s.label)}</strong><p>${escapeHtml(s.text)} · ${fmt(s.at)}</p></div></div>`).join('')}</div><div class="top-actions" style="margin-top:18px">${ticketActions(t)}</div></div><div class="card"><div class="section-title"><h2>${state.user?.role==='Solicitante'?'Seguimiento de la solicitud':'Chat de la solicitud'}</h2><span>${state.user?.role==='Solicitante'?'trazabilidad visible':'conversación interna'}</span></div><div class="chat-box" id="chatBox">${(t.chat||[]).map(m=>`<div class="msg ${m.by===state.user.name?'me':''}">${escapeHtml(m.text)}<small>${escapeHtml(m.by)} · ${fmt(m.at)}</small></div>`).join('')}</div>${state.user?.role!=='Solicitante'?`<div class="form" style="margin-top:12px"><div class="field"><label>Mensaje</label><textarea id="chatMsg" placeholder="Escribe una actualización, evidencia o pregunta"></textarea></div><button class="btn primary" onclick="sendChat('${t.id}')">Enviar mensaje</button></div>`:''}</div></div>`
+}
+
+async function sendChat(id){
+  const msg=document.getElementById('chatMsg')?.value.trim();
+  if(!msg)return popup('Falta el mensaje','Escribe una actualización o comentario antes de enviar.',assets.missing);
+  const t=state.tickets.find(x=>x.id===id);if(!t)return;
+  t.chat=t.chat||[];t.chat.push({by:state.user.name,text:msg,at:now()});
+  await saveRecord(tables.tickets,t);state.tickets=await listRecords(tables.tickets);state.selectedTicket=state.tickets.find(x=>x.id===id);renderView();toast('Mensaje enviado')
+}
+
+async function updateTicket(ticket,label,text,newStatus){
+  ticket.status=newStatus;ticket.updated_at=now();ticket.timeline=ticket.timeline||[];ticket.timeline.push({label,text,at:now()});
+  await saveRecord(tables.tickets,ticket);state.tickets=await listRecords(tables.tickets);state.selectedTicket=state.tickets.find(x=>x.id===ticket.id);renderView()
+}
+async function acceptTicket(id){const t=state.tickets.find(x=>x.id===id);if(!t)return;t.acceptedAt=now();t.chat=t.chat||[];t.chat.push({by:state.user.name,text:'Solicitud aceptada para gestión.',at:now()});await updateTicket(t,'Aceptación','El responsable aceptó la solicitud y la pasó a gestión.','En proceso');toast('Solicitud aceptada')}
+async function extendTicket(id){const t=state.tickets.find(x=>x.id===id);if(!t)return;const {value:reason}=await Swal.fire({title:'Ampliar espera',input:'textarea',inputLabel:'Motivo de la ampliación',inputPlaceholder:'Explica por qué se amplía la espera y qué sigue.',showCancelButton:true,confirmButtonText:'Guardar ampliación',confirmButtonColor:'#0d5bd2'});if(!reason)return;t.extendedReason=reason;t.chat=t.chat||[];t.chat.push({by:state.user.name,text:'Se amplía la espera: '+reason,at:now()});await updateTicket(t,'Espera ampliada',reason,'Espera ampliada');toast('Espera ampliada')}
+async function resolveTicket(id){const t=state.tickets.find(x=>x.id===id);if(!t)return;const result=await Swal.fire({title:'Resolver solicitud',html:'<div class="field" style="text-align:left"><label>Comentario de cierre</label><textarea id="swal-close-comment" class="swal2-textarea" placeholder="Describe lo que se realizó y lo que entregas"></textarea></div><div class="field" style="text-align:left"><label>Adjuntar respuesta / evidencia</label><input id="swal-close-files" type="file" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.png,.jpg,.jpeg,.webp,.txt"></div>',showCancelButton:true,confirmButtonText:'Marcar resuelta',confirmButtonColor:'#0d5bd2',preConfirm:async()=>({comment:document.getElementById('swal-close-comment').value,files:await filesToAttachments(document.getElementById('swal-close-files').files)})});if(!result.value)return;t.finishedAt=now();t.resolutionFiles=[...(t.resolutionFiles||[]),...(result.value.files||[]).map(a=>({...a,ticketId:t.id,scope:'resolution'}))];t.chat=t.chat||[];t.chat.push({by:state.user.name,text:result.value.comment||'Solicitud resuelta. Queda lista para validación y cierre.',at:now()});await updateTicket(t,'Resolución',result.value.comment||'Responsable marcó la solicitud como resuelta.','Resuelta');await autoLearn('cierre '+t.category,`Caso resuelto: ${t.title}. Aprendizaje: ${t.description}`);toast('Solicitud resuelta')}
+async function closeTicket(id){const t=state.tickets.find(x=>x.id===id);if(!t)return;t.finishedAt=t.finishedAt||now();t.chat=t.chat||[];t.chat.push({by:state.user.name,text:'Solicitud cerrada y notificada al solicitante.',at:now()});await updateTicket(t,'Cierre','Solicitud cerrada y notificada.','Cerrada');playSound(sounds.ready);popup('¡Listo, esto ya quedó fino!','La solicitud fue cerrada. El Dream Team hizo de las suyas: trazabilidad completa, evidencia y cierre con estilo.',assets.done);if(window.confetti)confetti({particleCount:140,spread:85,origin:{y:.75}})}
+
+function countBy(list,key,mapper){const out={};for(const item of list){const raw=mapper?mapper(item[key]):item[key];const k=raw||'Sin dato';out[k]=(out[k]||0)+1}return out}
+function avgTimeByResponsible(){const grouped={};for(const t of state.tickets){const key=userName(t.assignedTo);grouped[key]=grouped[key]||{sum:0,count:0};if(t.acceptedAt&&t.finishedAt){grouped[key].sum+=hoursBetween(t.acceptedAt,t.finishedAt);grouped[key].count++}}
+return Object.fromEntries(Object.entries(grouped).map(([k,v])=>[k,Number((v.count?v.sum/v.count:0).toFixed(1))]))}
+function chartPair(id,data,type){const ctx=document.getElementById(id);if(!ctx)return;if(state.charts[id])state.charts[id].destroy();state.charts[id]=new Chart(ctx,{type,data:{labels:Object.keys(data),datasets:[{data:Object.values(data)}]},options:{plugins:{legend:{display:type==='doughnut'}},responsive:true,maintainAspectRatio:false}})}
+
+function kpisHtml(){return `<div class="grid cols-2"><div class="card"><div class="section-title"><h2>Solicitudes por categoría</h2><span>demanda</span></div><canvas id="chartCategory" height="230"></canvas></div><div class="card"><div class="section-title"><h2>Solicitudes por responsable</h2><span>carga</span></div><canvas id="chartResponsible" height="230"></canvas></div><div class="card"><div class="section-title"><h2>Distribución por estado</h2><span>flujo</span></div><canvas id="chartKStatus" height="230"></canvas></div><div class="card"><div class="section-title"><h2>Promedio de horas por responsable</h2><span>solo casos cerrados</span></div><canvas id="chartTime" height="230"></canvas></div></div>`}
+function teamHtml(){return `<div class="profile-grid">${state.users.map(u=>`<div class="profile-card"><img src="${u.avatar||assets.fun}" onerror="this.src='${assets.fun}'"><div><strong>${escapeHtml(u.name)}</strong><div class="tag blue" style="margin-top:8px">${escapeHtml(u.role)}</div><p>${escapeHtml(u.statusText||'Sin observación')}</p></div></div>`).join('')}</div>`}
+
+function normalizeTextAI(text){return String(text||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()}
+function tokensAI(text){return normalizeTextAI(text).split(/[^a-z0-9]+/).filter(Boolean)}
+function overlapScore(a,b){const A=new Set(tokensAI(a));const B=new Set(tokensAI(b));if(!A.size||!B.size)return 0;let i=0;A.forEach(x=>{if(B.has(x))i++});return i/Math.max(A.size,B.size)}
+function keywordScore(q,keywords){if(!keywords?.length)return 0;const clean=normalizeTextAI(q);return keywords.reduce((acc,k)=>acc+(clean.includes(normalizeTextAI(k))?1:0),0)/keywords.length}
+function inferIntent(q){const clean=normalizeTextAI(q);const rules=[{intent:"radicacion",rx:/crear|radicar|ticket|solicitud|redactar|registrar/},{intent:"consulta",rx:/radicado|codigo|estado|buscar|solicitud dt/},{intent:"prioridad",rx:/urgente|critica|critica|prioridad/},{intent:"tiempos",rx:/espera|tiempo|demora|plazo/},{intent:"redaccion",rx:/mejorar texto|resumir|mas claro|menos largo|redactar/}];return (rules.find(r=>r.rx.test(clean))||{intent:"general"}).intent}
+function rankKnowledge(q){const intent=inferIntent(q);const memoryRows=state.aiMemories.map(m=>({id:m.id,intent:m.intent||'general',keywords:String(m.key||'').split(/[,;]+/),answer:m.answer||'',source:'Memoria'}));const all=[...aiKnowledge.map(k=>({...k,source:'Base'})),...(state.advancedKnowledge||[]),...memoryRows];return all.map(k=>{const s1=keywordScore(q,k.keywords||[]);const s2=overlapScore(q,(k.keywords||[]).join(' ')+' '+(k.answer||''));const s3=(k.intent===intent?1:0);return {...k,score:.48*s1+.32*s2+.20*s3}}).sort((a,b)=>b.score-a.score)}
+function findTicketAI(q){const clean=normalizeTextAI(q);const code=(clean.match(/dt-?\s*\d{1,6}/)||[])[0];if(code){const compact=code.replace(/\s+/g,'').toUpperCase().replace('DT','DT-');const t=state.tickets.find(x=>normalizeTextAI(x.code)===normalizeTextAI(compact)||normalizeTextAI(x.code).replace('-','')===normalizeTextAI(compact).replace('-',''));if(t)return t}return null}
+function suggestAssignee(category,priority){const jefe=state.users.find(u=>u.role==='Jefe general');const audit=state.users.find(u=>u.role.includes('auditoría')||u.role.includes('auditoria'));const analysts=state.users.filter(u=>u.role==='Analista de calidad');if(priority==='Crítica'&&jefe)return jefe.id;if(['Auditoría','Riesgo/Hallazgo'].includes(category)&&audit)return audit.id;return (analysts[0]||jefe||audit||state.users[0]||{}).id||''}
+function makeTitleFromText(text,category){const clean=String(text||'').replace(/\s+/g,' ').trim();let first=clean.split(/[\.\n]/)[0].slice(0,86);if(first.length<12)first=`Solicitud de ${category.toLowerCase()}`;return first.charAt(0).toUpperCase()+first.slice(1)}
+function draftTicketFromText(text){const clean=normalizeTextAI(text);const category=/auditoria|hallazgo|no conformidad/.test(clean)?'Auditoría':/indicador|kpi|dashboard|grafica|medir/.test(clean)?'Indicador/KPI':/capacitacion|induccion|entrenamiento/.test(clean)?'Capacitación':/riesgo|control/.test(clean)?'Riesgo/Hallazgo':/documento|formato|pdf|acta|matriz/.test(clean)?'Documento':/procedimiento|proceso|flujo|manual/.test(clean)?'Procedimiento':/mejora|optimizar/.test(clean)?'Mejora continua':'Consulta general';const priority=/urgente|critica|auditoria|vencido|bloquea|gerencia/.test(clean)?'Alta':/simple|consulta|cuando puedan|baja/.test(clean)?'Baja':'Media';const modality=/visita|presencial|campo|reunion|acompanamiento/.test(clean)?'Presencial':/documento|formato|pdf|acta|matriz|procedimiento/.test(clean)?'Documental':'Mixta';const title=makeTitleFromText(text,category);const description=`Necesidad identificada: ${text.trim()}\n\nResultado esperado: recibir orientación, ajuste, revisión o soporte del área de Calidad y Mejora Continua según el alcance de la solicitud.\n\nInformación mínima sugerida: proceso afectado, evidencia disponible, plazo esperado, impacto y persona de contacto.\n\nCriterio de cierre: dejar evidencia del análisis realizado, respuesta entregada y validación del solicitante.`;return {category,priority,modality,title,description,assignedTo:suggestAssignee(category,priority)}}
+function composeAI(q){const ticket=findTicketAI(q);if(ticket)return {answer:`Encontré una solicitud relacionada: ${ticket.code} · ${ticket.title}.\n\nEstado actual: ${ticket.status}.\nResponsable: ${userName(ticket.assignedTo)}.\nÚltima actualización: ${fmt(ticket.updated_at)}.`,learn:false};if(/crear|radicar|ticket|solicitud|redactar/i.test(normalizeTextAI(q))){const d=draftTicketFromText(q);return {answer:`Te dejo un borrador listo para radicar:\n\nAsunto: ${d.title}\nCategoría: ${d.category}\nPrioridad: ${d.priority}\nModalidad: ${d.modality}\nResponsable sugerido: ${userName(d.assignedTo)}\n\nDescripción sugerida:\n${d.description}`,learn:true}}const ranked=rankKnowledge(q);const top=ranked[0];if(top&&top.score>.18){return {answer:`${top.answer}\n\nLectura IA: intención detectada ${inferIntent(q)}; fuente ${top.source||'Base'}.`,learn:top.score<.42}}const d=draftTicketFromText(q);return {answer:`No tengo una coincidencia exacta todavía, pero puedo ayudarte a aterrizarlo.\n\nAsunto: ${d.title}\nCategoría probable: ${d.category}\nPrioridad probable: ${d.priority}\nModalidad probable: ${d.modality}\nResponsable sugerido: ${userName(d.assignedTo)}\n\nPara responder mejor necesito: proceso de origen, evidencia disponible, plazo esperado e impacto de no atenderlo.`,learn:true}}
+
+function aiHtml(){return `<div class="ai-layout"><div class="card"><div class="section-title"><h2>Chatbot de Calidad</h2><span>${AI_ENGINE_VERSION} · ${state.aiMemories.length} memorias · ${state.advancedKnowledge.length} semillas N1</span></div><div class="ai-chat" id="aiChat">${state.aiHistory.map(m=>`<div class="${m.me?'human':'bot'}">${escapeHtml(m.text)}</div>`).join('')||`<div class="bot">Hola. Soy la IA del Dream Team de Calidad. Puedo ayudarte a crear solicitudes, consultar radicados, redactar respuestas, clasificar prioridades, explicar KPIs, ordenar procedimientos y aprender de documentos.</div>`}</div><div class="form" style="margin-top:12px"><div class="field"><label>Mensaje</label><input id="aiPrompt" placeholder="Ej. ayúdame a crear una solicitud para actualizar un procedimiento"></div><button class="btn primary" onclick="askAI()">Conversar</button></div></div><div class="card"><div class="section-title"><h2>Entrenar IA</h2><span>memoria + documentos + tickets + juegos</span></div><div class="form"><div class="field"><label>Subir documento</label><input id="knowledgeFile" type="file" accept=".pdf,.txt,.csv,.md,.json,.doc,.docx"></div><button class="btn ghost" onclick="learnFromFile()">Leer y aprender</button><div class="field"><label>Pregunta o palabra clave</label><input id="learnKey" placeholder="Ej. remanente, auditoría, procedimiento"></div><div class="field"><label>Respuesta esperada</label><textarea id="learnAnswer" placeholder="Escribe cómo debe responder el bot"></textarea></div><button class="btn gold" onclick="manualLearn()">Guardar memoria</button><div class="empty">Motor híbrido: intención + similitud + memoria interna + tickets + semillas del paquete mesa_ayuda_ia_nivel1_full. Responde más claro y evita textos innecesariamente largos.</div></div></div></div>`}
+async function askAI(){const input=document.getElementById('aiPrompt');const q=input.value.trim();if(!q)return;state.aiHistory.push({me:true,text:q});const result=composeAI(q);state.aiHistory.push({me:false,text:result.answer});if(result.learn&&q.length>20)await autoLearn('interaccion',`Pregunta frecuente: ${q}. Respuesta útil: ${result.answer.slice(0,900)}`);input.value='';renderView();const chat=document.getElementById('aiChat');setTimeout(()=>chat.scrollTop=chat.scrollHeight,40)}
+function generateTicketDraft(){const idea=document.getElementById('draftIdea')?.value.trim();if(!idea)return popup('Falta la idea','Escribe la necesidad en lenguaje normal para que la IA arme el borrador.',assets.missing);const d=draftTicketFromText(idea);const form=document.getElementById('ticketForm');if(!form)return;form.elements['category'].value=d.category;form.elements['priority'].value=d.priority;form.elements['modality'].value=d.modality;if(d.assignedTo)form.elements['assignedTo'].value=d.assignedTo;form.elements['title'].value=d.title;form.elements['description'].value=d.description;popup('Borrador creado','La IA completó asunto, categoría, prioridad, modalidad, descripción y responsable sugerido. Revisa los datos y envía la solicitud.',assets.sent[0]);autoLearn('borrador solicitud',`Idea convertida en solicitud. Asunto: ${d.title}. Categoría: ${d.category}. Prioridad: ${d.priority}.`)}
+async function autoLearn(key,answer){const item={id:uid('mem'),key,answer,intent:'memoria',createdBy:state.user?.name||'Sistema',created_at:now(),updated_at:now(),active:true};await saveRecord(tables.ai,item);state.aiMemories=await listRecords(tables.ai)}
+async function manualLearn(){const key=document.getElementById('learnKey').value.trim();const answer=document.getElementById('learnAnswer').value.trim();if(!key||!answer)return popup('Falta información','Agrega una palabra clave y la respuesta esperada para entrenar la IA.',assets.missing);await autoLearn(key,answer);document.getElementById('learnKey').value='';document.getElementById('learnAnswer').value='';toast('Memoria guardada');renderView()}
+async function readPdf(file){if(!window.pdfjsLib)return '';const buf=await file.arrayBuffer();const pdf=await window.pdfjsLib.getDocument({data:new Uint8Array(buf)}).promise;let out='';for(let i=1;i<=pdf.numPages;i++){const page=await pdf.getPage(i);const content=await page.getTextContent();out+=content.items.map(it=>it.str).join(' ')+'\n'}return out}
+async function learnFromFile(){const file=document.getElementById('knowledgeFile').files[0];if(!file)return popup('No hay archivo','Selecciona un PDF, TXT, CSV, JSON o Markdown para alimentar la base de conocimiento.',assets.missing);let text='';if(file.type==='application/pdf'||file.name.toLowerCase().endsWith('.pdf'))text=await readPdf(file);else text=await file.text();const compact=text.replace(/\s+/g,' ').trim().slice(0,4200);if(!compact)return popup('Archivo sin texto','No pude extraer texto útil del documento.',assets.missing);await autoLearn(file.name,`Aprendizaje desde documento ${file.name}: ${compact}`);popup('Documento leído','La IA incorporó el contenido del archivo a su base de respuestas internas.',assets.document);renderView()}
+
+function gameHtml(){const sc=gameScenarios[Math.floor(Math.random()*gameScenarios.length)];state.currentScenario=sc;const rank=[...state.scores].sort((a,b)=>(b.points||0)-(a.points||0)).slice(0,10);const alias=(state.user?.gameAlias||state.user?.name||'');let body='';if(state.gameMode==='quiz'){body=`<div class="game-stage"><div class="scenario"><h3>Caso operativo</h3><p>${escapeHtml(sc.q)}</p></div><div class="answers">${sc.options.map((o,i)=>`<button class="answer" onclick="answerGame(${i})">${escapeHtml(o)}</button>`).join('')}</div></div>`}else if(state.gameMode==='reaction'){body=`<div class="scenario"><h3>Reto de reacción</h3><p>Cuando el panel cambie a verde, tócala lo más rápido posible. Esto entrena rapidez para reconocer estados y alertas.</p></div><div id="reactionPad" class="reaction-pad">Espera la señal...</div><div class="mini-note">Toca el panel solo cuando cambie a verde.</div>`}else{body=`<div class="scenario"><h3>Comparación de criterio</h3><p>Elige cuál solicitud debe tener mayor prioridad y está mejor formulada.</p></div><div class="compare-grid"><div class="compare-card"><strong>Solicitud A</strong><p>Actualizar procedimiento con hallazgo de auditoría, evidencia adjunta y plazo de cierre de 2 días.</p><button class="btn primary small" onclick="answerCompare('A')">Elegir A</button></div><div class="compare-card"><strong>Solicitud B</strong><p>Me gustaría revisar un formato cuando se pueda, sin evidencia ni fecha.</p><button class="btn primary small" onclick="answerCompare('B')">Elegir B</button></div></div>`}return `<div class="grid cols-2"><div class="card"><div class="section-title"><h2>Juegos de calidad e IA</h2><span>entrena criterio, reflejos y comparación</span></div><div class="field"><label>Nombre para ranking</label><input id="gameAlias" value="${escapeHtml(alias)}" placeholder="Escribe tu nombre para el ranking"></div><div class="game-tabs"><button data-game="quiz" class="${state.gameMode==='quiz'?'active':''}">Quiz</button><button data-game="reaction" class="${state.gameMode==='reaction'?'active':''}">Reacción</button><button data-game="compare" class="${state.gameMode==='compare'?'active':''}">Comparación</button></div>${body}</div><div class="card"><div class="section-title"><h2>Ranking</h2><span>marcos y elogios</span></div>${rank.length?`<div class="table-wrap"><table><thead><tr><th>Jugador</th><th>Puntos</th><th>Marco</th></tr></thead><tbody>${rank.map((r,i)=>`<tr><td>${escapeHtml(r.userName)}</td><td><strong>${r.points||0}</strong></td><td>${['🏆 Leyenda','🥇 Crack','🥈 Pro','🥉 Firme','⭐ En ascenso','✨ Activo'][Math.min(i,5)]}</td></tr>`).join('')}</tbody></table></div>`:`<div class="empty">Aún no hay partidas. Resuelve el primer reto y abre el ranking.</div>`}<div style="margin-top:14px" class="rank-chip">Cada partida útil refuerza memorias de la IA y mejora sugerencias futuras.</div></div></div>`}
+function saveGameAlias(){const input=document.getElementById('gameAlias');const name=(input?.value||'').trim();if(!name)return state.user?.name||'Invitado';state.user.gameAlias=name;return name}
+async function registerScore(points,context,learnText){const alias=saveGameAlias();const userId=(state.user?.id||'guest')+'_'+slug(alias||'jugador');let score=state.scores.find(s=>s.userId===userId);if(!score)score={id:uid('score'),userId,userName:alias||state.user?.name||'Invitado',points:0,created_at:now(),updated_at:now()};score.userName=alias||score.userName;score.points=(score.points||0)+points;score.updated_at=now();await saveRecord(tables.scores,score);state.scores=await listRecords(tables.scores);await autoLearn('juego calidad, '+context,learnText)}
+async function answerGame(ix){const sc=state.currentScenario;if(!sc)return;const ok=ix===sc.ok;await registerScore(ok?10:2,'Quiz de calidad',sc.learn);if(ok){popup('Respuesta potente','Sumaste 10 puntos. Este criterio quedó reforzado en la memoria de la IA.',assets.sent[1]);if(window.confetti)confetti({particleCount:90,spread:70,origin:{y:.75}})}else popup('Casi, pero no era la mejor ruta','Sumaste 2 puntos por participar. Revisa la trazabilidad: la mejor acción era: '+sc.options[sc.ok],assets.extend);renderView()}
+function prepareReaction(){const pad=document.getElementById('reactionPad');if(!pad)return;state.reactionCanClick=false;pad.classList.remove('go');pad.textContent='Espera la señal...';const delay=900+Math.random()*2200;setTimeout(()=>{const current=document.getElementById('reactionPad');if(!current)return;state.reactionCanClick=true;state.reactionStart=performance.now();current.classList.add('go');current.textContent='¡YA! TOCA AQUÍ';current.onclick=finishReaction},delay);pad.onclick=()=>{if(!state.reactionCanClick)popup('Te adelantaste','Todavía no era el momento. Respira y vuelve a intentarlo.',assets.extend)}}
+async function finishReaction(){if(!state.reactionCanClick)return;state.reactionCanClick=false;const ms=Math.round(performance.now()-state.reactionStart);const points=Math.max(4,20-Math.floor(ms/120));await registerScore(points,'Reacción',`El equipo debe reaccionar rápido a estados y alertas. Tiempo logrado: ${ms} ms.`);popup('Buen reflejo',`Tu tiempo fue ${ms} ms y sumaste ${points} puntos.`,assets.fun);renderView()}
+async function answerCompare(option){const ok=option==='A';await registerScore(ok?10:2,'Comparación de prioridad',ok?'Las solicitudes con evidencia, hallazgo y plazo son prioridad mayor.':'Se reforzó que una solicitud poco clara suele requerir ajuste antes de priorizar.');if(ok)popup('Criterio acertado','Elegiste la solicitud con mayor prioridad y mejor estructura.',assets.fun);else popup('Casi','La mejor elección era la Solicitud A por impacto, evidencia y plazo.',assets.extend);renderView()}
+
+window.setView=setView;window.toggleMenu=toggleMenu;window.logout=logout;window.refreshData=refreshData;window.openTicket=openTicket;window.lookupTicket=lookupTicket;window.acceptTicket=acceptTicket;window.extendTicket=extendTicket;window.resolveTicket=resolveTicket;window.closeTicket=closeTicket;window.sendChat=sendChat;window.askAI=askAI;window.manualLearn=manualLearn;window.learnFromFile=learnFromFile;window.generateTicketDraft=generateTicketDraft;window.answerGame=answerGame;window.answerCompare=answerCompare;window.downloadAttachment=downloadAttachment;window.loginGuest=loginGuest;
+window.addEventListener('DOMContentLoaded',async()=>{await seed();setupLogin()});
 </script>
 </body>
 </html>

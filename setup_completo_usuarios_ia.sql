@@ -77,10 +77,10 @@ values
   now()
 ),
 (
-  'luis-grajales',
+  'luis-grisales',
   jsonb_build_object(
-    'id','luis-grajales',
-    'name','Luis Grajales',
+    'id','luis-grisales',
+    'name','Luis Grisales',
     'role','Jefe de auditoría interna',
     'roleKey','jefe_auditoria_interna',
     'area','Auditoría interna',
