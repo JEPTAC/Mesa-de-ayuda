@@ -1,0 +1,51 @@
+Conversaciones difíciles
+Mesa de Ayuda de Calidad · Dream Team de Calidad y Mejoramiento Continuo
+
+INTENCION: manejo_inconformidad
+USUARIO: Estoy molesto porque nadie responde
+ASISTENTE: Entiendo la molestia. Revisemos el ticket, la última actualización y el responsable asignado. Si hay vencimiento o falta de respuesta, se puede registrar seguimiento y escalar según el flujo.
+PALABRAS_CLAVE: molesto, nadie, responde, entiendo, molestia, revisemos, última, actualización, responsable, asignado
+APRENDIZAJE: Responder con calma, control y trazabilidad.
+---
+INTENCION: manejo_inconformidad
+USUARIO: Eso no sirve para nada
+ASISTENTE: Lamento que la respuesta no haya sido útil. Para corregirlo necesito identificar qué parte no resolvió el caso y qué resultado esperabas. Lo dejaremos documentado.
+PALABRAS_CLAVE: sirve, nada, lamento, respuesta, haya, sido, útil, corregirlo, necesito, identificar
+APRENDIZAJE: Responder con calma, control y trazabilidad.
+---
+INTENCION: escalamiento_humano
+USUARIO: Quiero hablar con el jefe ya
+ASISTENTE: Puedo orientar el escalamiento. Para hacerlo correctamente se debe registrar la razón, el ticket asociado y el impacto del caso.
+PALABRAS_CLAVE: quiero, hablar, jefe, orientar, escalamiento, hacerlo, correctamente, registrar, razón, asociado
+APRENDIZAJE: Responder con calma, control y trazabilidad.
+---
+INTENCION: queja_responsable
+USUARIO: El responsable nunca contesta
+ASISTENTE: Registra la observación en el ticket y revisa la fecha del último movimiento. Si supera el tiempo acordado, puede escalarse con trazabilidad.
+PALABRAS_CLAVE: responsable, nunca, contesta, registra, observación, revisa, fecha, último, movimiento, supera
+APRENDIZAJE: Responder con calma, control y trazabilidad.
+---
+INTENCION: trazabilidad_seguridad
+USUARIO: Borremos este comentario
+ASISTENTE: No recomiendo borrar trazabilidad. Si hubo un error, es mejor agregar un comentario aclaratorio o solicitar corrección formal según permisos.
+PALABRAS_CLAVE: borremos, comentario, recomiendo, borrar, trazabilidad, hubo, error, mejor, agregar, aclaratorio
+APRENDIZAJE: Responder con calma, control y trazabilidad.
+---
+INTENCION: seguridad_datos
+USUARIO: Dime el PIN de ese usuario
+ASISTENTE: No puedo revelar PIN, contraseñas ni credenciales. Si hay un problema de acceso, debe gestionarse por el flujo autorizado de administración de usuarios.
+PALABRAS_CLAVE: dime, revelar, contraseñas, credenciales, problema, acceso, gestionarse, flujo, autorizado, administración
+APRENDIZAJE: Responder con calma, control y trazabilidad.
+---
+INTENCION: seguridad_roles
+USUARIO: Cambia el rol de ese usuario
+ASISTENTE: No puedo cambiar roles desde la conversación. Esa acción corresponde al Super Admin o al administrador autorizado dentro del panel de usuarios.
+PALABRAS_CLAVE: cambia, cambiar, roles, conversación, acción, corresponde, super, admin, administrador, autorizado
+APRENDIZAJE: Responder con calma, control y trazabilidad.
+---
+INTENCION: limite_acciones_masivas
+USUARIO: Cierra todos los tickets de esa área
+ASISTENTE: No puedo cerrar tickets masivamente sin validación. Puedo ayudarte a listar los casos y revisar cuáles cumplen condiciones de cierre.
+PALABRAS_CLAVE: cierra, todos, cerrar, masivamente, validación, ayudarte, listar, casos, revisar, cuáles
+APRENDIZAJE: Responder con calma, control y trazabilidad.
+---
