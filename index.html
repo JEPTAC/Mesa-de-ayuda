@@ -46,6 +46,17 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dis
 </style>
 </head>
 <body>
+<div id="bootLoader" class="boot-loader">
+  <div class="boot-card">
+    <img src="assets/login_dance.gif" alt="Cargando contenido">
+    <h2>Cargando la mesa de ayuda</h2>
+    <p>Estamos preparando el Dream Team de Calidad, conectando la información y alistando el contenido para ti.</p>
+    <div class="boot-progress"><span></span></div>
+    <div id="bootStatus" class="boot-status">Conectando contenido...</div>
+    <div class="boot-tip">Si tarda unos segundos es normal: estamos leyendo usuarios, tickets, IA, juegos y configuración.</div>
+  </div>
+</div>
+
 <div id="app"></div>
 <div class="toast" id="toast"></div>
 <script>
@@ -179,6 +190,9 @@ function modeOn(){return !!sb}
 function randomSentGif(){return assets.sent[1]||assets.fun}
 function toast(text){const el=document.getElementById("toast");el.textContent=text;gsap.to(el,{opacity:1,y:0,duration:.25});setTimeout(()=>gsap.to(el,{opacity:0,y:12,duration:.25}),2600)}
 function popup(title,text,gif){Swal.fire({html:`<div class="popup-layout"><img class="popup-gif" src="${gif}"><div><h3>${escapeHtml(title)}</h3><p>${escapeHtml(text)}</p></div></div>`,showConfirmButton:true,confirmButtonText:"Entendido",confirmButtonColor:"#0d5bd2",background:"#ffffff"})}
+function showBootLoader(text){const el=document.getElementById("bootLoader");const label=document.getElementById("bootStatus");if(label&&text)label.textContent=text;if(el)el.classList.remove("hidden")}
+function updateBootStatus(text){const label=document.getElementById("bootStatus");if(label&&text)label.textContent=text}
+function hideBootLoader(){const el=document.getElementById("bootLoader");if(!el)return;el.classList.add("hidden");setTimeout(()=>el.remove(),420)}
 function statusTag(status){const map={"Enviada":"blue","Sin aceptar":"gold","En proceso":"purple","Espera ampliada":"gold","Resuelta":"green","Cerrada":"gray"};return `<span class="tag ${map[status]||'gray'}">${escapeHtml(status)}</span>`}
 function priorityTag(priority){const map={"Baja":"gray","Media":"blue","Alta":"gold","Crítica":"red"};return `<span class="tag ${map[priority]||'gray'}">${escapeHtml(priority)}</span>`}
 function ageHours(ticket){return hoursBetween(ticket.created_at,now())}
@@ -534,7 +548,7 @@ async function redeemPriorityCode(code,ticketId){const found=findPriorityCode(co
 function copyText(text){navigator.clipboard?.writeText(text);toast('Código copiado')}
 
 window.setView=setView;window.toggleMenu=toggleMenu;window.logout=logout;window.refreshData=refreshData;window.openTicket=openTicket;window.lookupTicket=lookupTicket;window.acceptTicket=acceptTicket;window.extendTicket=extendTicket;window.resolveTicket=resolveTicket;window.closeTicket=closeTicket;window.sendChat=sendChat;window.askAI=askAI;window.manualLearn=manualLearn;window.learnFromFile=learnFromFile;window.generateTicketDraft=generateTicketDraft;window.answerGame=answerGame;window.answerCompare=answerCompare;window.answerOption=answerOption;window.answerTrueFalse=answerTrueFalse;window.generatePriorityCode=generatePriorityCode;window.copyText=copyText;window.runAIAction=runAIAction;window.sendQuickAI=sendQuickAI;window.downloadAttachment=downloadAttachment;window.loginGuest=loginGuest;
-window.addEventListener('DOMContentLoaded',async()=>{await seed();setupLogin()});
+window.addEventListener('DOMContentLoaded',async()=>{showBootLoader('Conectando contenido...'); const steps=['Cargando usuarios y roles...','Cargando solicitudes y trazabilidad...','Cargando IA, juegos y configuración...','Preparando la interfaz...']; let stepIndex=0; const stepTimer=setInterval(()=>{updateBootStatus(steps[stepIndex%steps.length]); stepIndex++;},900); const bootStart=performance.now(); try{updateBootStatus('Cargando usuarios y roles...'); await seed(); updateBootStatus('Preparando la interfaz...'); setupLogin(); const elapsed=performance.now()-bootStart; const wait=Math.max(350,1200-elapsed); setTimeout(()=>{clearInterval(stepTimer); hideBootLoader()},wait);}catch(e){clearInterval(stepTimer); updateBootStatus('Hubo una novedad al cargar. Intenta actualizar.'); setTimeout(()=>hideBootLoader(),1200); console.error(e); setupLogin();}});
 </script>
 </body>
 </html>
