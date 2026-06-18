@@ -792,6 +792,154 @@ tr:hover td{
   .ai-brain-panel{grid-template-columns:1fr}
 }
 
+
+/* =========================================================
+   CAPA VALOR TOTAL: SLA, semáforo, plantillas, auditoría, PDF
+   ========================================================= */
+.quality-panel,.sla-panel,.audit-panel,.suggest-panel,.productivity-panel,.template-panel{
+  border:1px solid rgba(11,59,130,.13);
+  background:linear-gradient(180deg,#ffffff,#f7fbff);
+  border-radius:24px;
+  padding:16px;
+  box-shadow:0 14px 34px rgba(11,59,130,.08);
+}
+.quality-head,.sla-head,.audit-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:10px;
+}
+.quality-score{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:76px;
+  height:38px;
+  border-radius:999px;
+  font-weight:900;
+  background:#eaf2ff;
+  color:#0b3b82;
+  border:1px solid rgba(11,59,130,.13);
+}
+.quality-score.good{background:linear-gradient(135deg,#eaf2ff,#fff7db)}
+.quality-score.mid{background:#fff7db}
+.quality-score.low{background:#fff}
+.quality-bar{
+  height:10px;
+  border-radius:999px;
+  background:#eaf2ff;
+  overflow:hidden;
+  border:1px solid rgba(11,59,130,.10);
+}
+.quality-bar span{
+  display:block;
+  height:100%;
+  background:linear-gradient(90deg,#0d5bd2,#f7bf24);
+  border-radius:999px;
+}
+.quality-list{
+  margin:10px 0 0;
+  padding-left:18px;
+  color:#315783;
+  font-size:13px;
+  line-height:1.55;
+}
+.sla-grid,.productivity-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+}
+.sla-mini,.productivity-mini{
+  border-radius:18px;
+  background:#ffffff;
+  border:1px solid rgba(11,59,130,.12);
+  padding:12px;
+}
+.sla-mini small,.productivity-mini small{
+  display:block;
+  color:#315783;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  font-weight:900;
+}
+.sla-mini strong,.productivity-mini strong{
+  display:block;
+  color:#0b3b82;
+  font-size:20px;
+  margin-top:4px;
+}
+.escalation-list{
+  display:grid;
+  gap:8px;
+}
+.escalation-item{
+  padding:12px;
+  border-radius:18px;
+  background:#fff7db;
+  border:1px solid rgba(247,191,36,.35);
+  color:#0b3b82;
+}
+.template-panel{
+  margin-top:14px;
+}
+.template-panel h3{
+  margin:0 0 10px;
+  color:#0b3b82;
+}
+.template-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+.valor-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:14px;
+}
+.rating-row{
+  display:flex;
+  gap:6px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.rating-star{
+  border:1px solid rgba(11,59,130,.14);
+  background:#fff7db;
+  color:#0b3b82;
+  border-radius:14px;
+  padding:8px 10px;
+  cursor:pointer;
+  font-weight:900;
+}
+.audit-table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0 8px;
+}
+.audit-table td{
+  background:#fff;
+  border:1px solid rgba(11,59,130,.10);
+  padding:10px;
+}
+.audit-table td:first-child{
+  border-radius:14px 0 0 14px;
+  font-weight:900;
+  color:#0b3b82;
+}
+.audit-table td:last-child{
+  border-radius:0 14px 14px 0;
+  color:#315783;
+}
+@media(max-width:980px){
+  .sla-grid,.productivity-grid,.template-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .sla-grid,.productivity-grid,.template-grid{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
@@ -2342,6 +2490,430 @@ function generateTicketDraft(){
   populateAIDraftForm();
   popup('Borrador creado','La IA organizó la radicación. Revisa los campos y presiona “Enviar solicitud”.',assets.sent[0]);
 }
+
+
+/* =========================================================
+   VALOR TOTAL - Service Desk + Calidad + IA Operativa
+   Mantiene base funcional y suma capacidades sin cambiar SQL.
+   ========================================================= */
+const VALOR_TOTAL_VERSION="Valor Total · SLA + calidad + auditoría + PDF";
+
+const SLA_RULES={
+  "Baja":{hours:120,label:"5 días hábiles"},
+  "Media":{hours:72,label:"3 días hábiles"},
+  "Alta":{hours:48,label:"48 horas"},
+  "Crítica":{hours:8,label:"8 horas prioritarias"}
+};
+
+function valueCleanText(text){return String(text||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();}
+function slaRule(priority){return SLA_RULES[priority]||SLA_RULES["Media"];}
+function slaInfo(t){
+  const rule=slaRule(t.priority);
+  const start=new Date(t.created_at||now()).getTime();
+  const due=new Date(start+rule.hours*3600000);
+  const end=["Resuelta","Cerrada"].includes(t.status)?new Date(t.finishedAt||t.updated_at||now()):new Date();
+  const elapsed=Math.max(0,(end.getTime()-start)/3600000);
+  const remaining=rule.hours-elapsed;
+  const pct=Math.min(100,Math.round((elapsed/rule.hours)*100));
+  let label="En tiempo";
+  if(["Resuelta","Cerrada"].includes(t.status))label=elapsed<=rule.hours?"Cumplido":"Cerrado vencido";
+  else if(remaining<0)label="Vencido";
+  else if(remaining<=Math.max(4,rule.hours*.2))label="Por vencer";
+  return {rule,due,elapsed,remaining,pct,label};
+}
+function slaTag(t){
+  const s=slaInfo(t);
+  const cls=s.label.includes("Vencido")||s.label.includes("vencido")?"gold":"blue";
+  return `<span class="tag ${cls}">SLA: ${escapeHtml(s.label)}</span>`;
+}
+function ticketQualityFromObject(t){
+  const misses=[];
+  let score=0;
+  if(t.requesterName){score+=10}else misses.push("nombre del solicitante");
+  if(t.requesterArea){score+=12}else misses.push("área o proceso");
+  if(t.assignedTo){score+=10}else misses.push("responsable");
+  if(t.category&&t.category!=="Consulta general"){score+=12}else misses.push("categoría precisa");
+  if(t.priority){score+=8}else misses.push("prioridad");
+  if(t.modality){score+=8}else misses.push("modalidad");
+  if(t.title&&String(t.title).trim().length>=12){score+=12}else misses.push("asunto claro");
+  if(t.description&&String(t.description).trim().length>=80){score+=16}else misses.push("descripción con contexto");
+  if((t.evidence&&String(t.evidence).trim())||(t.attachments&&t.attachments.length)){score+=7}else misses.push("evidencia o adjunto");
+  const desc=valueCleanText(t.description);
+  if(/resultado|esperado|cierre|validacion|validación|plazo|fecha|impacto/.test(desc)){score+=5}else misses.push("resultado esperado, impacto o criterio de cierre");
+  score=Math.min(100,score);
+  const label=score>=80?"Excelente":score>=60?"Aceptable":"Débil";
+  return {score,label,misses};
+}
+function collectTicketFormObject(){
+  const form=document.getElementById("ticketForm");
+  if(!form)return {};
+  const fd=new FormData(form);
+  const files=document.getElementById("ticketAttachments")?.files;
+  return {
+    requesterName:fd.get("requesterName"),
+    requesterEmail:fd.get("requesterEmail"),
+    requesterArea:fd.get("requesterArea"),
+    assignedTo:fd.get("assignedTo"),
+    category:fd.get("category"),
+    priority:fd.get("priority"),
+    modality:fd.get("modality"),
+    title:fd.get("title"),
+    description:fd.get("description"),
+    evidence:fd.get("evidence"),
+    attachments:files&&files.length?[...files].map(f=>({name:f.name})):[]
+  };
+}
+function qualityPanelHtml(t){
+  const q=ticketQualityFromObject(t||{});
+  const cls=q.score>=80?"good":q.score>=60?"mid":"low";
+  const topMisses=q.misses.slice(0,4);
+  return `<div class="quality-panel" id="qualityPanel"><div class="quality-head"><div><strong>Semáforo de calidad de la solicitud</strong><p class="mini-note">Evalúa si la radicación está lista para gestión.</p></div><span class="quality-score ${cls}">${q.score}%</span></div><div class="quality-bar"><span style="width:${Math.max(3,q.score)}%"></span></div><ul class="quality-list">${topMisses.length?topMisses.map(x=>`<li>Falta o puede mejorar: ${escapeHtml(x)}</li>`).join(""):`<li>La solicitud tiene información suficiente para ser gestionada.</li>`}</ul></div>`;
+}
+function renderQualityPreview(){
+  const host=document.getElementById("qualityPreview");
+  if(host)host.innerHTML=qualityPanelHtml(collectTicketFormObject());
+}
+function templateFieldsForCategory(category){
+  const c=category||"Consulta general";
+  const base={};
+  base["Documento"]=[
+    ["tipoDocumento","Tipo de documento","Ej. formato, acta, matriz, registro, PDF"],
+    ["codigoDocumento","Código o nombre","Ej. FO-CAL-001 o Matriz de riesgos"],
+    ["accionDocumento","Acción requerida","Crear, actualizar, revisar, aprobar, publicar o corregir"],
+    ["versionDocumento","Versión / fecha","Versión actual o fecha del documento"]
+  ];
+  base["Procedimiento"]=[
+    ["proceso","Proceso afectado","Ej. Logística, cartera, compras"],
+    ["actividad","Actividad puntual","Paso o actividad que requiere ajuste"],
+    ["accionProcedimiento","Acción requerida","Crear, actualizar, aclarar, aprobar"],
+    ["riesgoProcedimiento","Riesgo o impacto","Qué pasa si no se ajusta"]
+  ];
+  base["Auditoría"]=[
+    ["tipoAuditoria","Tipo de auditoría","Interna, externa, seguimiento"],
+    ["hallazgo","Hallazgo / criterio","Condición, criterio o requisito"],
+    ["evidenciaAuditoria","Evidencia","Archivo, acta, captura o enlace"],
+    ["fechaAuditoria","Fecha límite","Plazo o compromiso"]
+  ];
+  base["Indicador/KPI"]=[
+    ["indicador","Indicador","Nombre del KPI"],
+    ["fuente","Fuente de datos","Excel, sistema, informe"],
+    ["periodo","Periodo","Mes, semana, corte"],
+    ["problemaKpi","Problema","Dato faltante, fórmula, gráfica, meta"]
+  ];
+  base["Riesgo/Hallazgo"]=[
+    ["causa","Causa","Origen del riesgo o hallazgo"],
+    ["impacto","Impacto","Qué puede afectar"],
+    ["control","Control existente","Qué control existe actualmente"],
+    ["accionRiesgo","Acción esperada","Qué se debe revisar o ajustar"]
+  ];
+  base["Capacitación"]=[
+    ["temaCapacitacion","Tema","Tema de capacitación"],
+    ["publico","Público objetivo","Personas o área"],
+    ["modalidadCapacitacion","Modalidad","Virtual, presencial o mixta"],
+    ["fechaCapacitacion","Fecha esperada","Plazo o fecha sugerida"]
+  ];
+  base["Mejora continua"]=[
+    ["procesoMejora","Proceso","Dónde aplica la mejora"],
+    ["problemaActual","Problema actual","Qué está generando reproceso"],
+    ["beneficio","Beneficio esperado","Tiempo, trazabilidad, calidad"],
+    ["tipoMejora","Tipo de mejora","Proceso, documento, app, automatización"]
+  ];
+  return base[c]||[
+    ["detalleCaso","Detalle del caso","Describe brevemente la necesidad"],
+    ["resultadoEsperado","Resultado esperado","Qué esperas recibir"],
+    ["evidenciaGeneral","Evidencia","Archivo, enlace o soporte"],
+    ["plazoGeneral","Plazo","Fecha o urgencia"]
+  ];
+}
+function templateFieldsHtml(category){
+  const fields=templateFieldsForCategory(category);
+  return `<div class="template-panel"><h3>Plantilla inteligente por categoría</h3><div class="template-grid">${fields.map(f=>`<div class="field"><label>${escapeHtml(f[1])}</label><input class="advanced-template-field" name="tpl_${escapeHtml(f[0])}" placeholder="${escapeHtml(f[2])}"></div>`).join("")}</div><div class="valor-actions"><button class="btn ghost" type="button" onclick="refreshTemplateFields()">Actualizar plantilla</button><button class="btn gold" type="button" onclick="classificationWizard()">No sé clasificar mi solicitud</button></div></div>`;
+}
+function refreshTemplateFields(){
+  const form=document.getElementById("ticketForm");if(!form)return;
+  const host=document.getElementById("templateFields");
+  if(host)host.innerHTML=templateFieldsHtml(form.elements["category"]?.value||"Consulta general");
+  bindValorFormEvents();
+}
+function collectTemplateData(fd){
+  const out={};
+  for(const [k,v] of fd.entries()){
+    if(String(k).startsWith("tpl_")&&String(v||"").trim())out[k.replace("tpl_","")]=String(v).trim();
+  }
+  return out;
+}
+function appendTemplateToDescription(desc,templateData){
+  const entries=Object.entries(templateData||{});
+  if(!entries.length)return desc;
+  return `${desc}
+
+Información específica de la plantilla:
+${entries.map(([k,v])=>`- ${k}: ${v}`).join("\n")}`;
+}
+function classifyFromText(text){
+  const c=valueCleanText(text);
+  if(/auditoria|auditoria|hallazgo|no conformidad|evidencia auditoria|accion correctiva/.test(c))return {category:"Auditoría",priority:"Alta",modality:"Documental"};
+  if(/indicador|kpi|grafica|dashboard|meta|medicion|reporte/.test(c))return {category:"Indicador/KPI",priority:"Media",modality:"Mixta"};
+  if(/capacitacion|induccion|curso|certificado|entrenamiento/.test(c))return {category:"Capacitación",priority:"Media",modality:"Mixta"};
+  if(/riesgo|control|impacto|probabilidad/.test(c))return {category:"Riesgo/Hallazgo",priority:"Alta",modality:"Documental"};
+  if(/procedimiento|manual|instructivo|proceso|paso a paso|flujo/.test(c))return {category:"Procedimiento",priority:"Media",modality:"Documental"};
+  if(/documento|formato|acta|matriz|registro|pdf|word|excel|version|codificacion|archivo/.test(c))return {category:"Documento",priority:"Media",modality:"Documental"};
+  if(/mejora|automatizar|optimizar|reproceso|app|sistema/.test(c))return {category:"Mejora continua",priority:"Alta",modality:"Mixta"};
+  return {category:"Consulta general",priority:"Media",modality:"Mixta"};
+}
+async function classificationWizard(){
+  const {value:text}=await Swal.fire({title:"Clasificar solicitud",input:"textarea",inputLabel:"Describe brevemente el caso",inputPlaceholder:"Ej. Es una matriz de riesgos que se debe actualizar por auditoría",showCancelButton:true,confirmButtonText:"Clasificar",confirmButtonColor:"#0d5bd2"});
+  if(!text)return;
+  const c=classifyFromText(text);
+  const form=document.getElementById("ticketForm");if(!form)return;
+  form.elements["category"].value=c.category;
+  form.elements["priority"].value=c.priority;
+  form.elements["modality"].value=c.modality;
+  if(!form.elements["title"].value)form.elements["title"].value=makeTitleFromText(text,c.category);
+  if(!form.elements["description"].value)form.elements["description"].value=`Necesidad identificada: ${text}
+
+Clasificación sugerida: ${c.category}.
+Resultado esperado: revisión y respuesta trazable por parte del responsable asignado.
+Criterio de cierre: evidencia revisada, respuesta entregada y validación del solicitante.`;
+  refreshTemplateFields();
+  renderQualityPreview();
+  toast("Clasificación sugerida aplicada");
+}
+function bindValorFormEvents(){
+  const form=document.getElementById("ticketForm");if(!form)return;
+  form.querySelectorAll("input,textarea,select").forEach(el=>{
+    el.removeEventListener("input",renderQualityPreview);
+    el.removeEventListener("change",renderQualityPreview);
+    el.addEventListener("input",renderQualityPreview);
+    el.addEventListener("change",renderQualityPreview);
+  });
+  const cat=form.elements["category"];
+  if(cat&&!cat.dataset.valorBind){
+    cat.dataset.valorBind="1";
+    cat.addEventListener("change",()=>{refreshTemplateFields();renderQualityPreview()});
+  }
+  renderQualityPreview();
+}
+
+const createHtmlBeforeValor=createHtml;
+createHtml=function(){
+  let h=createHtmlBeforeValor();
+  const marker='<button class="btn primary pulse" type="submit">Enviar solicitud</button>';
+  const insert=`<div id="templateFields">${templateFieldsHtml("Consulta general")}</div><div id="qualityPreview" style="margin-top:14px">${qualityPanelHtml({})}</div><div class="valor-actions"><button class="btn ghost" type="button" onclick="classificationWizard()">No sé clasificar</button><button class="btn gold" type="button" onclick="generateTicketDraft()">Organizar con IA</button></div>`;
+  return h.replace(marker,insert+marker);
+};
+
+function makeSlaMeta(ticket){
+  const s=slaInfo(ticket);
+  return {rule:s.rule.label,hours:s.rule.hours,dueAt:s.due.toISOString(),status:s.label};
+}
+async function submitTicket(e){
+  e.preventDefault();
+  const fd=new FormData(e.target);
+  const attachments=await filesToAttachments(document.getElementById('ticketAttachments')?.files);
+  const ticketId=uid('ticket');
+  const priorityCode=String(fd.get('priorityCode')||'').trim().toUpperCase();
+  let boostResult=null;
+  if(priorityCode){
+    boostResult=await redeemPriorityCode(priorityCode,ticketId);
+    if(!boostResult.ok){popup('Código de prioridad no válido',boostResult.message||'El código no existe, ya fue usado o no está activo.',assets.missing);return}
+  }
+  const templateData=collectTemplateData(fd);
+  let description=appendTemplateToDescription(fd.get('description'),templateData);
+  const ticket={
+    id:ticketId,
+    code:'DT-'+String(maxTicketCode()+1).padStart(4,'0'),
+    requesterName:fd.get('requesterName'),
+    requesterEmail:fd.get('requesterEmail'),
+    requesterArea:fd.get('requesterArea'),
+    assignedTo:fd.get('assignedTo'),
+    category:fd.get('category'),
+    priority:fd.get('priority'),
+    modality:fd.get('modality'),
+    title:fd.get('title'),
+    description,
+    evidence:fd.get('evidence'),
+    attachments:(attachments||[]).map(a=>({...a,ticketId:'',scope:'general'})),
+    resolutionFiles:[],
+    templateData,
+    status:'Enviada',
+    createdBy:state.user.id,
+    acceptedAt:null,
+    finishedAt:null,
+    extendedReason:'',
+    satisfaction:null,
+    chat:[{by:state.user.name,text:'Solicitud radicada.',at:now()}],
+    timeline:[{label:'Radicación',text:'Solicitud enviada al responsable.',at:now()}],
+    created_at:now(),updated_at:now()
+  };
+  if(boostResult?.ok){
+    ticket.priority='Crítica';
+    ticket.priorityBoost=true;
+    ticket.priorityCode=priorityCode;
+    ticket.priorityBoostCost=boostResult.cost;
+    ticket.timeline.push({label:'Prioridad por monedas',text:`Código ${priorityCode} aplicado. La solicitud sube por prioridad de monedas del ranking.`,at:now()});
+    ticket.chat.push({by:'Sistema de monedas',text:`Se aplicó código de prioridad ${priorityCode}. Esta solicitud entra por encima de la fila normal.`,at:now()});
+  }
+  ticket.attachments=ticket.attachments.map(a=>({...a,ticketId:ticket.id,scope:'general'}));
+  ticket.quality=ticketQualityFromObject(ticket);
+  ticket.sla=makeSlaMeta(ticket);
+  await saveRecord(tables.tickets,ticket);
+  state.tickets=await listRecords(tables.tickets);
+  playSound(sounds.created);
+  popup('Solicitud enviada',`Tu código es ${ticket.code}. Calidad de radicación: ${ticket.quality.score}%. SLA objetivo: ${ticket.sla.rule}. ${ticket.priorityBoost?'Se aplicó prioridad por monedas. ':''}Ya está en la bandeja de ${userName(ticket.assignedTo)}.`,randomSentGif());
+  if(window.confetti)confetti({particleCount:90,spread:70,origin:{y:.76}});
+  e.target.reset();
+  state.selectedTicketId=ticket.id;state.selectedTicket=ticket;state.view='detail';renderApp();
+}
+
+function valorPanelsHtml(t){
+  const q=ticketQualityFromObject(t);
+  const s=slaInfo(t);
+  return `<div style="display:grid;gap:14px;margin-top:16px">${qualityPanelHtml(t)}<div class="sla-panel"><div class="sla-head"><div><strong>SLA y vencimiento</strong><p class="mini-note">Objetivo según prioridad ${escapeHtml(t.priority)}.</p></div>${slaTag(t)}</div><div class="sla-grid"><div class="sla-mini"><small>Objetivo</small><strong>${escapeHtml(s.rule.label)}</strong></div><div class="sla-mini"><small>Transcurrido</small><strong>${Number(s.elapsed.toFixed(1))} h</strong></div><div class="sla-mini"><small>Vence</small><strong>${fmt(s.due)}</strong></div><div class="sla-mini"><small>Estado</small><strong>${escapeHtml(s.label)}</strong></div></div><div class="quality-bar" style="margin-top:12px"><span style="width:${Math.max(3,s.pct)}%"></span></div></div><div class="suggest-panel"><div class="section-title"><h2>IA operativa del ticket</h2><span>acciones rápidas</span></div><div class="valor-actions"><button class="btn ghost" onclick="showExecutiveSummary('${t.id}')">Resumen ejecutivo</button><button class="btn gold" onclick="fillSuggestedResponse('${t.id}')">Respuesta sugerida</button><button class="btn ghost" onclick="showAuditMode('${t.id}')">Modo auditoría</button><button class="btn primary" onclick="exportTicketPDF('${t.id}')">Exportar PDF</button></div></div></div>`;
+}
+const detailHtmlBeforeValor=detailHtml;
+detailHtml=function(t){
+  let h=detailHtmlBeforeValor(t);
+  if(!t)return h;
+  return h.replace('<div class="top-actions" style="margin-top:18px">',valorPanelsHtml(t)+'<div class="top-actions" style="margin-top:18px">');
+};
+
+function executiveSummary(t){
+  const s=slaInfo(t);
+  return `Resumen ejecutivo:
+Solicitud ${t.code} relacionada con ${t.category}. El solicitante ${t.requesterName||"no especificado"} del área ${t.requesterArea||"sin área"} reporta: ${t.title}.
+
+Estado actual:
+${t.status}. Responsable: ${userName(t.assignedTo)}.
+
+SLA:
+Objetivo ${s.rule.label}. Estado ${s.label}. Vencimiento estimado: ${fmt(s.due)}.
+
+Siguiente acción recomendada:
+${nextActionForTicket(t)}
+
+Criterio de cierre:
+Dejar evidencia de la gestión, respuesta entregada y validación del solicitante.`;
+}
+function nextActionForTicket(t){
+  if(["Enviada","Sin aceptar"].includes(t.status))return "Aceptar la solicitud o reasignarla si el responsable no corresponde.";
+  if(t.status==="En proceso")return "Revisar evidencia, responder al solicitante y cargar soporte de solución.";
+  if(t.status==="Espera ampliada")return "Actualizar el motivo de espera y confirmar nueva fecha de respuesta.";
+  if(t.status==="Resuelta")return "Validar la respuesta y cerrar la solicitud si cumple.";
+  if(t.status==="Cerrada")return "Conservar trazabilidad como evidencia documental.";
+  return "Revisar datos, responsable y evidencia.";
+}
+function suggestedResponse(t){
+  const missing=ticketQualityFromObject(t).misses.slice(0,3);
+  if(t.category==="Documento")return `Buen día. Se recibe la solicitud documental. Para continuar con la revisión, por favor confirmar si el documento requiere creación, actualización, revisión, aprobación, publicación o corrección. ${missing.length?`También sería útil completar: ${missing.join(", ")}.`:"Con la información disponible se inicia la revisión correspondiente."}`;
+  if(t.category==="Auditoría")return `Buen día. Se recibe la solicitud relacionada con auditoría. Para avanzar, por favor confirmar criterio, evidencia asociada, fecha de compromiso y acción requerida. Con esto se valida el tratamiento y cierre trazable.`;
+  if(t.category==="Indicador/KPI")return `Buen día. Para revisar el indicador, por favor confirmar nombre del KPI, fuente de datos, periodo, fórmula o gráfica afectada y resultado esperado.`;
+  if(t.category==="Riesgo/Hallazgo")return `Buen día. Se recibe el caso de riesgo/hallazgo. Para continuar, por favor precisar causa, impacto, control existente y acción esperada.`;
+  if(t.category==="Capacitación")return `Buen día. Para gestionar la capacitación, por favor confirmar tema, público objetivo, modalidad, fecha esperada y evidencia requerida.`;
+  return `Buen día. Se recibe la solicitud. Para continuar, por favor confirmar contexto del caso, evidencia disponible y resultado esperado. Queda registrada la trazabilidad en la mesa de ayuda.`;
+}
+function showExecutiveSummary(id){
+  const t=state.tickets.find(x=>x.id===id);if(!t)return;
+  Swal.fire({title:"Resumen ejecutivo",html:`<pre style="white-space:pre-wrap;text-align:left;font-family:Century Gothic,Arial;color:#0b3b82">${escapeHtml(executiveSummary(t))}</pre>`,confirmButtonText:"Listo",confirmButtonColor:"#0d5bd2"});
+}
+function fillSuggestedResponse(id){
+  const t=state.tickets.find(x=>x.id===id);if(!t)return;
+  const box=document.getElementById("chatMsg");
+  const msg=suggestedResponse(t);
+  if(box){box.value=msg;box.focus();toast("Respuesta sugerida cargada")}
+  else Swal.fire({title:"Respuesta sugerida",text:msg,confirmButtonColor:"#0d5bd2"});
+}
+function showAuditMode(id){
+  const t=state.tickets.find(x=>x.id===id);if(!t)return;
+  const rows=[
+    ["Radicado",t.code],
+    ["Asunto",t.title],
+    ["Solicitante",t.requesterName||"—"],
+    ["Área",t.requesterArea||"—"],
+    ["Responsable",userName(t.assignedTo)],
+    ["Estado",t.status],
+    ["Categoría",t.category],
+    ["Prioridad",t.priority],
+    ["Creación",fmt(t.created_at)],
+    ["Aceptación",fmt(t.acceptedAt)],
+    ["Resolución",fmt(t.finishedAt)],
+    ["Satisfacción",t.satisfaction?`${t.satisfaction.score}/5 · ${t.satisfaction.comment||""}`:"Sin calificación"]
+  ];
+  const timeline=(t.timeline||[]).map((e,i)=>`<tr><td>${i+1}. ${escapeHtml(e.label)}</td><td>${escapeHtml(e.text)}<br><small>${fmt(e.at)}</small></td></tr>`).join("");
+  Swal.fire({title:"Modo auditoría",width:900,html:`<table class="audit-table">${rows.map(r=>`<tr><td>${escapeHtml(r[0])}</td><td>${escapeHtml(r[1])}</td></tr>`).join("")}${timeline}</table>`,confirmButtonText:"Cerrar",confirmButtonColor:"#0d5bd2"});
+}
+function exportTicketPDF(id){
+  const t=state.tickets.find(x=>x.id===id);if(!t)return;
+  const s=executiveSummary(t);
+  const timeline=(t.timeline||[]).map(e=>`<tr><td>${escapeHtml(e.label)}</td><td>${escapeHtml(e.text)}</td><td>${fmt(e.at)}</td></tr>`).join("");
+  const chat=(t.chat||[]).map(m=>`<tr><td>${escapeHtml(m.by)}</td><td>${escapeHtml(m.text)}</td><td>${fmt(m.at)}</td></tr>`).join("");
+  const win=window.open("","_blank");
+  const doc=`<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(t.code)}</title><style>body{font-family:"Century Gothic",Arial,sans-serif;color:#0b3b82;margin:34px}h1,h2{color:#0b3b82}table{width:100%;border-collapse:collapse;margin:14px 0}td,th{border:1px solid #d7e3f7;padding:9px;text-align:left;vertical-align:top}.box{border:1px solid #d7e3f7;border-radius:16px;padding:16px;background:#f7fbff;margin:12px 0}pre{white-space:pre-wrap;font-family:"Century Gothic",Arial,sans-serif}</style></head><body><h1>${escapeHtml(t.code)} · ${escapeHtml(t.title)}</h1><div class="box"><pre>${escapeHtml(s)}</pre></div><h2>Datos de la solicitud</h2><table><tr><th>Categoría</th><td>${escapeHtml(t.category)}</td><th>Prioridad</th><td>${escapeHtml(t.priority)}</td></tr><tr><th>Solicitante</th><td>${escapeHtml(t.requesterName||"")}</td><th>Área</th><td>${escapeHtml(t.requesterArea||"")}</td></tr><tr><th>Responsable</th><td>${escapeHtml(userName(t.assignedTo))}</td><th>Estado</th><td>${escapeHtml(t.status)}</td></tr></table><h2>Descripción</h2><div class="box">${escapeHtml(t.description||"")}</div><h2>Línea de tiempo</h2><table><tr><th>Evento</th><th>Detalle</th><th>Fecha</th></tr>${timeline}</table><h2>Chat</h2><table><tr><th>Autor</th><th>Mensaje</th><th>Fecha</th></tr>${chat}</table><script>window.onload=()=>setTimeout(()=>window.print(),250)<\/script></body></html>`;
+  win.document.write(doc);
+  win.document.close();
+}
+async function closeTicket(id){
+  const t=state.tickets.find(x=>x.id===id);if(!t)return;
+  let satisfaction=null;
+  if(state.user?.role==="Solicitante" || t.createdBy===state.user?.id){
+    const res=await Swal.fire({title:"Cerrar solicitud",html:'<div style="text-align:left"><label>Calificación de la atención</label><select id="sat-score" class="swal2-select"><option value="">Sin calificar</option><option value="5">5 · Excelente</option><option value="4">4 · Buena</option><option value="3">3 · Aceptable</option><option value="2">2 · Regular</option><option value="1">1 · Mala</option></select><textarea id="sat-comment" class="swal2-textarea" placeholder="Comentario opcional"></textarea></div>',showCancelButton:true,confirmButtonText:"Cerrar y notificar",confirmButtonColor:"#0d5bd2",preConfirm:()=>({score:document.getElementById("sat-score").value,comment:document.getElementById("sat-comment").value})});
+    if(!res.value)return;
+    if(res.value.score)satisfaction={score:Number(res.value.score),comment:res.value.comment||"",at:now(),by:state.user?.name||"Solicitante"};
+  }
+  t.finishedAt=t.finishedAt||now();
+  if(satisfaction)t.satisfaction=satisfaction;
+  t.chat=t.chat||[];t.chat.push({by:state.user.name,text:'Solicitud cerrada y notificada al solicitante.',at:now()});
+  if(satisfaction)t.chat.push({by:"Encuesta de satisfacción",text:`Calificación: ${satisfaction.score}/5. ${satisfaction.comment||""}`,at:now()});
+  await updateTicket(t,'Cierre','Solicitud cerrada y notificada.','Cerrada');
+  playSound(sounds.ready);
+  popup('Solicitud cerrada','La solicitud quedó cerrada con trazabilidad completa.',assets.done);
+  if(window.confetti)confetti({particleCount:140,spread:85,origin:{y:.75}});
+}
+
+function escalationSuggestions(){
+  return state.tickets.filter(t=>!["Resuelta","Cerrada"].includes(t.status)).map(t=>{
+    const s=slaInfo(t);
+    let reason="";
+    if(s.label==="Vencido")reason=`${t.code} está vencida según SLA.`;
+    else if(s.label==="Por vencer")reason=`${t.code} está por vencer.`;
+    else if(["Enviada","Sin aceptar"].includes(t.status)&&s.elapsed>12)reason=`${t.code} lleva ${Number(s.elapsed.toFixed(1))} h sin aceptación.`;
+    return reason?{ticket:t,reason}:null;
+  }).filter(Boolean).slice(0,8);
+}
+function escalationPanelHtml(){
+  const rows=escalationSuggestions();
+  if(!rows.length)return `<div class="card"><div class="section-title"><h2>Escalamiento automático</h2><span>sin alertas</span></div><div class="empty">No hay solicitudes vencidas o por vencer en este momento.</div></div>`;
+  return `<div class="card"><div class="section-title"><h2>Escalamiento automático</h2><span>${rows.length} alertas</span></div><div class="escalation-list">${rows.map(r=>`<div class="escalation-item"><strong>${escapeHtml(r.reason)}</strong><br><small>${escapeHtml(r.ticket.title)} · Responsable: ${escapeHtml(userName(r.ticket.assignedTo))}</small><div class="valor-actions"><button class="btn ghost" onclick="openTicket('${r.ticket.id}')">Abrir</button><button class="btn gold" onclick="showExecutiveSummary('${r.ticket.id}')">Resumen</button></div></div>`).join("")}</div></div>`;
+}
+function productivityByResponsible(){
+  return responders().map(u=>{
+    const list=state.tickets.filter(t=>t.assignedTo===u.id);
+    const open=list.filter(t=>!["Resuelta","Cerrada"].includes(t.status)).length;
+    const closed=list.filter(t=>t.status==="Cerrada").length;
+    const critical=list.filter(t=>t.priority==="Crítica").length;
+    const vencidas=list.filter(t=>!["Resuelta","Cerrada"].includes(t.status)&&slaInfo(t).label==="Vencido").length;
+    const avg=(()=>{const rows=list.filter(t=>t.acceptedAt&&t.finishedAt);return rows.length?Number((rows.reduce((a,t)=>a+hoursBetween(t.acceptedAt,t.finishedAt),0)/rows.length).toFixed(1)):0})();
+    const sat=(()=>{const rows=list.filter(t=>t.satisfaction?.score);return rows.length?Number((rows.reduce((a,t)=>a+Number(t.satisfaction.score),0)/rows.length).toFixed(1)):"—"})();
+    return {...u,total:list.length,open,closed,critical,vencidas,avg,sat};
+  });
+}
+function productivityPanelHtml(){
+  const rows=productivityByResponsible();
+  return `<div class="card" style="margin-top:18px"><div class="section-title"><h2>Productividad por responsable</h2><span>gestión y SLA</span></div><div class="productivity-grid">${rows.map(r=>`<div class="productivity-mini"><small>${escapeHtml(r.name)}</small><strong>${r.open} abiertas</strong><div class="mini-note">Total ${r.total} · Cerradas ${r.closed} · Vencidas ${r.vencidas} · Prom. ${r.avg}h · Sat. ${r.sat}</div></div>`).join("")}</div></div>`;
+}
+const dashboardHtmlBeforeValor=dashboardHtml;
+dashboardHtml=function(){
+  return dashboardHtmlBeforeValor()+escalationPanelHtml()+productivityPanelHtml();
+};
+const kpisHtmlBeforeValor=kpisHtml;
+kpisHtml=function(){
+  return kpisHtmlBeforeValor()+productivityPanelHtml()+escalationPanelHtml();
+};
+const bindViewBeforeValor=bindView;
+bindView=function(){
+  bindViewBeforeValor();
+  if(state.view==="create")bindValorFormEvents();
+};
 
 window.addEventListener('DOMContentLoaded',async()=>{
   prepareIntroStart();
