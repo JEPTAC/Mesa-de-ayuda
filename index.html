@@ -1962,6 +1962,56 @@ function aiCerebroStats(){
   };
 }
 
+
+/* =========================================================
+   PAQUETE DOCUMENTAL INTEGRADO
+   Carga automática del paquete de entrenamiento documental.
+   ========================================================= */
+const AI_DOCS_TRAINING_VERSION="Paquete documental integrado · responsables, documentos y radicación";
+
+async function loadIntegratedTrainingDocs(){
+  try{
+    const rows=await fetch('ia_training_docs/training_docs_knowledge.json',{cache:'force-cache'}).then(r=>r.ok?r.json():[]);
+    state.trainingDocsKnowledge=Array.isArray(rows)?rows:[];
+  }catch(e){
+    console.warn('No cargó paquete documental integrado',e);
+    state.trainingDocsKnowledge=[];
+  }
+}
+
+const seedBeforeDocs=seed;
+seed=async function(){
+  await seedBeforeDocs();
+  await loadIntegratedTrainingDocs();
+};
+
+const aiKnowledgePoolBeforeDocs=aiKnowledgePool;
+aiKnowledgePool=function(){
+  const rows=aiKnowledgePoolBeforeDocs();
+  (state.trainingDocsKnowledge||[]).forEach(x=>rows.push({
+    source:"paquete_documental",
+    intent:x.intent||"documental",
+    title:x.title||x.question||"Documento entrenamiento",
+    question:x.question||x.title||"",
+    keywords:x.keywords||[],
+    answer:x.answer||"",
+    weight:x.weight||1.15
+  }));
+  return rows;
+};
+
+const aiHtmlBeforeDocs=aiHtml;
+aiHtml=function(){
+  const html=aiHtmlBeforeDocs();
+  return html.replace(
+    /<div class="ai-brain-chip"><strong>(\d+)<\/strong>casos transversales<\/div>/,
+    `<div class="ai-brain-chip"><strong>${state.cerebroKnowledge?.length||0}</strong>casos transversales</div><div class="ai-brain-chip"><strong>${state.trainingDocsKnowledge?.length||0}</strong>docs integrados</div>`
+  ).replace(
+    'Modo conversacional especializado:',
+    'Modo conversacional especializado con paquete documental integrado:'
+  );
+};
+
 window.addEventListener('DOMContentLoaded',async()=>{
   prepareIntroStart();
 
