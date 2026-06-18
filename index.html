@@ -967,6 +967,115 @@ tr:hover td{
 .email-status-card small{color:#315783}
 .email-config-note{font-size:12px;color:#315783;line-height:1.45;margin-top:8px}
 
+
+/* =========================================================
+   SEMÁFORO CALIDAD/AUDITORÍA + ACEPTACIÓN OBLIGATORIA
+   ========================================================= */
+.semaforo-board{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+  margin-bottom:16px;
+}
+.semaforo-card{
+  border:1px solid rgba(11,59,130,.13);
+  background:linear-gradient(180deg,#ffffff,#f7fbff);
+  border-radius:22px;
+  padding:14px;
+  box-shadow:0 12px 30px rgba(11,59,130,.07);
+  position:relative;
+  overflow:hidden;
+}
+.semaforo-card:before{
+  content:"";
+  position:absolute;
+  inset:0 auto 0 0;
+  width:7px;
+  background:#0d5bd2;
+}
+.semaforo-card.red:before{background:#ef4444}
+.semaforo-card.yellow:before{background:#f7bf24}
+.semaforo-card.blue:before{background:#0d5bd2}
+.semaforo-card.green:before{background:#22c55e}
+.semaforo-card small{
+  display:block;
+  color:#315783;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+  font-size:11px;
+  font-weight:900;
+  margin-left:6px;
+}
+.semaforo-card strong{
+  display:block;
+  color:#0b3b82;
+  font-size:26px;
+  margin:4px 0 2px 6px;
+}
+.semaforo-card span{
+  color:#60738f;
+  font-size:12px;
+  margin-left:6px;
+}
+.semaforo-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  border-radius:999px;
+  padding:7px 11px;
+  font-size:12px;
+  font-weight:900;
+  border:1px solid rgba(11,59,130,.12);
+  white-space:nowrap;
+}
+.semaforo-badge:before{
+  content:"";
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  display:inline-block;
+}
+.semaforo-badge.red{background:#fff1f2;color:#991b1b}
+.semaforo-badge.red:before{background:#ef4444}
+.semaforo-badge.yellow{background:#fff7db;color:#7a4b00}
+.semaforo-badge.yellow:before{background:#f7bf24}
+.semaforo-badge.blue{background:#eaf2ff;color:#0b3b82}
+.semaforo-badge.blue:before{background:#0d5bd2}
+.semaforo-badge.green{background:#ecfdf5;color:#166534}
+.semaforo-badge.green:before{background:#22c55e}
+.accept-gate{
+  border:1px solid rgba(247,191,36,.42);
+  background:linear-gradient(135deg,#fff7db,#ffffff);
+  border-radius:24px;
+  padding:16px;
+  margin:14px 0;
+  box-shadow:0 14px 32px rgba(247,191,36,.12);
+}
+.accept-gate h3{
+  margin:0 0 6px;
+  color:#0b3b82;
+  font-size:18px;
+}
+.accept-gate p{
+  margin:0;
+  color:#315783;
+  line-height:1.55;
+  font-size:13px;
+}
+.accept-gate .valor-actions{margin-top:12px}
+tr.need-accept-row{
+  background:linear-gradient(90deg,rgba(255,247,219,.80),rgba(255,255,255,1));
+}
+tr.need-accept-row td:first-child{
+  border-left:5px solid #f7bf24;
+}
+@media(max-width:980px){
+  .semaforo-board{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:640px){
+  .semaforo-board{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
@@ -3778,6 +3887,147 @@ async function configureEmailService(){
   toast("Correo automático configurado");
   return true;
 }
+
+
+/* =========================================================
+   SEMÁFORO CALIDAD/AUDITORÍA + ACEPTAR ANTES DE GESTIONAR
+   ========================================================= */
+function isQualityAuditUser(){
+  const role=String(state.user?.role||"").toLowerCase();
+  return isInternal() || /calidad|auditor|analista|jefe|admin|desarrollador/.test(role);
+}
+function semaforoInfo(t){
+  const status=String(t?.status||"");
+  if(["Enviada","Sin aceptar"].includes(status)){
+    return {color:"red",label:"Pendiente por aceptar",hint:"Debe aceptarse antes de gestionar"};
+  }
+  if(status==="En proceso"){
+    return {color:"blue",label:"Aceptada / en gestión",hint:"Ya puede organizarse y resolverse"};
+  }
+  if(status==="Espera ampliada"){
+    return {color:"yellow",label:"Pendiente ampliado",hint:"Tiene espera justificada"};
+  }
+  if(status==="Resuelta"){
+    return {color:"green",label:"Resuelta por validar",hint:"Lista para cierre"};
+  }
+  if(status==="Cerrada"){
+    return {color:"green",label:"Cerrada",hint:"Gestión finalizada"};
+  }
+  return {color:"yellow",label:status||"Pendiente",hint:"Revisar estado"};
+}
+function semaforoBadge(t){
+  const s=semaforoInfo(t);
+  return `<span class="semaforo-badge ${s.color}" title="${escapeHtml(s.hint)}">${escapeHtml(s.label)}</span>`;
+}
+function semaforoStats(rows){
+  const list=rows||state.tickets||[];
+  return {
+    sent:list.filter(t=>["Enviada","Sin aceptar"].includes(t.status)).length,
+    pending:list.filter(t=>["En proceso","Espera ampliada"].includes(t.status)).length,
+    resolved:list.filter(t=>t.status==="Resuelta").length,
+    closed:list.filter(t=>t.status==="Cerrada").length
+  };
+}
+function semaforoBoardHtml(rows){
+  if(!isQualityAuditUser())return "";
+  const s=semaforoStats(rows);
+  return `<div class="semaforo-board"><div class="semaforo-card red"><small>Enviado</small><strong>${s.sent}</strong><span>Pendiente por aceptar</span></div><div class="semaforo-card blue"><small>Pendiente</small><strong>${s.pending}</strong><span>En gestión o espera</span></div><div class="semaforo-card green"><small>Resuelto</small><strong>${s.resolved}</strong><span>Por validar / cerrar</span></div><div class="semaforo-card green"><small>Cerrado</small><strong>${s.closed}</strong><span>Finalizado</span></div></div>`;
+}
+function acceptGateHtml(t){
+  if(!isInternal())return "";
+  const s=semaforoInfo(t);
+  if(["Enviada","Sin aceptar"].includes(t.status)){
+    const assignedToMe=t.assignedTo===state.user?.id;
+    return `<div class="accept-gate"><h3>🟡 Solicitud enviada, pendiente por aceptar</h3><p>Antes de organizar, ampliar espera o resolver, el responsable debe presionar <strong>Aceptar solicitud</strong>. Esto deja trazabilidad de inicio de gestión y evita cierres sin aceptación.</p><div class="valor-actions">${assignedToMe?`<button class="btn ok" onclick="acceptTicket('${t.id}')">Aceptar solicitud</button>`:`<button class="btn ghost" disabled>Debe aceptar: ${escapeHtml(userName(t.assignedTo))}</button>`}</div></div>`;
+  }
+  if(t.status==="En proceso"){
+    return `<div class="accept-gate" style="background:linear-gradient(135deg,#eaf2ff,#ffffff);border-color:rgba(13,91,210,.22)"><h3>🔵 Solicitud aceptada y en gestión</h3><p>La solicitud ya fue aceptada. Ahora puede organizarse, ampliarse si aplica o marcarse como resuelta por el responsable asignado.</p></div>`;
+  }
+  return "";
+}
+
+const ticketsHtmlBeforeSemaforo=ticketsHtml;
+ticketsHtml=function(){
+  const rows=filteredTickets();
+  return `${semaforoBoardHtml(rows)}<div class="card"><div class="filters"><input id="fQ" placeholder="Buscar por código, solicitante, responsable o tema" value="${escapeHtml(state.filters.q)}"><select id="fStatus"><option>Todos</option>${statusFlow.map(x=>`<option ${state.filters.status===x?"selected":""}>${x}</option>`).join("")}</select><select id="fAssignee"><option>Todos</option>${state.users.map(u=>`<option value="${u.id}" ${state.filters.assignee===u.id?"selected":""}>${escapeHtml(u.name)}</option>`).join("")}</select><select id="fPriority"><option>Todos</option>${priorities.map(x=>`<option ${state.filters.priority===x?"selected":""}>${x}</option>`).join("")}</select></div><div class="section-title"><h2>Listado de solicitudes</h2><span>${rows.length} coincidencias</span></div>${rows.length?`<div class="table-wrap"><table><thead><tr><th>Código</th><th>Solicitud</th><th>Semáforo</th><th>Estado</th><th>Responsable</th><th>Prioridad</th><th>Actualizado</th></tr></thead><tbody>${rows.map(t=>`<tr class="clickable-row ${["Enviada","Sin aceptar"].includes(t.status)?"need-accept-row":""}" onclick="openTicket('${t.id}')"><td><strong>${escapeHtml(t.code)}</strong><br><span style="color:#7c8aa0">${escapeHtml(t.requesterName||'')}</span></td><td>${escapeHtml(t.title)}<br><span style="color:#7c8aa0">${escapeHtml(t.requesterArea||'')}</span></td><td>${semaforoBadge(t)}</td><td>${statusTag(t.status)}</td><td>${escapeHtml(userName(t.assignedTo))}</td><td>${priorityTag(t.priority)}</td><td>${fmt(t.updated_at)}</td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">No hay coincidencias con los filtros aplicados.</div>`}</div>`;
+};
+
+const dashboardHtmlBeforeSemaforo=dashboardHtml;
+dashboardHtml=function(){
+  return semaforoBoardHtml(state.tickets)+dashboardHtmlBeforeSemaforo();
+};
+
+const valorPanelsHtmlBeforeSemaforo=valorPanelsHtml;
+valorPanelsHtml=function(t){
+  return `<div style="margin-top:12px">${semaforoBadge(t)}</div>${acceptGateHtml(t)}${valorPanelsHtmlBeforeSemaforo(t)}`;
+};
+
+acceptTicket=async function(id){
+  const t=state.tickets.find(x=>x.id===id);if(!t)return;
+  if(t.assignedTo!==state.user?.id && !hasLead()){
+    popup("No puedes aceptar esta solicitud","La solicitud debe ser aceptada por el responsable asignado o por un líder autorizado.",assets.missing);
+    return;
+  }
+  if(!["Enviada","Sin aceptar"].includes(t.status)){
+    toast("Esta solicitud ya fue aceptada o gestionada");
+    return;
+  }
+  const res=await Swal.fire({
+    title:"Aceptar solicitud",
+    html:`<div class="wizard-summary"><p>Al aceptar, la solicitud pasa a <strong>En proceso</strong> y queda habilitada para organizar, ampliar espera o resolver.</p></div>`,
+    showCancelButton:true,
+    confirmButtonText:"Aceptar solicitud",
+    cancelButtonText:"Cancelar",
+    confirmButtonColor:"#0d5bd2"
+  });
+  if(!res.isConfirmed)return;
+  t.acceptedAt=now();
+  t.chat=t.chat||[];
+  t.chat.push({by:state.user.name,text:'Solicitud aceptada para gestión.',at:now()});
+  await updateTicket(t,'Aceptación','El responsable aceptó la solicitud y la pasó a gestión.','En proceso');
+  toast('Solicitud aceptada');
+};
+
+const resolveTicketBeforeSemaforo=resolveTicket;
+resolveTicket=async function(id){
+  const t=state.tickets.find(x=>x.id===id);if(!t)return;
+  if(["Enviada","Sin aceptar"].includes(t.status)){
+    popup("Primero debes aceptar la solicitud","Para resolverla, primero presiona “Aceptar solicitud”. Así queda trazabilidad del inicio de gestión.",assets.missing);
+    return;
+  }
+  if(!["En proceso","Espera ampliada"].includes(t.status)){
+    popup("Estado no permitido","Solo se puede resolver una solicitud que esté en proceso o en espera ampliada.",assets.missing);
+    return;
+  }
+  if(t.assignedTo!==state.user?.id && !hasLead()){
+    popup("No puedes resolver esta solicitud","Solo el responsable asignado o un líder autorizado puede resolverla.",assets.missing);
+    return;
+  }
+  return resolveTicketBeforeSemaforo(id);
+};
+
+const extendTicketBeforeSemaforo=extendTicket;
+extendTicket=async function(id){
+  const t=state.tickets.find(x=>x.id===id);if(!t)return;
+  if(["Enviada","Sin aceptar"].includes(t.status)){
+    popup("Primero debes aceptar la solicitud","Para ampliar espera u organizarla, primero presiona “Aceptar solicitud”.",assets.missing);
+    return;
+  }
+  if(t.assignedTo!==state.user?.id && !hasLead()){
+    popup("No puedes modificar esta solicitud","Solo el responsable asignado o un líder autorizado puede modificarla.",assets.missing);
+    return;
+  }
+  return extendTicketBeforeSemaforo(id);
+};
+
+ticketActions=function(t){
+  const backView=isInternal()?'tickets':'create';
+  let actions=`<button class="btn ghost" onclick="setView('${backView}')">Volver</button>`;
+  if(isInternal() && (t.assignedTo===state.user.id || hasLead()) && ['Enviada','Sin aceptar'].includes(t.status))actions+=`<button class="btn ok" onclick="acceptTicket('${t.id}')">Aceptar solicitud</button>`;
+  if(isInternal() && (t.assignedTo===state.user.id || hasLead()) && ['En proceso','Espera ampliada'].includes(t.status))actions+=`<button class="btn gold" onclick="extendTicket('${t.id}')">Ampliar espera</button><button class="btn ok" onclick="resolveTicket('${t.id}')">Resolver</button>`;
+  if((hasLead() || t.createdBy===state.user.id) && t.status==='Resuelta')actions+=`<button class="btn primary" onclick="closeTicket('${t.id}')">Cerrar y notificar</button>`;
+  return actions;
+};
 
 window.addEventListener('DOMContentLoaded',async()=>{
   prepareIntroStart();
