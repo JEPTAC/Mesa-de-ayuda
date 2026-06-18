@@ -3732,6 +3732,53 @@ function valorPanelsHtml(t){
   return `<div style="display:grid;gap:14px;margin-top:16px">${qualityPanelHtml(t)}<div class="sla-panel"><div class="sla-head"><div><strong>SLA y vencimiento</strong><p class="mini-note">Objetivo según prioridad ${escapeHtml(t.priority)}.</p></div>${slaTag(t)}</div><div class="sla-grid"><div class="sla-mini"><small>Objetivo</small><strong>${escapeHtml(s.rule.label)}</strong></div><div class="sla-mini"><small>Transcurrido</small><strong>${Number(s.elapsed.toFixed(1))} h</strong></div><div class="sla-mini"><small>Vence</small><strong>${fmt(s.due)}</strong></div><div class="sla-mini"><small>Estado</small><strong>${escapeHtml(s.label)}</strong></div></div><div class="quality-bar" style="margin-top:12px"><span style="width:${Math.max(3,s.pct)}%"></span></div></div><div class="suggest-panel"><div class="section-title"><h2>IA operativa del ticket</h2><span>acciones rápidas</span></div><div class="valor-actions"><button class="btn ghost" onclick="showExecutiveSummary('${t.id}')">Resumen ejecutivo</button><button class="btn ghost" onclick="showAuditMode('${t.id}')">Modo auditoría</button><button class="btn primary" onclick="exportTicketPDF('${t.id}','${type}')">Exportar PDF</button>${type==="created"?`<button class="btn gold" onclick="sendTicketEmailAutomatic(state.tickets.find(x=>x.id==='${t.id}'),'created')">Reenviar comprobante</button>`:`<button class="btn gold" onclick="openOutlookResolutionEmail(state.tickets.find(x=>x.id==='${t.id}'))">Abrir Outlook</button>`}${isInternal()?`<button class="btn ghost" onclick="configureEmailService()">Configurar comprobante</button>`:""}<button class="btn ghost" onclick="showSentEmailPreview('${t.id}','${type}')">Vista correo</button></div>${emailLogHtml(t)}</div></div>`;
 }
 
+
+/* =========================================================
+   CONFIGURACIÓN EMAILJS FINAL
+   Comprobante automático de creación de ticket.
+   Service ID: service_phxg50s
+   Public Key: NZuzGvDjZbERSu6nB
+   Template ID: template_nazm37c
+   ========================================================= */
+const EMAILJS_FINAL_PUBLIC_KEY="NZuzGvDjZbERSu6nB";
+const EMAILJS_FINAL_SERVICE_ID="service_phxg50s";
+const EMAILJS_FINAL_TEMPLATE_ID="template_nazm37c";
+
+function getEmailConfig(){
+  let saved={};
+  try{saved=JSON.parse(localStorage.getItem(EMAIL_PROVIDER_KEY)||"{}")}catch(e){saved={}}
+  return {
+    publicKey:saved.publicKey||EMAILJS_FINAL_PUBLIC_KEY,
+    serviceId:saved.serviceId||EMAILJS_FINAL_SERVICE_ID,
+    templateId:saved.templateId||EMAILJS_FINAL_TEMPLATE_ID
+  };
+}
+function hasEmailConfig(){
+  const c=getEmailConfig();
+  return !!(c.publicKey&&c.serviceId&&c.templateId);
+}
+async function configureEmailService(){
+  const cfg=getEmailConfig();
+  const res=await Swal.fire({
+    title:"Configurar comprobante automático",
+    width:760,
+    html:`<div class="wizard-summary"><p>El comprobante de creación del ticket se enviará automáticamente al correo registrado por el solicitante.</p><div class="field" style="text-align:left"><label>Public Key de EmailJS</label><input id="email-public" class="swal2-input" value="${escapeHtml(cfg.publicKey||EMAILJS_FINAL_PUBLIC_KEY)}" placeholder="Public Key"></div><div class="field" style="text-align:left"><label>Service ID</label><input id="email-service" class="swal2-input" value="${escapeHtml(cfg.serviceId||EMAILJS_FINAL_SERVICE_ID)}" placeholder="service_phxg50s"></div><div class="field" style="text-align:left"><label>Template ID</label><input id="email-template" class="swal2-input" value="${escapeHtml(cfg.templateId||EMAILJS_FINAL_TEMPLATE_ID)}" placeholder="template_nazm37c"></div><p class="email-config-note">La plantilla debe recibir: to_email, subject, ticket_code, requester_name, html_message y text_message.</p></div>`,
+    showCancelButton:true,
+    confirmButtonText:"Guardar configuración",
+    cancelButtonText:"Cancelar",
+    confirmButtonColor:"#0d5bd2",
+    preConfirm:()=>({
+      publicKey:document.getElementById("email-public").value.trim()||EMAILJS_FINAL_PUBLIC_KEY,
+      serviceId:document.getElementById("email-service").value.trim()||EMAILJS_FINAL_SERVICE_ID,
+      templateId:document.getElementById("email-template").value.trim()||EMAILJS_FINAL_TEMPLATE_ID
+    })
+  });
+  if(!res.value)return false;
+  saveEmailConfig(res.value);
+  toast("Correo automático configurado");
+  return true;
+}
+
 window.addEventListener('DOMContentLoaded',async()=>{
   prepareIntroStart();
 
