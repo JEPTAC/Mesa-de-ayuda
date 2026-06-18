@@ -1842,6 +1842,126 @@ function generateTicketDraft(){
   popup('Borrador creado',`La IA organizó la radicación con una calidad estimada de ${aiDraftQuality(d)}%. Revisa los datos y envía la solicitud.`,assets.sent[0]);
 }
 
+
+/* =========================================================
+   CEREBRO EXCELSO - Carga transversal y especialización
+   ========================================================= */
+async function seed(){
+  const safeList=async(table)=>{try{return await listRecords(table)}catch(e){console.warn('No cargó '+table,e);return []}};
+  const safeJson=async(url)=>{try{return await fetch(url,{cache:'force-cache'}).then(r=>r.ok?r.json():[])}catch(e){console.warn('No cargó '+url,e);return []}};
+
+  let [users,tickets,aiRows,scores,adv,corpus,intents,templates,cerebro,cerebroTests]=await Promise.all([
+    safeList(tables.users),
+    safeList(tables.tickets),
+    safeList(tables.ai),
+    safeList(tables.scores),
+    safeJson('ia_nivel1_data/knowledge_seed.json'),
+    safeJson('ia_corpus_data/corpus_knowledge.json'),
+    safeJson('ia_corpus_data/corpus_intents.json'),
+    safeJson('ia_corpus_data/corpus_templates.json'),
+    safeJson('ia_cerebro_excelso_data/cerebro_knowledge.json'),
+    safeJson('ia_cerebro_excelso_data/cerebro_tests.json')
+  ]);
+
+  if(!users.length){
+    await Promise.all(defaultUsers.map(u=>saveRecord(tables.users,{id:u.id,...u,created_at:now(),updated_at:now()})));
+    users=await safeList(tables.users);
+  }
+
+  if(aiRows.length<10){
+    await Promise.all(aiKnowledge.map(k=>saveRecord(tables.ai,{id:"base_"+k.id,key:k.keywords.join(","),intent:k.intent,answer:k.answer,createdBy:"Modelo base",route:k.route,active:true,created_at:now(),updated_at:now()})));
+    aiRows=await safeList(tables.ai);
+  }
+
+  state.users=users;
+  state.tickets=tickets;
+  state.aiMemories=aiRows;
+  state.scores=scores;
+  state.advancedKnowledge=(adv||[]).map(x=>({id:x.id,intent:x.intent_id||x.category_id||'general',keywords:x.keywords||[x.question,x.title],answer:x.answer||'',source:'Nivel 1'}));
+  state.corpusKnowledge=corpus||[];
+  state.corpusIntents=intents||[];
+  state.corpusTemplates=templates||[];
+  state.cerebroKnowledge=cerebro||[];
+  state.cerebroTests=cerebroTests||[];
+}
+
+function aiKnowledgePool(){
+  const rows=[];
+  (aiKnowledge||[]).forEach(x=>rows.push({
+    source:"base",
+    intent:x.intent||"general",
+    title:x.id||x.intent||"Conocimiento base",
+    question:(x.keywords||[]).join(" "),
+    keywords:x.keywords||[],
+    answer:x.answer||"",
+    weight:.95
+  }));
+  (state.aiMemories||[]).filter(x=>x.active!==false).forEach(x=>rows.push({
+    source:"memoria",
+    intent:x.intent||"memoria",
+    title:x.key||x.id||"Memoria",
+    question:x.key||"",
+    keywords:String(x.key||"").split(","),
+    answer:x.answer||"",
+    weight:1.05
+  }));
+  (state.advancedKnowledge||[]).forEach(x=>rows.push({
+    source:"nivel1",
+    intent:x.intent||"general",
+    title:x.id||"Semilla nivel 1",
+    question:(x.keywords||[]).join(" "),
+    keywords:x.keywords||[],
+    answer:x.answer||"",
+    weight:.92
+  }));
+  (state.corpusKnowledge||[]).forEach(x=>rows.push({
+    source:"corpus",
+    intent:x.intent_id||x.category_id||x.intent||"corpus",
+    title:x.title||x.question||"Corpus",
+    question:x.question||x.title||"",
+    keywords:x.keywords||[],
+    answer:x.answer||"",
+    weight:1
+  }));
+  (state.cerebroKnowledge||[]).forEach(x=>rows.push({
+    source:"cerebro_excelso",
+    intent:x.intent||"cerebro",
+    title:x.title||x.question||"Cerebro",
+    question:x.question||x.title||"",
+    keywords:x.keywords||[],
+    answer:x.answer||"",
+    weight:x.weight||1.08
+  }));
+  (state.tickets||[]).slice(-160).forEach(t=>rows.push({
+    source:"tickets",
+    intent:"historial_tickets",
+    title:t.code+" "+t.title,
+    question:[t.code,t.title,t.category,t.priority,t.status,t.requesterArea,userName(t.assignedTo)].join(" "),
+    keywords:[t.code,t.category,t.priority,t.status,t.requesterArea,userName(t.assignedTo)],
+    answer:`Solicitud histórica ${t.code}: ${t.title}. Estado ${t.status}. Categoría ${t.category}. Prioridad ${t.priority}. Responsable ${userName(t.assignedTo)}. Descripción: ${String(t.description||"").slice(0,650)}`,
+    weight:.72
+  }));
+  return rows.filter(r=>String(r.answer||r.question||"").trim());
+}
+
+function aiHtml(){
+  return `<div class="ai-layout"><div class="card"><div class="section-title"><h2>IA de Calidad · Cerebro Excelso</h2><span>${AI_MAX_VERSION} · ${state.cerebroKnowledge?.length||0} casos cerebro</span></div><div class="ai-mode-note">Modo conversacional especializado: sabe cargos, equipo, creador, apps, radicación, calidad, auditoría, documentos, KPIs y variantes con errores de ortografía. Usa similitud matemática y conocimiento transversal.</div><div class="ai-brain-panel"><div class="ai-brain-chip"><strong>${state.aiMemories.length}</strong>memorias activas</div><div class="ai-brain-chip"><strong>${state.corpusKnowledge.length}</strong>registros de corpus</div><div class="ai-brain-chip"><strong>${state.cerebroKnowledge?.length||0}</strong>casos transversales</div></div><div class="ai-chat" id="aiChat" style="margin-top:12px">${state.aiHistory.map(m=>`<div class="${m.me?'human':'bot'}">${escapeHtml(m.text)}</div>`).join('')||`<div class="bot">Hola. Soy la IA de Calidad con Cerebro Excelso. Puedes preguntarme quién creó la app, quién es cada persona del equipo, cómo radicar, cómo clasificar un caso, o escribirme con errores de ortografía y aun así intentaré organizar tu solicitud.</div>`}</div>${aiActionsHtml()}<div class="form" style="margin-top:12px"><div class="field"><label>Mensaje, pregunta u orden</label><input id="aiPrompt" placeholder="Ej. necesito mradicar una solisitud de cartera porque no sube el PDF de la factura"></div><button class="btn primary" onclick="askAI()">Conversar / analizar / ejecutar</button></div><div class="ai-quality-note">El cerebro no materializa millones de filas: combina plantillas, variantes y similitud matemática. Si no entiende con confianza suficiente, te pedirá área, problema, evidencia y resultado esperado.</div></div><div class="card"><div class="section-title"><h2>Acciones rápidas</h2><span>sin explorar la app</span></div>${aiQuickOptionsHtml()}<div class="section-title" style="margin-top:18px"><h2>Entrenar IA</h2><span>memoria + documentos + tickets + juegos</span></div><div class="form"><div class="field"><label>Subir documento</label><input id="knowledgeFile" type="file" accept=".pdf,.txt,.csv,.md,.json,.doc,.docx"></div><button class="btn ghost" onclick="learnFromFile()">Leer y aprender</button><div class="field"><label>Pregunta o palabra clave</label><input id="learnKey" placeholder="Ej. remanente, auditoría, procedimiento"></div><div class="field"><label>Respuesta esperada</label><textarea id="learnAnswer" placeholder="Escribe cómo debe responder el bot"></textarea></div><button class="btn gold" onclick="manualLearn()">Guardar memoria</button><div class="empty">Especializada en lo trabajado por Juan Esteban Pérez, el equipo de Calidad y las apps internas relacionadas.</div></div></div></div>`;
+}
+
+function aiQuickOptionsHtml(){
+  return `<div class="quick-grid"><button class="quick-option" onclick="sendQuickAI('quién creó esta aplicación')">👤 Creador de la app<small>Responde autoría, rol y administración.</small></button><button class="quick-option" onclick="sendQuickAI('quién es el equipo de calidad y qué hace cada uno')">🛠️ Equipo y cargos<small>Explica roles y responsables.</small></button><button class="quick-option" onclick="sendQuickAI('necesito mradicar una solisitud con errores de ortografía')">📝 Radicar con errores<small>Entiende variantes y organiza el caso.</small></button><button class="quick-option" onclick="sendQuickAI('cómo clasifico una solicitud de procedimiento documento auditoría o KPI')">🎯 Clasificar solicitud<small>Categoría, prioridad y modalidad.</small></button></div>`;
+}
+
+function aiCerebroStats(){
+  return {
+    memories:state.aiMemories?.length||0,
+    corpus:state.corpusKnowledge?.length||0,
+    cerebro:state.cerebroKnowledge?.length||0,
+    tickets:state.tickets?.length||0,
+    tests:state.cerebroTests?.length||0
+  };
+}
+
 window.addEventListener('DOMContentLoaded',async()=>{
   prepareIntroStart();
 
