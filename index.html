@@ -282,6 +282,346 @@ body::after{background:radial-gradient(circle at top right, rgba(30,99,255,.16),
 @media(max-width:1050px){.executive-hero{grid-template-columns:1fr}.support-row{grid-template-columns:1fr 1fr}}
 @media(max-width:680px){.support-row{grid-template-columns:1fr}.executive-card{padding:20px}.executive-title{font-size:30px}}
 
+
+/* =========================================================
+   MANUAL DE MARCA: blanco + azul + amarillo
+   Versión premium clara, funcional y optimizada
+   ========================================================= */
+:root{
+  --blue:#0b3b82;
+  --blue2:#0d5bd2;
+  --blue3:#eaf2ff;
+  --gold:#f7bf24;
+  --gold2:#fff7db;
+  --white:#ffffff;
+  --ink:#0b3b82;
+  --muted:#315783;
+  --ok:#0d5bd2;
+  --warn:#f7bf24;
+  --bad:#0b3b82;
+  --line:rgba(11,59,130,.14);
+  --shadow:0 22px 48px rgba(11,59,130,.10);
+  --radius:28px;
+}
+
+/* Fondo institucional blanco con textura sutil azul/amarilla */
+html,body{
+  color:var(--blue);
+  background:
+    radial-gradient(circle at 8% -6%,rgba(247,191,36,.16),transparent 30%),
+    radial-gradient(circle at 100% 0%,rgba(13,91,210,.10),transparent 28%),
+    linear-gradient(145deg,#ffffff,#ffffff 48%,#f7fbff 100%) !important;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.42;
+  background-image:
+    radial-gradient(circle at 1px 1px,rgba(11,59,130,.08) 1px,transparent 1.2px),
+    linear-gradient(rgba(11,59,130,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(11,59,130,.025) 1px,transparent 1px);
+  background-size:26px 26px,26px 26px,26px 26px;
+  mask-image:radial-gradient(circle at center,black 62%,transparent 100%);
+}
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at top right,rgba(247,191,36,.12),transparent 24%),
+    radial-gradient(circle at left center,rgba(13,91,210,.08),transparent 28%);
+}
+
+/* Sidebar premium clara */
+.sidebar{
+  background:linear-gradient(180deg,#ffffff,#f7fbff) !important;
+  color:var(--blue) !important;
+  border-right:1px solid rgba(11,59,130,.14) !important;
+  box-shadow:18px 0 45px rgba(11,59,130,.08) !important;
+}
+.sidebar::before{
+  border:1px solid rgba(11,59,130,.08) !important;
+}
+.brand small,.user-role,.user-status{
+  color:var(--muted) !important;
+}
+.user-card,.mode-pill{
+  background:linear-gradient(180deg,#ffffff,#f7fbff) !important;
+  color:var(--blue) !important;
+  border:1px solid rgba(11,59,130,.12) !important;
+  box-shadow:0 14px 30px rgba(11,59,130,.08) !important;
+}
+.user-name,.page-title h1,.section-title h2,.metric .value,.metric .label,.lane h3,.step strong{
+  color:var(--blue) !important;
+}
+.avatar,.profile-avatar-wrap{
+  background:linear-gradient(135deg,#ffffff,#eaf2ff) !important;
+  border-color:rgba(11,59,130,.12) !important;
+}
+
+/* Navegación tipo Service Desk con azul institucional */
+.nav button{
+  color:var(--blue) !important;
+  background:linear-gradient(180deg,#ffffff,#f7fbff) !important;
+  border:1px solid rgba(11,59,130,.10) !important;
+}
+.nav button .icon{
+  background:var(--blue3) !important;
+  color:var(--blue) !important;
+}
+.nav button:hover,.nav button.active{
+  background:linear-gradient(135deg,var(--blue),var(--blue2)) !important;
+  color:#ffffff !important;
+  border-color:rgba(11,59,130,.22) !important;
+  box-shadow:0 18px 34px rgba(13,91,210,.18) !important;
+}
+.nav button:hover .icon,.nav button.active .icon{
+  background:rgba(255,255,255,.18) !important;
+  color:#ffffff !important;
+}
+
+/* Topbar y contenedores claros */
+.main{
+  background:transparent !important;
+}
+.topbar{
+  background:rgba(255,255,255,.82) !important;
+  color:var(--blue) !important;
+  border:1px solid rgba(11,59,130,.12) !important;
+  box-shadow:0 20px 40px rgba(11,59,130,.08) !important;
+  backdrop-filter:blur(14px);
+}
+.page-title h1{
+  background:linear-gradient(135deg,var(--blue),var(--blue2)) !important;
+  -webkit-background-clip:text !important;
+  background-clip:text !important;
+  color:transparent !important;
+}
+.page-title p,.metric .hint,.section-title span,.field label,.step p,.mini-ticket p,.profile-card p,.empty,.mini-note,.hint,.boot-tip{
+  color:var(--muted) !important;
+}
+
+/* Glassmorphism claro: blanco, azul, amarillo */
+.card,.login-card,.profile-card,.lane,.mini-ticket,.msg,.ai-msg,.answer,.micro-card,.code-card,.compare-card,.scenario,.rank-card,.empty,.table-wrap,.chat-box,.ai-chat,.chart-box,.chart-box.sm,.filters,.executive-card,.support-mini,.health-row{
+  background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(255,255,255,.84)) !important;
+  color:var(--blue) !important;
+  border:1px solid rgba(11,59,130,.12) !important;
+  box-shadow:0 18px 42px rgba(11,59,130,.08),inset 0 1px 0 rgba(255,255,255,.75) !important;
+  backdrop-filter:blur(12px);
+}
+.card:hover,.metric:hover,.profile-card:hover,.mini-ticket:hover,.answer:hover,.micro-card:hover,.compare-card:hover{
+  border-color:rgba(13,91,210,.22) !important;
+  box-shadow:0 24px 54px rgba(11,59,130,.12),inset 0 1px 0 rgba(255,255,255,.85) !important;
+}
+
+/* Métricas y dashboard ejecutivo */
+.metric{
+  background:linear-gradient(180deg,#ffffff,#f7fbff) !important;
+}
+.metric::before{
+  background:linear-gradient(180deg,var(--blue2),var(--gold)) !important;
+}
+.metric:after{
+  background:linear-gradient(135deg,rgba(247,191,36,.18),rgba(13,91,210,.08)) !important;
+}
+.executive-card{
+  background:
+    radial-gradient(circle at 100% 0%,rgba(247,191,36,.16),transparent 30%),
+    linear-gradient(135deg,#ffffff,#f3f8ff) !important;
+}
+.executive-title{
+  color:var(--blue) !important;
+}
+.executive-sub,.executive-chip,.executive-kicker,.health-row span,.support-mini small{
+  color:var(--muted) !important;
+}
+.executive-chip,.executive-kicker{
+  background:var(--blue3) !important;
+  border:1px solid rgba(11,59,130,.12) !important;
+}
+.health-row strong,.support-mini strong{
+  color:var(--blue) !important;
+}
+.sla-bar{
+  background:var(--blue3) !important;
+  border:1px solid rgba(11,59,130,.10) !important;
+}
+.sla-bar span{
+  background:linear-gradient(90deg,var(--blue2),var(--gold)) !important;
+}
+
+/* Tablas */
+table,th,td{
+  color:var(--blue) !important;
+}
+th{
+  background:linear-gradient(180deg,#eaf2ff,#ffffff) !important;
+  color:var(--blue) !important;
+}
+td{
+  background:rgba(255,255,255,.88) !important;
+  border-bottom:1px solid rgba(11,59,130,.10) !important;
+}
+tr:hover td{
+  background:#f7fbff !important;
+}
+
+/* Formularios */
+.field input,.field select,.field textarea{
+  background:#ffffff !important;
+  color:var(--blue) !important;
+  border:1px solid rgba(11,59,130,.16) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.88) !important;
+}
+.field input::placeholder,.field textarea::placeholder{
+  color:rgba(11,59,130,.52) !important;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:var(--blue2) !important;
+  box-shadow:0 0 0 4px rgba(13,91,210,.12) !important;
+}
+
+/* Botones */
+.btn.primary{
+  background:linear-gradient(135deg,var(--blue),var(--blue2)) !important;
+  color:#ffffff !important;
+  box-shadow:0 16px 34px rgba(13,91,210,.22) !important;
+}
+.btn.ghost{
+  background:#ffffff !important;
+  color:var(--blue) !important;
+  border:1px solid rgba(11,59,130,.14) !important;
+}
+.btn.gold{
+  background:linear-gradient(135deg,#ffe083,var(--gold)) !important;
+  color:var(--blue) !important;
+}
+.btn.ok,.btn.danger,.btn.text{
+  background:var(--blue3) !important;
+  color:var(--blue) !important;
+  border:1px solid rgba(11,59,130,.14) !important;
+}
+
+/* Estados sin rojo/verde/morado: solo azul, amarillo y blanco */
+.tag.blue,.tag.green,.tag.purple,.tag.gray{
+  background:var(--blue3) !important;
+  color:var(--blue) !important;
+}
+.tag.gold,.tag.red{
+  background:var(--gold2) !important;
+  color:var(--blue) !important;
+}
+.dot.on,.dot{
+  background:var(--gold) !important;
+  box-shadow:0 0 0 6px rgba(247,191,36,.16) !important;
+}
+
+/* Chat / IA */
+.chat-box,.ai-chat{
+  background:linear-gradient(180deg,#ffffff,#f7fbff) !important;
+}
+.msg,.ai-msg{
+  color:var(--blue) !important;
+  background:#ffffff !important;
+}
+.msg.me,.ai-msg.me{
+  background:var(--blue3) !important;
+  border-color:rgba(11,59,130,.14) !important;
+}
+.msg small,.ai-msg small{
+  color:var(--muted) !important;
+}
+
+/* Intro clara: respeta blanco, azul y amarillo */
+.boot-loader{
+  background:#ffffff !important;
+}
+.boot-video{
+  filter:saturate(.85) contrast(1.04) brightness(1.16) opacity(.28) !important;
+}
+.boot-overlay{
+  background:
+    radial-gradient(circle at center,rgba(255,255,255,.38),rgba(255,255,255,.82) 56%,#ffffff 100%),
+    radial-gradient(circle at top right,rgba(247,191,36,.16),transparent 28%),
+    radial-gradient(circle at left,rgba(13,91,210,.12),transparent 30%) !important;
+}
+.boot-card.cinematic{
+  background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,255,255,.88)) !important;
+  border:1px solid rgba(11,59,130,.14) !important;
+  box-shadow:0 32px 80px rgba(11,59,130,.14),inset 0 1px 0 rgba(255,255,255,.88) !important;
+}
+.boot-brand.no-logo{
+  background:linear-gradient(135deg,var(--blue3),#ffffff) !important;
+  border:1px solid rgba(11,59,130,.12) !important;
+}
+.boot-brand.no-logo strong,.boot-copy h2,.boot-dev strong{
+  color:var(--blue) !important;
+}
+.boot-brand.no-logo span,.boot-copy p,.boot-dev,.boot-tip{
+  color:var(--muted) !important;
+}
+.boot-character-wrap{
+  background:linear-gradient(145deg,#ffffff,var(--blue3)) !important;
+  box-shadow:0 22px 46px rgba(13,91,210,.16) !important;
+}
+.boot-start-btn{
+  background:linear-gradient(135deg,var(--blue),var(--blue2)) !important;
+  color:#ffffff !important;
+}
+.boot-play-icon{
+  background:#ffffff !important;
+  color:var(--blue) !important;
+}
+.boot-loader-btn.cinematic-btn{
+  background:linear-gradient(135deg,var(--blue),var(--blue2)) !important;
+  color:#ffffff !important;
+}
+.boot-progress{
+  background:var(--blue3) !important;
+  border:1px solid rgba(11,59,130,.10) !important;
+}
+.boot-progress span{
+  background:linear-gradient(90deg,var(--blue2),var(--gold)) !important;
+}
+.boot-dev{
+  background:var(--blue3) !important;
+  border:1px solid rgba(11,59,130,.12) !important;
+}
+
+/* Juegos y monedas */
+.coin-balance{
+  background:linear-gradient(135deg,var(--gold2),#ffffff) !important;
+  border:1px solid rgba(247,191,36,.38) !important;
+}
+.coin-balance strong,.coin-balance span{
+  color:var(--blue) !important;
+}
+.scenario{
+  background:linear-gradient(135deg,var(--blue),var(--blue2)) !important;
+  color:#ffffff !important;
+}
+.scenario h3,.scenario p{
+  color:#ffffff !important;
+}
+
+/* Scrollbar con marca */
+::-webkit-scrollbar-track{background:#ffffff !important}
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,var(--blue2),var(--gold)) !important;
+  border:2px solid #ffffff !important;
+}
+
+/* Móvil */
+@media(max-width:860px){
+  .topbar{background:rgba(255,255,255,.92) !important}
+  .sidebar{background:#ffffff !important}
+}
+
 </style>
 </head>
 <body>
