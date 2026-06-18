@@ -6,6 +6,10 @@
 <meta name="theme-color" content="#0b3b82">
 <title>Dream Team de Calidad</title>
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preload" href="assets/intro_bg.mp4" as="video" type="video/mp4">
+<link rel="preload" href="assets/intro_logo.mp3" as="audio" type="audio/mpeg">
+<link rel="preload" href="assets/intro_pointer.gif" as="image">
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
@@ -121,6 +125,32 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dis
 @keyframes bootCardIntro{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
 @media(max-width:700px){.boot-card.cinematic{padding:18px}.boot-hero{grid-template-columns:1fr;justify-items:center;text-align:center}.boot-character-wrap{width:132px;height:132px}.boot-copy h2{font-size:28px}.boot-start-btn,.boot-loader-btn.cinematic-btn{width:100%;min-width:0}.boot-brand{padding:10px;align-items:center}}
 
+
+/* Refinamiento visual + fluidez general */
+html{scroll-behavior:smooth}
+body{background:
+radial-gradient(circle at 12% -6%,rgba(247,191,36,.20),transparent 33%),
+radial-gradient(circle at 100% 0%,rgba(13,91,210,.12),transparent 30%),
+linear-gradient(145deg,#f7f9fd,#eef3fb 42%,#ffffff)}
+.card,.metric,.profile-card,.mini-ticket,.login-card,.user-card{transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease,background .22s ease}
+.card:hover,.metric:hover,.profile-card:hover{transform:translateY(-2px);box-shadow:0 30px 72px rgba(13,37,76,.14)}
+.btn,.answer,.micro-card,.nav button{will-change:transform}
+#view{animation:viewSoftIn .28s ease both}
+@keyframes viewSoftIn{from{opacity:.25;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+/* Intro refinada sin logo superior y con botón principal más grande */
+.boot-brand.no-logo{justify-content:center;text-align:center;padding:14px 16px;background:linear-gradient(135deg,rgba(13,91,210,.24),rgba(255,255,255,.08))}
+.boot-brand.no-logo div{width:100%}
+.boot-brand.no-logo strong{font-size:22px;letter-spacing:-.5px}
+.boot-brand.no-logo span{font-size:13px}
+.boot-start-btn{font-size:20px!important;padding:19px 30px!important;min-width:min(430px,100%)!important;width:min(430px,100%)!important;justify-self:center;letter-spacing:-.2px}
+.boot-play-icon{width:36px!important;height:36px!important;font-size:16px!important}
+.boot-loader-btn.cinematic-btn{font-size:15px;min-width:min(360px,100%);justify-self:center}
+.boot-dev{font-size:14px!important;letter-spacing:.1px}
+.boot-copy h2{font-size:36px}
+.boot-card.cinematic{gap:18px}
+
 </style>
 </head>
 <body>
@@ -131,8 +161,7 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dis
   <div class="boot-overlay"></div>
 
   <div class="boot-card cinematic" id="bootCard">
-    <div class="boot-brand">
-      <img src="assets/logo.png" alt="Dream Team de Calidad">
+    <div class="boot-brand no-logo">
       <div>
         <strong>Mesa de Ayuda de Calidad</strong>
         <span>Dream Team de Calidad y Mejoramiento Continuo</span>
@@ -144,8 +173,8 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dis
         <img src="assets/intro_pointer.gif" alt="Asistente de carga">
       </div>
       <div class="boot-copy">
-        <h2>Intro lista para iniciar</h2>
-        <p>Presiona iniciar para reproducir video y música sincronizados. La app abrirá solo cuando termine la intro.</p>
+        <h2>Bienvenido al sistema</h2>
+        <p>Presiona iniciar. El video y la música correrán juntos, y la app abrirá automáticamente al finalizar.</p>
       </div>
     </div>
 
@@ -282,6 +311,7 @@ const defaultUsers=[
 ];
 
 let audioPlayer=null;
+let filterRenderTimer=null;
 let state={view:"dashboard",user:null,users:[],tickets:[],aiMemories:[],scores:[],advancedKnowledge:[],corpusKnowledge:[],corpusIntents:[],corpusTemplates:[],selectedTicketId:null,selectedTicket:null,filters:{q:"",status:"Todos",assignee:"Todos",priority:"Todos"},aiHistory:[],aiActions:[],pendingDraft:null,pendingTicketId:null,charts:{},gameMode:"quiz",reactionStart:0,reactionCanClick:false,currentScenario:null,currentGame:null};
 
 function uid(prefix="id"){return prefix+"_"+Date.now().toString(36)+"_"+Math.random().toString(36).slice(2,8)}
@@ -435,25 +465,39 @@ function attachmentsHtml(items,label){const arr=(items||[]);if(!arr.length)retur
 function downloadAttachment(ticketId,scope,fileId){const t=state.tickets.find(x=>x.id===ticketId)||state.selectedTicket;if(!t)return popup("Archivo no disponible","No encontré la solicitud asociada al adjunto.",assets.missing);const list=scope==="resolution"?(t.resolutionFiles||[]):(t.attachments||[]);const file=list.find(x=>x.id===fileId);if(!file||!file.data)return popup("Archivo no disponible","El adjunto no está cargado o ya no se encuentra disponible.",assets.missing);const link=document.createElement('a');link.href=file.data;link.download=file.name||'archivo';document.body.appendChild(link);link.click();link.remove()}
 
 async function seed(){
-  let users=await listRecords(tables.users);
-  if(!users.length){
-    for(const u of defaultUsers){await saveRecord(tables.users,{id:u.id,...u,created_at:now(),updated_at:now()})}
-    users=await listRecords(tables.users)
-  }
-  state.users=users;
-  state.tickets=await listRecords(tables.tickets);
-  state.aiMemories=await listRecords(tables.ai);
-  if(state.aiMemories.length<10){
-    for(const k of aiKnowledge){await saveRecord(tables.ai,{id:"base_"+k.id,key:k.keywords.join(","),intent:k.intent,answer:k.answer,createdBy:"Modelo base",route:k.route,active:true,created_at:now(),updated_at:now()})}
-    state.aiMemories=await listRecords(tables.ai)
-  }
-  state.scores=await listRecords(tables.scores);
-  try{const adv=await fetch('ia_nivel1_data/knowledge_seed.json').then(r=>r.ok?r.json():[]);state.advancedKnowledge=(adv||[]).map(x=>({id:x.id,intent:x.intent_id||x.category_id||'general',keywords:x.keywords||[x.question,x.title],answer:x.answer||'',source:'Nivel 1'}))}catch(e){state.advancedKnowledge=[]}
-  try{state.corpusKnowledge=await fetch('ia_corpus_data/corpus_knowledge.json').then(r=>r.ok?r.json():[])}catch(e){state.corpusKnowledge=[]}
-  try{state.corpusIntents=await fetch('ia_corpus_data/corpus_intents.json').then(r=>r.ok?r.json():[])}catch(e){state.corpusIntents=[]}
-  try{state.corpusTemplates=await fetch('ia_corpus_data/corpus_templates.json').then(r=>r.ok?r.json():[])}catch(e){state.corpusTemplates=[]}
-}
+  const safeList=async(table)=>{try{return await listRecords(table)}catch(e){console.warn('No cargó '+table,e);return []}};
+  const safeJson=async(url)=>{try{return await fetch(url,{cache:'force-cache'}).then(r=>r.ok?r.json():[])}catch(e){console.warn('No cargó '+url,e);return []}};
 
+  let [users,tickets,aiRows,scores,adv,corpus,intents,templates]=await Promise.all([
+    safeList(tables.users),
+    safeList(tables.tickets),
+    safeList(tables.ai),
+    safeList(tables.scores),
+    safeJson('ia_nivel1_data/knowledge_seed.json'),
+    safeJson('ia_corpus_data/corpus_knowledge.json'),
+    safeJson('ia_corpus_data/corpus_intents.json'),
+    safeJson('ia_corpus_data/corpus_templates.json')
+  ]);
+
+  if(!users.length){
+    await Promise.all(defaultUsers.map(u=>saveRecord(tables.users,{id:u.id,...u,created_at:now(),updated_at:now()})));
+    users=await safeList(tables.users);
+  }
+
+  if(aiRows.length<10){
+    await Promise.all(aiKnowledge.map(k=>saveRecord(tables.ai,{id:"base_"+k.id,key:k.keywords.join(","),intent:k.intent,answer:k.answer,createdBy:"Modelo base",route:k.route,active:true,created_at:now(),updated_at:now()})));
+    aiRows=await safeList(tables.ai);
+  }
+
+  state.users=users;
+  state.tickets=tickets;
+  state.aiMemories=aiRows;
+  state.scores=scores;
+  state.advancedKnowledge=(adv||[]).map(x=>({id:x.id,intent:x.intent_id||x.category_id||'general',keywords:x.keywords||[x.question,x.title],answer:x.answer||'',source:'Nivel 1'}));
+  state.corpusKnowledge=corpus||[];
+  state.corpusIntents=intents||[];
+  state.corpusTemplates=templates||[];
+}
 function setupLogin(){
   const app=document.getElementById("app");
   app.innerHTML=`<div class="login-page"><div class="login-card"><section class="login-hero"><img class="logo-login" src="${assets.logo}" alt="Dream Team de Calidad"><div class="hero-note">Mesa de Ayuda de Calidad y Mejoramiento Continuo. Radica, consulta, conversa con la IA y juega para fortalecer criterios del equipo.</div><div class="dance-box pulse"><img src="${assets.fun}" alt="Animación"><div><h1>Una mesa de ayuda con power.</h1><p>Traza solicitudes, mide productividad, adjunta documentos, conversa con la IA y mantén cada caso con evidencia real.</p></div></div></section><section class="login-form"><h2>Ingresar</h2><p>Selecciona tu usuario interno. Los solicitantes externos no requieren cuenta: pueden radicar, consultar por código, usar la IA y entrar a los juegos.</p><div class="field"><label>Perfil</label><select id="loginUser"><option value="guest">Radicar o consultar sin usuario</option>${responders().map(u=>`<option value="${u.id}">${escapeHtml(u.name)} · ${escapeHtml(u.role)}</option>`).join("")}</select></div><div class="field" id="pinBox"><label>PIN</label><input id="loginPin" type="password" inputmode="numeric" autocomplete="current-password" placeholder="PIN del usuario interno"></div><button class="btn primary" id="loginBtn">Entrar a la mesa</button><button class="btn ghost" id="guestBtn">Entrar como solicitante</button><button class="btn gold" type="button" onclick="loginGuest('ai')">Probar IA</button><div class="mode-pill"><span class="dot ${modeOn()?"on":""}"></span>${modeLabel()}</div></section></div></div>`;
@@ -499,19 +543,20 @@ function renderApp(){
   const app=document.getElementById("app");
   app.innerHTML=`<div class="app-shell"><aside class="sidebar" id="sidebar"><div class="brand"><img src="${assets.logo}" alt="Dream Team de Calidad"><small>Mesa de ayuda de calidad y mejoramiento continuo.</small></div><div class="user-card"><img class="avatar" src="${state.user.avatar||assets.loginDance}" onerror="this.src='${assets.loginDance}'"><div><div class="user-name">${escapeHtml(state.user.name)}</div><div class="user-role">${escapeHtml(state.user.role)}</div><div class="user-status">${escapeHtml(state.user.statusText||'Disponible')}</div></div></div><nav class="nav">${navHtml()}</nav><div class="side-footer"><div class="mode-pill"><span class="dot ${modeOn()?"on":""}"></span>${modeLabel()}</div><button class="btn ghost small" onclick="logout()">Salir</button></div></aside><main class="main"><header class="topbar"><button class="mobile-menu" onclick="toggleMenu()">☰</button><div class="page-title"><h1>${pageTitle()}</h1><p>${pageSub()}</p></div><div class="top-actions"><button class="btn primary" onclick="setView('create')">Nueva solicitud</button><button class="btn ghost" onclick="refreshData()">Actualizar</button></div></header><div id="view"></div></main><button class="float-ai" onclick="setView('ai')">🤖 IA Calidad</button></div>`;
   renderView();
-  setTimeout(()=>gsap.from("#view .card, #view .metric, #view .lane",{opacity:0,y:18,duration:.38,stagger:.03,ease:"power2.out"}),0)
+  setTimeout(()=>{if(window.gsap)gsap.from("#view .card, #view .metric, #view .lane",{opacity:0,y:12,duration:.26,stagger:.018,ease:"power2.out",overwrite:true})},0)
 }
 
 function renderView(){
   const el=document.getElementById("view");
+  if(!el)return;
   if(state.view==="dashboard")el.innerHTML=dashboardHtml();
-  if(state.view==="tickets")el.innerHTML=ticketsHtml();
-  if(state.view==="detail")el.innerHTML=detailHtml(state.selectedTicket || state.tickets.find(t=>t.id===state.selectedTicketId));
-  if(state.view==="create")el.innerHTML=createHtml();
-  if(state.view==="kpis")el.innerHTML=kpisHtml();
-  if(state.view==="team")el.innerHTML=teamHtml();
-  if(state.view==="ai")el.innerHTML=aiHtml();
-  if(state.view==="game")el.innerHTML=gameHtml();
+  else if(state.view==="tickets")el.innerHTML=ticketsHtml();
+  else if(state.view==="detail")el.innerHTML=detailHtml(state.selectedTicket || state.tickets.find(t=>t.id===state.selectedTicketId));
+  else if(state.view==="create")el.innerHTML=createHtml();
+  else if(state.view==="kpis")el.innerHTML=kpisHtml();
+  else if(state.view==="team")el.innerHTML=teamHtml();
+  else if(state.view==="ai")el.innerHTML=aiHtml();
+  else if(state.view==="game")el.innerHTML=gameHtml();
   bindView()
 }
 
@@ -521,7 +566,12 @@ function bindView(){
     chartPair("chartAssignee",countBy(state.tickets,"assignedTo",userName),"bar");
   }
   if(state.view==="tickets"){
-    ["fQ","fStatus","fAssignee","fPriority"].forEach(id=>document.getElementById(id)?.addEventListener("input",e=>{const map={fQ:"q",fStatus:"status",fAssignee:"assignee",fPriority:"priority"};state.filters[map[id]]=e.target.value;renderView()}))
+    ["fQ","fStatus","fAssignee","fPriority"].forEach(id=>document.getElementById(id)?.addEventListener("input",e=>{
+      const map={fQ:"q",fStatus:"status",fAssignee:"assignee",fPriority:"priority"};
+      state.filters[map[id]]=e.target.value;
+      clearTimeout(filterRenderTimer);
+      filterRenderTimer=setTimeout(()=>renderView(), id==="fQ"?180:40);
+    }))
   }
   if(state.view==="create"){document.getElementById("ticketForm")?.addEventListener("submit",submitTicket);populateAIDraftForm()}
   if(state.view==="kpis"){

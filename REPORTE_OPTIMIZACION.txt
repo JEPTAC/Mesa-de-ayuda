@@ -1,0 +1,20 @@
+OPTIMIZACIÓN APLICADA - Mesa de Ayuda Calidad
+
+Cambios visuales:
+- Se retiró el logo superior de la intro cinematográfica.
+- El botón “Iniciar mesa de ayuda” quedó más grande, centrado y dominante.
+- Se mejoró la fluidez visual con transiciones más suaves, hover más fino y entrada de vistas más liviana.
+- Se mantuvo visible: Desarrollado por: Juan E. Perez.
+
+Cambios de rendimiento:
+- seed() ahora carga usuarios, tickets, IA, puntajes y corpus en paralelo.
+- Se eliminaron esperas secuenciales innecesarias en carga inicial.
+- Los filtros de solicitudes ahora usan debounce para evitar renderizados excesivos.
+- renderView() ahora usa ramificación else-if para evitar evaluaciones innecesarias.
+- Las animaciones de cambio de vista son más livianas y con overwrite para evitar acumulación.
+- Se agregaron preload de video, audio y GIF de intro para reducir demora de inicio.
+
+Funcionalidad:
+- No se cambió estructura de tablas.
+- No requiere SQL nuevo.
+- Se conservan tickets, IA, juegos, monedas, códigos de prioridad, adjuntos y consulta por radicado.
