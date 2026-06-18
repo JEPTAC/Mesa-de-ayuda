@@ -2012,6 +2012,337 @@ aiHtml=function(){
   );
 };
 
+
+/* =========================================================
+   IA SENIOR FINAL - Sobria, útil, con humor moderado, matemática,
+   navegación de la app y radicación por turnos.
+   ========================================================= */
+const AI_SENIOR_VERSION="IA Senior · sobria, conversacional y operativa";
+
+async function loadSeniorTraining(){
+  try{
+    const rows=await fetch('ia_senior_training/senior_knowledge.json',{cache:'force-cache'}).then(r=>r.ok?r.json():[]);
+    state.seniorKnowledge=Array.isArray(rows)?rows:[];
+  }catch(e){
+    console.warn('No cargó IA Senior',e);
+    state.seniorKnowledge=[];
+  }
+}
+
+const seedBeforeSenior=seed;
+seed=async function(){
+  await seedBeforeSenior();
+  await loadSeniorTraining();
+  state.aiDraftWizard=state.aiDraftWizard||{active:false,data:{},step:null};
+};
+
+const aiKnowledgePoolBeforeSenior=aiKnowledgePool;
+aiKnowledgePool=function(){
+  const rows=aiKnowledgePoolBeforeSenior();
+  (state.seniorKnowledge||[]).forEach(x=>rows.push({
+    source:"ia_senior",
+    intent:x.intent||"senior",
+    title:x.title||x.question||"IA Senior",
+    question:x.question||x.title||"",
+    keywords:x.keywords||[],
+    answer:x.answer||"",
+    weight:x.weight||1.12
+  }));
+  return rows;
+};
+
+function aiSober(text){
+  return String(text||"")
+    .replace(/Tomé como referencia[^.]*\./gi,"")
+    .replace(/Confianza de interpretación:\s*[^\n.]+\.?/gi,"")
+    .replace(/base de conocimiento/gi,"información disponible")
+    .replace(/corpus conversacional/gi,"información de entrenamiento")
+    .replace(/\n{3,}/g,"\n\n")
+    .trim();
+}
+
+function aiHostileReply(q){
+  const c=aiCleanText(q);
+  if(/(basura|porqueria|porquería|mierda|horrible|no sirves|no sirve|malisimo|malísimo|pesimo|pésimo|que asco|no entiendes|bruto|inutil|inútil)/.test(c)){
+    return "Entiendo la molestia. Vamos a resolverlo sin enredarnos 😊 Dime qué intentabas hacer, en qué pantalla estabas y qué resultado esperabas. Con eso te indico el paso exacto o te ayudo a radicarlo.";
+  }
+  return "";
+}
+
+function aiTryMath(q){
+  const raw=String(q||"");
+  const c=aiCleanText(raw);
+
+  let sqrtMatch=raw.match(/(?:ra[ií]z cuadrada de|sqrt\s*\(?|√)\s*([0-9]+(?:[.,][0-9]+)?)/i);
+  if(sqrtMatch){
+    const n=Number(String(sqrtMatch[1]).replace(",","."));
+    if(Number.isFinite(n)&&n>=0)return `La raíz cuadrada de ${n} es ${Number(Math.sqrt(n).toFixed(8))}.`;
+  }
+
+  if(/derivada|derivar|d\/dx/.test(c)){
+    let expr=raw.replace(/.*?(?:derivada de|derivar|d\/dx)\s*/i,"").trim();
+    expr=expr.replace(/\s+/g,"");
+    if(!expr)return "Puedo ayudarte con derivadas simples. Escríbela así: “derivada de x^3 + 2x^2 - 5x + 8”.";
+    const result=derivePolynomial(expr);
+    if(result)return `La derivada de ${expr} es ${result}.`;
+    return "Puedo resolver derivadas simples de polinomios, por ejemplo: x^3 + 2x^2 - 5x + 8. Para una derivada más avanzada, escríbela más clara y la revisamos.";
+  }
+
+  if(/cuanto es|cuánto es|calcula|sum(a|ar)|rest(a|ar)|multiplic|divid|porcentaje|[\d]\s*[\+\-\*\/x×]\s*[\d]/.test(c)){
+    let expr=raw.toLowerCase()
+      .replace(/cu[aá]nto es|calcula|resultado de|por favor|cuanto da/gi,"")
+      .replace(/más|mas/gi,"+")
+      .replace(/menos/gi,"-")
+      .replace(/por ciento/gi,"%")
+      .replace(/por/gi,"*")
+      .replace(/x|×/gi,"*")
+      .replace(/entre|dividido por/gi,"/")
+      .replace(/,/g,".")
+      .trim();
+    if(/%/.test(expr)){
+      const m=expr.match(/([0-9.]+)\s*%\s*(?:de)?\s*([0-9.]+)/);
+      if(m){
+        const a=Number(m[1]),b=Number(m[2]);
+        if(Number.isFinite(a)&&Number.isFinite(b))return `${a}% de ${b} es ${Number((a*b/100).toFixed(8))}.`;
+      }
+    }
+    if(/^[0-9+\-*/().\s^]+$/.test(expr)){
+      expr=expr.replace(/\^/g,"**");
+      try{
+        const val=Function('"use strict";return ('+expr+')')();
+        if(Number.isFinite(val))return `${raw.replace(/\s+/g," ").trim()} = ${Number(val.toFixed(8))} ✅`;
+      }catch(e){}
+    }
+  }
+  return "";
+}
+
+function derivePolynomial(expr){
+  let e=String(expr||"").replace(/\s+/g,"").replace(/−/g,"-");
+  e=e.replace(/-/g,"+-");
+  if(e.startsWith("+"))e=e.slice(1);
+  const terms=e.split("+").filter(Boolean);
+  const out=[];
+  for(let t of terms){
+    let sign=1;
+    if(t.startsWith("-")){sign=-1;t=t.slice(1);}
+    if(!t.includes("x"))continue;
+    let coef=1,pow=1;
+    const before=t.split("x")[0];
+    if(before&&before!=="*")coef=Number(before.replace("*",""));
+    if(!Number.isFinite(coef))coef=1;
+    coef*=sign;
+    const pm=t.match(/x\^(-?\d+)/);
+    if(pm)pow=Number(pm[1]);
+    const newCoef=coef*pow;
+    const newPow=pow-1;
+    if(newCoef===0)continue;
+    let part="";
+    if(newPow===0)part=String(newCoef);
+    else{
+      if(newCoef===1)part="x";
+      else if(newCoef===-1)part="-x";
+      else part=String(newCoef)+"x";
+      if(newPow!==1)part+="^"+newPow;
+    }
+    out.push(part);
+  }
+  if(!out.length)return "0";
+  return out.join(" + ").replace(/\+ -/g,"- ");
+}
+
+function aiNavigationGuide(q){
+  const c=aiCleanText(q);
+  if(/(donde|dónde|como|cómo).*(radic|solicitud|ticket)|dar click.*radic|boton.*radic/.test(c)){
+    return "Para radicar, entra al botón “Nueva solicitud” si estás como usuario interno, o “Radicar / consultar” si estás como usuario general. Luego llena el formulario “Radicar solicitud” y presiona “Enviar solicitud”. 📝";
+  }
+  if(/(donde|dónde|como|cómo).*(consult|radicado|codigo|código)|buscar solicitud/.test(c)){
+    return "Para consultar un radicado, entra a “Radicar / consultar” o “Nueva solicitud”. En la tarjeta “Consulta rápida”, escribe el código en “Código de solicitud” y presiona “Buscar solicitud”. 🔎";
+  }
+  if(/(donde|dónde|como|cómo).*(entren|aprend|subir documento|leer)/.test(c)){
+    return "Para entrenar la IA, entra a “IA Calidad”. En el panel “Entrenar IA”, usa “Subir documento” y luego presiona “Leer y aprender”.";
+  }
+  if(/(donde|dónde|como|cómo).*(adjunt|archivo|documento|evidencia)/.test(c)){
+    return "Para adjuntar evidencia, ve al formulario “Radicar solicitud” y usa el campo “Adjuntar documentos”. Si tienes un enlace, colócalo en “Enlace o evidencia opcional”.";
+  }
+  if(/(donde|dónde|como|cómo).*(kpi|indicador|productividad)/.test(c)){
+    return "Para ver indicadores, entra al botón “KPIs ejecutivos” o “KPIs”. Ahí revisas productividad, estados y comportamiento de solicitudes.";
+  }
+  if(/(donde|dónde|como|cómo).*(juego|moneda|prioridad)/.test(c)){
+    return "Para jugar y ganar monedas, entra a “Juegos IA”. Desde allí puedes acumular monedas y generar códigos de prioridad.";
+  }
+  return "";
+}
+
+function aiOpinionDecision(q){
+  const c=aiCleanText(q);
+  if(/(que recomiendas|qué recomiendas|que hago|qué hago|decide|opina|tu que harias|tú qué harías|cual escoger|cuál escoger)/.test(c)){
+    if(/documento|formato|acta|matriz|registro|pdf/.test(c)){
+      return "Mi recomendación: clasifícalo primero como “Documento”. Si después se evidencia que afecta el paso a paso de una actividad, se puede mover a “Procedimiento”. Responsable inicial: Analistas de calidad. Si requiere aprobación general, Yessica Castro; si viene de auditoría, Luis Grisales.";
+    }
+    if(/procedimiento|proceso|manual|instructivo/.test(c)){
+      return "Yo lo clasificaría como “Procedimiento” si el problema está en el paso a paso de una actividad. Si solo es un archivo, versión o formato, iría como “Documento”. Para avanzar, dime qué se quiere cambiar.";
+    }
+    return "Mi decisión inicial sería tratarlo como solicitud general y aterrizarlo con tres datos: área, problema y resultado esperado. Con eso ya puedo definir categoría, prioridad y responsable sin dejarlo en el limbo documental 😊.";
+  }
+  return "";
+}
+
+function aiStartDraftWizard(seed=""){
+  const d=draftTicketFromText(seed||"");
+  state.aiDraftWizard={active:true,data:{seed:seed||"",area:d.requesterArea||"",problem:seed||"",evidence:d.evidenceHint||"",expected:"",deadline:"",name:d.requesterName||"",email:d.requesterEmail||""},step:null};
+  return aiNextWizardQuestion();
+}
+
+function aiNextWizardQuestion(){
+  const w=state.aiDraftWizard;
+  const d=w.data;
+  if(!d.area){w.step="area";return {answer:"Listo, vamos a armar la radicación paso a paso 📝\n\nPrimero: ¿de qué área o proceso es la solicitud?",actions:[aiAction("Cancelar y abrir formulario","openCreate")]};}
+  if(!d.problem||aiTokens(d.problem).length<6){w.step="problem";return {answer:"Perfecto. Ahora dime en una frase: ¿qué problema o necesidad tienes?",actions:[aiAction("Abrir formulario","openCreate")]};}
+  if(!d.evidence){w.step="evidence";return {answer:"Bien. ¿Tienes evidencia, documento, captura, enlace, acta, PDF o archivo relacionado?",actions:[aiAction("Abrir formulario","openCreate")]};}
+  if(!d.expected){w.step="expected";return {answer:"Listo. ¿Qué resultado esperas que entregue el equipo de Calidad?",actions:[aiAction("Abrir formulario","openCreate")]};}
+  if(!d.deadline){w.step="deadline";return {answer:"Último dato: ¿tiene fecha límite o nivel de urgencia?",actions:[aiAction("Abrir formulario","openCreate")]};}
+  const full=`Área: ${d.area}. Necesidad: ${d.problem}. Evidencia: ${d.evidence}. Resultado esperado: ${d.expected}. Plazo o urgencia: ${d.deadline}.`;
+  const draft=draftTicketFromText(full);
+  draft.requesterArea=d.area;
+  draft.evidenceHint=d.evidence;
+  draft.description=`Necesidad identificada: ${d.problem}
+
+Área o proceso: ${d.area}
+
+Evidencia disponible: ${d.evidence}
+
+Resultado esperado: ${d.expected}
+
+Plazo o urgencia: ${d.deadline}
+
+Clasificación sugerida por IA: ${draft.category}, prioridad ${draft.priority}, modalidad ${draft.modality}.
+
+Criterio de cierre: respuesta entregada con evidencia, trazabilidad de la gestión y validación del solicitante.`;
+  state.pendingDraft=draft;
+  state.aiDraftWizard={active:false,data:{},step:null};
+  return {answer:`Listo. Ya tengo la solicitud organizada ✅
+
+Asunto: ${draft.title}
+Categoría: ${draft.category}
+Prioridad: ${draft.priority}
+Modalidad: ${draft.modality}
+Responsable sugerido: ${userName(draft.assignedTo)}
+
+Puedo cargarla en el formulario para que solo revises y presiones “Enviar solicitud”.`,draft,actions:[aiAction("Cargar borrador en formulario","useDraft"),aiAction("Ir a Nueva solicitud","openCreate")]};
+}
+
+function aiWizardHandle(q){
+  const w=state.aiDraftWizard;
+  if(!w?.active)return null;
+  const value=String(q||"").trim();
+  if(/cancelar|salir|no seguir|detener/i.test(value)){
+    state.aiDraftWizard={active:false,data:{},step:null};
+    return {answer:"Listo, cancelé la construcción guiada de la solicitud.",actions:[aiAction("Nueva solicitud","openCreate"),aiAction("Seguir en IA","focusAI")]};
+  }
+  if(w.step==="area")w.data.area=value;
+  else if(w.step==="problem")w.data.problem=value;
+  else if(w.step==="evidence")w.data.evidence=value;
+  else if(w.step==="expected")w.data.expected=value;
+  else if(w.step==="deadline")w.data.deadline=value;
+  else w.data.problem=(w.data.problem? w.data.problem+" ":"")+value;
+  return aiNextWizardQuestion();
+}
+
+function aiConversationalReply(q){
+  const c=aiCleanText(q);
+  if(/^(hola|holi|buenas|buenos dias|buen dia|buenas tardes|buenas noches|hello|hey)$/.test(c))return "¡Hola! 😊 ¿Qué necesitas hacer: radicar una solicitud, consultar un radicado o resolver una duda de calidad?";
+  if(/como estas|como vas|que tal|todo bien/.test(c))return "Voy muy bien, gracias. Lista para ayudarte con solicitudes, documentos, auditoría, KPIs o cualquier duda de la app.";
+  if(/quien eres|que eres|como te llamas/.test(c))return "Soy la IA de la Mesa de Ayuda de Calidad. Te ayudo a ubicar botones, resolver dudas, redactar solicitudes y saber quién debe atender cada caso.";
+  if(/que puedes hacer|en que me ayudas|para que sirves|que haces/.test(c))return "Puedo conversar contigo, indicarte dónde dar clic, calcular operaciones básicas, resolver dudas generales, clasificar solicitudes, sugerir responsables y armar radicaciones paso a paso.";
+  if(/gracias|muchas gracias|te agradezco|perfecto|excelente/.test(c))return "Con gusto ✅ Cuando quieras, seguimos con la solicitud o con la duda.";
+  if(/chao|adios|hasta luego|nos vemos/.test(c))return "Listo, quedo atenta. No dejamos ningún documento en el limbo 😊.";
+  return "";
+}
+
+function composeAI(q){
+  const clean=aiCleanText(q);
+
+  const hostile=aiHostileReply(q);
+  if(hostile)return {answer:hostile,actions:[aiAction("Radicar solicitud","openCreate"),aiAction("Seguir conversando","focusAI")]};
+
+  const math=aiTryMath(q);
+  if(math)return {answer:math,actions:[aiAction("Radicar solicitud","openCreate"),aiAction("Seguir conversando","focusAI")]};
+
+  const nav=aiNavigationGuide(q);
+  if(nav)return {answer:nav,actions:[aiAction("Ir al módulo","openCreate"),aiAction("IA Calidad","focusAI")]};
+
+  const decision=aiOpinionDecision(q);
+  if(decision)return {answer:decision,actions:[aiAction("Armar solicitud","useDraft"),aiAction("Nueva solicitud","openCreate")],draft:draftTicketFromText(q)};
+
+  const ticket=findTicketAI(q);
+  if(ticket){
+    return {answer:`Encontré la solicitud ${ticket.code}.
+
+Estado: ${ticket.status}.
+Responsable: ${userName(ticket.assignedTo)}.
+Última actualización: ${fmt(ticket.updated_at)}.
+
+Puedes abrirla o escribir un mensaje al responsable.`,actions:[aiAction("Abrir solicitud","openTicket",{id:ticket.id}),aiAction("Enviar mensaje","messageTicket",{id:ticket.id})]};
+  }
+
+  if(/(radicar|mradicar|crear|registrar|solicitud|solisitud|ticket|caso|requerimiento|no se quien|no sé quien|quien lo resuelve|quién lo resuelve|quien debe resolver|documento pero)/.test(clean)){
+    return aiStartDraftWizard(q);
+  }
+
+  const talk=aiConversationalReply(q);
+  if(talk)return {answer:talk,actions:[aiAction("Radicar solicitud","openCreate"),aiAction("Consultar radicado","focusLookup"),aiAction("Juegos IA","openGame")]};
+
+  const ranked=aiRankKnowledge(q);
+  const top=ranked[0];
+  if(top&&top.score>=.24){
+    return {answer:aiSober(`${top.answer}
+
+¿Quieres que lo convirtamos en una solicitud?`),actions:[aiAction("Armar solicitud","useDraft"),aiAction("Nueva solicitud","openCreate"),aiAction("Consultar radicado","focusLookup")],draft:draftTicketFromText(q)};
+  }
+
+  if(top&&top.score>=.14){
+    return {answer:"Tengo una idea de por dónde va, pero necesito precisarlo para no darte una respuesta floja. Dime solo esto: ¿es documento, procedimiento, auditoría, KPI, riesgo, capacitación o mejora?",actions:[aiAction("Nueva solicitud","openCreate"),aiAction("Seguir conversando","focusAI")]};
+  }
+
+  return {answer:"No lo tengo claro todavía. Para ayudarte bien, dime: área o proceso, qué ocurrió y qué resultado necesitas. Con eso te respondo o te armo la radicación. 📌",actions:[aiAction("Nueva solicitud","openCreate"),aiAction("Consultar radicado","focusLookup")]};
+}
+
+async function askAI(){
+  const input=document.getElementById('aiPrompt');
+  const q=input?.value.trim();
+  if(!q)return;
+  state.aiHistory.push({me:true,text:q});
+  let result=aiWizardHandle(q);
+  if(!result)result=await executeAICommand(q);
+  if(!result)result=composeAI(q);
+  result.answer=aiSober(result.answer);
+  state.aiHistory.push({me:false,text:result.answer});
+  state.aiActions=result.actions||[];
+  if(result.draft)state.pendingDraft=result.draft;
+  input.value='';
+  renderView();
+  const chat=document.getElementById('aiChat');
+  setTimeout(()=>{if(chat)chat.scrollTop=chat.scrollHeight},40);
+}
+
+function aiHtml(){
+  return `<div class="ai-layout"><div class="card"><div class="section-title"><h2>IA de Calidad · Senior</h2><span>${AI_SENIOR_VERSION}</span></div><div class="ai-mode-note">Responde de forma sobria, puede usar humor moderado, hace cálculos simples, guía con botones reales de la app y arma solicitudes paso a paso.</div><div class="ai-brain-panel"><div class="ai-brain-chip"><strong>${state.aiMemories.length}</strong>memorias</div><div class="ai-brain-chip"><strong>${state.cerebroKnowledge?.length||0}</strong>casos IA</div><div class="ai-brain-chip"><strong>${state.seniorKnowledge?.length||0}</strong>reglas senior</div><div class="ai-brain-chip"><strong>${state.trainingDocsKnowledge?.length||0}</strong>docs integrados</div></div><div class="ai-chat" id="aiChat" style="margin-top:12px">${state.aiHistory.map(m=>`<div class="${m.me?'human':'bot'}">${escapeHtml(m.text)}</div>`).join('')||`<div class="bot">Hola 😊 Puedo ayudarte a radicar una solicitud, decirte dónde dar clic, resolver dudas, hacer cálculos simples o identificar quién debe atender un documento.</div>`}</div>${aiActionsHtml()}<div class="form" style="margin-top:12px"><div class="field"><label>Mensaje, pregunta u orden</label><input id="aiPrompt" placeholder="Ej. Es un documento, pero no sé quién lo debe resolver"></div><button class="btn primary" onclick="askAI()">Conversar / resolver / guiar</button></div><div class="ai-quality-note">Ejemplo: escribe “necesito mradicar una solisitud por un docuemnto” y la IA te hará preguntas por turnos hasta dejar lista la radicación.</div></div><div class="card"><div class="section-title"><h2>Acciones rápidas</h2><span>orientación directa</span></div>${aiQuickOptionsHtml()}<div class="section-title" style="margin-top:18px"><h2>Entrenar IA</h2><span>documentos y memorias</span></div><div class="form"><div class="field"><label>Subir documento</label><input id="knowledgeFile" type="file" accept=".pdf,.txt,.csv,.md,.json,.doc,.docx"></div><button class="btn ghost" onclick="learnFromFile()">Leer y aprender</button><div class="field"><label>Pregunta o palabra clave</label><input id="learnKey" placeholder="Ej. quién resuelve documentos de auditoría"></div><div class="field"><label>Respuesta esperada</label><textarea id="learnAnswer" placeholder="Escribe cómo debe responder el bot"></textarea></div><button class="btn gold" onclick="manualLearn()">Guardar memoria</button><div class="empty">Respuesta limpia para usuario final: sin hablar de código, corpus o detalles técnicos innecesarios.</div></div></div></div>`;
+}
+
+function aiQuickOptionsHtml(){
+  return `<div class="quick-grid"><button class="quick-option" onclick="sendQuickAI('Es un documento, pero no sé quién lo debe resolver')">📄 Documento sin responsable<small>La IA pregunta y deriva.</small></button><button class="quick-option" onclick="sendQuickAI('Dónde debo dar clic para radicar una solicitud')">📝 Dónde radicar<small>Indica botón y campos exactos.</small></button><button class="quick-option" onclick="sendQuickAI('Haz la derivada de x^3 + 2x^2 - 5x + 8')">🧮 Calcular<small>Operaciones y derivadas simples.</small></button><button class="quick-option" onclick="sendQuickAI('No sé qué categoría escoger, decide tú')">🎯 Decidir categoría<small>Opina y recomienda.</small></button></div>`;
+}
+
+function generateTicketDraft(){
+  const idea=document.getElementById('draftIdea')?.value.trim();
+  if(!idea)return popup('Falta la idea','Escribe la necesidad en lenguaje normal para que la IA arme el borrador.',assets.missing);
+  const d=draftTicketFromText(idea);
+  state.pendingDraft=d;
+  populateAIDraftForm();
+  popup('Borrador creado','La IA organizó la radicación. Revisa los campos y presiona “Enviar solicitud”.',assets.sent[0]);
+}
+
 window.addEventListener('DOMContentLoaded',async()=>{
   prepareIntroStart();
 
