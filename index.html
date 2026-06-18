@@ -200,6 +200,88 @@ table{background:transparent}th{background:linear-gradient(180deg,#f7faff,#edf4f
 @media (max-width:1180px){.topbar{top:0;border-radius:22px}.sidebar{box-shadow:none}}
 @media (max-width:860px){body::before{opacity:.28}.main{padding:18px}.topbar{padding:14px 14px}.filters{grid-template-columns:1fr}.card,.profile-card,.lane{border-radius:24px}}
 
+
+/* Modo oscuro elegante + glassmorphism premium azul */
+:root{--blue:#1e63ff;--blue2:#0b49c9;--gold:#f7bf24;--gray:#0f1729;--ink:#eef4ff;--muted:#a9b8d0;--ok:#34d399;--warn:#fbbf24;--bad:#fb7185;--line:rgba(179,203,255,.14);--shadow:0 28px 60px rgba(0,0,0,.28);--radius:28px}
+html,body{background:radial-gradient(circle at 0% 0%,rgba(30,99,255,.18),transparent 22%),radial-gradient(circle at 100% 0%,rgba(31,69,143,.24),transparent 26%),linear-gradient(145deg,#07111f,#0a1527 36%,#0d1b31 68%,#0f2039);color:var(--ink)}
+body::before{opacity:.38;background-image:radial-gradient(circle at 1px 1px, rgba(142,179,231,.12) 1px, transparent 1.2px),linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px)}
+body::after{background:radial-gradient(circle at top right, rgba(30,99,255,.16), transparent 26%),radial-gradient(circle at 20% 20%, rgba(247,191,36,.05), transparent 20%),radial-gradient(circle at left center, rgba(13,91,210,.12), transparent 28%)}
+.sidebar{background:linear-gradient(180deg,rgba(8,16,30,.92),rgba(11,24,45,.90));backdrop-filter:blur(22px);border-right:1px solid rgba(166,191,255,.08);box-shadow:22px 0 60px rgba(0,0,0,.22)}
+.sidebar::before{border:1px solid rgba(255,255,255,.05)}
+.brand img{filter:drop-shadow(0 14px 34px rgba(29,99,255,.24))}
+.brand small,.user-role{color:rgba(219,230,255,.68)}
+.user-card,.mode-pill{background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.05));border:1px solid rgba(165,191,255,.10);box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.user-name,.page-title h1,.section-title h2,.step strong,.lane h3,.metric .value,.metric .label{color:#f6f9ff}
+.user-status{color:#86efac}
+.avatar,.profile-avatar-wrap{background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.04));border-color:rgba(255,255,255,.08)}
+.nav button{color:rgba(234,242,255,.78);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.04)}
+.nav button .icon{background:rgba(255,255,255,.08);color:#dce9ff}
+.nav button:hover,.nav button.active{background:linear-gradient(135deg,rgba(30,99,255,.92),rgba(11,73,201,.88));box-shadow:0 18px 32px rgba(30,99,255,.22),inset 0 1px 0 rgba(255,255,255,.16);border-color:rgba(205,221,255,.16)}
+.main{background:transparent}
+.topbar{background:linear-gradient(180deg,rgba(11,23,42,.72),rgba(15,29,54,.62));border:1px solid rgba(171,198,255,.10);box-shadow:0 20px 40px rgba(0,0,0,.16);backdrop-filter:blur(18px)}
+.page-title h1{background:linear-gradient(135deg,#f7fbff,#dce8ff 32%,#7db0ff 85%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.page-title p{color:#9eb1cf}.mobile-menu{background:rgba(13,26,46,.8);border:1px solid rgba(171,198,255,.14);color:#eef4ff}
+.card,.login-card,.profile-card,.lane,.mini-ticket,.msg,.ai-msg,.answer,.micro-card,.code-card,.compare-card,.scenario,.rank-card,.empty,.table-wrap,.chat-box,.ai-chat,.chart-box,.chart-box.sm,.filters{background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.06));border:1px solid rgba(171,198,255,.12)!important;box-shadow:0 16px 40px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.05);backdrop-filter:blur(16px)}
+.card:hover,.metric:hover,.profile-card:hover,.mini-ticket:hover,.answer:hover,.micro-card:hover,.compare-card:hover{transform:translateY(-2px);box-shadow:0 22px 48px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.06)}
+.metric{background:linear-gradient(180deg,rgba(30,99,255,.18),rgba(255,255,255,.07));border:1px solid rgba(166,191,255,.13)!important}
+.metric::before{background:linear-gradient(180deg,#60a5fa,#f7bf24)}
+.metric:after{background:linear-gradient(135deg,rgba(96,165,250,.18),rgba(247,191,36,.08))}
+.metric .hint,.section-title span,.field label,.step p,.mini-ticket p,.profile-card p,.boot-tip,.empty,.hint,.user-role,.table-note,.mini-note{color:#9fb2d1}
+.section-title span{background:rgba(30,99,255,.16);border:1px solid rgba(141,181,255,.18)}
+.table-wrap{overflow:hidden}table,th,td{background:transparent;color:#eaf1ff}th{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));color:#a9bad6}td{border-bottom:1px solid rgba(167,190,236,.08)}tr:hover td{background:rgba(255,255,255,.04)}
+.field input,.field select,.field textarea{background:rgba(8,18,34,.6);color:#eef4ff;border:1px solid rgba(171,198,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.field input::placeholder,.field textarea::placeholder{color:#7790b8}.field input:focus,.field select:focus,.field textarea:focus{border-color:#4f8dff;box-shadow:0 0 0 4px rgba(30,99,255,.18)}
+.btn{border-radius:18px}.btn.primary{background:linear-gradient(135deg,#1e63ff,#0b49c9);box-shadow:0 16px 34px rgba(30,99,255,.26)}.btn.ghost{background:rgba(255,255,255,.08);color:#eef4ff;border:1px solid rgba(171,198,255,.14)}.btn.gold{background:linear-gradient(135deg,#ffd95c,#f59e0b);color:#4b3500}.btn.ok{background:rgba(16,185,129,.14);color:#a7f3d0;border:1px solid rgba(52,211,153,.24)}.btn.danger{background:rgba(251,113,133,.12);color:#fecdd3;border:1px solid rgba(251,113,133,.24)}.btn.text{background:rgba(30,99,255,.16);color:#dbe9ff}
+.tag.blue{background:rgba(30,99,255,.16);color:#cfe0ff}.tag.gold{background:rgba(247,191,36,.14);color:#ffe6a1}.tag.green{background:rgba(16,185,129,.14);color:#9ff0cb}.tag.red{background:rgba(251,113,133,.14);color:#fecdd3}.tag.gray{background:rgba(148,163,184,.14);color:#d3dce8}.tag.purple{background:rgba(168,85,247,.14);color:#e9d5ff}
+.chat-box,.ai-chat{background:linear-gradient(180deg,rgba(9,20,36,.62),rgba(11,25,44,.55));border-color:rgba(171,198,255,.10)!important}.msg,.ai-msg{color:#e8efff}.msg.me,.ai-msg.me{background:linear-gradient(180deg,rgba(30,99,255,.24),rgba(30,99,255,.18));border-color:rgba(141,181,255,.18)!important}.msg small,.ai-msg small{color:#91a6c7}
+.lane{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.05))}.lane h3{border-bottom:1px dashed rgba(171,198,255,.16)}
+.mini-ticket{background:linear-gradient(180deg,rgba(9,20,36,.72),rgba(14,28,50,.62))}
+.login-shell{background:transparent}.login-card{background:linear-gradient(180deg,rgba(11,23,42,.72),rgba(15,29,54,.66))}.login-card h1,.login-card h2,.login-card h3,.login-card p,.login-card label{color:#eef4ff}
+.coin-balance{background:linear-gradient(135deg,rgba(247,191,36,.18),rgba(255,255,255,.08));border:1px solid rgba(247,191,36,.18)}.coin-balance strong{color:#ffe4a3}.coin-balance span{color:#e8d8a3}
+.chart-box,.chart-box.sm{padding:12px}
+::-webkit-scrollbar-track{background:#0c1830}::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#345ea5,#548dff);border:2px solid #0c1830}
+@media(max-width:1180px){.sidebar{background:linear-gradient(180deg,rgba(7,17,31,.98),rgba(10,23,42,.97))}.topbar{border-radius:22px}}
+@media(max-width:860px){.topbar{padding:14px;border-radius:22px}.card,.profile-card,.lane,.metric,.table-wrap{backdrop-filter:blur(12px)}}
+
+
+/* Microinteracciones premium + íconos soporte real + dashboard ejecutivo */
+.nav button .icon{font-size:17px;position:relative;overflow:hidden}
+.nav button.active .icon::after{content:"";position:absolute;inset:-8px;border-radius:18px;background:radial-gradient(circle,rgba(255,255,255,.24),transparent 60%);animation:deskPulse 2.8s ease-in-out infinite}
+.btn{position:relative;overflow:hidden;transform:translateZ(0)}
+.btn::after{content:"";position:absolute;inset:auto auto 50% 50%;width:0;height:0;border-radius:999px;background:rgba(255,255,255,.22);transform:translate(-50%,50%);transition:width .35s ease,height .35s ease;pointer-events:none}
+.btn:hover::after{width:240px;height:240px}
+.btn:active,.answer:active,.micro-card:active,.mini-ticket:active{transform:translateY(0) scale(.985)!important}
+.card,.metric,.profile-card,.lane,.mini-ticket,.answer,.micro-card,.compare-card,.code-card{will-change:transform;transform:translateZ(0)}
+.card:hover{border-color:rgba(89,145,255,.24)!important}
+.clickable-row td{transition:background .18s ease,color .18s ease}
+.ticket-view .card:first-child{position:relative;overflow:hidden}
+.ticket-view .card:first-child::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:linear-gradient(90deg,#1e63ff,#60a5fa,#f7bf24);opacity:.9}
+.field input,.field select,.field textarea{transition:border-color .18s ease,box-shadow .18s ease,background .18s ease,transform .18s ease}
+.field input:focus,.field select:focus,.field textarea:focus{transform:translateY(-1px)}
+.float-ai{animation:floatAiBreath 3.4s ease-in-out infinite}
+.executive-hero{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:18px;margin-bottom:18px}
+.executive-card{position:relative;padding:24px;border-radius:32px;background:linear-gradient(135deg,rgba(30,99,255,.26),rgba(255,255,255,.08));border:1px solid rgba(171,198,255,.16);box-shadow:0 24px 50px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.06);backdrop-filter:blur(16px);overflow:hidden}
+.executive-card::after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;right:-90px;top:-120px;background:radial-gradient(circle,rgba(96,165,250,.24),transparent 68%)}
+.executive-kicker{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.12);color:#dbeafe;font-size:12px;font-weight:900}
+.executive-title{margin:14px 0 8px;font-size:clamp(28px,4vw,44px);line-height:.98;letter-spacing:-1.4px;color:#fff}
+.executive-sub{max-width:720px;margin:0;color:#aec0dc;line-height:1.55;font-size:14px}
+.executive-strip{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.executive-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 12px;border-radius:999px;background:rgba(11,24,45,.46);border:1px solid rgba(171,198,255,.12);font-size:12px;color:#dbeafe;font-weight:800}
+.health-panel{display:grid;gap:12px}
+.health-row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:13px 14px;border-radius:18px;background:rgba(255,255,255,.08);border:1px solid rgba(171,198,255,.10)}
+.health-row span{color:#a9bad6;font-size:12px;font-weight:800}.health-row strong{color:#fff;font-size:18px}
+.metric.service:before{background:linear-gradient(180deg,#60a5fa,#1e63ff)}.metric.warn:before{background:linear-gradient(180deg,#f7bf24,#f97316)}.metric.success:before{background:linear-gradient(180deg,#34d399,#10b981)}.metric.danger:before{background:linear-gradient(180deg,#fb7185,#ef4444)}
+.sla-bar{height:10px;border-radius:999px;background:rgba(255,255,255,.10);overflow:hidden;border:1px solid rgba(171,198,255,.10);margin-top:14px}
+.sla-bar span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#34d399,#60a5fa,#f7bf24);box-shadow:0 0 18px rgba(96,165,250,.35)}
+.support-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+.support-mini{padding:16px;border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.05));border:1px solid rgba(171,198,255,.11)}
+.support-mini small{display:block;color:#9eb1cf;font-weight:900;text-transform:uppercase;letter-spacing:.7px;font-size:10px}
+.support-mini strong{display:block;color:#fff;font-size:24px;margin-top:6px}
+@keyframes deskPulse{0%,100%{opacity:.45;transform:scale(.9)}50%{opacity:.9;transform:scale(1.12)}}
+@keyframes floatAiBreath{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@media(max-width:1050px){.executive-hero{grid-template-columns:1fr}.support-row{grid-template-columns:1fr 1fr}}
+@media(max-width:680px){.support-row{grid-template-columns:1fr}.executive-card{padding:20px}.executive-title{font-size:30px}}
+
 </style>
 </head>
 <body>
@@ -583,7 +665,7 @@ function toggleMenu(){document.getElementById("sidebar")?.classList.toggle("open
 async function refreshData(){const current=state.view;const selected=state.selectedTicketId;state.users=await listRecords(tables.users);state.tickets=await listRecords(tables.tickets);state.aiMemories=await listRecords(tables.ai);state.scores=await listRecords(tables.scores);if(selected){state.selectedTicketId=selected;state.selectedTicket=state.tickets.find(t=>t.id===selected)||null;if(state.selectedTicket)state.view="detail";else state.view=current}else state.view=current;renderApp();toast("Información actualizada")}
 
 function navButton(view,icon,label){return `<button class="${state.view===view?'active':''}" onclick="setView('${view}')"><span class="icon">${icon}</span><span>${label}</span></button>`}
-function navHtml(){if(!isInternal())return `${navButton('create','➕','Radicar / consultar')}${navButton('ai','🤖','IA Calidad')}${navButton('game','🎮','Juegos IA')}`;return `${navButton('dashboard','📊','Panel')}${navButton('tickets','🎫','Solicitudes')}${navButton('create','➕','Nueva solicitud')}${navButton('kpis','📈','KPIs')}${navButton('team','👥','Equipo')}${navButton('ai','🤖','IA Calidad')}${navButton('game','🎮','Juegos IA')}`}
+function navHtml(){if(!isInternal())return `${navButton('create','📝','Radicar / consultar')}${navButton('ai','🤖','IA Calidad')}${navButton('game','🕹️','Juegos IA')}`;return `${navButton('dashboard','🛰️','Centro de control')}${navButton('tickets','🎧','Mesa de ayuda')}${navButton('create','📝','Nueva solicitud')}${navButton('kpis','📊','KPIs ejecutivos')}${navButton('team','🛠️','Equipo soporte')}${navButton('ai','🤖','IA Calidad')}${navButton('game','🕹️','Juegos IA')}`}
 function pageTitle(){return {dashboard:"Centro de control",tickets:"Solicitudes trazables",detail:"Solicitud trazable",create:"Nueva solicitud",kpis:"KPIs y productividad",team:"Equipo Dream Team",ai:"IA de Calidad",game:"Juegos IA de calidad"}[state.view]||"Mesa de ayuda"}
 function pageSub(){return {dashboard:"Productividad, carga, tiempos y radar general del proceso.",tickets:"Revisa el origen, responsable, estado y trazabilidad de cada caso.",detail:"Consulta puntual con línea de tiempo, adjuntos, chat y cierre.",create:"Radica solicitudes y deja claro de dónde viene, para quién va y qué se espera.",kpis:"Indicadores para medir lo que más le piden al área y cuánto tarda en responder.",team:"Usuarios internos, roles y permisos del Dream Team.",ai:"Chatbot entrenable para apoyar solicitudes, respuestas y aprendizaje.",game:"Tres modos de juego para reforzar criterio, rapidez y comparación."}[state.view]||""}
 function setView(v){if(!isInternal()&&!['create','ai','game'].includes(v))v='create';state.view=v;if(v!=='detail'){state.selectedTicketId=null;state.selectedTicket=null}renderApp()}
@@ -642,7 +724,16 @@ function dashboardHtml(){
   const open=state.tickets.filter(t=>!["Resuelta","Cerrada"].includes(t.status)).length;
   const waiting=state.tickets.filter(t=>["Enviada","Sin aceptar","Espera ampliada"].includes(t.status)).length;
   const ready=state.tickets.filter(t=>t.status==="Resuelta").length;
-  return `<div class="grid cols-4"><div class="card metric"><div class="label">Solicitudes totales</div><div class="value">${total}</div><div class="hint">Histórico cargado</div></div><div class="card metric"><div class="label">Abiertas</div><div class="value">${open}</div><div class="hint">Aún en gestión</div></div><div class="card metric"><div class="label">En espera</div><div class="value">${waiting}</div><div class="hint">Pendientes o ampliadas</div></div><div class="card metric"><div class="label">Resueltas</div><div class="value">${ready}</div><div class="hint">Listas para validar o cerrar</div></div></div><div class="grid cols-2" style="margin-top:18px"><div class="card"><div class="section-title"><h2>Distribución por estado</h2><span>lectura rápida</span></div><div class="chart-box"><canvas id="chartStatus"></canvas></div></div><div class="card"><div class="section-title"><h2>Solicitudes por responsable</h2><span>carga operativa</span></div><div class="chart-box"><canvas id="chartAssignee"></canvas></div></div></div><div class="card" style="margin-top:18px"><div class="section-title"><h2>Kanban operativo</h2><span>${state.tickets.length} solicitudes</span></div><div class="kanban">${statusFlow.map(st=>`<div class="lane"><h3>${escapeHtml(st)}</h3>${state.tickets.filter(t=>t.status===st).slice(0,6).map(t=>`<div class="mini-ticket" onclick="openTicket('${t.id}')"><strong>${escapeHtml(t.code)} · ${escapeHtml(t.title)}</strong><p>${escapeHtml(t.requesterArea||'Sin área')} · ${escapeHtml(userName(t.assignedTo))}</p></div>`).join("")||`<div class="empty">Sin solicitudes</div>`}</div>`).join("")}</div></div>`
+  const closed=state.tickets.filter(t=>t.status==="Cerrada").length;
+  const critical=state.tickets.filter(t=>t.priority==="Crítica"||t.priorityBoost===true).length;
+  const accepted=state.tickets.filter(t=>t.acceptedAt).length;
+  const withResponse=state.tickets.filter(t=>t.finishedAt).length;
+  const sla=Math.round(total?((closed+ready)/total)*100:0);
+  const acceptance=Math.round(total?(accepted/total)*100:0);
+  const response=Math.round(total?(withResponse/total)*100:0);
+  const avgHours=(()=>{const rows=state.tickets.filter(t=>t.acceptedAt&&t.finishedAt);if(!rows.length)return 0;return Number((rows.reduce((a,t)=>a+hoursBetween(t.acceptedAt,t.finishedAt),0)/rows.length).toFixed(1))})();
+  const topCat=Object.entries(countBy(state.tickets,"category")).sort((a,b)=>b[1]-a[1])[0]||["Sin datos",0];
+  return `<div class="executive-hero"><div class="executive-card"><span class="executive-kicker">🛰️ Centro ejecutivo de mesa de ayuda</span><h2 class="executive-title">Calidad, trazabilidad y productividad en tiempo real</h2><p class="executive-sub">Vista ejecutiva del proceso de Calidad y Mejoramiento Continuo: carga operativa, tiempos, estados, solicitudes críticas y comportamiento del servicio.</p><div class="executive-strip"><span class="executive-chip">🎧 ${open} abiertas</span><span class="executive-chip">⚠️ ${critical} críticas</span><span class="executive-chip">✅ ${closed} cerradas</span><span class="executive-chip">📌 Top categoría: ${escapeHtml(topCat[0])}</span></div><div class="sla-bar"><span style="width:${Math.max(4,sla)}%"></span></div></div><div class="executive-card health-panel"><div class="health-row"><span>Resolución general</span><strong>${sla}%</strong></div><div class="health-row"><span>Aceptación</span><strong>${acceptance}%</strong></div><div class="health-row"><span>Respuesta registrada</span><strong>${response}%</strong></div><div class="health-row"><span>Promedio cierre</span><strong>${avgHours} h</strong></div></div></div><div class="grid cols-4"><div class="card metric service"><div class="label">Solicitudes totales</div><div class="value">${total}</div><div class="hint">Histórico cargado</div></div><div class="card metric warn"><div class="label">En espera</div><div class="value">${waiting}</div><div class="hint">Pendientes o ampliadas</div></div><div class="card metric success"><div class="label">Resueltas</div><div class="value">${ready}</div><div class="hint">Listas para validar</div></div><div class="card metric danger"><div class="label">Críticas</div><div class="value">${critical}</div><div class="hint">Alta prioridad o monedas</div></div></div><div class="support-row"><div class="support-mini"><small>Demanda principal</small><strong>${escapeHtml(topCat[0])}</strong></div><div class="support-mini"><small>Solicitudes abiertas</small><strong>${open}</strong></div><div class="support-mini"><small>Cerradas</small><strong>${closed}</strong></div></div><div class="grid cols-2" style="margin-top:18px"><div class="card"><div class="section-title"><h2>Distribución por estado</h2><span>flujo del servicio</span></div><div class="chart-box"><canvas id="chartStatus"></canvas></div></div><div class="card"><div class="section-title"><h2>Solicitudes por responsable</h2><span>carga operativa</span></div><div class="chart-box"><canvas id="chartAssignee"></canvas></div></div></div><div class="card" style="margin-top:18px"><div class="section-title"><h2>Kanban operativo</h2><span>${state.tickets.length} solicitudes</span></div><div class="kanban">${statusFlow.map(st=>`<div class="lane"><h3>${escapeHtml(st)}</h3>${state.tickets.filter(t=>t.status===st).slice(0,6).map(t=>`<div class="mini-ticket" onclick="openTicket('${t.id}')"><strong>${escapeHtml(t.code)} · ${escapeHtml(t.title)}</strong><p>${escapeHtml(t.requesterArea||'Sin área')} · ${escapeHtml(userName(t.assignedTo))}</p></div>`).join("")||`<div class="empty">Sin solicitudes</div>`}</div>`).join("")}</div></div>`
 }
 
 function filteredTickets(){
