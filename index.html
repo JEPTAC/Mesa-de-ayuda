@@ -947,6 +947,26 @@ tr:hover td{
 .guided-pill-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 16px}.guided-pill{display:inline-flex;align-items:center;gap:6px;padding:8px 10px;border-radius:999px;background:#eaf2ff;color:#0b3b82;font-weight:800;font-size:12px;border:1px solid rgba(11,59,130,.12)}
 .wizard-summary{text-align:left;border-radius:20px;padding:14px;background:#f7fbff;border:1px solid rgba(11,59,130,.12);color:#0b3b82;line-height:1.5}.wizard-summary strong{color:#0b3b82}.wizard-summary ul{margin:8px 0 0;padding-left:18px}.swal2-popup{border-radius:28px!important}.swal2-title{color:#0b3b82!important}.swal2-html-container{color:#315783!important}
 
+
+/* COMPROBANTE / PDF / CORREO */
+.ticket-doc-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.ticket-email-note{font-size:12px;color:#315783;line-height:1.45;margin-top:8px}
+
+
+/* CORREO AUTOMÁTICO PROFESIONAL */
+.email-status-card{
+  border:1px solid rgba(11,59,130,.13);
+  border-radius:20px;
+  padding:12px 14px;
+  background:linear-gradient(180deg,#ffffff,#f7fbff);
+  color:#0b3b82;
+  font-size:13px;
+  margin-top:10px;
+}
+.email-status-card strong{display:block;margin-bottom:4px}
+.email-status-card small{color:#315783}
+.email-config-note{font-size:12px;color:#315783;line-height:1.45;margin-top:8px}
+
 </style>
 </head>
 <body>
@@ -3092,6 +3112,625 @@ bindView=function(){
     maybeOfferGuidedRadication();
   }
 };
+
+
+/* =========================================================
+   CORRECCIÓN REDACCIÓN IA + COMPROBANTE/PDF/CORREO
+   - Descripciones en párrafo formal, sin subtítulos internos.
+   - Comprobante PDF/HTML más elegante.
+   - Correo sin SQL: abre borrador en el cliente de correo.
+   ========================================================= */
+
+function sanitizeFormalText(text){
+  return String(text||"").replace(/\s+/g," ").trim();
+}
+function buildFormalTicketDescription(data,draft={}){
+  const area=sanitizeFormalText(data.area||data.requesterArea||"el área solicitante");
+  const need=sanitizeFormalText(data.need||data.problem||data.description||"se requiere apoyo del proceso de Calidad y Mejoramiento Continuo");
+  const caseType=sanitizeFormalText(data.caseType||draft.category||"solicitud");
+  const evidence=sanitizeFormalText(data.evidence||data.evidenceHint||"la evidencia disponible será aportada por el solicitante cuando aplique");
+  const expected=sanitizeFormalText(data.expected||"recibir una revisión clara, trazable y orientada al cierre de la necesidad reportada");
+  const urgency=sanitizeFormalText(data.urgency||"sin urgencia específica informada");
+  const responsible=userName(draft.assignedTo)||"el responsable asignado";
+
+  return `Desde ${area} se solicita apoyo del proceso de Calidad y Mejoramiento Continuo para atender una necesidad relacionada con ${caseType.toLowerCase()}. El caso reportado consiste en ${need}. Para la revisión se cuenta como referencia con ${evidence}, y se espera ${expected}. La solicitud se gestiona con prioridad ${draft.priority||"Media"} y modalidad ${draft.modality||"Mixta"}, considerando como plazo o nivel de urgencia ${urgency}. Se sugiere asignar la atención a ${responsible}, dejando como criterio de cierre una respuesta trazable, la revisión de la evidencia disponible y la validación del solicitante.`;
+}
+function draftTicketFromText(text){
+  const raw=String(text||"").trim();
+  const clean=typeof aiCleanText==="function"?aiCleanText(raw):normalizeTextAI(raw);
+  const entities=typeof aiExtractEntities==="function"?aiExtractEntities(raw):{};
+  const category=typeof classifyCategoryMax==="function"?classifyCategoryMax(clean):(/auditoria|hallazgo|no conformidad/.test(clean)?'Auditoría':/indicador|kpi|dashboard|grafica|medir/.test(clean)?'Indicador/KPI':/capacitacion|induccion|entrenamiento/.test(clean)?'Capacitación':/riesgo|control/.test(clean)?'Riesgo/Hallazgo':/documento|formato|pdf|acta|matriz/.test(clean)?'Documento':/procedimiento|proceso|flujo|manual/.test(clean)?'Procedimiento':/mejora|optimizar/.test(clean)?'Mejora continua':'Consulta general');
+  const priority=typeof classifyPriorityMax==="function"?classifyPriorityMax(clean,entities):(/urgente|critica|auditoria|vencido|bloquea|gerencia/.test(clean)?'Alta':/simple|consulta|cuando puedan|baja/.test(clean)?'Baja':'Media');
+  const modality=typeof classifyModalityMax==="function"?classifyModalityMax(clean):(/visita|presencial|campo|reunion|acompanamiento/.test(clean)?'Presencial':/documento|formato|pdf|acta|matriz|procedimiento/.test(clean)?'Documental':'Mixta');
+  const assignedTo=suggestAssignee(category,priority);
+  const title=makeTitleFromText(raw,category);
+  const draft={category,priority,modality,title,assignedTo,requesterName:entities.requesterName||"",requesterEmail:entities.email||"",requesterArea:entities.requesterArea||"",evidenceHint:entities.evidence?"Evidencia mencionada por el solicitante. Adjuntar soporte si está disponible.":""};
+  draft.description=buildFormalTicketDescription({area:entities.requesterArea,need:raw,caseType:category,evidence:draft.evidenceHint||"",expected:"recibir revisión, orientación, ajuste o soporte según el alcance del caso",urgency:entities.deadline||""},draft);
+  return draft;
+}
+function guidedBuildDraft(data){
+  const combined=`${data.area||""} ${data.need||""} ${data.caseType||""} ${data.evidence||""} ${data.expected||""} ${data.urgency||""}`;
+  const draft=draftTicketFromText(combined);
+  const classification=typeof classifyFromText==="function"?classifyFromText(combined):null;
+  if(classification){
+    draft.category=classification.category||draft.category;
+    draft.priority=classification.priority||draft.priority;
+    draft.modality=classification.modality||draft.modality;
+    draft.assignedTo=suggestAssignee(draft.category,draft.priority);
+  }
+  draft.requesterName=data.requesterName||draft.requesterName||"";
+  draft.requesterEmail=data.requesterEmail||draft.requesterEmail||"";
+  draft.requesterArea=data.area||"";
+  draft.evidenceHint=data.evidence&&data.evidence!=="No tengo evidencia todavía"?data.evidence:"";
+  draft.title=makeTitleFromText(data.need,draft.category);
+  draft.description=buildFormalTicketDescription(data,draft);
+  return draft;
+}
+function ticketEmailSubject(t,type="created"){
+  return type==="resolved"?`Cierre de solicitud ${t.code} - ${t.title}`:`Comprobante de radicación ${t.code} - ${t.title}`;
+}
+function ticketEmailBody(t,type="created"){
+  const s=typeof slaInfo==="function"?slaInfo(t):null;
+  const intro=type==="resolved"
+    ? `Buen día,\n\nLa solicitud ${t.code} fue marcada como resuelta en la Mesa de Ayuda de Calidad.`
+    : `Buen día,\n\nTu solicitud fue radicada correctamente en la Mesa de Ayuda de Calidad.`;
+  const resolution=type==="resolved"
+    ? `\n\nRespuesta / cierre:\n${(t.chat||[]).slice(-2).map(m=>`${m.by}: ${m.text}`).join("\n")||"La solicitud fue atendida y queda lista para validación."}`
+    : "";
+  return `${intro}
+
+Radicado: ${t.code}
+Asunto: ${t.title}
+Estado: ${t.status}
+Categoría: ${t.category}
+Prioridad: ${t.priority}
+Modalidad: ${t.modality}
+Responsable: ${userName(t.assignedTo)}
+Solicitante: ${t.requesterName||"No informado"}
+Área / proceso: ${t.requesterArea||"No informado"}
+${s?`SLA objetivo: ${s.rule.label}
+Vencimiento estimado: ${fmt(s.due)}`:""}
+
+Descripción:
+${t.description||""}${resolution}
+
+Este mensaje sirve como comprobante de seguimiento. Conserva el radicado para consultar el estado en la aplicación.`;
+}
+function openMailDraftForTicket(t,type="created"){
+  const email=String(t.requesterEmail||"").trim();
+  if(!email){
+    Swal.fire({title:"Sin correo",text:"La solicitud no tiene correo del solicitante. No puedo preparar el mensaje automático.",confirmButtonColor:"#0d5bd2"});
+    return;
+  }
+  const subject=encodeURIComponent(ticketEmailSubject(t,type));
+  const body=encodeURIComponent(ticketEmailBody(t,type));
+  window.location.href=`mailto:${encodeURIComponent(email)}?subject=${subject}&body=${body}`;
+}
+async function maybeOfferTicketEmail(t,type="created"){
+  if(!t?.requesterEmail)return;
+  const label=type==="resolved"?"enviar el cierre al correo del solicitante":"enviar el comprobante al correo del solicitante";
+  const res=await Swal.fire({
+    title:type==="resolved"?"Enviar cierre por correo":"Enviar comprobante por correo",
+    html:`<div class="wizard-summary"><p>La solicitud tiene correo registrado: <strong>${escapeHtml(t.requesterEmail)}</strong>.</p><p>Como la app está en GitHub Pages, se abrirá un borrador de correo con el comprobante listo. Para envío 100% automático se requiere conectar un servicio de correo.</p></div>`,
+    showCancelButton:true,
+    confirmButtonText:"Preparar correo",
+    cancelButtonText:"Después",
+    confirmButtonColor:"#0d5bd2"
+  });
+  if(res.isConfirmed)openMailDraftForTicket(t,type);
+}
+function ticketHtmlDocument(t,type="created"){
+  const s=typeof slaInfo==="function"?slaInfo(t):null;
+  const timeline=(t.timeline||[]).map(e=>`<tr><td>${escapeHtml(e.label)}</td><td>${escapeHtml(e.text)}</td><td>${fmt(e.at)}</td></tr>`).join("");
+  const chat=(t.chat||[]).map(m=>`<tr><td>${escapeHtml(m.by)}</td><td>${escapeHtml(m.text)}</td><td>${fmt(m.at)}</td></tr>`).join("");
+  const files=[...(t.attachments||[]),...(t.resolutionFiles||[])].map(a=>`<li>${escapeHtml(a.name||a.filename||"Adjunto")}</li>`).join("")||"<li>Sin adjuntos registrados</li>";
+  return `<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(t.code)}</title><style>
+  @page{size:A4;margin:18mm}
+  body{font-family:"Century Gothic",Arial,sans-serif;color:#0b3b82;margin:0;background:#fff}
+  .head{border-bottom:5px solid #0d5bd2;padding:22px 28px;background:linear-gradient(135deg,#ffffff,#f7fbff)}
+  .brand{font-size:12px;letter-spacing:.8px;text-transform:uppercase;color:#315783;font-weight:900}
+  h1{font-size:26px;margin:6px 0;color:#0b3b82}.code{display:inline-block;background:#fff7db;border:1px solid #f7bf24;border-radius:999px;padding:7px 12px;font-weight:900}
+  .wrap{padding:24px 28px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.box{border:1px solid #d7e3f7;border-radius:18px;padding:15px;background:#f7fbff;margin:12px 0}.box.white{background:#fff}
+  .label{font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:#315783;font-weight:900}.value{font-size:15px;font-weight:700;color:#0b3b82;margin-top:4px}
+  table{width:100%;border-collapse:collapse;margin:14px 0}th{background:#eaf2ff;color:#0b3b82}td,th{border:1px solid #d7e3f7;padding:9px;text-align:left;vertical-align:top;font-size:12px}
+  .footer{margin-top:28px;padding-top:12px;border-top:1px solid #d7e3f7;color:#315783;font-size:11px}
+  </style></head><body><section class="head"><div class="brand">Mesa de Ayuda de Calidad y Mejoramiento Continuo</div><h1>${type==="resolved"?"Comprobante de cierre":"Comprobante de radicación"}</h1><span class="code">${escapeHtml(t.code)}</span></section><main class="wrap"><div class="grid"><div class="box"><div class="label">Asunto</div><div class="value">${escapeHtml(t.title)}</div></div><div class="box"><div class="label">Estado</div><div class="value">${escapeHtml(t.status)}</div></div><div class="box"><div class="label">Solicitante</div><div class="value">${escapeHtml(t.requesterName||"")}</div></div><div class="box"><div class="label">Correo</div><div class="value">${escapeHtml(t.requesterEmail||"")}</div></div><div class="box"><div class="label">Área / proceso</div><div class="value">${escapeHtml(t.requesterArea||"")}</div></div><div class="box"><div class="label">Responsable</div><div class="value">${escapeHtml(userName(t.assignedTo))}</div></div><div class="box"><div class="label">Categoría</div><div class="value">${escapeHtml(t.category)}</div></div><div class="box"><div class="label">Prioridad / modalidad</div><div class="value">${escapeHtml(t.priority)} · ${escapeHtml(t.modality)}</div></div></div><div class="box white"><div class="label">Descripción formal</div><p>${escapeHtml(t.description||"")}</p></div>${s?`<div class="box"><div class="label">SLA</div><div class="value">Objetivo ${escapeHtml(s.rule.label)} · Estado ${escapeHtml(s.label)} · Vence ${fmt(s.due)}</div></div>`:""}<h2>Línea de tiempo</h2><table><tr><th>Evento</th><th>Detalle</th><th>Fecha</th></tr>${timeline}</table><h2>Mensajes</h2><table><tr><th>Autor</th><th>Mensaje</th><th>Fecha</th></tr>${chat}</table><h2>Adjuntos registrados</h2><ul>${files}</ul><div class="footer">Documento generado por la Mesa de Ayuda de Calidad. Desarrollado por Juan E. Perez.</div></main></body></html>`;
+}
+function exportTicketPDF(id,type="created"){
+  const t=state.tickets.find(x=>x.id===id);if(!t)return;
+  const win=window.open("","_blank");
+  win.document.write(ticketHtmlDocument(t,type));
+  win.document.close();
+  setTimeout(()=>{try{win.print()}catch(e){}},350);
+}
+async function submitTicket(e){
+  e.preventDefault();
+  const fd=new FormData(e.target);
+  const attachments=await filesToAttachments(document.getElementById('ticketAttachments')?.files);
+  const ticketId=uid('ticket');
+  const priorityCode=String(fd.get('priorityCode')||'').trim().toUpperCase();
+  let boostResult=null;
+  if(priorityCode){
+    boostResult=await redeemPriorityCode(priorityCode,ticketId);
+    if(!boostResult.ok){popup('Código de prioridad no válido',boostResult.message||'El código no existe, ya fue usado o no está activo.',assets.missing);return}
+  }
+  const templateData=typeof collectTemplateData==="function"?collectTemplateData(fd):{};
+  let description=typeof appendTemplateToDescription==="function"?appendTemplateToDescription(fd.get('description'),templateData):fd.get('description');
+  description=sanitizeFormalText(description);
+  const ticket={
+    id:ticketId,
+    code:'DT-'+String(maxTicketCode()+1).padStart(4,'0'),
+    requesterName:fd.get('requesterName'),
+    requesterEmail:fd.get('requesterEmail'),
+    requesterArea:fd.get('requesterArea'),
+    assignedTo:fd.get('assignedTo'),
+    category:fd.get('category'),
+    priority:fd.get('priority'),
+    modality:fd.get('modality'),
+    title:fd.get('title'),
+    description,
+    evidence:fd.get('evidence'),
+    attachments:(attachments||[]).map(a=>({...a,ticketId:'',scope:'general'})),
+    resolutionFiles:[],
+    templateData,
+    status:'Enviada',
+    createdBy:state.user.id,
+    acceptedAt:null,
+    finishedAt:null,
+    extendedReason:'',
+    satisfaction:null,
+    chat:[{by:state.user.name,text:'Solicitud radicada.',at:now()}],
+    timeline:[{label:'Radicación',text:'Solicitud enviada al responsable.',at:now()}],
+    created_at:now(),updated_at:now()
+  };
+  if(boostResult?.ok){
+    ticket.priority='Crítica';
+    ticket.priorityBoost=true;
+    ticket.priorityCode=priorityCode;
+    ticket.priorityBoostCost=boostResult.cost;
+    ticket.timeline.push({label:'Prioridad por monedas',text:`Código ${priorityCode} aplicado. La solicitud sube por prioridad de monedas del ranking.`,at:now()});
+    ticket.chat.push({by:'Sistema de monedas',text:`Se aplicó código de prioridad ${priorityCode}. Esta solicitud entra por encima de la fila normal.`,at:now()});
+  }
+  ticket.attachments=ticket.attachments.map(a=>({...a,ticketId:ticket.id,scope:'general'}));
+  if(typeof ticketQualityFromObject==="function")ticket.quality=ticketQualityFromObject(ticket);
+  if(typeof makeSlaMeta==="function")ticket.sla=makeSlaMeta(ticket);
+  await saveRecord(tables.tickets,ticket);
+  state.tickets=await listRecords(tables.tickets);
+  playSound(sounds.created);
+  popup('Solicitud enviada',`Tu código es ${ticket.code}. ${ticket.quality?`Calidad de radicación: ${ticket.quality.score}%. `:""}${ticket.sla?`SLA objetivo: ${ticket.sla.rule}. `:""}${ticket.priorityBoost?'Se aplicó prioridad por monedas. ':''}Ya está en la bandeja de ${userName(ticket.assignedTo)}.`,randomSentGif());
+  if(window.confetti)confetti({particleCount:90,spread:70,origin:{y:.76}});
+  e.target.reset();
+  state.selectedTicketId=ticket.id;state.selectedTicket=ticket;state.view='detail';renderApp();
+  setTimeout(()=>maybeOfferTicketEmail(ticket,"created"),850);
+}
+async function resolveTicket(id){
+  const t=state.tickets.find(x=>x.id===id);if(!t)return;
+  const result=await Swal.fire({title:'Resolver solicitud',html:'<div class="field" style="text-align:left"><label>Comentario de cierre</label><textarea id="swal-close-comment" class="swal2-textarea" placeholder="Describe de forma clara qué se realizó, qué se entrega y si queda alguna recomendación"></textarea></div><div class="field" style="text-align:left"><label>Adjuntar respuesta / evidencia</label><input id="swal-close-files" type="file" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.png,.jpg,.jpeg,.webp,.txt"></div>',showCancelButton:true,confirmButtonText:'Marcar resuelta',confirmButtonColor:'#0d5bd2',preConfirm:async()=>({comment:document.getElementById('swal-close-comment').value,files:await filesToAttachments(document.getElementById('swal-close-files').files)})});
+  if(!result.value)return;
+  t.finishedAt=now();
+  t.resolutionFiles=[...(t.resolutionFiles||[]),...(result.value.files||[]).map(a=>({...a,ticketId:t.id,scope:'resolution'}))];
+  t.chat=t.chat||[];
+  const closeText=sanitizeFormalText(result.value.comment||'La solicitud fue atendida y queda lista para validación y cierre por parte del solicitante.');
+  t.chat.push({by:state.user.name,text:closeText,at:now()});
+  await updateTicket(t,'Resolución',closeText,'Resuelta');
+  await autoLearn('cierre '+t.category,`Caso resuelto: ${t.title}. Aprendizaje: ${t.description}`);
+  toast('Solicitud resuelta');
+  setTimeout(()=>maybeOfferTicketEmail({...t,status:"Resuelta"},"resolved"),650);
+}
+const ticketActionsBeforeEmail=ticketActions;
+ticketActions=function(t){
+  let actions=ticketActionsBeforeEmail(t);
+  actions+=`<button class="btn ghost" onclick="exportTicketPDF('${t.id}','${t.status==='Resuelta'||t.status==='Cerrada'?'resolved':'created'}')">Exportar comprobante PDF</button>`;
+  if(t.requesterEmail)actions+=`<button class="btn gold" onclick="openMailDraftForTicket(state.tickets.find(x=>x.id==='${t.id}'),'${t.status==='Resuelta'||t.status==='Cerrada'?'resolved':'created'}')">Preparar correo</button>`;
+  return actions;
+}
+
+
+/* =========================================================
+   CORREO AUTOMÁTICO PROFESIONAL + PDF MEJORADO
+   Requiere configurar EmailJS una sola vez. No requiere SQL.
+   ========================================================= */
+const EMAIL_PROVIDER_KEY="dt_quality_emailjs_config_v1";
+
+function getEmailConfig(){
+  try{return JSON.parse(localStorage.getItem(EMAIL_PROVIDER_KEY)||"{}")}catch(e){return {}}
+}
+function saveEmailConfig(cfg){
+  localStorage.setItem(EMAIL_PROVIDER_KEY,JSON.stringify(cfg||{}));
+}
+function hasEmailConfig(){
+  const c=getEmailConfig();
+  return !!(c.publicKey&&c.serviceId&&c.templateId);
+}
+async function configureEmailService(){
+  const cfg=getEmailConfig();
+  const res=await Swal.fire({
+    title:"Configurar envío automático",
+    width:760,
+    html:`<div class="wizard-summary"><p>Para que el comprobante llegue automáticamente al correo del solicitante, configura un proveedor de correo tipo EmailJS. Esta configuración queda guardada en este navegador.</p><div class="field" style="text-align:left"><label>Public Key</label><input id="email-public" class="swal2-input" value="${escapeHtml(cfg.publicKey||"")}" placeholder="Ej. 3Lxxxx"></div><div class="field" style="text-align:left"><label>Service ID</label><input id="email-service" class="swal2-input" value="${escapeHtml(cfg.serviceId||"")}" placeholder="Ej. service_xxxxx"></div><div class="field" style="text-align:left"><label>Template ID</label><input id="email-template" class="swal2-input" value="${escapeHtml(cfg.templateId||"")}" placeholder="Ej. template_ticket"></div><p class="email-config-note">La plantilla debe recibir estas variables: to_email, subject, ticket_code, requester_name, html_message y text_message.</p></div>`,
+    showCancelButton:true,
+    confirmButtonText:"Guardar configuración",
+    cancelButtonText:"Cancelar",
+    confirmButtonColor:"#0d5bd2",
+    preConfirm:()=>({
+      publicKey:document.getElementById("email-public").value.trim(),
+      serviceId:document.getElementById("email-service").value.trim(),
+      templateId:document.getElementById("email-template").value.trim()
+    })
+  });
+  if(!res.value)return false;
+  if(!res.value.publicKey||!res.value.serviceId||!res.value.templateId){
+    Swal.fire({title:"Faltan datos",text:"Para enviar automáticamente se requieren Public Key, Service ID y Template ID.",confirmButtonColor:"#0d5bd2"});
+    return false;
+  }
+  saveEmailConfig(res.value);
+  toast("Correo automático configurado");
+  return true;
+}
+function loadScriptOnce(src){
+  return new Promise((resolve,reject)=>{
+    if([...document.scripts].some(s=>s.src===src))return resolve();
+    const s=document.createElement("script");
+    s.src=src;s.onload=resolve;s.onerror=reject;document.head.appendChild(s);
+  });
+}
+async function ensureEmailProvider(){
+  if(!hasEmailConfig())return false;
+  await loadScriptOnce("https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js");
+  const cfg=getEmailConfig();
+  if(window.emailjs&&cfg.publicKey)window.emailjs.init({publicKey:cfg.publicKey});
+  return !!window.emailjs;
+}
+function emailLogHtml(t){
+  const logs=t.emailLog||[];
+  if(!logs.length)return "";
+  const last=logs[logs.length-1];
+  const label=last.status==="sent"?"Correo enviado":"Correo pendiente / fallido";
+  return `<div class="email-status-card"><strong>${escapeHtml(label)}</strong><small>${escapeHtml(last.type||"")} · ${escapeHtml(last.to||"")} · ${fmt(last.at)}</small></div>`;
+}
+function ticketEmailHtml(t,type="created"){
+  const s=typeof slaInfo==="function"?slaInfo(t):null;
+  const resolved=type==="resolved";
+  const attachments=[...(t.attachments||[]),...(t.resolutionFiles||[])].map(a=>`<li>${escapeHtml(a.name||a.filename||"Adjunto")}</li>`).join("")||"<li>No se registran adjuntos en el sistema.</li>";
+  const closeMsg=resolved?(t.chat||[]).slice(-2).map(m=>`<p><strong>${escapeHtml(m.by)}:</strong> ${escapeHtml(m.text)}</p>`).join(""):"";
+  return `<div style="font-family:Century Gothic,Arial,sans-serif;background:#f4f8ff;padding:24px;color:#0b3b82">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:760px;margin:auto;background:#ffffff;border-radius:22px;overflow:hidden;border:1px solid #d7e3f7">
+      <tr><td style="background:linear-gradient(135deg,#0b3b82,#0d5bd2);padding:26px 30px;color:#ffffff">
+        <div style="font-size:12px;text-transform:uppercase;letter-spacing:1px;font-weight:700">Mesa de Ayuda de Calidad y Mejoramiento Continuo</div>
+        <h1 style="margin:8px 0 4px;font-size:26px;color:#ffffff">${resolved?"Comprobante de cierre":"Comprobante de radicación"}</h1>
+        <div style="display:inline-block;background:#f7bf24;color:#0b3b82;padding:8px 14px;border-radius:999px;font-weight:900">${escapeHtml(t.code)}</div>
+      </td></tr>
+      <tr><td style="padding:26px 30px">
+        <p style="font-size:15px;line-height:1.6;margin-top:0">${resolved?"La solicitud fue marcada como resuelta y queda disponible para validación.":"Tu solicitud fue radicada correctamente y ya cuenta con trazabilidad dentro del sistema."}</p>
+        <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:separate;border-spacing:0 10px">
+          ${[
+            ["Asunto",t.title],
+            ["Estado",t.status],
+            ["Categoría",t.category],
+            ["Prioridad / modalidad",`${t.priority} · ${t.modality}`],
+            ["Solicitante",t.requesterName||""],
+            ["Área / proceso",t.requesterArea||""],
+            ["Responsable",userName(t.assignedTo)],
+            ["SLA",s?`${s.rule.label} · ${s.label}`:"No definido"]
+          ].map(r=>`<tr><td style="width:34%;padding:12px;background:#eaf2ff;border-radius:12px 0 0 12px;font-weight:900;color:#0b3b82">${escapeHtml(r[0])}</td><td style="padding:12px;background:#f7fbff;border-radius:0 12px 12px 0;color:#315783">${escapeHtml(r[1]||"—")}</td></tr>`).join("")}
+        </table>
+        <div style="margin-top:18px;padding:16px;border:1px solid #d7e3f7;border-radius:18px;background:#ffffff">
+          <div style="font-size:12px;text-transform:uppercase;letter-spacing:.8px;font-weight:900;color:#315783">Descripción</div>
+          <p style="line-height:1.65;color:#0b3b82">${escapeHtml(t.description||"")}</p>
+        </div>
+        ${resolved?`<div style="margin-top:18px;padding:16px;border:1px solid #d7e3f7;border-radius:18px;background:#fff7db"><div style="font-size:12px;text-transform:uppercase;letter-spacing:.8px;font-weight:900;color:#315783">Respuesta / cierre</div>${closeMsg||"<p>La solicitud fue atendida y queda lista para validación.</p>"}</div>`:""}
+        <div style="margin-top:18px;padding:16px;border:1px solid #d7e3f7;border-radius:18px;background:#f7fbff">
+          <div style="font-size:12px;text-transform:uppercase;letter-spacing:.8px;font-weight:900;color:#315783">Adjuntos registrados</div>
+          <ul style="margin:8px 0 0;color:#0b3b82">${attachments}</ul>
+        </div>
+        <p style="font-size:12px;color:#315783;line-height:1.55;margin-top:22px">Conserva este correo y el radicado ${escapeHtml(t.code)} para consultar el estado de la solicitud en la aplicación.</p>
+      </td></tr>
+      <tr><td style="padding:14px 30px;background:#f7fbff;color:#315783;font-size:11px">Desarrollado por Juan E. Perez · Sistema interno de Calidad</td></tr>
+    </table>
+  </div>`;
+}
+function ticketTextMessage(t,type="created"){
+  const resolved=type==="resolved";
+  return `${resolved?"Comprobante de cierre":"Comprobante de radicación"}\n\nRadicado: ${t.code}\nAsunto: ${t.title}\nEstado: ${t.status}\nCategoría: ${t.category}\nPrioridad: ${t.priority}\nModalidad: ${t.modality}\nResponsable: ${userName(t.assignedTo)}\nSolicitante: ${t.requesterName||""}\nÁrea: ${t.requesterArea||""}\n\nDescripción:\n${t.description||""}`;
+}
+async function sendTicketEmailAutomatic(t,type="created",silent=false){
+  const email=String(t.requesterEmail||"").trim();
+  if(!email){
+    if(!silent)Swal.fire({title:"Sin correo",text:"La solicitud no tiene correo del solicitante.",confirmButtonColor:"#0d5bd2"});
+    return {ok:false,reason:"sin_correo"};
+  }
+  if(!hasEmailConfig()){
+    if(!silent){
+      const cfg=await Swal.fire({title:"Correo automático no configurado",html:`<div class="wizard-summary"><p>Para que el comprobante llegue solo al correo del solicitante, primero configura el proveedor de correo. Después de eso, los comprobantes se enviarán automáticamente.</p></div>`,showCancelButton:true,confirmButtonText:"Configurar ahora",cancelButtonText:"Después",confirmButtonColor:"#0d5bd2"});
+      if(cfg.isConfirmed)await configureEmailService();
+    }
+    return {ok:false,reason:"sin_config"};
+  }
+  try{
+    await ensureEmailProvider();
+    const cfg=getEmailConfig();
+    const params={
+      to_email:email,
+      subject:ticketEmailSubject(t,type),
+      ticket_code:t.code,
+      requester_name:t.requesterName||"",
+      html_message:ticketEmailHtml(t,type),
+      text_message:ticketTextMessage(t,type)
+    };
+    await window.emailjs.send(cfg.serviceId,cfg.templateId,params);
+    t.emailLog=t.emailLog||[];
+    t.emailLog.push({type,status:"sent",to:email,at:now(),provider:"EmailJS"});
+    await saveRecord(tables.tickets,t);
+    state.tickets=await listRecords(tables.tickets);
+    if(!silent)toast("Correo enviado al solicitante");
+    return {ok:true};
+  }catch(err){
+    console.warn("Error enviando correo",err);
+    t.emailLog=t.emailLog||[];
+    t.emailLog.push({type,status:"failed",to:email,at:now(),provider:"EmailJS",error:String(err?.text||err?.message||err)});
+    try{await saveRecord(tables.tickets,t);state.tickets=await listRecords(tables.tickets)}catch(e){}
+    if(!silent)Swal.fire({title:"No se pudo enviar",text:"Revisa la configuración del proveedor de correo o la plantilla.",confirmButtonColor:"#0d5bd2"});
+    return {ok:false,reason:"error"};
+  }
+}
+function showSentEmailPreview(id,type="created"){
+  const t=state.tickets.find(x=>x.id===id);if(!t)return;
+  const win=window.open("","_blank");
+  win.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Correo ${escapeHtml(t.code)}</title></head><body>${ticketEmailHtml(t,type)}</body></html>`);
+  win.document.close();
+}
+function ticketHtmlDocument(t,type="created"){
+  const s=typeof slaInfo==="function"?slaInfo(t):null;
+  const resolved=type==="resolved";
+  const timeline=(t.timeline||[]).map((e,i)=>`<tr><td>${i+1}</td><td><strong>${escapeHtml(e.label)}</strong><br>${escapeHtml(e.text)}</td><td>${fmt(e.at)}</td></tr>`).join("");
+  const chat=(t.chat||[]).map(m=>`<tr><td>${escapeHtml(m.by)}</td><td>${escapeHtml(m.text)}</td><td>${fmt(m.at)}</td></tr>`).join("");
+  const files=[...(t.attachments||[]),...(t.resolutionFiles||[])].map(a=>`<li>${escapeHtml(a.name||a.filename||"Adjunto")}</li>`).join("")||"<li>Sin adjuntos registrados</li>";
+  return `<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(t.code)}</title><style>
+  @page{size:A4;margin:14mm}*{box-sizing:border-box}body{font-family:"Century Gothic",Arial,sans-serif;color:#0b3b82;margin:0;background:#fff}
+  .cover{position:relative;padding:30px 34px;color:#fff;background:linear-gradient(135deg,#071f49,#0d5bd2);border-radius:0 0 30px 30px;overflow:hidden}.cover:after{content:"";position:absolute;right:-60px;top:-60px;width:210px;height:210px;border-radius:50%;background:rgba(247,191,36,.25)}
+  .brand{font-size:12px;text-transform:uppercase;letter-spacing:1px;font-weight:900;opacity:.9}.title{font-size:30px;margin:10px 0 8px;font-weight:900}.code{display:inline-block;background:#f7bf24;color:#0b3b82;border-radius:999px;padding:8px 14px;font-weight:900}
+  .wrap{padding:26px 34px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.card{border:1px solid #d7e3f7;border-radius:18px;padding:14px;background:#f7fbff;min-height:72px}.card.white{background:#fff}.label{font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:#315783;font-weight:900}.value{font-size:15px;font-weight:800;margin-top:5px;color:#0b3b82;line-height:1.35}
+  .desc{border-left:6px solid #f7bf24;background:#fff;border-radius:18px;padding:18px;margin:16px 0;border-top:1px solid #d7e3f7;border-right:1px solid #d7e3f7;border-bottom:1px solid #d7e3f7}.desc p{line-height:1.65;margin:8px 0 0}
+  h2{font-size:18px;color:#0b3b82;margin:22px 0 10px}table{width:100%;border-collapse:collapse;margin:10px 0}th{background:#eaf2ff;color:#0b3b82}td,th{border:1px solid #d7e3f7;padding:9px;text-align:left;vertical-align:top;font-size:11px}
+  .badge{display:inline-block;border-radius:999px;background:#fff7db;border:1px solid #f7bf24;color:#0b3b82;padding:6px 10px;font-weight:900}.footer{margin-top:24px;padding-top:12px;border-top:1px solid #d7e3f7;color:#315783;font-size:10px}
+  </style></head><body><section class="cover"><div class="brand">Mesa de Ayuda de Calidad y Mejoramiento Continuo</div><div class="title">${resolved?"Comprobante de cierre":"Comprobante de radicación"}</div><span class="code">${escapeHtml(t.code)}</span></section><main class="wrap"><div class="grid"><div class="card"><div class="label">Asunto</div><div class="value">${escapeHtml(t.title)}</div></div><div class="card"><div class="label">Estado</div><div class="value">${escapeHtml(t.status)}</div></div><div class="card"><div class="label">Solicitante</div><div class="value">${escapeHtml(t.requesterName||"—")}</div></div><div class="card"><div class="label">Correo</div><div class="value">${escapeHtml(t.requesterEmail||"—")}</div></div><div class="card"><div class="label">Área / proceso</div><div class="value">${escapeHtml(t.requesterArea||"—")}</div></div><div class="card"><div class="label">Responsable</div><div class="value">${escapeHtml(userName(t.assignedTo))}</div></div><div class="card"><div class="label">Categoría</div><div class="value">${escapeHtml(t.category)}</div></div><div class="card"><div class="label">Prioridad / modalidad</div><div class="value"><span class="badge">${escapeHtml(t.priority)}</span> ${escapeHtml(t.modality)}</div></div></div><div class="desc"><div class="label">Descripción formal</div><p>${escapeHtml(t.description||"")}</p></div>${s?`<div class="card white"><div class="label">SLA</div><div class="value">Objetivo ${escapeHtml(s.rule.label)} · Estado ${escapeHtml(s.label)} · Vence ${fmt(s.due)}</div></div>`:""}<h2>Línea de tiempo</h2><table><tr><th>#</th><th>Evento</th><th>Fecha</th></tr>${timeline}</table><h2>Mensajes</h2><table><tr><th>Autor</th><th>Mensaje</th><th>Fecha</th></tr>${chat}</table><h2>Adjuntos registrados</h2><ul>${files}</ul><div class="footer">Documento generado por la Mesa de Ayuda de Calidad. Desarrollado por Juan E. Perez.</div></main></body></html>`;
+}
+function exportTicketPDF(id,type="created"){
+  const t=state.tickets.find(x=>x.id===id);if(!t)return;
+  const win=window.open("","_blank");
+  win.document.write(ticketHtmlDocument(t,type));
+  win.document.close();
+  setTimeout(()=>{try{win.print()}catch(e){}},350);
+}
+function valorPanelsHtml(t){
+  const q=ticketQualityFromObject(t);
+  const s=slaInfo(t);
+  const type=t.status==='Resuelta'||t.status==='Cerrada'?'resolved':'created';
+  return `<div style="display:grid;gap:14px;margin-top:16px">${qualityPanelHtml(t)}<div class="sla-panel"><div class="sla-head"><div><strong>SLA y vencimiento</strong><p class="mini-note">Objetivo según prioridad ${escapeHtml(t.priority)}.</p></div>${slaTag(t)}</div><div class="sla-grid"><div class="sla-mini"><small>Objetivo</small><strong>${escapeHtml(s.rule.label)}</strong></div><div class="sla-mini"><small>Transcurrido</small><strong>${Number(s.elapsed.toFixed(1))} h</strong></div><div class="sla-mini"><small>Vence</small><strong>${fmt(s.due)}</strong></div><div class="sla-mini"><small>Estado</small><strong>${escapeHtml(s.label)}</strong></div></div><div class="quality-bar" style="margin-top:12px"><span style="width:${Math.max(3,s.pct)}%"></span></div></div><div class="suggest-panel"><div class="section-title"><h2>IA operativa del ticket</h2><span>acciones rápidas</span></div><div class="valor-actions"><button class="btn ghost" onclick="showExecutiveSummary('${t.id}')">Resumen ejecutivo</button><button class="btn ghost" onclick="showAuditMode('${t.id}')">Modo auditoría</button><button class="btn primary" onclick="exportTicketPDF('${t.id}','${type}')">Exportar PDF</button><button class="btn gold" onclick="sendTicketEmailAutomatic(state.tickets.find(x=>x.id==='${t.id}'),'${type}')">Enviar correo</button>${isInternal()?`<button class="btn ghost" onclick="configureEmailService()">Configurar correo</button>`:""}<button class="btn ghost" onclick="showSentEmailPreview('${t.id}','${type}')">Vista correo</button></div>${emailLogHtml(t)}</div></div>`;
+}
+async function submitTicket(e){
+  e.preventDefault();
+  const fd=new FormData(e.target);
+  const attachments=await filesToAttachments(document.getElementById('ticketAttachments')?.files);
+  const ticketId=uid('ticket');
+  const priorityCode=String(fd.get('priorityCode')||'').trim().toUpperCase();
+  let boostResult=null;
+  if(priorityCode){
+    boostResult=await redeemPriorityCode(priorityCode,ticketId);
+    if(!boostResult.ok){popup('Código de prioridad no válido',boostResult.message||'El código no existe, ya fue usado o no está activo.',assets.missing);return}
+  }
+  const templateData=typeof collectTemplateData==="function"?collectTemplateData(fd):{};
+  let description=typeof appendTemplateToDescription==="function"?appendTemplateToDescription(fd.get('description'),templateData):fd.get('description');
+  description=sanitizeFormalText(description);
+  const ticket={
+    id:ticketId,code:'DT-'+String(maxTicketCode()+1).padStart(4,'0'),
+    requesterName:fd.get('requesterName'),requesterEmail:fd.get('requesterEmail'),requesterArea:fd.get('requesterArea'),
+    assignedTo:fd.get('assignedTo'),category:fd.get('category'),priority:fd.get('priority'),modality:fd.get('modality'),
+    title:fd.get('title'),description,evidence:fd.get('evidence'),
+    attachments:(attachments||[]).map(a=>({...a,ticketId:'',scope:'general'})),
+    resolutionFiles:[],templateData,status:'Enviada',createdBy:state.user.id,acceptedAt:null,finishedAt:null,extendedReason:'',satisfaction:null,emailLog:[],
+    chat:[{by:state.user.name,text:'Solicitud radicada.',at:now()}],
+    timeline:[{label:'Radicación',text:'Solicitud enviada al responsable.',at:now()}],
+    created_at:now(),updated_at:now()
+  };
+  if(boostResult?.ok){
+    ticket.priority='Crítica';ticket.priorityBoost=true;ticket.priorityCode=priorityCode;ticket.priorityBoostCost=boostResult.cost;
+    ticket.timeline.push({label:'Prioridad por monedas',text:`Código ${priorityCode} aplicado. La solicitud sube por prioridad de monedas del ranking.`,at:now()});
+    ticket.chat.push({by:'Sistema de monedas',text:`Se aplicó código de prioridad ${priorityCode}. Esta solicitud entra por encima de la fila normal.`,at:now()});
+  }
+  ticket.attachments=ticket.attachments.map(a=>({...a,ticketId:ticket.id,scope:'general'}));
+  if(typeof ticketQualityFromObject==="function")ticket.quality=ticketQualityFromObject(ticket);
+  if(typeof makeSlaMeta==="function")ticket.sla=makeSlaMeta(ticket);
+  await saveRecord(tables.tickets,ticket);
+  state.tickets=await listRecords(tables.tickets);
+  playSound(sounds.created);
+  popup('Solicitud enviada',`Tu código es ${ticket.code}. ${ticket.quality?`Calidad de radicación: ${ticket.quality.score}%. `:""}${ticket.sla?`SLA objetivo: ${ticket.sla.rule}. `:""}Ya está en la bandeja de ${userName(ticket.assignedTo)}.`,randomSentGif());
+  if(window.confetti)confetti({particleCount:90,spread:70,origin:{y:.76}});
+  e.target.reset();
+  state.selectedTicketId=ticket.id;state.selectedTicket=ticket;state.view='detail';renderApp();
+  setTimeout(()=>sendTicketEmailAutomatic(ticket,"created",true).then(r=>{if(r.ok)toast("Comprobante enviado al correo")}),900);
+}
+async function resolveTicket(id){
+  const t=state.tickets.find(x=>x.id===id);if(!t)return;
+  const result=await Swal.fire({title:'Resolver solicitud',html:'<div class="field" style="text-align:left"><label>Comentario de cierre</label><textarea id="swal-close-comment" class="swal2-textarea" placeholder="Describe de forma clara qué se realizó, qué se entrega y si queda alguna recomendación"></textarea></div><div class="field" style="text-align:left"><label>Adjuntar respuesta / evidencia</label><input id="swal-close-files" type="file" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.png,.jpg,.jpeg,.webp,.txt"></div>',showCancelButton:true,confirmButtonText:'Marcar resuelta',confirmButtonColor:'#0d5bd2',preConfirm:async()=>({comment:document.getElementById('swal-close-comment').value,files:await filesToAttachments(document.getElementById('swal-close-files').files)})});
+  if(!result.value)return;
+  t.finishedAt=now();
+  t.resolutionFiles=[...(t.resolutionFiles||[]),...(result.value.files||[]).map(a=>({...a,ticketId:t.id,scope:'resolution'}))];
+  t.chat=t.chat||[];
+  const closeText=sanitizeFormalText(result.value.comment||'La solicitud fue atendida y queda lista para validación y cierre por parte del solicitante.');
+  t.chat.push({by:state.user.name,text:closeText,at:now()});
+  await updateTicket(t,'Resolución',closeText,'Resuelta');
+  await autoLearn('cierre '+t.category,`Caso resuelto: ${t.title}. Aprendizaje: ${t.description}`);
+  toast('Solicitud resuelta');
+  const fresh=state.tickets.find(x=>x.id===id)||{...t,status:"Resuelta"};
+  setTimeout(()=>sendTicketEmailAutomatic(fresh,"resolved",true).then(r=>{if(r.ok)toast("Correo de cierre enviado")}),650);
+}
+ticketActions=function(t){
+  const backView=isInternal()?'tickets':'create';
+  let actions=`<button class="btn ghost" onclick="setView('${backView}')">Volver</button>`;
+  if(isInternal() && t.assignedTo===state.user.id && ['Enviada','Sin aceptar'].includes(t.status))actions+=`<button class="btn ok" onclick="acceptTicket('${t.id}')">Aceptar</button>`;
+  if(isInternal() && t.assignedTo===state.user.id && ['En proceso','Espera ampliada'].includes(t.status))actions+=`<button class="btn gold" onclick="extendTicket('${t.id}')">Ampliar espera</button><button class="btn ok" onclick="resolveTicket('${t.id}')">Resolver</button>`;
+  if((hasLead() || t.createdBy===state.user.id) && t.status==='Resuelta')actions+=`<button class="btn primary" onclick="closeTicket('${t.id}')">Cerrar y notificar</button>`;
+  return actions;
+}
+
+
+/* =========================================================
+   FLUJO FINAL CORREO
+   - EmailJS SOLO para comprobante de creación.
+   - Service ID precargado: service_phxg50s.
+   - Cierre/resolución: abrir Outlook/cliente de correo del PC.
+   - Sin SQL.
+   ========================================================= */
+const EMAILJS_DEFAULT_SERVICE_ID="service_phxg50s";
+
+function getEmailConfig(){
+  try{
+    const cfg=JSON.parse(localStorage.getItem(EMAIL_PROVIDER_KEY)||"{}");
+    if(!cfg.serviceId)cfg.serviceId=EMAILJS_DEFAULT_SERVICE_ID;
+    return cfg;
+  }catch(e){
+    return {serviceId:EMAILJS_DEFAULT_SERVICE_ID};
+  }
+}
+function hasEmailConfig(){
+  const c=getEmailConfig();
+  return !!(c.publicKey&&c.serviceId&&c.templateId);
+}
+async function configureEmailService(){
+  const cfg=getEmailConfig();
+  const res=await Swal.fire({
+    title:"Configurar comprobante automático",
+    width:760,
+    html:`<div class="wizard-summary"><p>Este envío se usará únicamente para mandar el comprobante de creación del ticket al correo que registre el solicitante.</p><div class="field" style="text-align:left"><label>Public Key de EmailJS</label><input id="email-public" class="swal2-input" value="${escapeHtml(cfg.publicKey||"")}" placeholder="Public Key"></div><div class="field" style="text-align:left"><label>Service ID</label><input id="email-service" class="swal2-input" value="${escapeHtml(cfg.serviceId||EMAILJS_DEFAULT_SERVICE_ID)}" placeholder="service_phxg50s"></div><div class="field" style="text-align:left"><label>Template ID</label><input id="email-template" class="swal2-input" value="${escapeHtml(cfg.templateId||"")}" placeholder="Template ID"></div><p class="email-config-note">La plantilla debe recibir: to_email, subject, ticket_code, requester_name, html_message y text_message.</p></div>`,
+    showCancelButton:true,
+    confirmButtonText:"Guardar configuración",
+    cancelButtonText:"Cancelar",
+    confirmButtonColor:"#0d5bd2",
+    preConfirm:()=>({
+      publicKey:document.getElementById("email-public").value.trim(),
+      serviceId:document.getElementById("email-service").value.trim()||EMAILJS_DEFAULT_SERVICE_ID,
+      templateId:document.getElementById("email-template").value.trim()
+    })
+  });
+  if(!res.value)return false;
+  if(!res.value.publicKey||!res.value.serviceId||!res.value.templateId){
+    Swal.fire({title:"Faltan datos",text:"Para enviar el comprobante automático se requieren Public Key, Service ID y Template ID.",confirmButtonColor:"#0d5bd2"});
+    return false;
+  }
+  saveEmailConfig(res.value);
+  toast("Correo automático configurado");
+  return true;
+}
+
+async function sendTicketEmailAutomatic(t,type="created",silent=false){
+  if(type!=="created"){
+    return {ok:false,reason:"solo_creacion"};
+  }
+  const email=String(t.requesterEmail||"").trim();
+  if(!email){
+    if(!silent)Swal.fire({title:"Sin correo",text:"La solicitud no tiene correo del solicitante.",confirmButtonColor:"#0d5bd2"});
+    return {ok:false,reason:"sin_correo"};
+  }
+  if(!hasEmailConfig()){
+    if(!silent){
+      const cfg=await Swal.fire({title:"Comprobante automático no configurado",html:`<div class="wizard-summary"><p>Para que el comprobante llegue automáticamente al correo del solicitante, configura EmailJS una sola vez. El Service ID ya queda precargado como <strong>${EMAILJS_DEFAULT_SERVICE_ID}</strong>.</p></div>`,showCancelButton:true,confirmButtonText:"Configurar ahora",cancelButtonText:"Después",confirmButtonColor:"#0d5bd2"});
+      if(cfg.isConfirmed)await configureEmailService();
+    }
+    return {ok:false,reason:"sin_config"};
+  }
+  try{
+    await ensureEmailProvider();
+    const cfg=getEmailConfig();
+    const params={
+      to_email:email,
+      subject:ticketEmailSubject(t,"created"),
+      ticket_code:t.code,
+      requester_name:t.requesterName||"",
+      html_message:ticketEmailHtml(t,"created"),
+      text_message:ticketTextMessage(t,"created")
+    };
+    await window.emailjs.send(cfg.serviceId,cfg.templateId,params);
+    t.emailLog=t.emailLog||[];
+    t.emailLog.push({type:"created",status:"sent",to:email,at:now(),provider:"EmailJS",serviceId:cfg.serviceId});
+    await saveRecord(tables.tickets,t);
+    state.tickets=await listRecords(tables.tickets);
+    if(!silent)toast("Comprobante enviado al solicitante");
+    return {ok:true};
+  }catch(err){
+    console.warn("Error enviando comprobante",err);
+    t.emailLog=t.emailLog||[];
+    t.emailLog.push({type:"created",status:"failed",to:email,at:now(),provider:"EmailJS",error:String(err?.text||err?.message||err)});
+    try{await saveRecord(tables.tickets,t);state.tickets=await listRecords(tables.tickets)}catch(e){}
+    if(!silent)Swal.fire({title:"No se pudo enviar el comprobante",text:"Revisa la Public Key, Template ID y plantilla de EmailJS.",confirmButtonColor:"#0d5bd2"});
+    return {ok:false,reason:"error"};
+  }
+}
+
+function resolutionOutlookBody(t){
+  const lastResolution=(t.chat||[]).slice().reverse().find(m=>m.by===state.user?.name || /resuelta|atendida|cierre|solución|solucion/i.test(m.text||""));
+  return `Buen día,
+
+Dando respuesta a la solicitud ${t.code}, se informa que el caso fue atendido desde la Mesa de Ayuda de Calidad.
+
+Radicado: ${t.code}
+Asunto: ${t.title}
+Estado: Resuelta
+Categoría: ${t.category}
+Prioridad: ${t.priority}
+Modalidad: ${t.modality}
+Responsable: ${userName(t.assignedTo)}
+Solicitante: ${t.requesterName||"No informado"}
+Área / proceso: ${t.requesterArea||"No informado"}
+
+Respuesta / gestión realizada:
+${lastResolution?.text||"La solicitud fue atendida y queda lista para validación del solicitante."}
+
+Descripción de la solicitud:
+${t.description||""}
+
+Se adjunta o se remite el soporte correspondiente de la atención realizada.
+
+Cordialmente,
+${state.user?.name||"Mesa de Ayuda de Calidad"}
+Mesa de Ayuda de Calidad y Mejoramiento Continuo`;
+}
+function openOutlookResolutionEmail(t){
+  const email=String(t.requesterEmail||"").trim();
+  if(!email){
+    Swal.fire({title:"Sin correo",text:"La solicitud no tiene correo registrado para abrir Outlook.",confirmButtonColor:"#0d5bd2"});
+    return false;
+  }
+  const subject=encodeURIComponent(`Respuesta solicitud ${t.code} - ${t.title}`);
+  const body=encodeURIComponent(resolutionOutlookBody(t));
+  window.location.href=`mailto:${encodeURIComponent(email)}?subject=${subject}&body=${body}`;
+  return true;
+}
+
+async function resolveTicket(id){
+  const t=state.tickets.find(x=>x.id===id);if(!t)return;
+  const result=await Swal.fire({title:'Resolver solicitud',html:'<div class="field" style="text-align:left"><label>Comentario de cierre</label><textarea id="swal-close-comment" class="swal2-textarea" placeholder="Describe de forma clara qué se realizó, qué se entrega y si queda alguna recomendación"></textarea></div><div class="field" style="text-align:left"><label>Adjuntar respuesta / evidencia</label><input id="swal-close-files" type="file" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.png,.jpg,.jpeg,.webp,.txt"></div><div class="email-config-note" style="text-align:left">Al marcar como resuelta, se abrirá Outlook con el correo listo para enviar al solicitante registrado.</div>',showCancelButton:true,confirmButtonText:'Marcar resuelta y abrir Outlook',confirmButtonColor:'#0d5bd2',preConfirm:async()=>({comment:document.getElementById('swal-close-comment').value,files:await filesToAttachments(document.getElementById('swal-close-files').files)})});
+  if(!result.value)return;
+  t.finishedAt=now();
+  t.resolutionFiles=[...(t.resolutionFiles||[]),...(result.value.files||[]).map(a=>({...a,ticketId:t.id,scope:'resolution'}))];
+  t.chat=t.chat||[];
+  const closeText=sanitizeFormalText(result.value.comment||'La solicitud fue atendida y queda lista para validación y cierre por parte del solicitante.');
+  t.chat.push({by:state.user.name,text:closeText,at:now()});
+  t.emailLog=t.emailLog||[];
+  t.emailLog.push({type:"resolved_outlook",status:"opened",to:t.requesterEmail||"",at:now(),provider:"Outlook/mailto"});
+  await updateTicket(t,'Resolución',closeText,'Resuelta');
+  await autoLearn('cierre '+t.category,`Caso resuelto: ${t.title}. Aprendizaje: ${t.description}`);
+  toast('Solicitud resuelta');
+  const fresh=state.tickets.find(x=>x.id===id)||{...t,status:"Resuelta"};
+  setTimeout(()=>openOutlookResolutionEmail(fresh),650);
+}
+
+function valorPanelsHtml(t){
+  const q=ticketQualityFromObject(t);
+  const s=slaInfo(t);
+  const type=t.status==='Resuelta'||t.status==='Cerrada'?'resolved':'created';
+  return `<div style="display:grid;gap:14px;margin-top:16px">${qualityPanelHtml(t)}<div class="sla-panel"><div class="sla-head"><div><strong>SLA y vencimiento</strong><p class="mini-note">Objetivo según prioridad ${escapeHtml(t.priority)}.</p></div>${slaTag(t)}</div><div class="sla-grid"><div class="sla-mini"><small>Objetivo</small><strong>${escapeHtml(s.rule.label)}</strong></div><div class="sla-mini"><small>Transcurrido</small><strong>${Number(s.elapsed.toFixed(1))} h</strong></div><div class="sla-mini"><small>Vence</small><strong>${fmt(s.due)}</strong></div><div class="sla-mini"><small>Estado</small><strong>${escapeHtml(s.label)}</strong></div></div><div class="quality-bar" style="margin-top:12px"><span style="width:${Math.max(3,s.pct)}%"></span></div></div><div class="suggest-panel"><div class="section-title"><h2>IA operativa del ticket</h2><span>acciones rápidas</span></div><div class="valor-actions"><button class="btn ghost" onclick="showExecutiveSummary('${t.id}')">Resumen ejecutivo</button><button class="btn ghost" onclick="showAuditMode('${t.id}')">Modo auditoría</button><button class="btn primary" onclick="exportTicketPDF('${t.id}','${type}')">Exportar PDF</button>${type==="created"?`<button class="btn gold" onclick="sendTicketEmailAutomatic(state.tickets.find(x=>x.id==='${t.id}'),'created')">Reenviar comprobante</button>`:`<button class="btn gold" onclick="openOutlookResolutionEmail(state.tickets.find(x=>x.id==='${t.id}'))">Abrir Outlook</button>`}${isInternal()?`<button class="btn ghost" onclick="configureEmailService()">Configurar comprobante</button>`:""}<button class="btn ghost" onclick="showSentEmailPreview('${t.id}','${type}')">Vista correo</button></div>${emailLogHtml(t)}</div></div>`;
+}
 
 window.addEventListener('DOMContentLoaded',async()=>{
   prepareIntroStart();
