@@ -84,15 +84,53 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dis
 @keyframes bootCardIntro{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
 @media(max-width:700px){.boot-card.cinematic{padding:18px}.boot-hero{grid-template-columns:1fr;justify-items:center;text-align:center}.boot-character-wrap{width:132px;height:132px}.boot-copy h2{font-size:28px}.boot-loader-btn.cinematic-btn{width:100%;min-width:0}.boot-brand{padding:10px;align-items:center}}
 
+
+/* Intro cinematográfica optimizada: botón de inicio para garantizar audio + video */
+.boot-loader{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#03162d;transition:opacity .55s ease,visibility .55s ease}
+.boot-loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.boot-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.12) contrast(1.08) brightness(.48);transform:scale(1.06)}
+.boot-video.playing{animation:bootVideoZoom 8.5s ease-in-out forwards}
+.boot-overlay{position:absolute;inset:0;background:radial-gradient(circle at center,rgba(13,91,210,.10),rgba(2,13,28,.70) 58%,rgba(2,8,18,.92));backdrop-filter:blur(1.2px)}
+.boot-card.cinematic{position:relative;z-index:2;width:min(560px,calc(100vw - 32px));padding:22px;border-radius:30px;background:linear-gradient(180deg,rgba(255,255,255,.15),rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.20);box-shadow:0 32px 80px rgba(0,0,0,.40),inset 0 1px 0 rgba(255,255,255,.18);backdrop-filter:blur(18px);display:grid;gap:16px;animation:bootCardIntro .7s ease}
+.boot-card.cinematic.running{transform:scale(.98);opacity:.92}
+.boot-brand{display:flex;align-items:center;gap:14px;padding:10px 12px;border-radius:18px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14)}
+.boot-brand img{width:54px;height:54px;object-fit:contain;border-radius:14px;background:rgba(255,255,255,.96);padding:5px;box-shadow:0 10px 24px rgba(13,91,210,.20)}
+.boot-brand strong{display:block;color:#fff;font-size:18px;line-height:1.1}
+.boot-brand span{display:block;color:rgba(255,255,255,.74);font-size:12px;margin-top:4px}
+.boot-hero{display:grid;grid-template-columns:140px 1fr;gap:18px;align-items:center}
+.boot-character-wrap{width:140px;height:140px;border-radius:28px;overflow:hidden;background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(231,242,255,.92));box-shadow:0 22px 46px rgba(13,91,210,.28);padding:8px;justify-self:center}
+.boot-character-wrap img{width:100%;height:100%;object-fit:cover;border-radius:22px;animation:bootFloat 2.8s ease-in-out infinite}
+.boot-copy h2{margin:0;color:#fff;font-size:34px;letter-spacing:-1px;line-height:1.02}
+.boot-copy p{margin:10px 0 0;color:rgba(255,255,255,.82);font-size:14px;line-height:1.55}
+.boot-start-btn{display:inline-flex;align-items:center;justify-content:center;gap:11px;border:0;padding:14px 20px;border-radius:999px;background:linear-gradient(135deg,#facc15,#f59e0b);color:#1f2937;font-weight:950;box-shadow:0 18px 36px rgba(250,204,21,.25);width:max-content;min-width:250px;transition:.2s ease}
+.boot-start-btn:hover{transform:translateY(-1px) scale(1.01);filter:saturate(1.1)}
+.boot-start-btn.hidden{display:none}
+.boot-play-icon{width:28px;height:28px;border-radius:999px;background:#fff;display:grid;place-items:center;color:#0b3b82;font-size:13px;box-shadow:0 8px 18px rgba(0,0,0,.12)}
+.boot-loader-btn.cinematic-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px 18px;border-radius:999px;background:linear-gradient(135deg,#0d5bd2,#0b3b82);color:#fff;font-weight:900;box-shadow:0 16px 34px rgba(13,91,210,.32);width:max-content;min-width:250px}
+.boot-loader-btn.hidden{display:none}
+.boot-spinner{width:18px;height:18px;border-radius:999px;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;animation:bootSpin .9s linear infinite}
+.boot-progress{width:100%;height:9px;border-radius:999px;background:rgba(255,255,255,.14);overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+.boot-progress span{display:block;width:0%;height:100%;border-radius:999px;background:linear-gradient(90deg,#22d3ee,#0d5bd2,#facc15);box-shadow:0 0 18px rgba(34,211,238,.55);transition:width .18s linear}
+.boot-status{font-size:13px;color:#fff;font-weight:800;text-align:center}
+.boot-dev{padding:11px 14px;border-radius:18px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.78);font-size:13px;text-align:center}
+.boot-dev strong{color:#fff}
+.boot-tip{font-size:12px;color:rgba(255,255,255,.72);line-height:1.45;text-align:center}
+@keyframes bootSpin{to{transform:rotate(360deg)}}
+@keyframes bootFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.02)}}
+@keyframes bootVideoZoom{0%{transform:scale(1.05)}100%{transform:scale(1.12)}}
+@keyframes bootCardIntro{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:700px){.boot-card.cinematic{padding:18px}.boot-hero{grid-template-columns:1fr;justify-items:center;text-align:center}.boot-character-wrap{width:132px;height:132px}.boot-copy h2{font-size:28px}.boot-start-btn,.boot-loader-btn.cinematic-btn{width:100%;min-width:0}.boot-brand{padding:10px;align-items:center}}
+
 </style>
 </head>
 <body>
 <div id="bootLoader" class="boot-loader">
-  <video id="bootVideo" class="boot-video" autoplay muted loop playsinline preload="auto">
+  <video id="bootVideo" class="boot-video" playsinline preload="auto">
     <source src="assets/intro_bg.mp4" type="video/mp4">
   </video>
   <div class="boot-overlay"></div>
-  <div class="boot-card cinematic">
+
+  <div class="boot-card cinematic" id="bootCard">
     <div class="boot-brand">
       <img src="assets/logo.png" alt="Dream Team de Calidad">
       <div>
@@ -100,21 +138,38 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dis
         <span>Dream Team de Calidad y Mejoramiento Continuo</span>
       </div>
     </div>
+
     <div class="boot-hero">
-      <div class="boot-character-wrap"><img src="assets/intro_pointer.gif" alt="Asistente de carga"></div>
+      <div class="boot-character-wrap">
+        <img src="assets/intro_pointer.gif" alt="Asistente de carga">
+      </div>
       <div class="boot-copy">
-        <h2>Iniciando experiencia</h2>
-        <p>Preparando tickets, trazabilidad, IA, juegos y productividad en un arranque cinematográfico.</p>
+        <h2>Intro lista para iniciar</h2>
+        <p>Presiona iniciar para reproducir video y música sincronizados. La app abrirá solo cuando termine la intro.</p>
       </div>
     </div>
-    <div class="boot-loader-btn cinematic-btn">
+
+    <button id="bootStartBtn" class="boot-start-btn" type="button">
+      <span class="boot-play-icon">▶</span>
+      <span>Iniciar mesa de ayuda</span>
+    </button>
+
+    <div class="boot-loader-btn cinematic-btn hidden" id="bootLoadingBtn">
       <span class="boot-spinner"></span>
-      <span id="bootStatus">Cargando contenido...</span>
+      <span id="bootStatus">Preparando contenido...</span>
     </div>
-    <div class="boot-progress"><span></span></div>
-    <div class="boot-tip">Mientras carga el sistema, estamos conectando usuarios, solicitudes, analítica, IA y configuración general.</div>
-    <div id="bootTapHint" class="boot-tap-hint hidden">Toca la pantalla si quieres activar el sonido de la intro.</div>
+
+    <div class="boot-progress"><span id="bootProgressBar"></span></div>
+
+    <div class="boot-dev">
+      Desarrollado por: <strong>Juan E. Perez</strong>
+    </div>
+
+    <div class="boot-tip">
+      El sistema cargará usuarios, solicitudes, IA, juegos y configuración durante la intro.
+    </div>
   </div>
+
   <audio id="bootAudio" preload="auto" src="assets/intro_logo.mp3"></audio>
 </div>
 
@@ -250,13 +305,120 @@ function modeLabel(){return sb?"Supabase conectado":"Modo local activo"}
 function modeOn(){return !!sb}
 function randomSentGif(){return assets.sent[1]||assets.fun}
 function toast(text){const el=document.getElementById("toast");el.textContent=text;gsap.to(el,{opacity:1,y:0,duration:.25});setTimeout(()=>gsap.to(el,{opacity:0,y:12,duration:.25}),2600)}
+let introState={started:false,appReady:false,videoEnded:false,loadError:false};
+
+function updateBootStatus(text){
+  const label=document.getElementById("bootStatus");
+  if(label&&text)label.textContent=text;
+}
+
+function setBootProgress(value){
+  const bar=document.getElementById("bootProgressBar");
+  if(bar)bar.style.width=Math.max(0,Math.min(100,value))+"%";
+}
+
+function stopIntroMedia(){
+  const audio=document.getElementById("bootAudio");
+  const video=document.getElementById("bootVideo");
+  if(audio){try{audio.pause();audio.currentTime=0}catch(e){}}
+  if(video){try{video.pause()}catch(e){}}
+}
+
+function hideBootLoader(){
+  const el=document.getElementById("bootLoader");
+  if(!el)return;
+  el.classList.add("hidden");
+  stopIntroMedia();
+  setTimeout(()=>el.remove(),620);
+}
+
+function finishIntroWhenReady(){
+  if(!introState.started)return;
+  if(!introState.videoEnded)return;
+  if(!introState.appReady&&!introState.loadError){
+    updateBootStatus("La intro terminó. Terminando de preparar contenido...");
+    return;
+  }
+  updateBootStatus("Experiencia lista. Entrando al sistema...");
+  setBootProgress(100);
+  setTimeout(hideBootLoader,520);
+}
+
+async function startCinematicIntro(){
+  if(introState.started)return;
+  introState.started=true;
+
+  const btn=document.getElementById("bootStartBtn");
+  const loading=document.getElementById("bootLoadingBtn");
+  const card=document.getElementById("bootCard");
+  const video=document.getElementById("bootVideo");
+  const audio=document.getElementById("bootAudio");
+
+  btn?.classList.add("hidden");
+  loading?.classList.remove("hidden");
+  card?.classList.add("running");
+  video?.classList.add("playing");
+
+  updateBootStatus("Reproduciendo intro cinematográfica...");
+  setBootProgress(4);
+
+  try{
+    if(video){
+      video.loop=false;
+      video.muted=false;
+      video.currentTime=0;
+      video.addEventListener("timeupdate",()=>{
+        if(video.duration&&isFinite(video.duration)){
+          setBootProgress((video.currentTime/video.duration)*96);
+        }
+      });
+      video.addEventListener("ended",()=>{
+        introState.videoEnded=true;
+        setBootProgress(100);
+        finishIntroWhenReady();
+      },{once:true});
+    }
+
+    if(audio){
+      audio.currentTime=0;
+      audio.volume=.88;
+    }
+
+    const videoPromise=video?video.play():Promise.resolve();
+    const audioPromise=audio?audio.play():Promise.resolve();
+    await Promise.allSettled([videoPromise,audioPromise]);
+
+    const fallbackMs=((video?.duration&&isFinite(video.duration))?video.duration*1000:8500)+900;
+    setTimeout(()=>{
+      if(!introState.videoEnded){
+        introState.videoEnded=true;
+        finishIntroWhenReady();
+      }
+    },fallbackMs);
+  }catch(e){
+    console.error(e);
+    updateBootStatus("No se pudo reproducir la intro completa. Entrando al sistema...");
+    introState.videoEnded=true;
+    introState.loadError=true;
+    finishIntroWhenReady();
+  }
+}
+
+function prepareIntroStart(){
+  const btn=document.getElementById("bootStartBtn");
+  const video=document.getElementById("bootVideo");
+  const audio=document.getElementById("bootAudio");
+
+  updateBootStatus("Pulsa iniciar para comenzar la intro.");
+
+  try{video?.load()}catch(e){}
+  try{audio?.load()}catch(e){}
+
+  btn?.addEventListener("click",startCinematicIntro,{once:true});
+}
+
 function popup(title,text,gif){Swal.fire({html:`<div class="popup-layout"><img class="popup-gif" src="${gif}"><div><h3>${escapeHtml(title)}</h3><p>${escapeHtml(text)}</p></div></div>`,showConfirmButton:true,confirmButtonText:"Entendido",confirmButtonColor:"#0d5bd2",background:"#ffffff"})}
-let introAudioStarted=false;
-function tryPlayIntroAudio(){const audio=document.getElementById("bootAudio");const hint=document.getElementById("bootTapHint");if(!audio||introAudioStarted)return Promise.resolve();audio.currentTime=0;audio.volume=.85;const p=audio.play();if(p&&typeof p.then==="function"){return p.then(()=>{introAudioStarted=true;hint?.classList.add("hidden")}).catch(()=>{hint?.classList.remove("hidden")})}introAudioStarted=true;hint?.classList.add("hidden");return Promise.resolve()}
-function stopIntroMedia(){const audio=document.getElementById("bootAudio");const video=document.getElementById("bootVideo");if(audio){try{audio.pause();audio.currentTime=0}catch(e){}}if(video){try{video.pause()}catch(e){}}}
-function showBootLoader(text){const el=document.getElementById("bootLoader");const label=document.getElementById("bootStatus");if(label&&text)label.textContent=text;if(el)el.classList.remove("hidden");tryPlayIntroAudio()}
-function updateBootStatus(text){const label=document.getElementById("bootStatus");if(label&&text)label.textContent=text}
-function hideBootLoader(){const el=document.getElementById("bootLoader");if(!el)return;el.classList.add("hidden");stopIntroMedia();setTimeout(()=>el.remove(),620)}
+
 function statusTag(status){const map={"Enviada":"blue","Sin aceptar":"gold","En proceso":"purple","Espera ampliada":"gold","Resuelta":"green","Cerrada":"gray"};return `<span class="tag ${map[status]||'gray'}">${escapeHtml(status)}</span>`}
 function priorityTag(priority){const map={"Baja":"gray","Media":"blue","Alta":"gold","Crítica":"red"};return `<span class="tag ${map[priority]||'gray'}">${escapeHtml(priority)}</span>`}
 function ageHours(ticket){return hoursBetween(ticket.created_at,now())}
@@ -612,7 +774,43 @@ async function redeemPriorityCode(code,ticketId){const found=findPriorityCode(co
 function copyText(text){navigator.clipboard?.writeText(text);toast('Código copiado')}
 
 window.setView=setView;window.toggleMenu=toggleMenu;window.logout=logout;window.refreshData=refreshData;window.openTicket=openTicket;window.lookupTicket=lookupTicket;window.acceptTicket=acceptTicket;window.extendTicket=extendTicket;window.resolveTicket=resolveTicket;window.closeTicket=closeTicket;window.sendChat=sendChat;window.askAI=askAI;window.manualLearn=manualLearn;window.learnFromFile=learnFromFile;window.generateTicketDraft=generateTicketDraft;window.answerGame=answerGame;window.answerCompare=answerCompare;window.answerOption=answerOption;window.answerTrueFalse=answerTrueFalse;window.generatePriorityCode=generatePriorityCode;window.copyText=copyText;window.runAIAction=runAIAction;window.sendQuickAI=sendQuickAI;window.downloadAttachment=downloadAttachment;window.loginGuest=loginGuest;
-window.addEventListener('DOMContentLoaded',async()=>{const introMin=3800;const steps=['Inicializando experiencia...','Cargando usuarios y roles...','Sincronizando tickets y trazabilidad...','Activando IA, juegos y productividad...','Preparando interfaz final...'];let stepIndex=0;showBootLoader(steps[0]);document.addEventListener('click',tryPlayIntroAudio,{once:true});document.addEventListener('keydown',tryPlayIntroAudio,{once:true});const stepTimer=setInterval(()=>{stepIndex=(stepIndex+1)%steps.length;updateBootStatus(steps[stepIndex])},1100);const bootStart=performance.now();try{await seed();setupLogin();updateBootStatus('Experiencia lista. Entrando al sistema...');const elapsed=performance.now()-bootStart;const wait=Math.max(650,introMin-elapsed);setTimeout(()=>{clearInterval(stepTimer);hideBootLoader()},wait)}catch(e){clearInterval(stepTimer);updateBootStatus('Hubo una novedad al cargar. Intenta actualizar.');console.error(e);setupLogin();setTimeout(()=>hideBootLoader(),2000)}});
+window.addEventListener('DOMContentLoaded',async()=>{
+  prepareIntroStart();
+
+  const steps=[
+    "Preparando usuarios y roles...",
+    "Sincronizando solicitudes y trazabilidad...",
+    "Activando IA, juegos y productividad...",
+    "Preparando interfaz final..."
+  ];
+  let stepIndex=0;
+  const stepTimer=setInterval(()=>{
+    if(!introState.started)return;
+    stepIndex=(stepIndex+1)%steps.length;
+    updateBootStatus(steps[stepIndex]);
+  },1400);
+
+  try{
+    await seed();
+    setupLogin();
+    introState.appReady=true;
+    if(!introState.started){
+      updateBootStatus("Contenido listo. Pulsa iniciar para ver la intro.");
+    }else{
+      updateBootStatus("Contenido listo. Esperando que termine la intro...");
+    }
+    finishIntroWhenReady();
+  }catch(e){
+    console.error(e);
+    introState.loadError=true;
+    introState.appReady=true;
+    setupLogin();
+    updateBootStatus("Hubo una novedad al cargar. Entrando con respaldo local...");
+    finishIntroWhenReady();
+  }finally{
+    setTimeout(()=>clearInterval(stepTimer),15000);
+  }
+});
 </script>
 </body>
 </html>
