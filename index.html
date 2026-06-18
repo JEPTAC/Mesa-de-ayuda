@@ -748,6 +748,50 @@ tr:hover td{
   color:#ffffff !important;
 }
 
+
+/* IA máxima: panel conversacional y asistente de radicación */
+.ai-brain-panel{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin:12px 0;
+}
+.ai-brain-chip{
+  padding:11px 12px;
+  border-radius:18px;
+  background:linear-gradient(180deg,#ffffff,#f7fbff);
+  border:1px solid rgba(11,59,130,.12);
+  color:#0b3b82;
+  font-size:12px;
+  box-shadow:0 10px 24px rgba(11,59,130,.06);
+}
+.ai-brain-chip strong{
+  display:block;
+  font-size:16px;
+  margin-bottom:3px;
+  color:#0b3b82;
+}
+.ai-quality-note{
+  padding:13px 14px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#eaf2ff,#fff7db);
+  border:1px solid rgba(11,59,130,.12);
+  color:#0b3b82;
+  line-height:1.48;
+  font-size:13px;
+  margin-top:12px;
+}
+.ai-actions button{
+  transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.ai-actions button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 30px rgba(13,91,210,.16);
+}
+@media(max-width:900px){
+  .ai-brain-panel{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
@@ -1430,6 +1474,374 @@ async function redeemPriorityCode(code,ticketId){const found=findPriorityCode(co
 function copyText(text){navigator.clipboard?.writeText(text);toast('Código copiado')}
 
 window.setView=setView;window.toggleMenu=toggleMenu;window.logout=logout;window.refreshData=refreshData;window.openTicket=openTicket;window.lookupTicket=lookupTicket;window.acceptTicket=acceptTicket;window.extendTicket=extendTicket;window.resolveTicket=resolveTicket;window.closeTicket=closeTicket;window.sendChat=sendChat;window.askAI=askAI;window.manualLearn=manualLearn;window.learnFromFile=learnFromFile;window.generateTicketDraft=generateTicketDraft;window.answerGame=answerGame;window.answerCompare=answerCompare;window.answerOption=answerOption;window.answerTrueFalse=answerTrueFalse;window.generatePriorityCode=generatePriorityCode;window.copyText=copyText;window.runAIAction=runAIAction;window.sendQuickAI=sendQuickAI;window.downloadAttachment=downloadAttachment;window.loginGuest=loginGuest;
+
+/* =========================================================
+   IA MAX - Motor conversacional local con similitud matemática
+   No usa servicios externos. Combina:
+   - conversación normal
+   - extracción de datos para radicación
+   - cosine similarity
+   - Jaccard
+   - Dice coefficient
+   - similitud por keywords
+   - memoria Supabase + corpus + tickets
+   ========================================================= */
+const AI_MAX_VERSION="IA Max · motor matemático conversacional v4.0";
+
+const aiStopWords=new Set("a al algo algun alguna algunas algunos ante antes aqui asi aun aunque bajo bien cada como con contra cual cuando de del desde donde dos el ella ello ellos en entre era eran es esa esas ese eso esos esta estaba estado estan estar estas este esto estos fue fueron ha hace hacen hacer hacia hay la las le les lo los mas me mi mis muy no nos o para pero por porque que quien se sea segun ser si sin sobre solo son su sus te tiene tienen todo todos tu un una unas uno unos y ya".split(" "));
+
+function aiCleanText(text){
+  return normalizeTextAI(String(text||""))
+    .replace(/[^a-z0-9ñáéíóúü\s-]/gi," ")
+    .replace(/\s+/g," ")
+    .trim();
+}
+function aiTokens(text){
+  return aiCleanText(text).split(/\s+/).filter(t=>t&&t.length>2&&!aiStopWords.has(t));
+}
+function aiTermFreq(tokens){
+  const m={};tokens.forEach(t=>m[t]=(m[t]||0)+1);return m;
+}
+function aiCosine(a,b){
+  const A=aiTermFreq(aiTokens(a)),B=aiTermFreq(aiTokens(b));
+  const keys=new Set([...Object.keys(A),...Object.keys(B)]);
+  let dot=0,na=0,nb=0;
+  keys.forEach(k=>{dot+=(A[k]||0)*(B[k]||0);na+=(A[k]||0)**2;nb+=(B[k]||0)**2});
+  return !na||!nb?0:dot/(Math.sqrt(na)*Math.sqrt(nb));
+}
+function aiJaccard(a,b){
+  const A=new Set(aiTokens(a)),B=new Set(aiTokens(b));
+  if(!A.size||!B.size)return 0;
+  let inter=0;A.forEach(x=>{if(B.has(x))inter++});
+  return inter/(A.size+B.size-inter);
+}
+function aiDice(a,b){
+  const A=new Set(aiTokens(a)),B=new Set(aiTokens(b));
+  if(!A.size||!B.size)return 0;
+  let inter=0;A.forEach(x=>{if(B.has(x))inter++});
+  return (2*inter)/(A.size+B.size);
+}
+function aiKeywordBoost(q,keys=[]){
+  const qt=aiTokens(q);
+  const keyTokens=aiTokens(Array.isArray(keys)?keys.join(" "):keys);
+  if(!qt.length||!keyTokens.length)return 0;
+  const K=new Set(keyTokens);let hit=0;
+  qt.forEach(t=>{if(K.has(t))hit++});
+  return Math.min(1,hit/Math.max(2,Math.min(qt.length,keyTokens.length)));
+}
+function aiPhraseBoost(q,doc){
+  const clean=aiCleanText(q),d=aiCleanText(doc);
+  if(!clean||!d)return 0;
+  if(d.includes(clean)||clean.includes(d))return .38;
+  const parts=clean.split(" ").filter(x=>x.length>4);
+  let hits=0;parts.forEach(p=>{if(d.includes(p))hits++});
+  return parts.length?Math.min(.22,hits/parts.length*.22):0;
+}
+function aiConfidenceLabel(score){
+  if(score>=.56)return "alta";
+  if(score>=.34)return "media";
+  if(score>=.20)return "baja útil";
+  return "insuficiente";
+}
+function aiKnowledgePool(){
+  const rows=[];
+  (aiKnowledge||[]).forEach(x=>rows.push({
+    source:"base",
+    intent:x.intent||"general",
+    title:x.id||x.intent||"Conocimiento base",
+    question:(x.keywords||[]).join(" "),
+    keywords:x.keywords||[],
+    answer:x.answer||"",
+    weight:.95
+  }));
+  (state.aiMemories||[]).filter(x=>x.active!==false).forEach(x=>rows.push({
+    source:"memoria",
+    intent:x.intent||"memoria",
+    title:x.key||x.id||"Memoria",
+    question:x.key||"",
+    keywords:String(x.key||"").split(","),
+    answer:x.answer||"",
+    weight:1.05
+  }));
+  (state.advancedKnowledge||[]).forEach(x=>rows.push({
+    source:"nivel1",
+    intent:x.intent||"general",
+    title:x.id||"Semilla nivel 1",
+    question:(x.keywords||[]).join(" "),
+    keywords:x.keywords||[],
+    answer:x.answer||"",
+    weight:.92
+  }));
+  (state.corpusKnowledge||[]).forEach(x=>rows.push({
+    source:"corpus",
+    intent:x.intent_id||x.category_id||x.intent||"corpus",
+    title:x.title||x.question||"Corpus",
+    question:x.question||x.title||"",
+    keywords:x.keywords||[],
+    answer:x.answer||"",
+    weight:1
+  }));
+  (state.tickets||[]).slice(-120).forEach(t=>rows.push({
+    source:"tickets",
+    intent:"historial_tickets",
+    title:t.code+" "+t.title,
+    question:[t.code,t.title,t.category,t.priority,t.status,t.requesterArea,userName(t.assignedTo)].join(" "),
+    keywords:[t.code,t.category,t.priority,t.status,t.requesterArea,userName(t.assignedTo)],
+    answer:`Solicitud histórica ${t.code}: ${t.title}. Estado ${t.status}. Categoría ${t.category}. Prioridad ${t.priority}. Responsable ${userName(t.assignedTo)}. Descripción: ${String(t.description||"").slice(0,650)}`,
+    weight:.72
+  }));
+  return rows.filter(r=>String(r.answer||r.question||"").trim());
+}
+function aiRankKnowledge(q){
+  const query=String(q||"");
+  return aiKnowledgePool().map(r=>{
+    const doc=[r.title,r.question,(r.keywords||[]).join(" "),r.answer,r.intent,r.source].join(" ");
+    const score=(
+      aiCosine(query,doc)*.38+
+      aiJaccard(query,doc)*.20+
+      aiDice(query,doc)*.18+
+      aiKeywordBoost(query,r.keywords)*.16+
+      aiPhraseBoost(query,doc)*.08
+    )*(r.weight||1);
+    return {...r,score:Number(score.toFixed(4))};
+  }).sort((a,b)=>b.score-a.score);
+}
+function inferIntent(q){
+  const c=aiCleanText(q);
+  if(/radicar|crear|registrar|solicitud|ticket|caso|requerimiento|necesito que|necesito ayuda|ayudame con|no puedo|falla|error|problema/.test(c))return "radicacion";
+  if(/consultar|radicado|estado|seguimiento|codigo|ticket dt|dt-/.test(c))return "consulta";
+  if(/mensaje|responsable|hablar|decirle|enviar|responder/.test(c))return "mensaje";
+  if(/kpi|indicador|grafica|dashboard|productividad|tiempo|promedio|metric/.test(c))return "kpis";
+  if(/auditoria|hallazgo|no conformidad|riesgo|control/.test(c))return "auditoria";
+  if(/documento|formato|acta|matriz|procedimiento|manual|instructivo/.test(c))return "documental";
+  if(/hola|buenas|gracias|quien eres|que puedes hacer|como estas|chao|adios/.test(c))return "conversacion";
+  return "general";
+}
+function aiShouldDraft(q){
+  const c=aiCleanText(q);
+  return /(radicar|crear|registrar|solicitud|ticket|caso|requerimiento|necesito|solicito|requiero|ayudame|ayuda con|no puedo|falla|error|problema|bloquea|actualizar|revisar|corregir|aprobar|validar)/.test(c)&&aiTokens(c).length>=5;
+}
+function aiExtractEntities(text){
+  const raw=String(text||"");
+  const clean=aiCleanText(raw);
+  const email=(raw.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i)||[])[0]||"";
+  let requesterName="";
+  const nameMatch=raw.match(/(?:soy|mi nombre es|me llamo)\s+([A-Za-zÁÉÍÓÚáéíóúÑñ ]{3,45})/i);
+  if(nameMatch)requesterName=nameMatch[1].trim().replace(/\s+(y|de|del|para|por)\s.*$/i,"");
+  let area="";
+  const areaMatch=raw.match(/(?:área|area|proceso|desde|de parte de|soy de|pertenezco a)\s+([A-Za-zÁÉÍÓÚáéíóúÑñ0-9 /-]{3,55})/i);
+  if(areaMatch)area=areaMatch[1].trim().replace(/\s+(porque|por que|ya que|necesito|solicito|para|con el fin).*$/i,"");
+  const evidence=/pdf|foto|imagen|captura|pantallazo|drive|excel|word|acta|formato|factura|correo|evidencia|adjunto|anexo/.test(clean);
+  const deadline=(raw.match(/(?:para|antes de|máximo|maximo|vence|vencimiento)\s+([A-Za-zÁÉÍÓÚáéíóúÑñ0-9 ,/-]{3,35})/i)||[])[1]||"";
+  const impact=/auditoria|gerencia|cliente|bloquea|detenido|vencido|cumplimiento|legal|riesgo|operacion|operación|facturacion|facturación|cartera/.test(clean);
+  return {email,requesterName,requesterArea:area,evidence,deadline:deadline.trim(),impact};
+}
+function classifyCategoryMax(clean){
+  if(/auditoria|auditar|hallazgo|no conformidad|nc |accion correctiva|acción correctiva/.test(clean))return "Auditoría";
+  if(/indicador|kpi|dashboard|grafica|gráfica|medir|metrica|métrica|power bi|reporte/.test(clean))return "Indicador/KPI";
+  if(/capacitacion|capacitación|induccion|inducción|entrenamiento|curso|formacion/.test(clean))return "Capacitación";
+  if(/riesgo|control|matriz de riesgo|peligro|impacto|plan de accion/.test(clean))return "Riesgo/Hallazgo";
+  if(/documento|formato|pdf|word|excel|acta|matriz|registro|plantilla|archivo|version|versión|codificacion|codificación/.test(clean))return "Documento";
+  if(/procedimiento|proceso|flujo|manual|instructivo|paso a paso|caracterizacion|caracterización/.test(clean))return "Procedimiento";
+  if(/mejora|optimizar|automatizar|ajustar|redisenar|rediseñar|mejoramiento/.test(clean))return "Mejora continua";
+  return "Consulta general";
+}
+function classifyPriorityMax(clean,entities){
+  if(/critica|crítica|urgente|inmediato|bloquea|detenido|no deja|vencido|vence hoy|auditoria|gerencia|cliente|legal|cumplimiento|produccion parada|operacion parada/.test(clean))return "Crítica";
+  if(/alta|importante|prioridad|pronto|esta semana|riesgo|impacto/.test(clean)||entities.impact)return "Alta";
+  if(/baja|simple|consulta|cuando puedan|sin urgencia/.test(clean))return "Baja";
+  return "Media";
+}
+function classifyModalityMax(clean){
+  if(/visita|presencial|campo|reunion|reunión|acompanamiento|acompañamiento|capacitación presencial/.test(clean))return "Presencial";
+  if(/documento|formato|pdf|word|excel|acta|matriz|procedimiento|manual|instructivo|registro|archivo/.test(clean))return "Documental";
+  return "Mixta";
+}
+function makeTitleFromText(text,category){
+  const raw=String(text||"").replace(/\s+/g," ").trim();
+  let first=raw.split(/[\.\n]/)[0].replace(/^(hola|buenas|buenos dias|buenas tardes|por favor|necesito|requiero|solicito|ayudame a|ayúdame a)\s*/i,"").trim();
+  first=first.slice(0,92);
+  if(first.length<14)first=`Solicitud de ${String(category||"consulta").toLowerCase()}`;
+  return first.charAt(0).toUpperCase()+first.slice(1);
+}
+function draftTicketFromText(text){
+  const raw=String(text||"").trim();
+  const clean=aiCleanText(raw);
+  const entities=aiExtractEntities(raw);
+  const category=classifyCategoryMax(clean);
+  const priority=classifyPriorityMax(clean,entities);
+  const modality=classifyModalityMax(clean);
+  const assignedTo=suggestAssignee(category,priority);
+  const title=makeTitleFromText(raw,category);
+  const missing=[];
+  if(!entities.requesterArea)missing.push("área o proceso de origen");
+  if(!entities.evidence)missing.push("evidencia disponible, si aplica");
+  if(!entities.deadline)missing.push("fecha o plazo esperado, si existe");
+  const description=[
+    `Necesidad identificada: ${raw}`,
+    `Clasificación sugerida por IA: ${category}, prioridad ${priority}, modalidad ${modality}.`,
+    entities.requesterArea?`Proceso o área de origen detectada: ${entities.requesterArea}.`:`Proceso o área de origen: pendiente por confirmar.`,
+    entities.impact?`Impacto detectado: puede afectar operación, cumplimiento, auditoría o tiempos del proceso.`:`Impacto detectado: pendiente por precisar según alcance real.`,
+    entities.evidence?`Evidencia: el solicitante menciona o puede adjuntar soporte documental, captura, archivo o enlace.`:`Evidencia: pendiente por adjuntar o describir.`,
+    entities.deadline?`Plazo mencionado: ${entities.deadline}.`:`Plazo esperado: pendiente por confirmar.`,
+    `Resultado esperado: recibir revisión, orientación, ajuste o soporte del equipo de Calidad y Mejoramiento Continuo, dejando trazabilidad de la respuesta.`,
+    `Criterio de cierre: respuesta validada, evidencia revisada y registro de la gestión realizada.`
+  ].join("\n\n");
+  return {
+    category,priority,modality,title,description,assignedTo,
+    requesterName:entities.requesterName,
+    requesterEmail:entities.email,
+    requesterArea:entities.requesterArea,
+    evidenceHint:entities.evidence?"Evidencia mencionada en la descripción. Adjuntar soporte si está disponible.":"",
+    missing
+  };
+}
+function aiDraftQuality(d){
+  let score=0;
+  if(d.title&&d.title.length>14)score+=20;
+  if(d.category&&d.category!=="Consulta general")score+=20;
+  if(d.requesterArea)score+=15;
+  if(d.description&&d.description.length>180)score+=20;
+  if(d.priority)score+=10;
+  if(d.modality)score+=10;
+  if(d.evidenceHint)score+=5;
+  return Math.min(100,score);
+}
+function aiBuildDraftAnswer(d){
+  const quality=aiDraftQuality(d);
+  const missing=d.missing?.length?`\n\nPara dejarla más completa, faltaría confirmar: ${d.missing.join(", ")}.`:"";
+  return `Listo. Organicé tu información como una radicación lista para revisar.
+
+Asunto: ${d.title}
+Categoría: ${d.category}
+Prioridad: ${d.priority}
+Modalidad: ${d.modality}
+Responsable sugerido: ${userName(d.assignedTo)}
+Calidad del borrador: ${quality}%
+
+Descripción sugerida:
+${d.description}${missing}
+
+Puedes cargar este borrador en el formulario y solo completar lo que falte antes de enviarlo.`;
+}
+function aiConversationalReply(q){
+  const c=aiCleanText(q);
+  if(/^(hola|holi|buenas|buenos dias|buen dia|buenas tardes|buenas noches|hello|hey)$/.test(c))return "¡Hola! 👋 Estoy lista para ayudarte. Puedes hablarme normal: dime si quieres radicar una solicitud, consultar un radicado, redactar mejor un caso, revisar prioridad o resolver una duda de calidad.";
+  if(/como estas|como vas|que tal|todo bien/.test(c))return "Voy muy bien, gracias. Estoy atenta para ayudarte con calidad, auditoría, documentos, KPIs o radicación de solicitudes.";
+  if(/quien eres|que eres|como te llamas/.test(c))return "Soy la IA de la Mesa de Ayuda de Calidad y Mejoramiento Continuo. Trabajo con un motor local de similitud matemática, memorias, corpus y datos de la app para orientar, conversar y preparar solicitudes.";
+  if(/que puedes hacer|en que me ayudas|para que sirves|que haces/.test(c))return "Puedo conversar contigo, convertir una necesidad en solicitud, sugerir categoría, prioridad, modalidad y responsable, consultar radicados, explicar estados, ayudarte con KPIs, auditoría, documentos, procedimientos y aprender de memorias o archivos.";
+  if(/gracias|muchas gracias|te agradezco|perfecto|excelente/.test(c))return "Con gusto. Cuando quieras me escribes la necesidad en lenguaje normal y yo te la organizo para radicar o te llevo al módulo correcto.";
+  if(/chao|adios|hasta luego|nos vemos/.test(c))return "Listo, quedo atenta. Cuando necesites apoyo con una solicitud o consulta de calidad, vuelve y lo trabajamos.";
+  return "";
+}
+function composeAI(q){
+  const clean=aiCleanText(q);
+  const intent=inferIntent(q);
+  const talk=aiConversationalReply(q);
+  if(talk){
+    return {answer:`${talk}
+
+Trabajo de forma operativa: si falta información, te pediré máximo tres datos; si puedo convertirlo en solicitud, te dejo el borrador listo.`,learn:false,actions:[aiAction("Crear solicitud","openCreate"),aiAction("Consultar radicado","focusLookup"),aiAction("Ver juegos IA","openGame")],confidence:.99};
+  }
+
+  const ticket=findTicketAI(q);
+  if(ticket){
+    return {answer:`Encontré una solicitud relacionada: ${ticket.code} · ${ticket.title}.
+
+Estado actual: ${ticket.status}.
+Responsable: ${userName(ticket.assignedTo)}.
+Última actualización: ${fmt(ticket.updated_at)}.
+
+Puedes abrirla o enviar un mensaje directo al responsable.`,learn:false,actions:[aiAction("Abrir solicitud","openTicket",{id:ticket.id}),aiAction("Enviar mensaje al responsable","messageTicket",{id:ticket.id}),aiAction("Crear otra solicitud","openCreate")],confidence:.98};
+  }
+
+  if(aiShouldDraft(q)){
+    const d=draftTicketFromText(q);
+    return {answer:aiBuildDraftAnswer(d),learn:false,draft:d,actions:[aiAction("Cargar borrador en formulario","useDraft"),aiAction("Crear solicitud manual","openCreate"),aiAction("Seguir conversando","focusAI")],confidence:.86};
+  }
+
+  const ranked=aiRankKnowledge(q);
+  const top=ranked[0];
+  const second=ranked[1];
+  if(top&&top.score>=.24){
+    const context=top.source==="tickets"?"Tomé como referencia el historial de solicitudes.":top.source==="memoria"?"Tomé como referencia una memoria entrenada.":top.source==="corpus"?"Tomé como referencia el corpus conversacional.":"Tomé como referencia la base de conocimiento.";
+    return {answer:`${top.answer}
+
+${context}
+Confianza de interpretación: ${aiConfidenceLabel(top.score)}.
+
+Puedo convertir esto en solicitud, explicarlo paso a paso o llevarte al módulo correspondiente.`,learn:false,actions:guidedOptionsForIntent(intent),confidence:top.score,related:[top,second]};
+  }
+
+  if(top&&top.score>=.14){
+    return {answer:`Creo que tu pregunta puede relacionarse con “${top.title || top.intent}”, pero no tengo suficiente seguridad para responder como si fuera exacto.
+
+Para ayudarte bien, reformula la pregunta con estos tres datos:
+1. Área o proceso relacionado.
+2. Qué necesitas o qué problema ocurre.
+3. Resultado esperado o evidencia disponible.
+
+Ejemplo: “Soy de cartera, no puedo adjuntar el PDF de la factura y necesito que calidad revise el bloqueo para radicar evidencia”.`,learn:false,actions:[aiAction("Convertir en solicitud","useDraft"),aiAction("Crear solicitud manual","openCreate"),aiAction("Consultar radicado","focusLookup")],draft:draftTicketFromText(q),confidence:top.score};
+  }
+
+  return {answer:`No te entendí con suficiente precisión para darte una respuesta confiable.
+
+Por favor registra mejor tu pregunta con esta estructura:
+1. Proceso o área.
+2. Problema o necesidad.
+3. Evidencia disponible.
+4. Resultado esperado.
+
+Con eso puedo conversar contigo, organizar la radicación, sugerir prioridad, responsable y descripción completa.`,learn:false,actions:[aiAction("Crear solicitud","openCreate"),aiAction("Consultar radicado","focusLookup"),aiAction("Hablar con IA","focusAI")],confidence:0};
+}
+function aiHtml(){
+  return `<div class="ai-layout"><div class="card"><div class="section-title"><h2>IA de Calidad · Nivel máximo</h2><span>${AI_MAX_VERSION}</span></div><div class="ai-mode-note">Modo conversacional operativo: entiende lenguaje normal, usa similitud matemática, consulta corpus, memorias, tickets y puede convertir una necesidad en borrador de radicación.</div><div class="ai-brain-panel"><div class="ai-brain-chip"><strong>${state.aiMemories.length}</strong>memorias activas</div><div class="ai-brain-chip"><strong>${state.corpusKnowledge.length}</strong>registros de corpus</div><div class="ai-brain-chip"><strong>${state.tickets.length}</strong>tickets como contexto</div></div><div class="ai-chat" id="aiChat" style="margin-top:12px">${state.aiHistory.map(m=>`<div class="${m.me?'human':'bot'}">${escapeHtml(m.text)}</div>`).join('')||`<div class="bot">Hola. Soy la IA de Calidad. Escríbeme normal: “necesito radicar que cartera no puede subir el PDF de una factura”, “consulta DT-0001”, “ayúdame a redactar una solicitud”, o cualquier duda de calidad.</div>`}</div>${aiActionsHtml()}<div class="form" style="margin-top:12px"><div class="field"><label>Mensaje, pregunta u orden</label><input id="aiPrompt" placeholder="Ej. Soy de cartera, no puedo adjuntar el PDF de la factura y necesito radicar soporte"></div><button class="btn primary" onclick="askAI()">Conversar / analizar / ejecutar</button></div><div class="ai-quality-note">Si la IA no entiende con seguridad, pedirá que registres mejor la pregunta. Si detecta una solicitud, arma asunto, categoría, prioridad, modalidad, responsable y descripción.</div></div><div class="card"><div class="section-title"><h2>Acciones rápidas</h2><span>sin explorar la app</span></div>${aiQuickOptionsHtml()}<div class="section-title" style="margin-top:18px"><h2>Entrenar IA</h2><span>memoria + documentos + tickets + juegos</span></div><div class="form"><div class="field"><label>Subir documento</label><input id="knowledgeFile" type="file" accept=".pdf,.txt,.csv,.md,.json,.doc,.docx"></div><button class="btn ghost" onclick="learnFromFile()">Leer y aprender</button><div class="field"><label>Pregunta o palabra clave</label><input id="learnKey" placeholder="Ej. remanente, auditoría, procedimiento"></div><div class="field"><label>Respuesta esperada</label><textarea id="learnAnswer" placeholder="Escribe cómo debe responder el bot"></textarea></div><button class="btn gold" onclick="manualLearn()">Guardar memoria</button><div class="empty">El motor no inventa: calcula similitud contra conocimiento disponible. Si la confianza es baja, pide más datos antes de responder.</div></div></div></div>`;
+}
+function aiQuickOptionsHtml(){
+  return `<div class="quick-grid"><button class="quick-option" onclick="sendQuickAI('hola')">👋 Conversar<small>Saludo, orientación y conversación normal.</small></button><button class="quick-option" onclick="sendQuickAI('necesito radicar una solicitud y quiero que me organices la información')">📝 Radicar con IA<small>Arma asunto, categoría, prioridad y descripción.</small></button><button class="quick-option" onclick="sendQuickAI('quiero consultar el estado de un radicado')">🔎 Consultar radicado<small>Busca estado, responsable y trazabilidad.</small></button><button class="quick-option" onclick="sendQuickAI('quiero que me expliques cómo clasificar una solicitud de calidad')">🎯 Clasificar caso<small>Define categoría, prioridad y modalidad.</small></button></div>`;
+}
+function populateAIDraftForm(){
+  if(!state.pendingDraft)return;
+  const form=document.getElementById('ticketForm');
+  if(!form)return;
+  const d=state.pendingDraft;
+  if(form.elements['requesterName']&&d.requesterName)form.elements['requesterName'].value=d.requesterName;
+  if(form.elements['requesterEmail']&&d.requesterEmail)form.elements['requesterEmail'].value=d.requesterEmail;
+  if(form.elements['requesterArea']&&d.requesterArea)form.elements['requesterArea'].value=d.requesterArea;
+  if(form.elements['category'])form.elements['category'].value=d.category||'Consulta general';
+  if(form.elements['priority'])form.elements['priority'].value=d.priority||'Media';
+  if(form.elements['modality'])form.elements['modality'].value=d.modality||'Mixta';
+  if(form.elements['assignedTo']&&d.assignedTo)form.elements['assignedTo'].value=d.assignedTo;
+  if(form.elements['title'])form.elements['title'].value=d.title||'';
+  if(form.elements['description'])form.elements['description'].value=d.description||'';
+  if(form.elements['evidence']&&d.evidenceHint)form.elements['evidence'].value=d.evidenceHint;
+  toast('Borrador IA cargado en el formulario');
+}
+async function askAI(){
+  const input=document.getElementById('aiPrompt');
+  const q=input?.value.trim();
+  if(!q)return;
+  state.aiHistory.push({me:true,text:q});
+  let result=await executeAICommand(q);
+  if(!result)result=composeAI(q);
+  state.aiHistory.push({me:false,text:result.answer});
+  state.aiActions=result.actions||[];
+  if(result.draft)state.pendingDraft=result.draft;
+  state.aiLastConfidence=result.confidence||0;
+  input.value='';
+  renderView();
+  const chat=document.getElementById('aiChat');
+  setTimeout(()=>{if(chat)chat.scrollTop=chat.scrollHeight},40);
+}
+function generateTicketDraft(){
+  const idea=document.getElementById('draftIdea')?.value.trim();
+  if(!idea)return popup('Falta la idea','Escribe la necesidad en lenguaje normal para que la IA arme el borrador.',assets.missing);
+  const d=draftTicketFromText(idea);
+  state.pendingDraft=d;
+  populateAIDraftForm();
+  popup('Borrador creado',`La IA organizó la radicación con una calidad estimada de ${aiDraftQuality(d)}%. Revisa los datos y envía la solicitud.`,assets.sent[0]);
+}
+
 window.addEventListener('DOMContentLoaded',async()=>{
   prepareIntroStart();
 
