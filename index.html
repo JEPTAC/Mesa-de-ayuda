@@ -622,6 +622,132 @@ tr:hover td{
   .sidebar{background:#ffffff !important}
 }
 
+
+/* =========================================================
+   CORRECCIÓN PUNTUAL
+   - Intro vuelve a estilo cinematográfico original oscuro.
+   - Login queda claro con títulos y textos azul oscuro.
+   - Se mantiene la APP en manual de marca: blanco + azul + amarillo.
+   ========================================================= */
+
+/* INTRO: restaurada a estilo cinematográfico, sin blanco lavado */
+.boot-loader{
+  background:#03162d !important;
+}
+.boot-video{
+  filter:saturate(1.12) contrast(1.08) brightness(.48) !important;
+  opacity:1 !important;
+  transform:scale(1.06) !important;
+}
+.boot-overlay{
+  background:
+    radial-gradient(circle at center,rgba(13,91,210,.10),rgba(2,13,28,.70) 58%,rgba(2,8,18,.92)) !important;
+  backdrop-filter:blur(1.2px) !important;
+}
+.boot-card.cinematic{
+  background:linear-gradient(180deg,rgba(255,255,255,.15),rgba(255,255,255,.08)) !important;
+  border:1px solid rgba(255,255,255,.20) !important;
+  box-shadow:0 32px 80px rgba(0,0,0,.40),inset 0 1px 0 rgba(255,255,255,.18) !important;
+  backdrop-filter:blur(18px) !important;
+}
+.boot-brand.no-logo{
+  background:linear-gradient(135deg,rgba(13,91,210,.24),rgba(255,255,255,.08)) !important;
+  border:1px solid rgba(255,255,255,.14) !important;
+}
+.boot-brand.no-logo strong,
+.boot-copy h2,
+.boot-dev strong{
+  color:#ffffff !important;
+}
+.boot-brand.no-logo span,
+.boot-copy p,
+.boot-dev,
+.boot-tip{
+  color:rgba(255,255,255,.78) !important;
+}
+.boot-character-wrap{
+  background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(231,242,255,.92)) !important;
+  box-shadow:0 22px 46px rgba(13,91,210,.28) !important;
+}
+.boot-start-btn{
+  background:linear-gradient(135deg,#facc15,#f59e0b) !important;
+  color:#1f2937 !important;
+}
+.boot-play-icon{
+  background:#ffffff !important;
+  color:#0b3b82 !important;
+}
+.boot-loader-btn.cinematic-btn{
+  background:linear-gradient(135deg,#0d5bd2,#0b3b82) !important;
+  color:#ffffff !important;
+}
+.boot-progress{
+  background:rgba(255,255,255,.14) !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+}
+.boot-progress span{
+  background:linear-gradient(90deg,#22d3ee,#0d5bd2,#facc15) !important;
+}
+.boot-dev{
+  background:rgba(255,255,255,.10) !important;
+  border:1px solid rgba(255,255,255,.14) !important;
+}
+
+/* LOGIN: letras en azul oscuro, fondo claro y lectura correcta */
+.login-page,
+.login-shell{
+  background:
+    radial-gradient(circle at 8% -6%,rgba(247,191,36,.15),transparent 30%),
+    radial-gradient(circle at 100% 0%,rgba(13,91,210,.10),transparent 28%),
+    linear-gradient(145deg,#ffffff,#ffffff 48%,#f7fbff 100%) !important;
+}
+.login-card{
+  background:linear-gradient(180deg,#ffffff,#f7fbff) !important;
+  color:#0b3b82 !important;
+  border:1px solid rgba(11,59,130,.14) !important;
+  box-shadow:0 28px 70px rgba(11,59,130,.12) !important;
+}
+.login-form{
+  background:linear-gradient(180deg,#ffffff,#f8fbff) !important;
+  color:#0b3b82 !important;
+}
+.login-form h2,
+.login-form h1,
+.login-form h3,
+.login-form label,
+.login-form strong{
+  color:#0b3b82 !important;
+}
+.login-form p{
+  color:#315783 !important;
+}
+.login-form .field label{
+  color:#0b3b82 !important;
+}
+.login-form input,
+.login-form select,
+.login-form textarea{
+  background:#ffffff !important;
+  color:#0b3b82 !important;
+  border:1px solid rgba(11,59,130,.16) !important;
+}
+.login-form input::placeholder{
+  color:rgba(11,59,130,.52) !important;
+}
+.login-hero{
+  background:
+    radial-gradient(circle at 20% 12%,rgba(247,191,36,.50),transparent 32%),
+    linear-gradient(145deg,#0b3b82,#0d5bd2) !important;
+  color:#ffffff !important;
+}
+.login-hero .hero-note,
+.login-hero h1,
+.login-hero p,
+.dance-box h1,
+.dance-box p{
+  color:#ffffff !important;
+}
+
 </style>
 </head>
 <body>
