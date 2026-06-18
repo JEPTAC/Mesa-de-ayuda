@@ -1,0 +1,231 @@
+Radicación
+Mesa de Ayuda de Calidad · Dream Team de Calidad y Mejoramiento Continuo
+
+INTENCION: explicar_campo_radicacion
+USUARIO: ¿Qué pongo en el campo asunto?
+ASISTENTE: El asunto debe resumir el caso en pocas palabras, por ejemplo: Retraso en respuesta de calidad o Solicitud de ajuste documental.
+PALABRAS_CLAVE: asunto, campo, radicación, solicitud
+APRENDIZAJE: La IA debe explicar campos de formulario en lenguaje simple.
+---
+INTENCION: explicar_campo_radicacion
+USUARIO: ¿Qué pongo en el campo descripción?
+ASISTENTE: La descripción debe explicar qué ocurrió, dónde ocurrió, desde cuándo, qué impacto tiene y qué resultado se espera.
+PALABRAS_CLAVE: descripción, campo, radicación, solicitud
+APRENDIZAJE: La IA debe explicar campos de formulario en lenguaje simple.
+---
+INTENCION: explicar_campo_radicacion
+USUARIO: ¿Qué pongo en el campo área?
+ASISTENTE: El área debe ser la principal responsable del análisis o atención del caso.
+PALABRAS_CLAVE: área, campo, radicación, solicitud
+APRENDIZAJE: La IA debe explicar campos de formulario en lenguaje simple.
+---
+INTENCION: explicar_campo_radicacion
+USUARIO: ¿Qué pongo en el campo prioridad?
+ASISTENTE: La prioridad debe definirse según impacto, urgencia, vencimiento, riesgo y afectación del servicio.
+PALABRAS_CLAVE: prioridad, campo, radicación, solicitud
+APRENDIZAJE: La IA debe explicar campos de formulario en lenguaje simple.
+---
+INTENCION: explicar_campo_radicacion
+USUARIO: ¿Qué pongo en el campo evidencia?
+ASISTENTE: La evidencia puede ser un archivo, foto, documento, captura o comentario verificable asociado al hecho.
+PALABRAS_CLAVE: evidencia, campo, radicación, solicitud
+APRENDIZAJE: La IA debe explicar campos de formulario en lenguaje simple.
+---
+INTENCION: explicar_campo_radicacion
+USUARIO: ¿Qué pongo en el campo responsable?
+ASISTENTE: El responsable se asigna según área, flujo de trabajo, carga y permisos configurados.
+PALABRAS_CLAVE: responsable, campo, radicación, solicitud
+APRENDIZAJE: La IA debe explicar campos de formulario en lenguaje simple.
+---
+INTENCION: explicar_campo_radicacion
+USUARIO: ¿Qué pongo en el campo fecha límite?
+ASISTENTE: La fecha límite debe responder a la urgencia y a los acuerdos de servicio definidos.
+PALABRAS_CLAVE: fecha límite, campo, radicación, solicitud
+APRENDIZAJE: La IA debe explicar campos de formulario en lenguaje simple.
+---
+INTENCION: radicar_solicitud
+USUARIO: Necesito crear un ticket
+ASISTENTE: Para crear un ticket debes registrar asunto, descripción, área, prioridad, solicitante y evidencia si aplica. Después confirma la radicación para que el sistema genere trazabilidad.
+PALABRAS_CLAVE: necesito, crear, debes, registrar, asunto, descripción, prioridad, solicitante, evidencia, aplica
+APRENDIZAJE: Convertir dudas de radicación en instrucciones de formulario.
+---
+INTENCION: radicar_solicitud
+USUARIO: No tengo evidencia, ¿puedo radicar?
+ASISTENTE: Sí puedes radicar si el caso requiere revisión, pero debes indicar que la evidencia está pendiente o explicar por qué no existe. El cierre no debería realizarse sin soporte suficiente cuando el proceso lo exige.
+PALABRAS_CLAVE: evidencia, radicar, puedes, requiere, revisión, pero, debes, indicar, está, pendiente
+APRENDIZAJE: Convertir dudas de radicación en instrucciones de formulario.
+---
+INTENCION: radicar_solicitud
+USUARIO: Me equivoqué al radicar
+ASISTENTE: No borres la trazabilidad. Agrega un comentario aclaratorio o solicita corrección al responsable autorizado. Si el error cambia el sentido del caso, puede requerirse reclasificación.
+PALABRAS_CLAVE: equivoqué, radicar, borres, trazabilidad, agrega, comentario, aclaratorio, solicita, corrección, responsable
+APRENDIZAJE: Convertir dudas de radicación en instrucciones de formulario.
+---
+INTENCION: radicar_solicitud
+USUARIO: Quiero radicar algo anónimo
+ASISTENTE: La Mesa de Ayuda debe conservar trazabilidad. Si se permite reporte reservado, debe configurarse como política del sistema; de lo contrario, el solicitante debe quedar identificado.
+PALABRAS_CLAVE: quiero, radicar, algo, anónimo, mesa, ayuda, conservar, trazabilidad, permite, reporte
+APRENDIZAJE: Convertir dudas de radicación en instrucciones de formulario.
+---
+INTENCION: radicar_solicitud
+USUARIO: El caso afecta a varias áreas
+ASISTENTE: Radícalo con el área principal responsable y menciona las áreas relacionadas en la descripción. Si el flujo lo permite, se pueden agregar responsables de apoyo.
+PALABRAS_CLAVE: afecta, varias, áreas, radícalo, principal, responsable, menciona, relacionadas, descripción, flujo
+APRENDIZAJE: Convertir dudas de radicación en instrucciones de formulario.
+---
+INTENCION: radicar_solicitud
+USUARIO: No sé qué prioridad usar
+ASISTENTE: Usa prioridad alta si hay riesgo crítico, vencimiento cercano o afectación a varios usuarios. Usa media si requiere atención programada y baja si es mejora o consulta sin urgencia.
+PALABRAS_CLAVE: prioridad, usar, alta, riesgo, crítico, vencimiento, cercano, afectación, varios, media
+APRENDIZAJE: Convertir dudas de radicación en instrucciones de formulario.
+---
+INTENCION: radicar_solicitud
+USUARIO: ¿Puedo adjuntar varios archivos?
+ASISTENTE: Sí, cuando el sistema lo permita. Es recomendable nombrar los archivos de forma clara para facilitar revisión y auditoría.
+PALABRAS_CLAVE: adjuntar, varios, archivos, sistema, permita, recomendable, nombrar, forma, clara, facilitar
+APRENDIZAJE: Convertir dudas de radicación en instrucciones de formulario.
+---
+INTENCION: radicar_solicitud
+USUARIO: ¿Qué pasa después de radicar?
+ASISTENTE: El ticket queda registrado, se asigna responsable o área, se genera seguimiento y el usuario puede consultar el estado según sus permisos.
+PALABRAS_CLAVE: pasa, después, radicar, queda, registrado, asigna, responsable, genera, seguimiento, consultar
+APRENDIZAJE: Convertir dudas de radicación en instrucciones de formulario.
+---
+INTENCION: radicar_solicitud_especifica
+USUARIO: Necesito radicar una queja interna
+ASISTENTE: Registra la queja con descripción objetiva, área involucrada, evidencia si existe, impacto y datos del solicitante. Evita lenguaje ofensivo y conserva trazabilidad.
+PALABRAS_CLAVE: radicar, queja, interna, registra, descripción, objetiva, involucrada, evidencia, existe, impacto
+APRENDIZAJE: Entrenar radicación por tipo de solicitud.
+---
+INTENCION: radicar_solicitud_especifica
+USUARIO: ¿Cómo hago para radicar una queja interna?
+ASISTENTE: Registra la queja con descripción objetiva, área involucrada, evidencia si existe, impacto y datos del solicitante. Evita lenguaje ofensivo y conserva trazabilidad.
+PALABRAS_CLAVE: radicar, queja, interna, registra, descripción, objetiva, involucrada, evidencia, existe, impacto
+APRENDIZAJE: Entrenar variaciones de pregunta.
+---
+INTENCION: radicar_solicitud_especifica
+USUARIO: Necesito radicar una oportunidad de mejora
+ASISTENTE: Describe la mejora propuesta, proceso beneficiado, problema que resuelve, beneficio esperado y responsable sugerido.
+PALABRAS_CLAVE: radicar, oportunidad, mejora, describe, propuesta, proceso, beneficiado, problema, resuelve, beneficio
+APRENDIZAJE: Entrenar radicación por tipo de solicitud.
+---
+INTENCION: radicar_solicitud_especifica
+USUARIO: ¿Cómo hago para radicar una oportunidad de mejora?
+ASISTENTE: Describe la mejora propuesta, proceso beneficiado, problema que resuelve, beneficio esperado y responsable sugerido.
+PALABRAS_CLAVE: radicar, oportunidad, mejora, describe, propuesta, proceso, beneficiado, problema, resuelve, beneficio
+APRENDIZAJE: Entrenar variaciones de pregunta.
+---
+INTENCION: radicar_solicitud_especifica
+USUARIO: Necesito radicar una falla repetitiva
+ASISTENTE: Indica cuántas veces ha ocurrido, desde cuándo, área afectada, evidencia disponible y efecto sobre usuarios o proceso.
+PALABRAS_CLAVE: radicar, falla, repetitiva, indica, cuántas, veces, ocurrido, cuándo, afectada, evidencia
+APRENDIZAJE: Entrenar radicación por tipo de solicitud.
+---
+INTENCION: radicar_solicitud_especifica
+USUARIO: ¿Cómo hago para radicar una falla repetitiva?
+ASISTENTE: Indica cuántas veces ha ocurrido, desde cuándo, área afectada, evidencia disponible y efecto sobre usuarios o proceso.
+PALABRAS_CLAVE: radicar, falla, repetitiva, indica, cuántas, veces, ocurrido, cuándo, afectada, evidencia
+APRENDIZAJE: Entrenar variaciones de pregunta.
+---
+INTENCION: radicar_solicitud_especifica
+USUARIO: Necesito radicar un requerimiento documental
+ASISTENTE: Incluye nombre del documento, versión si existe, tipo de ajuste solicitado, justificación y fecha esperada.
+PALABRAS_CLAVE: radicar, requerimiento, documental, incluye, nombre, documento, versión, existe, tipo, ajuste
+APRENDIZAJE: Entrenar radicación por tipo de solicitud.
+---
+INTENCION: radicar_solicitud_especifica
+USUARIO: ¿Cómo hago para radicar un requerimiento documental?
+ASISTENTE: Incluye nombre del documento, versión si existe, tipo de ajuste solicitado, justificación y fecha esperada.
+PALABRAS_CLAVE: radicar, requerimiento, documental, incluye, nombre, documento, versión, existe, tipo, ajuste
+APRENDIZAJE: Entrenar variaciones de pregunta.
+---
+INTENCION: radicar_solicitud_especifica
+USUARIO: Necesito radicar soporte de sistemas
+ASISTENTE: Indica usuario afectado, equipo o plataforma, mensaje de error, hora de ocurrencia y captura si aplica.
+PALABRAS_CLAVE: radicar, soporte, sistemas, indica, afectado, equipo, plataforma, mensaje, error, hora
+APRENDIZAJE: Entrenar radicación por tipo de solicitud.
+---
+INTENCION: radicar_solicitud_especifica
+USUARIO: ¿Cómo hago para radicar soporte de sistemas?
+ASISTENTE: Indica usuario afectado, equipo o plataforma, mensaje de error, hora de ocurrencia y captura si aplica.
+PALABRAS_CLAVE: radicar, soporte, sistemas, indica, afectado, equipo, plataforma, mensaje, error, hora
+APRENDIZAJE: Entrenar variaciones de pregunta.
+---
+INTENCION: radicar_solicitud_especifica
+USUARIO: Necesito radicar solicitud de capacitación
+ASISTENTE: Indica tema, área solicitante, cantidad de personas, objetivo, urgencia y evidencia de necesidad si existe.
+PALABRAS_CLAVE: radicar, capacitación, indica, tema, solicitante, cantidad, personas, objetivo, urgencia, evidencia
+APRENDIZAJE: Entrenar radicación por tipo de solicitud.
+---
+INTENCION: radicar_solicitud_especifica
+USUARIO: ¿Cómo hago para radicar solicitud de capacitación?
+ASISTENTE: Indica tema, área solicitante, cantidad de personas, objetivo, urgencia y evidencia de necesidad si existe.
+PALABRAS_CLAVE: radicar, capacitación, indica, tema, solicitante, cantidad, personas, objetivo, urgencia, evidencia
+APRENDIZAJE: Entrenar variaciones de pregunta.
+---
+INTENCION: radicar_solicitud_especifica
+USUARIO: Necesito radicar hallazgo de auditoría
+ASISTENTE: Registra criterio incumplido, evidencia, proceso auditado, responsable y plazo de respuesta.
+PALABRAS_CLAVE: radicar, hallazgo, auditoría, registra, criterio, incumplido, evidencia, proceso, auditado, responsable
+APRENDIZAJE: Entrenar radicación por tipo de solicitud.
+---
+INTENCION: radicar_solicitud_especifica
+USUARIO: ¿Cómo hago para radicar hallazgo de auditoría?
+ASISTENTE: Registra criterio incumplido, evidencia, proceso auditado, responsable y plazo de respuesta.
+PALABRAS_CLAVE: radicar, hallazgo, auditoría, registra, criterio, incumplido, evidencia, proceso, auditado, responsable
+APRENDIZAJE: Entrenar variaciones de pregunta.
+---
+INTENCION: radicar_solicitud_especifica
+USUARIO: Necesito radicar solicitud de indicador
+ASISTENTE: Define nombre del indicador, objetivo, fórmula, fuente de datos, periodicidad y responsable.
+PALABRAS_CLAVE: radicar, indicador, define, nombre, objetivo, fórmula, fuente, datos, periodicidad, responsable
+APRENDIZAJE: Entrenar radicación por tipo de solicitud.
+---
+INTENCION: radicar_solicitud_especifica
+USUARIO: ¿Cómo hago para radicar solicitud de indicador?
+ASISTENTE: Define nombre del indicador, objetivo, fórmula, fuente de datos, periodicidad y responsable.
+PALABRAS_CLAVE: radicar, indicador, define, nombre, objetivo, fórmula, fuente, datos, periodicidad, responsable
+APRENDIZAJE: Entrenar variaciones de pregunta.
+---
+INTENCION: detectar_error_radicacion
+USUARIO: El ticket tiene descripción muy corta
+ASISTENTE: Pide ampliar contexto: qué ocurrió, cuándo, dónde, impacto y evidencia. Esto ayuda a mantener calidad de datos y trazabilidad.
+PALABRAS_CLAVE: descripción muy corta, error, radicación, ticket
+APRENDIZAJE: Detectar errores comunes de radicación.
+---
+INTENCION: detectar_error_radicacion
+USUARIO: El ticket tiene sin área responsable
+ASISTENTE: Solicita definir área principal o clasificarla con ayuda del asistente. Esto ayuda a mantener calidad de datos y trazabilidad.
+PALABRAS_CLAVE: sin área responsable, error, radicación, ticket
+APRENDIZAJE: Detectar errores comunes de radicación.
+---
+INTENCION: detectar_error_radicacion
+USUARIO: El ticket tiene prioridad inflada
+ASISTENTE: Pide justificar urgencia con impacto, vencimiento o riesgo real. Esto ayuda a mantener calidad de datos y trazabilidad.
+PALABRAS_CLAVE: prioridad inflada, error, radicación, ticket
+APRENDIZAJE: Detectar errores comunes de radicación.
+---
+INTENCION: detectar_error_radicacion
+USUARIO: El ticket tiene sin evidencia
+ASISTENTE: Permite radicación, pero marca evidencia pendiente si el cierre exige soporte. Esto ayuda a mantener calidad de datos y trazabilidad.
+PALABRAS_CLAVE: sin evidencia, error, radicación, ticket
+APRENDIZAJE: Detectar errores comunes de radicación.
+---
+INTENCION: detectar_error_radicacion
+USUARIO: El ticket tiene ticket duplicado
+ASISTENTE: Sugiere buscar casos similares y relacionar el nuevo comentario al ticket existente. Esto ayuda a mantener calidad de datos y trazabilidad.
+PALABRAS_CLAVE: ticket duplicado, error, radicación, ticket
+APRENDIZAJE: Detectar errores comunes de radicación.
+---
+INTENCION: detectar_error_radicacion
+USUARIO: El ticket tiene cierre sin respuesta final
+ASISTENTE: Indica que debe agregarse respuesta final antes del cierre. Esto ayuda a mantener calidad de datos y trazabilidad.
+PALABRAS_CLAVE: cierre sin respuesta final, error, radicación, ticket
+APRENDIZAJE: Detectar errores comunes de radicación.
+---
+INTENCION: detectar_error_radicacion
+USUARIO: El ticket tiene comentarios desordenados
+ASISTENTE: Sugiere resumir estado actual y próximo paso en un comentario claro. Esto ayuda a mantener calidad de datos y trazabilidad.
+PALABRAS_CLAVE: comentarios desordenados, error, radicación, ticket
+APRENDIZAJE: Detectar errores comunes de radicación.
+---
