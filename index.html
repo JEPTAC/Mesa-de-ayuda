@@ -940,6 +940,13 @@ tr:hover td{
   .sla-grid,.productivity-grid,.template-grid{grid-template-columns:1fr}
 }
 
+
+/* RADICACIÓN GUIADA EN POP-UP */
+.guided-start-card{position:relative;overflow:hidden;border-radius:28px;padding:20px;background:radial-gradient(circle at 100% 0%,rgba(247,191,36,.18),transparent 32%),linear-gradient(180deg,#fff,#f7fbff);border:1px solid rgba(11,59,130,.13);box-shadow:0 18px 42px rgba(11,59,130,.08)}
+.guided-start-card h3{margin:0 0 8px;color:#0b3b82;font-size:22px}.guided-start-card p{margin:0 0 14px;color:#315783;line-height:1.55;font-size:14px}
+.guided-pill-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 16px}.guided-pill{display:inline-flex;align-items:center;gap:6px;padding:8px 10px;border-radius:999px;background:#eaf2ff;color:#0b3b82;font-weight:800;font-size:12px;border:1px solid rgba(11,59,130,.12)}
+.wizard-summary{text-align:left;border-radius:20px;padding:14px;background:#f7fbff;border:1px solid rgba(11,59,130,.12);color:#0b3b82;line-height:1.5}.wizard-summary strong{color:#0b3b82}.wizard-summary ul{margin:8px 0 0;padding-left:18px}.swal2-popup{border-radius:28px!important}.swal2-title{color:#0b3b82!important}.swal2-html-container{color:#315783!important}
+
 </style>
 </head>
 <body>
@@ -2913,6 +2920,177 @@ const bindViewBeforeValor=bindView;
 bindView=function(){
   bindViewBeforeValor();
   if(state.view==="create")bindValorFormEvents();
+};
+
+
+/* RADICACIÓN GUIADA SIMPLE - POPUP IA, SIN SQL */
+const RADICACION_GUIADA_VERSION="Radicación guiada · pop-up IA";
+
+function isTicketFormEmpty(){
+  const form=document.getElementById("ticketForm");
+  if(!form)return false;
+  return ["requesterArea","title","description","evidence"].every(name=>!String(form.elements[name]?.value||"").trim());
+}
+function guidedCurrentFormData(){
+  const form=document.getElementById("ticketForm");
+  if(!form)return {};
+  return {
+    requesterName:String(form.elements["requesterName"]?.value||"").trim(),
+    requesterEmail:String(form.elements["requesterEmail"]?.value||"").trim(),
+    requesterArea:String(form.elements["requesterArea"]?.value||"").trim(),
+    category:String(form.elements["category"]?.value||"Consulta general").trim(),
+    priority:String(form.elements["priority"]?.value||"Media").trim(),
+    modality:String(form.elements["modality"]?.value||"Mixta").trim(),
+    title:String(form.elements["title"]?.value||"").trim(),
+    description:String(form.elements["description"]?.value||"").trim(),
+    evidence:String(form.elements["evidence"]?.value||"").trim()
+  };
+}
+function createHtml(){
+  return `<div class="grid cols-2"><div class="card"><div class="section-title"><h2>Radicar solicitud</h2><span>formulario limpio + asistencia IA</span></div><form class="form" id="ticketForm"><div class="grid cols-2"><div class="field"><label>Nombre del solicitante</label><input name="requesterName" required value="${state.user.role==='Solicitante'?'':escapeHtml(state.user.name)}"></div><div class="field"><label>Correo</label><input name="requesterEmail" type="email" placeholder="correo@empresa.com"></div></div><div class="grid cols-2"><div class="field"><label>Área / proceso de origen</label><input name="requesterArea" required placeholder="Ej. Logística, cartera, ventas, producción"></div><div class="field"><label>Responsable</label><select name="assignedTo" required>${responders().map(u=>`<option value="${u.id}">${escapeHtml(u.name)} · ${escapeHtml(u.role)}</option>`).join("")}</select></div></div><div class="grid cols-3"><div class="field"><label>Categoría</label><select name="category">${categories.map(c=>`<option>${c}</option>`).join("")}</select></div><div class="field"><label>Prioridad</label><select name="priority">${priorities.map(p=>`<option ${p==='Media'?'selected':''}>${p}</option>`).join("")}</select></div><div class="field"><label>Modalidad</label><select name="modality"><option>Documental</option><option>Presencial</option><option>Mixta</option></select></div></div><div class="field"><label>Asunto</label><input name="title" required placeholder="Describe el tema en una línea"></div><div class="field"><label>Descripción completa</label><textarea name="description" required placeholder="Qué necesitas, por qué se solicita, evidencia disponible y resultado esperado"></textarea></div><div class="grid cols-2"><div class="field"><label>Enlace o evidencia opcional</label><input name="evidence" placeholder="Drive, PDF, imagen, acta, formato, captura"></div><div class="field"><label>Adjuntar documentos</label><input id="ticketAttachments" type="file" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.png,.jpg,.jpeg,.webp,.txt"></div></div><div class="field"><label>Código de prioridad por monedas</label><input name="priorityCode" placeholder="Ej. EI-PRIO-ABCD12"><small class="mini-note">Se consigue jugando en Juegos IA. Si es válido, la solicitud sube a prioridad crítica.</small></div><div id="qualityPreview" style="margin-top:14px">${qualityPanelHtml({})}</div><button class="btn primary pulse" type="submit">Enviar solicitud</button></form></div><div style="display:grid;gap:18px"><div class="guided-start-card"><h3>Registro asistido</h3><p>La IA puede ayudarte a registrar la solicitud paso a paso en un pop-up, sin llenar campos innecesarios ni adivinar responsable.</p><div class="guided-pill-row"><span class="guided-pill">📝 Asunto</span><span class="guided-pill">🎯 Categoría</span><span class="guided-pill">⚡ Prioridad</span><span class="guided-pill">👤 Responsable</span></div><button class="btn primary" type="button" onclick="startGuidedRadication()">Abrir asistente guiado</button><div class="empty" style="margin-top:12px">También puedes diligenciar manualmente. Si algo queda débil, el semáforo te indica qué falta.</div></div><div class="card"><div class="section-title"><h2>Consulta rápida</h2><span>para usuario general</span></div><div class="form"><div class="field"><label>Código de solicitud</label><input id="lookupCode" placeholder="DT-0001"></div><button class="btn ghost" onclick="lookupTicket()">Buscar solicitud</button><div class="empty">Si existe el radicado, verás su trazabilidad, adjuntos, tiempos y mensajes.</div></div></div></div></div>`;
+}
+async function guidedAskStep(cfg){
+  const options=cfg.options||null;
+  const htmlOptions=options?`<select id="guided-input" class="swal2-select" style="width:82%;max-width:440px">${options.map(o=>`<option ${o===cfg.value?'selected':''}>${escapeHtml(o)}</option>`).join("")}</select>`:"";
+  const result=await Swal.fire({
+    title:cfg.title,
+    html:`<div class="wizard-summary"><p>${cfg.text}</p>${htmlOptions}</div>`,
+    input:options?undefined:(cfg.input||"text"),
+    inputValue:options?undefined:(cfg.value||""),
+    inputPlaceholder:cfg.placeholder||"",
+    showCancelButton:true,
+    confirmButtonText:"Siguiente",
+    cancelButtonText:"Cancelar",
+    confirmButtonColor:"#0d5bd2",
+    cancelButtonColor:"#6b7280",
+    allowOutsideClick:false,
+    preConfirm:(v)=>{
+      const val=options?document.getElementById("guided-input")?.value:v;
+      if(cfg.required!==false&&!String(val||"").trim()){
+        Swal.showValidationMessage("Este dato es necesario para organizar bien la solicitud.");
+        return false;
+      }
+      return String(val||"").trim();
+    }
+  });
+  if(!result.isConfirmed)return null;
+  return result.value||"";
+}
+async function offerGuidedRadication(){
+  if(state.guidedOfferVisible)return;
+  if(!isTicketFormEmpty())return;
+  state.guidedOfferVisible=true;
+  const result=await Swal.fire({
+    title:"¿Quieres que te ayudemos a registrarla?",
+    html:`<div class="wizard-summary"><p>Podemos guiarte paso a paso y dejar la solicitud organizada con asunto, categoría, prioridad, responsable y descripción.</p><ul><li>Sin llenar campos de más.</li><li>Sin adivinar quién debe resolver.</li><li>Con revisión final antes de enviar.</li></ul></div>`,
+    icon:"question",
+    showDenyButton:true,
+    confirmButtonText:"Sí, guiarme",
+    denyButtonText:"No, manual",
+    confirmButtonColor:"#0d5bd2",
+    denyButtonColor:"#f7bf24"
+  });
+  if(result.isConfirmed)await startGuidedRadication(true);
+}
+function maybeOfferGuidedRadication(){
+  if(state.view!=="create")return;
+  if(state.guidedOfferShown)return;
+  setTimeout(()=>{if(state.view==="create"&&isTicketFormEmpty()){state.guidedOfferShown=true;offerGuidedRadication()}},280);
+}
+function guidedBuildDraft(data){
+  const combined=`Área o proceso: ${data.area}. Necesidad: ${data.need}. Tipo de caso o documento: ${data.caseType}. Evidencia disponible: ${data.evidence}. Resultado esperado: ${data.expected}. Urgencia o plazo: ${data.urgency}.`;
+  const draft=draftTicketFromText(combined);
+  const classification=typeof classifyFromText==="function"?classifyFromText(combined):null;
+  if(classification){
+    draft.category=classification.category||draft.category;
+    draft.priority=classification.priority||draft.priority;
+    draft.modality=classification.modality||draft.modality;
+    draft.assignedTo=suggestAssignee(draft.category,draft.priority);
+  }
+  draft.requesterName=data.requesterName||draft.requesterName||"";
+  draft.requesterEmail=data.requesterEmail||draft.requesterEmail||"";
+  draft.requesterArea=data.area;
+  draft.evidenceHint=data.evidence&&data.evidence!=="No tengo evidencia todavía"?data.evidence:"";
+  draft.title=makeTitleFromText(data.need,draft.category);
+  draft.description=`Necesidad identificada: ${data.need}
+
+Área o proceso de origen: ${data.area}
+
+Tipo de caso o documento: ${data.caseType}
+
+Evidencia disponible: ${data.evidence}
+
+Resultado esperado: ${data.expected}
+
+Urgencia o plazo: ${data.urgency}
+
+Clasificación sugerida por IA: ${draft.category}, prioridad ${draft.priority}, modalidad ${draft.modality}.
+
+Responsable sugerido: ${userName(draft.assignedTo)}.
+
+Criterio de cierre: respuesta entregada con trazabilidad, evidencia revisada y validación del solicitante.`;
+  return draft;
+}
+function applyGuidedDraft(draft){
+  const form=document.getElementById("ticketForm");
+  if(!form)return;
+  if(form.elements["requesterName"]&&draft.requesterName)form.elements["requesterName"].value=draft.requesterName;
+  if(form.elements["requesterEmail"]&&draft.requesterEmail)form.elements["requesterEmail"].value=draft.requesterEmail;
+  if(form.elements["requesterArea"])form.elements["requesterArea"].value=draft.requesterArea||"";
+  if(form.elements["category"])form.elements["category"].value=draft.category||"Consulta general";
+  if(form.elements["priority"])form.elements["priority"].value=draft.priority||"Media";
+  if(form.elements["modality"])form.elements["modality"].value=draft.modality||"Mixta";
+  if(form.elements["assignedTo"]&&draft.assignedTo)form.elements["assignedTo"].value=draft.assignedTo;
+  if(form.elements["title"])form.elements["title"].value=draft.title||"";
+  if(form.elements["description"])form.elements["description"].value=draft.description||"";
+  if(form.elements["evidence"]&&draft.evidenceHint)form.elements["evidence"].value=draft.evidenceHint;
+  state.pendingDraft=draft;
+  renderQualityPreview();
+}
+async function startGuidedRadication(fromOffer=false){
+  const current=guidedCurrentFormData();
+  const data={};
+  if(state.user?.role==="Solicitante"){
+    data.requesterName=await guidedAskStep({title:"Dato del solicitante",text:"Primero, escribe tu nombre completo.",placeholder:"Nombre del solicitante",value:current.requesterName});
+    if(data.requesterName===null)return;
+    data.requesterEmail=await guidedAskStep({title:"Correo",text:"Escribe tu correo para seguimiento. Si no tienes, puedes dejarlo vacío.",placeholder:"correo@empresa.com",value:current.requesterEmail,required:false});
+    if(data.requesterEmail===null)return;
+  }else{
+    data.requesterName=current.requesterName||state.user?.name||"";
+    data.requesterEmail=current.requesterEmail||"";
+  }
+  data.area=await guidedAskStep({title:"1 de 5 · Área o proceso",text:"¿De qué área o proceso viene la solicitud?",placeholder:"Ej. Cartera, logística, ventas, producción",value:current.requesterArea});
+  if(data.area===null)return;
+  data.need=await guidedAskStep({title:"2 de 5 · Necesidad",text:"Cuéntame en una frase qué necesitas o qué problema ocurrió.",input:"textarea",placeholder:"Ej. No puedo subir el PDF de una factura y se queda cargando",value:current.description||current.title});
+  if(data.need===null)return;
+  data.caseType=await guidedAskStep({title:"3 de 5 · Tipo de caso",text:"Selecciona lo que más se parece a tu caso.",options:["Documento","Procedimiento","Auditoría","Indicador/KPI","Riesgo/Hallazgo","Capacitación","Mejora continua","Consulta general"],value:current.category||"Documento"});
+  if(data.caseType===null)return;
+  data.evidence=await guidedAskStep({title:"4 de 5 · Evidencia",text:"¿Tienes evidencia, enlace, captura, PDF, acta, matriz o archivo?",input:"textarea",placeholder:"Ej. Tengo captura y PDF / No tengo evidencia todavía",value:current.evidence||""});
+  if(data.evidence===null)return;
+  data.expected=await guidedAskStep({title:"5 de 5 · Resultado esperado",text:"¿Qué esperas que entregue el equipo de Calidad?",input:"textarea",placeholder:"Ej. Que revisen el documento, indiquen responsable y dejen respuesta trazable"});
+  if(data.expected===null)return;
+  data.urgency=await guidedAskStep({title:"Urgencia o plazo",text:"¿Tiene fecha límite o urgencia?",placeholder:"Ej. Esta semana / Auditoría mañana / Sin urgencia",required:false});
+  if(data.urgency===null)return;
+  if(!data.urgency)data.urgency="Sin urgencia indicada";
+
+  const draft=guidedBuildDraft(data);
+  applyGuidedDraft(draft);
+  const quality=ticketQualityFromObject(collectTicketFormObject());
+  const missing=quality.misses.slice(0,4);
+  await Swal.fire({
+    title:"Solicitud organizada",
+    html:`<div class="wizard-summary"><p><strong>Asunto:</strong> ${escapeHtml(draft.title)}</p><p><strong>Categoría:</strong> ${escapeHtml(draft.category)} · <strong>Prioridad:</strong> ${escapeHtml(draft.priority)} · <strong>Modalidad:</strong> ${escapeHtml(draft.modality)}</p><p><strong>Responsable sugerido:</strong> ${escapeHtml(userName(draft.assignedTo))}</p><p><strong>Calidad de radicación:</strong> ${quality.score}%</p>${missing.length?`<p><strong>Antes de enviar, puedes mejorar:</strong></p><ul>${missing.map(m=>`<li>${escapeHtml(m)}</li>`).join("")}</ul>`:`<p>La solicitud quedó lista para revisión y envío.</p>`}</div>`,
+    confirmButtonText:"Revisar y enviar",
+    confirmButtonColor:"#0d5bd2"
+  });
+}
+const bindViewBeforeGuidedRadication=bindView;
+bindView=function(){
+  bindViewBeforeGuidedRadication();
+  if(state.view==="create"){
+    bindValorFormEvents();
+    maybeOfferGuidedRadication();
+  }
 };
 
 window.addEventListener('DOMContentLoaded',async()=>{
