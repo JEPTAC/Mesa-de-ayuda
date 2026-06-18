@@ -1,0 +1,387 @@
+Conversaciones del área
+Mesa de Ayuda de Calidad · Dream Team de Calidad y Mejoramiento Continuo
+
+INTENCION: clasificar_area
+USUARIO: ¿Esto lo debe revisar Calidad?
+ASISTENTE: Si el caso está relacionado con procedimientos, evidencias, auditoría, acciones de mejora y seguimiento del sistema de gestión, puede clasificarse para el área de Calidad. Si el impacto cruza varias áreas, conviene radicarlo con área principal y mencionar las áreas relacionadas.
+PALABRAS_CLAVE: calidad, área, clasificar, responsable
+APRENDIZAJE: La IA debe ayudar a clasificar sin inventar responsables.
+---
+INTENCION: consultar_responsable_area
+USUARIO: ¿Quién responde los casos de Calidad?
+ASISTENTE: La respuesta depende de los usuarios configurados en la aplicación. Puedo consultar el responsable si existe en la base de datos. Si no hay responsable asignado, el caso debe escalarse al jefe general o al Super Admin para configuración.
+PALABRAS_CLAVE: calidad, responsable, asignado, usuarios
+APRENDIZAJE: Consultar datos reales si existen.
+---
+INTENCION: crear_ticket_area
+USUARIO: Necesito radicar una solicitud para Calidad
+ASISTENTE: Para radicarla en Calidad, registra una descripción clara, selecciona el área correspondiente, define prioridad, adjunta evidencia si aplica y confirma el solicitante. Si el caso afecta calidad, incluye el impacto o riesgo observado.
+PALABRAS_CLAVE: calidad, radicar, solicitud, prioridad
+APRENDIZAJE: Radicación debe pedir datos mínimos.
+---
+INTENCION: resumen_area
+USUARIO: Dame un resumen de lo pendiente de Calidad
+ASISTENTE: Puedo generar el resumen consultando los tickets abiertos, vencidos, en espera y cerrados del área de Calidad. Para hacerlo correctamente necesito acceso a los datos o filtros de fecha definidos.
+PALABRAS_CLAVE: calidad, resumen, pendiente, tickets
+APRENDIZAJE: Distinguir conversación de consulta real.
+---
+INTENCION: clasificar_area
+USUARIO: ¿Esto lo debe revisar Talento Humano?
+ASISTENTE: Si el caso está relacionado con inducción, capacitación, novedades de personal, soportes y solicitudes administrativas, puede clasificarse para el área de Talento Humano. Si el impacto cruza varias áreas, conviene radicarlo con área principal y mencionar las áreas relacionadas.
+PALABRAS_CLAVE: talento humano, área, clasificar, responsable
+APRENDIZAJE: La IA debe ayudar a clasificar sin inventar responsables.
+---
+INTENCION: consultar_responsable_area
+USUARIO: ¿Quién responde los casos de Talento Humano?
+ASISTENTE: La respuesta depende de los usuarios configurados en la aplicación. Puedo consultar el responsable si existe en la base de datos. Si no hay responsable asignado, el caso debe escalarse al jefe general o al Super Admin para configuración.
+PALABRAS_CLAVE: talento humano, responsable, asignado, usuarios
+APRENDIZAJE: Consultar datos reales si existen.
+---
+INTENCION: crear_ticket_area
+USUARIO: Necesito radicar una solicitud para Talento Humano
+ASISTENTE: Para radicarla en Talento Humano, registra una descripción clara, selecciona el área correspondiente, define prioridad, adjunta evidencia si aplica y confirma el solicitante. Si el caso afecta calidad, incluye el impacto o riesgo observado.
+PALABRAS_CLAVE: talento humano, radicar, solicitud, prioridad
+APRENDIZAJE: Radicación debe pedir datos mínimos.
+---
+INTENCION: resumen_area
+USUARIO: Dame un resumen de lo pendiente de Talento Humano
+ASISTENTE: Puedo generar el resumen consultando los tickets abiertos, vencidos, en espera y cerrados del área de Talento Humano. Para hacerlo correctamente necesito acceso a los datos o filtros de fecha definidos.
+PALABRAS_CLAVE: talento humano, resumen, pendiente, tickets
+APRENDIZAJE: Distinguir conversación de consulta real.
+---
+INTENCION: clasificar_area
+USUARIO: ¿Esto lo debe revisar Sistemas?
+ASISTENTE: Si el caso está relacionado con soporte tecnológico, accesos, usuarios, plataformas, equipos y fallas de conectividad, puede clasificarse para el área de Sistemas. Si el impacto cruza varias áreas, conviene radicarlo con área principal y mencionar las áreas relacionadas.
+PALABRAS_CLAVE: sistemas, área, clasificar, responsable
+APRENDIZAJE: La IA debe ayudar a clasificar sin inventar responsables.
+---
+INTENCION: consultar_responsable_area
+USUARIO: ¿Quién responde los casos de Sistemas?
+ASISTENTE: La respuesta depende de los usuarios configurados en la aplicación. Puedo consultar el responsable si existe en la base de datos. Si no hay responsable asignado, el caso debe escalarse al jefe general o al Super Admin para configuración.
+PALABRAS_CLAVE: sistemas, responsable, asignado, usuarios
+APRENDIZAJE: Consultar datos reales si existen.
+---
+INTENCION: crear_ticket_area
+USUARIO: Necesito radicar una solicitud para Sistemas
+ASISTENTE: Para radicarla en Sistemas, registra una descripción clara, selecciona el área correspondiente, define prioridad, adjunta evidencia si aplica y confirma el solicitante. Si el caso afecta calidad, incluye el impacto o riesgo observado.
+PALABRAS_CLAVE: sistemas, radicar, solicitud, prioridad
+APRENDIZAJE: Radicación debe pedir datos mínimos.
+---
+INTENCION: resumen_area
+USUARIO: Dame un resumen de lo pendiente de Sistemas
+ASISTENTE: Puedo generar el resumen consultando los tickets abiertos, vencidos, en espera y cerrados del área de Sistemas. Para hacerlo correctamente necesito acceso a los datos o filtros de fecha definidos.
+PALABRAS_CLAVE: sistemas, resumen, pendiente, tickets
+APRENDIZAJE: Distinguir conversación de consulta real.
+---
+INTENCION: clasificar_area
+USUARIO: ¿Esto lo debe revisar Logística?
+ASISTENTE: Si el caso está relacionado con entregas, alistamientos, inventarios, despachos, tiempos operativos y novedades de bodega, puede clasificarse para el área de Logística. Si el impacto cruza varias áreas, conviene radicarlo con área principal y mencionar las áreas relacionadas.
+PALABRAS_CLAVE: logística, área, clasificar, responsable
+APRENDIZAJE: La IA debe ayudar a clasificar sin inventar responsables.
+---
+INTENCION: consultar_responsable_area
+USUARIO: ¿Quién responde los casos de Logística?
+ASISTENTE: La respuesta depende de los usuarios configurados en la aplicación. Puedo consultar el responsable si existe en la base de datos. Si no hay responsable asignado, el caso debe escalarse al jefe general o al Super Admin para configuración.
+PALABRAS_CLAVE: logística, responsable, asignado, usuarios
+APRENDIZAJE: Consultar datos reales si existen.
+---
+INTENCION: crear_ticket_area
+USUARIO: Necesito radicar una solicitud para Logística
+ASISTENTE: Para radicarla en Logística, registra una descripción clara, selecciona el área correspondiente, define prioridad, adjunta evidencia si aplica y confirma el solicitante. Si el caso afecta calidad, incluye el impacto o riesgo observado.
+PALABRAS_CLAVE: logística, radicar, solicitud, prioridad
+APRENDIZAJE: Radicación debe pedir datos mínimos.
+---
+INTENCION: resumen_area
+USUARIO: Dame un resumen de lo pendiente de Logística
+ASISTENTE: Puedo generar el resumen consultando los tickets abiertos, vencidos, en espera y cerrados del área de Logística. Para hacerlo correctamente necesito acceso a los datos o filtros de fecha definidos.
+PALABRAS_CLAVE: logística, resumen, pendiente, tickets
+APRENDIZAJE: Distinguir conversación de consulta real.
+---
+INTENCION: clasificar_area
+USUARIO: ¿Esto lo debe revisar Administrativa?
+ASISTENTE: Si el caso está relacionado con documentos, compras, archivo, comunicaciones internas y gestión de recursos, puede clasificarse para el área de Administrativa. Si el impacto cruza varias áreas, conviene radicarlo con área principal y mencionar las áreas relacionadas.
+PALABRAS_CLAVE: administrativa, área, clasificar, responsable
+APRENDIZAJE: La IA debe ayudar a clasificar sin inventar responsables.
+---
+INTENCION: consultar_responsable_area
+USUARIO: ¿Quién responde los casos de Administrativa?
+ASISTENTE: La respuesta depende de los usuarios configurados en la aplicación. Puedo consultar el responsable si existe en la base de datos. Si no hay responsable asignado, el caso debe escalarse al jefe general o al Super Admin para configuración.
+PALABRAS_CLAVE: administrativa, responsable, asignado, usuarios
+APRENDIZAJE: Consultar datos reales si existen.
+---
+INTENCION: crear_ticket_area
+USUARIO: Necesito radicar una solicitud para Administrativa
+ASISTENTE: Para radicarla en Administrativa, registra una descripción clara, selecciona el área correspondiente, define prioridad, adjunta evidencia si aplica y confirma el solicitante. Si el caso afecta calidad, incluye el impacto o riesgo observado.
+PALABRAS_CLAVE: administrativa, radicar, solicitud, prioridad
+APRENDIZAJE: Radicación debe pedir datos mínimos.
+---
+INTENCION: resumen_area
+USUARIO: Dame un resumen de lo pendiente de Administrativa
+ASISTENTE: Puedo generar el resumen consultando los tickets abiertos, vencidos, en espera y cerrados del área de Administrativa. Para hacerlo correctamente necesito acceso a los datos o filtros de fecha definidos.
+PALABRAS_CLAVE: administrativa, resumen, pendiente, tickets
+APRENDIZAJE: Distinguir conversación de consulta real.
+---
+INTENCION: clasificar_area
+USUARIO: ¿Esto lo debe revisar Financiera?
+ASISTENTE: Si el caso está relacionado con pagos, facturación, soportes contables, cartera y validaciones económicas, puede clasificarse para el área de Financiera. Si el impacto cruza varias áreas, conviene radicarlo con área principal y mencionar las áreas relacionadas.
+PALABRAS_CLAVE: financiera, área, clasificar, responsable
+APRENDIZAJE: La IA debe ayudar a clasificar sin inventar responsables.
+---
+INTENCION: consultar_responsable_area
+USUARIO: ¿Quién responde los casos de Financiera?
+ASISTENTE: La respuesta depende de los usuarios configurados en la aplicación. Puedo consultar el responsable si existe en la base de datos. Si no hay responsable asignado, el caso debe escalarse al jefe general o al Super Admin para configuración.
+PALABRAS_CLAVE: financiera, responsable, asignado, usuarios
+APRENDIZAJE: Consultar datos reales si existen.
+---
+INTENCION: crear_ticket_area
+USUARIO: Necesito radicar una solicitud para Financiera
+ASISTENTE: Para radicarla en Financiera, registra una descripción clara, selecciona el área correspondiente, define prioridad, adjunta evidencia si aplica y confirma el solicitante. Si el caso afecta calidad, incluye el impacto o riesgo observado.
+PALABRAS_CLAVE: financiera, radicar, solicitud, prioridad
+APRENDIZAJE: Radicación debe pedir datos mínimos.
+---
+INTENCION: resumen_area
+USUARIO: Dame un resumen de lo pendiente de Financiera
+ASISTENTE: Puedo generar el resumen consultando los tickets abiertos, vencidos, en espera y cerrados del área de Financiera. Para hacerlo correctamente necesito acceso a los datos o filtros de fecha definidos.
+PALABRAS_CLAVE: financiera, resumen, pendiente, tickets
+APRENDIZAJE: Distinguir conversación de consulta real.
+---
+INTENCION: clasificar_area
+USUARIO: ¿Esto lo debe revisar Comercial?
+ASISTENTE: Si el caso está relacionado con clientes, solicitudes comerciales, cotizaciones, proyectos y seguimiento a requerimientos externos, puede clasificarse para el área de Comercial. Si el impacto cruza varias áreas, conviene radicarlo con área principal y mencionar las áreas relacionadas.
+PALABRAS_CLAVE: comercial, área, clasificar, responsable
+APRENDIZAJE: La IA debe ayudar a clasificar sin inventar responsables.
+---
+INTENCION: consultar_responsable_area
+USUARIO: ¿Quién responde los casos de Comercial?
+ASISTENTE: La respuesta depende de los usuarios configurados en la aplicación. Puedo consultar el responsable si existe en la base de datos. Si no hay responsable asignado, el caso debe escalarse al jefe general o al Super Admin para configuración.
+PALABRAS_CLAVE: comercial, responsable, asignado, usuarios
+APRENDIZAJE: Consultar datos reales si existen.
+---
+INTENCION: crear_ticket_area
+USUARIO: Necesito radicar una solicitud para Comercial
+ASISTENTE: Para radicarla en Comercial, registra una descripción clara, selecciona el área correspondiente, define prioridad, adjunta evidencia si aplica y confirma el solicitante. Si el caso afecta calidad, incluye el impacto o riesgo observado.
+PALABRAS_CLAVE: comercial, radicar, solicitud, prioridad
+APRENDIZAJE: Radicación debe pedir datos mínimos.
+---
+INTENCION: resumen_area
+USUARIO: Dame un resumen de lo pendiente de Comercial
+ASISTENTE: Puedo generar el resumen consultando los tickets abiertos, vencidos, en espera y cerrados del área de Comercial. Para hacerlo correctamente necesito acceso a los datos o filtros de fecha definidos.
+PALABRAS_CLAVE: comercial, resumen, pendiente, tickets
+APRENDIZAJE: Distinguir conversación de consulta real.
+---
+INTENCION: clasificar_area
+USUARIO: ¿Esto lo debe revisar Gerencia?
+ASISTENTE: Si el caso está relacionado con decisiones, aprobaciones, escalamiento final y prioridades estratégicas, puede clasificarse para el área de Gerencia. Si el impacto cruza varias áreas, conviene radicarlo con área principal y mencionar las áreas relacionadas.
+PALABRAS_CLAVE: gerencia, área, clasificar, responsable
+APRENDIZAJE: La IA debe ayudar a clasificar sin inventar responsables.
+---
+INTENCION: consultar_responsable_area
+USUARIO: ¿Quién responde los casos de Gerencia?
+ASISTENTE: La respuesta depende de los usuarios configurados en la aplicación. Puedo consultar el responsable si existe en la base de datos. Si no hay responsable asignado, el caso debe escalarse al jefe general o al Super Admin para configuración.
+PALABRAS_CLAVE: gerencia, responsable, asignado, usuarios
+APRENDIZAJE: Consultar datos reales si existen.
+---
+INTENCION: crear_ticket_area
+USUARIO: Necesito radicar una solicitud para Gerencia
+ASISTENTE: Para radicarla en Gerencia, registra una descripción clara, selecciona el área correspondiente, define prioridad, adjunta evidencia si aplica y confirma el solicitante. Si el caso afecta calidad, incluye el impacto o riesgo observado.
+PALABRAS_CLAVE: gerencia, radicar, solicitud, prioridad
+APRENDIZAJE: Radicación debe pedir datos mínimos.
+---
+INTENCION: resumen_area
+USUARIO: Dame un resumen de lo pendiente de Gerencia
+ASISTENTE: Puedo generar el resumen consultando los tickets abiertos, vencidos, en espera y cerrados del área de Gerencia. Para hacerlo correctamente necesito acceso a los datos o filtros de fecha definidos.
+PALABRAS_CLAVE: gerencia, resumen, pendiente, tickets
+APRENDIZAJE: Distinguir conversación de consulta real.
+---
+INTENCION: ticket_area_vencido
+USUARIO: El área de Calidad tiene un ticket vencido
+ASISTENTE: Debe revisarse la última gestión, responsable y causa del vencimiento. Si el área de Calidad requiere apoyo, registra el seguimiento y escala si aplica.
+PALABRAS_CLAVE: calidad, ticket, área, tiene
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_sin_responsable
+USUARIO: El área de Calidad no tiene responsable asignado
+ASISTENTE: El caso no debería quedar sin responsable. Si el área de Calidad no tiene usuario configurado, el Super Admin debe revisar la asignación.
+PALABRAS_CLAVE: calidad, ticket, área, no
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_evidencia
+USUARIO: El área de Calidad necesita adjuntar evidencia
+ASISTENTE: La evidencia debe demostrar el hecho reportado y quedar asociada al ticket del área de Calidad. Agrega una breve descripción del soporte.
+PALABRAS_CLAVE: calidad, ticket, área, necesita
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_resumen
+USUARIO: El área de Calidad necesita resumen semanal
+ASISTENTE: El resumen semanal de Calidad debe incluir tickets abiertos, cerrados, vencidos, reincidencias y acciones pendientes.
+PALABRAS_CLAVE: calidad, ticket, área, necesita
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_vencido
+USUARIO: El área de Talento Humano tiene un ticket vencido
+ASISTENTE: Debe revisarse la última gestión, responsable y causa del vencimiento. Si el área de Talento Humano requiere apoyo, registra el seguimiento y escala si aplica.
+PALABRAS_CLAVE: talento humano, ticket, área, tiene
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_sin_responsable
+USUARIO: El área de Talento Humano no tiene responsable asignado
+ASISTENTE: El caso no debería quedar sin responsable. Si el área de Talento Humano no tiene usuario configurado, el Super Admin debe revisar la asignación.
+PALABRAS_CLAVE: talento humano, ticket, área, no
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_evidencia
+USUARIO: El área de Talento Humano necesita adjuntar evidencia
+ASISTENTE: La evidencia debe demostrar el hecho reportado y quedar asociada al ticket del área de Talento Humano. Agrega una breve descripción del soporte.
+PALABRAS_CLAVE: talento humano, ticket, área, necesita
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_resumen
+USUARIO: El área de Talento Humano necesita resumen semanal
+ASISTENTE: El resumen semanal de Talento Humano debe incluir tickets abiertos, cerrados, vencidos, reincidencias y acciones pendientes.
+PALABRAS_CLAVE: talento humano, ticket, área, necesita
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_vencido
+USUARIO: El área de Sistemas tiene un ticket vencido
+ASISTENTE: Debe revisarse la última gestión, responsable y causa del vencimiento. Si el área de Sistemas requiere apoyo, registra el seguimiento y escala si aplica.
+PALABRAS_CLAVE: sistemas, ticket, área, tiene
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_sin_responsable
+USUARIO: El área de Sistemas no tiene responsable asignado
+ASISTENTE: El caso no debería quedar sin responsable. Si el área de Sistemas no tiene usuario configurado, el Super Admin debe revisar la asignación.
+PALABRAS_CLAVE: sistemas, ticket, área, no
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_evidencia
+USUARIO: El área de Sistemas necesita adjuntar evidencia
+ASISTENTE: La evidencia debe demostrar el hecho reportado y quedar asociada al ticket del área de Sistemas. Agrega una breve descripción del soporte.
+PALABRAS_CLAVE: sistemas, ticket, área, necesita
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_resumen
+USUARIO: El área de Sistemas necesita resumen semanal
+ASISTENTE: El resumen semanal de Sistemas debe incluir tickets abiertos, cerrados, vencidos, reincidencias y acciones pendientes.
+PALABRAS_CLAVE: sistemas, ticket, área, necesita
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_vencido
+USUARIO: El área de Logística tiene un ticket vencido
+ASISTENTE: Debe revisarse la última gestión, responsable y causa del vencimiento. Si el área de Logística requiere apoyo, registra el seguimiento y escala si aplica.
+PALABRAS_CLAVE: logística, ticket, área, tiene
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_sin_responsable
+USUARIO: El área de Logística no tiene responsable asignado
+ASISTENTE: El caso no debería quedar sin responsable. Si el área de Logística no tiene usuario configurado, el Super Admin debe revisar la asignación.
+PALABRAS_CLAVE: logística, ticket, área, no
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_evidencia
+USUARIO: El área de Logística necesita adjuntar evidencia
+ASISTENTE: La evidencia debe demostrar el hecho reportado y quedar asociada al ticket del área de Logística. Agrega una breve descripción del soporte.
+PALABRAS_CLAVE: logística, ticket, área, necesita
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_resumen
+USUARIO: El área de Logística necesita resumen semanal
+ASISTENTE: El resumen semanal de Logística debe incluir tickets abiertos, cerrados, vencidos, reincidencias y acciones pendientes.
+PALABRAS_CLAVE: logística, ticket, área, necesita
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_vencido
+USUARIO: El área de Administrativa tiene un ticket vencido
+ASISTENTE: Debe revisarse la última gestión, responsable y causa del vencimiento. Si el área de Administrativa requiere apoyo, registra el seguimiento y escala si aplica.
+PALABRAS_CLAVE: administrativa, ticket, área, tiene
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_sin_responsable
+USUARIO: El área de Administrativa no tiene responsable asignado
+ASISTENTE: El caso no debería quedar sin responsable. Si el área de Administrativa no tiene usuario configurado, el Super Admin debe revisar la asignación.
+PALABRAS_CLAVE: administrativa, ticket, área, no
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_evidencia
+USUARIO: El área de Administrativa necesita adjuntar evidencia
+ASISTENTE: La evidencia debe demostrar el hecho reportado y quedar asociada al ticket del área de Administrativa. Agrega una breve descripción del soporte.
+PALABRAS_CLAVE: administrativa, ticket, área, necesita
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_resumen
+USUARIO: El área de Administrativa necesita resumen semanal
+ASISTENTE: El resumen semanal de Administrativa debe incluir tickets abiertos, cerrados, vencidos, reincidencias y acciones pendientes.
+PALABRAS_CLAVE: administrativa, ticket, área, necesita
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_vencido
+USUARIO: El área de Financiera tiene un ticket vencido
+ASISTENTE: Debe revisarse la última gestión, responsable y causa del vencimiento. Si el área de Financiera requiere apoyo, registra el seguimiento y escala si aplica.
+PALABRAS_CLAVE: financiera, ticket, área, tiene
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_sin_responsable
+USUARIO: El área de Financiera no tiene responsable asignado
+ASISTENTE: El caso no debería quedar sin responsable. Si el área de Financiera no tiene usuario configurado, el Super Admin debe revisar la asignación.
+PALABRAS_CLAVE: financiera, ticket, área, no
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_evidencia
+USUARIO: El área de Financiera necesita adjuntar evidencia
+ASISTENTE: La evidencia debe demostrar el hecho reportado y quedar asociada al ticket del área de Financiera. Agrega una breve descripción del soporte.
+PALABRAS_CLAVE: financiera, ticket, área, necesita
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_resumen
+USUARIO: El área de Financiera necesita resumen semanal
+ASISTENTE: El resumen semanal de Financiera debe incluir tickets abiertos, cerrados, vencidos, reincidencias y acciones pendientes.
+PALABRAS_CLAVE: financiera, ticket, área, necesita
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_vencido
+USUARIO: El área de Comercial tiene un ticket vencido
+ASISTENTE: Debe revisarse la última gestión, responsable y causa del vencimiento. Si el área de Comercial requiere apoyo, registra el seguimiento y escala si aplica.
+PALABRAS_CLAVE: comercial, ticket, área, tiene
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_sin_responsable
+USUARIO: El área de Comercial no tiene responsable asignado
+ASISTENTE: El caso no debería quedar sin responsable. Si el área de Comercial no tiene usuario configurado, el Super Admin debe revisar la asignación.
+PALABRAS_CLAVE: comercial, ticket, área, no
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_evidencia
+USUARIO: El área de Comercial necesita adjuntar evidencia
+ASISTENTE: La evidencia debe demostrar el hecho reportado y quedar asociada al ticket del área de Comercial. Agrega una breve descripción del soporte.
+PALABRAS_CLAVE: comercial, ticket, área, necesita
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_resumen
+USUARIO: El área de Comercial necesita resumen semanal
+ASISTENTE: El resumen semanal de Comercial debe incluir tickets abiertos, cerrados, vencidos, reincidencias y acciones pendientes.
+PALABRAS_CLAVE: comercial, ticket, área, necesita
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_vencido
+USUARIO: El área de Gerencia tiene un ticket vencido
+ASISTENTE: Debe revisarse la última gestión, responsable y causa del vencimiento. Si el área de Gerencia requiere apoyo, registra el seguimiento y escala si aplica.
+PALABRAS_CLAVE: gerencia, ticket, área, tiene
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_sin_responsable
+USUARIO: El área de Gerencia no tiene responsable asignado
+ASISTENTE: El caso no debería quedar sin responsable. Si el área de Gerencia no tiene usuario configurado, el Super Admin debe revisar la asignación.
+PALABRAS_CLAVE: gerencia, ticket, área, no
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_evidencia
+USUARIO: El área de Gerencia necesita adjuntar evidencia
+ASISTENTE: La evidencia debe demostrar el hecho reportado y quedar asociada al ticket del área de Gerencia. Agrega una breve descripción del soporte.
+PALABRAS_CLAVE: gerencia, ticket, área, necesita
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
+INTENCION: ticket_area_resumen
+USUARIO: El área de Gerencia necesita resumen semanal
+ASISTENTE: El resumen semanal de Gerencia debe incluir tickets abiertos, cerrados, vencidos, reincidencias y acciones pendientes.
+PALABRAS_CLAVE: gerencia, ticket, área, necesita
+APRENDIZAJE: Aprender casos combinados por área y estado.
+---
