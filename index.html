@@ -1076,6 +1076,33 @@ tr.need-accept-row td:first-child{
   .semaforo-board{grid-template-columns:1fr}
 }
 
+
+/* =========================================================
+   PRUEBA AUTOMÁTICA DIARIA
+   ========================================================= */
+.auto-test-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  border-radius:999px;
+  padding:6px 10px;
+  background:#eef6ff;
+  color:#0b3b82;
+  border:1px solid rgba(13,91,210,.16);
+  font-weight:900;
+  font-size:11px;
+}
+.auto-test-panel{
+  border:1px solid rgba(13,91,210,.14);
+  background:linear-gradient(135deg,#ffffff,#f7fbff);
+  border-radius:22px;
+  padding:14px;
+  margin:12px 0 16px;
+  color:#0b3b82;
+}
+.auto-test-panel strong{display:block;margin-bottom:5px}
+.auto-test-panel small{color:#315783;line-height:1.45}
+
 </style>
 </head>
 <body>
@@ -4027,6 +4054,175 @@ ticketActions=function(t){
   if(isInternal() && (t.assignedTo===state.user.id || hasLead()) && ['En proceso','Espera ampliada'].includes(t.status))actions+=`<button class="btn gold" onclick="extendTicket('${t.id}')">Ampliar espera</button><button class="btn ok" onclick="resolveTicket('${t.id}')">Resolver</button>`;
   if((hasLead() || t.createdBy===state.user.id) && t.status==='Resuelta')actions+=`<button class="btn primary" onclick="closeTicket('${t.id}')">Cerrar y notificar</button>`;
   return actions;
+};
+
+
+/* =========================================================
+   PRUEBA AUTOMÁTICA DIARIA PARA ALIMENTAR SUPABASE
+   - Crea 1 ticket aleatorio diario.
+   - Lo acepta, resuelve y cierra automáticamente.
+   - No envía correo.
+   - No requiere SQL.
+   Nota: en GitHub Pages se ejecuta cuando alguien abre la app.
+   ========================================================= */
+const DAILY_AUTO_TEST_VERSION="Prueba automática diaria · tickets cerrados";
+const DAILY_AUTO_TEST_ENABLED=true;
+
+function autoTestDayKey(date=new Date()){
+  return date.toISOString().slice(0,10);
+}
+function autoTestIdForDay(day=autoTestDayKey()){
+  return "auto_test_"+day.replaceAll("-","");
+}
+function randPick(arr){
+  return arr[Math.floor(Math.random()*arr.length)];
+}
+function randomPastIso(baseDate, hourMin=7, hourMax=11){
+  const d=new Date(baseDate);
+  d.setHours(hourMin+Math.floor(Math.random()*(hourMax-hourMin+1)),Math.floor(Math.random()*50),0,0);
+  return d.toISOString();
+}
+function addMinutesIso(iso,mins){
+  return new Date(new Date(iso).getTime()+mins*60000).toISOString();
+}
+function dailyAutoTestKnowledge(){
+  return [
+    {
+      category:"Documento",
+      title:"Prueba diaria de actualización documental",
+      area:"Calidad",
+      desc:"Desde el proceso de Calidad se realiza una prueba automática de trazabilidad para validar el registro, asignación, aceptación, resolución y cierre de una solicitud documental dentro de la mesa de ayuda."
+    },
+    {
+      category:"Auditoría",
+      title:"Prueba diaria de seguimiento de auditoría",
+      area:"Auditoría interna",
+      desc:"Desde auditoría interna se genera una prueba automática para verificar que el flujo de atención registre aceptación, respuesta, evidencia de gestión y cierre con trazabilidad."
+    },
+    {
+      category:"Indicador/KPI",
+      title:"Prueba diaria de revisión de indicador",
+      area:"Mejoramiento continuo",
+      desc:"Desde mejoramiento continuo se registra una prueba automática para alimentar los indicadores de gestión, validar tiempos de respuesta y confirmar comportamiento del tablero."
+    },
+    {
+      category:"Mejora continua",
+      title:"Prueba diaria de mejora operativa",
+      area:"Calidad y mejora continua",
+      desc:"Se ejecuta una prueba automática para validar que la plataforma conserve la trazabilidad de una mejora operativa desde la radicación hasta el cierre."
+    },
+    {
+      category:"Procedimiento",
+      title:"Prueba diaria de revisión de procedimiento",
+      area:"Gestión documental",
+      desc:"Desde gestión documental se crea una prueba automática para verificar el comportamiento del flujo asociado a procedimientos, responsables y cierre controlado."
+    }
+  ];
+}
+function shouldCreateDailyAutoTest(){
+  if(!DAILY_AUTO_TEST_ENABLED)return false;
+  if(!Array.isArray(state.tickets))return false;
+  const today=autoTestDayKey();
+  return !state.tickets.some(t=>t.autoTest===true && t.autoTestDay===today);
+}
+async function createDailyAutoTestTicket(){
+  if(!shouldCreateDailyAutoTest())return null;
+  const today=autoTestDayKey();
+  const data=randPick(dailyAutoTestKnowledge());
+  const responsible=randPick(responders()) || state.users.find(u=>u.id===state.user?.id) || {id:state.user?.id||"admin",name:state.user?.name||"Sistema"};
+  const created=randomPastIso(new Date(),7,8);
+  const accepted=addMinutesIso(created,10+Math.floor(Math.random()*20));
+  const resolved=addMinutesIso(accepted,35+Math.floor(Math.random()*110));
+  const closed=addMinutesIso(resolved,10+Math.floor(Math.random()*30));
+  const priority=randPick(["Baja","Media","Media","Alta"]);
+  const modality=data.category==="Auditoría"?"Mixta":"Documental";
+  const id=autoTestIdForDay(today);
+  const ticket={
+    id,
+    code:'DT-'+String(maxTicketCode()+1).padStart(4,'0'),
+    autoTest:true,
+    autoTestDay:today,
+    requesterName:"Prueba automática del sistema",
+    requesterEmail:"",
+    requesterArea:data.area,
+    assignedTo:responsible.id,
+    category:data.category,
+    priority,
+    modality,
+    title:data.title,
+    description:data.desc+" Esta solicitud se genera de forma controlada para alimentar Supabase, probar indicadores diarios y verificar que el flujo completo se mantenga funcional sin afectar solicitudes reales.",
+    evidence:"Prueba automática sin evidencia externa",
+    attachments:[],
+    resolutionFiles:[],
+    templateData:{origen:"prueba_automatica_diaria"},
+    status:"Cerrada",
+    createdBy:"sistema_prueba_diaria",
+    acceptedAt:accepted,
+    finishedAt:resolved,
+    extendedReason:"",
+    satisfaction:{score:5,comment:"Prueba automática cerrada correctamente.",at:closed,by:"Sistema"},
+    emailLog:[{type:"auto_test",status:"skipped",to:"",at:created,provider:"No aplica"}],
+    chat:[
+      {by:"Sistema de prueba diaria",text:"Solicitud de prueba radicada automáticamente para alimentar Supabase.",at:created,role:"Sistema"},
+      {by:responsible.name||userName(responsible.id),text:"Solicitud de prueba aceptada automáticamente.",at:accepted,role:"Sistema"},
+      {by:responsible.name||userName(responsible.id),text:"Solicitud de prueba resuelta automáticamente. Flujo validado correctamente.",at:resolved,role:"Sistema"},
+      {by:"Sistema de prueba diaria",text:"Solicitud de prueba cerrada automáticamente con trazabilidad completa.",at:closed,role:"Sistema"}
+    ],
+    timeline:[
+      {label:"Radicación automática",text:"Solicitud de prueba creada para alimentar Supabase.",at:created},
+      {label:"Aceptación automática",text:"El sistema simuló la aceptación de la solicitud.",at:accepted},
+      {label:"Resolución automática",text:"El sistema simuló la resolución de la solicitud.",at:resolved},
+      {label:"Cierre automático",text:"El sistema cerró la solicitud de prueba.",at:closed}
+    ],
+    created_at:created,
+    updated_at:closed
+  };
+  if(typeof ticketQualityFromObject==="function")ticket.quality=ticketQualityFromObject(ticket);
+  if(typeof makeSlaMeta==="function")ticket.sla=makeSlaMeta(ticket);
+  await saveRecord(tables.tickets,ticket);
+  state.tickets=await listRecords(tables.tickets);
+  console.info("Prueba automática diaria creada:",ticket.code);
+  return ticket;
+}
+async function ensureDailyAutoTest(){
+  try{
+    const t=await createDailyAutoTestTicket();
+    if(t && isInternal()){
+      setTimeout(()=>toast(`Prueba diaria creada y cerrada: ${t.code}`),600);
+    }
+  }catch(e){
+    console.warn("No se pudo crear la prueba diaria automática",e);
+  }
+}
+const seedBeforeDailyAutoTest=seed;
+seed=async function(){
+  await seedBeforeDailyAutoTest();
+  await ensureDailyAutoTest();
+};
+
+const dashboardHtmlBeforeDailyAutoTest=dashboardHtml;
+dashboardHtml=function(){
+  const today=autoTestDayKey();
+  const test=state.tickets.find(t=>t.autoTest===true && t.autoTestDay===today);
+  const panel=isInternal()?`<div class="auto-test-panel"><strong>Prueba automática diaria</strong><small>${test?`Hoy ya se creó y cerró la prueba ${escapeHtml(test.code)} para alimentar Supabase.`:"La prueba diaria se generará automáticamente al cargar la app."} Esta función no envía correo y no afecta solicitudes reales.</small></div>`:"";
+  return panel+dashboardHtmlBeforeDailyAutoTest();
+};
+
+const ticketsHtmlBeforeDailyAutoTest=ticketsHtml;
+ticketsHtml=function(){
+  let h=ticketsHtmlBeforeDailyAutoTest();
+  h=h.replaceAll("<th>Código</th>","<th>Código</th>");
+  h=h.replaceAll(/(<strong>DT-\d+<\/strong>)/g,"$1");
+  return h;
+};
+
+const detailHtmlBeforeDailyAutoTest=detailHtml;
+detailHtml=function(t){
+  let h=detailHtmlBeforeDailyAutoTest(t);
+  if(t?.autoTest){
+    h=h.replace('<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">','<div class="auto-test-tag">🤖 Prueba automática diaria</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;margin-top:10px">');
+  }
+  return h;
 };
 
 window.addEventListener('DOMContentLoaded',async()=>{
