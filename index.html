@@ -1467,6 +1467,277 @@ html,body{overscroll-behavior-y:contain}
 .guided-clean-popup .swal2-input,.guided-clean-popup .swal2-textarea,.guided-clean-popup .swal2-select{width:100%!important;margin:10px 0 0!important;border-radius:16px!important}
 .guided-clean-popup .swal2-textarea{min-height:110px!important}
 
+
+/* =========================================================
+   CORRECCIÓN DEFINITIVA ESPACIO BLANCO EN RADICACIÓN MÓVIL
+   Causa: el layout móvil conservaba estructura de dashboard/topbar y alturas
+   heredadas, dejando un hueco enorme antes del formulario.
+   Solución: modo create-mobile compacto, sin hero/topbar invasivo, sin
+   min-heights artificiales y con scroll natural.
+   ========================================================= */
+
+/* Clase aplicada solo cuando la vista es Crear/Radicar solicitud */
+body.create-mobile-compact{
+  background:#f7fbff!important;
+}
+
+/* No bloquear táctil: solo controlar dimensiones heredadas */
+@media(max-width:880px){
+  body.create-mobile-compact,
+  body.create-mobile-compact #app,
+  body.create-mobile-compact .app-shell,
+  body.create-mobile-compact .main,
+  body.create-mobile-compact .content,
+  body.create-mobile-compact #view{
+    min-height:0!important;
+    height:auto!important;
+    max-height:none!important;
+    overflow:visible!important;
+    transform:none!important;
+  }
+
+  body.create-mobile-compact .main{
+    padding:8px 10px calc(18px + env(safe-area-inset-bottom))!important;
+    margin:0!important;
+    background:#f7fbff!important;
+  }
+
+  body.create-mobile-compact .content,
+  body.create-mobile-compact #view{
+    padding:0!important;
+    margin:0!important;
+    background:transparent!important;
+  }
+
+  /* La barra superior era parte del problema: ocupaba mucho y quedaba abajo tras el hueco */
+  body.create-mobile-compact .topbar{
+    position:relative!important;
+    top:auto!important;
+    margin:0 0 8px 0!important;
+    padding:8px!important;
+    min-height:0!important;
+    border-radius:22px!important;
+    display:grid!important;
+    grid-template-columns:44px 1fr!important;
+    gap:8px!important;
+    align-items:center!important;
+    background:#ffffff!important;
+    border:1px solid rgba(11,59,130,.10)!important;
+    box-shadow:0 8px 22px rgba(11,59,130,.06)!important;
+  }
+
+  body.create-mobile-compact .mobile-menu{
+    width:44px!important;
+    height:44px!important;
+    min-width:44px!important;
+    min-height:44px!important;
+    border-radius:17px!important;
+  }
+
+  body.create-mobile-compact .page-title{
+    min-width:0!important;
+  }
+
+  body.create-mobile-compact .page-title h1{
+    font-size:21px!important;
+    line-height:1.05!important;
+    margin:0!important;
+    color:#0b3b82!important;
+  }
+
+  body.create-mobile-compact .page-title p{
+    display:none!important;
+  }
+
+  body.create-mobile-compact .top-actions{
+    grid-column:1 / -1!important;
+    display:flex!important;
+    gap:8px!important;
+    justify-content:flex-start!important;
+    flex-wrap:wrap!important;
+    margin-top:4px!important;
+  }
+
+  body.create-mobile-compact .top-actions .btn{
+    min-height:38px!important;
+    padding:8px 12px!important;
+    border-radius:16px!important;
+    font-size:12px!important;
+  }
+
+  /* El formulario empieza inmediatamente después de la barra, sin huecos */
+  body.create-mobile-compact .simple-request-shell{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:10px!important;
+    padding:0!important;
+    margin:0!important;
+    min-height:0!important;
+  }
+
+  body.create-mobile-compact .simple-form-card,
+  body.create-mobile-compact .simple-assisted-card,
+  body.create-mobile-compact .simple-submit-card,
+  body.create-mobile-compact .simple-quality-zone,
+  body.create-mobile-compact .simple-lookup-card,
+  body.create-mobile-compact .card{
+    margin:0!important;
+    transform:none!important;
+    will-change:auto!important;
+  }
+
+  body.create-mobile-compact .simple-form-card{
+    order:2!important;
+    padding:14px!important;
+    border-radius:24px!important;
+    background:#ffffff!important;
+    border:1px solid rgba(11,59,130,.11)!important;
+    box-shadow:0 10px 26px rgba(11,59,130,.06)!important;
+  }
+
+  body.create-mobile-compact .simple-side{
+    order:1!important;
+    display:flex!important;
+    flex-direction:column!important;
+    gap:10px!important;
+    margin:0!important;
+    padding:0!important;
+  }
+
+  /* Orden: ayuda IA arriba, enviar debajo, semáforo debajo */
+  body.create-mobile-compact .simple-assisted-card{
+    order:1!important;
+    padding:14px!important;
+    border-radius:24px!important;
+    background:linear-gradient(180deg,#ffffff,#fffaf0)!important;
+    border:1px solid rgba(247,191,36,.22)!important;
+    box-shadow:0 10px 24px rgba(247,191,36,.08)!important;
+  }
+
+  body.create-mobile-compact .simple-submit-card{
+    order:2!important;
+    position:static!important;
+    padding:12px!important;
+    border-radius:24px!important;
+    background:linear-gradient(145deg,#0b3b82,#0d5bd2)!important;
+    box-shadow:0 14px 32px rgba(13,91,210,.17)!important;
+  }
+
+  body.create-mobile-compact .simple-quality-zone{
+    order:3!important;
+  }
+
+  body.create-mobile-compact .simple-lookup-card{
+    order:4!important;
+  }
+
+  body.create-mobile-compact .simple-assisted-card h2{
+    font-size:18px!important;
+    margin:0 0 5px!important;
+  }
+
+  body.create-mobile-compact .simple-assisted-card p{
+    font-size:12px!important;
+    line-height:1.35!important;
+    margin:0 0 10px!important;
+  }
+
+  body.create-mobile-compact .assist-big-btn,
+  body.create-mobile-compact .big-send-btn{
+    min-height:56px!important;
+    border-radius:20px!important;
+    padding:12px 14px!important;
+  }
+
+  body.create-mobile-compact .assist-big-btn span,
+  body.create-mobile-compact .big-send-btn span{
+    font-size:19px!important;
+    line-height:1.05!important;
+  }
+
+  body.create-mobile-compact .assist-big-btn small,
+  body.create-mobile-compact .big-send-btn small{
+    font-size:10px!important;
+  }
+
+  body.create-mobile-compact .simple-submit-note{
+    display:none!important;
+  }
+
+  body.create-mobile-compact .simple-form-head{
+    margin:0 0 10px!important;
+  }
+
+  body.create-mobile-compact .simple-form-head h2{
+    font-size:22px!important;
+    margin:0!important;
+    line-height:1.05!important;
+  }
+
+  body.create-mobile-compact .simple-form-head p{
+    font-size:12px!important;
+    line-height:1.35!important;
+    margin:5px 0 0!important;
+  }
+
+  body.create-mobile-compact .simple-request-mini{
+    margin:8px 0 0!important;
+  }
+
+  body.create-mobile-compact .simple-chip{
+    font-size:10px!important;
+    padding:6px 8px!important;
+  }
+
+  body.create-mobile-compact .field{
+    margin-bottom:9px!important;
+  }
+
+  body.create-mobile-compact .field label{
+    font-size:11px!important;
+    margin-bottom:5px!important;
+  }
+
+  body.create-mobile-compact input,
+  body.create-mobile-compact select,
+  body.create-mobile-compact textarea{
+    min-height:44px!important;
+    border-radius:16px!important;
+    font-size:14px!important;
+  }
+
+  body.create-mobile-compact textarea{
+    min-height:98px!important;
+  }
+
+  body.create-mobile-compact .grid.cols-2,
+  body.create-mobile-compact .grid.cols-3{
+    grid-template-columns:1fr!important;
+    gap:8px!important;
+  }
+
+  body.create-mobile-compact .quality-panel{
+    padding:12px!important;
+    border-radius:22px!important;
+    box-shadow:0 10px 24px rgba(11,59,130,.05)!important;
+  }
+
+  body.create-mobile-compact .quality-panel .section-title h2{
+    font-size:15px!important;
+  }
+}
+
+/* Seguridad adicional: si algún estilo viejo mete espacio antes del view, se elimina en create */
+@media(max-width:880px){
+  body.create-mobile-compact #view::before,
+  body.create-mobile-compact .content::before,
+  body.create-mobile-compact .main::before{
+    content:none!important;
+    display:none!important;
+    height:0!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -4809,6 +5080,76 @@ if(bindViewBeforeStableFinal){
   bindView=function(){
     bindViewBeforeStableFinal();
     if(state.view==="create"){setTimeout(safeTop,40);autoOpenGuideForMobileSolicitante();}
+  };
+}
+
+
+/* =========================================================
+   ACTIVADOR MODO CREATE MÓVIL COMPACTO
+   Elimina el espacio blanco gigante sin bloquear scroll táctil.
+   ========================================================= */
+function isCreateMobile(){
+  return window.matchMedia("(max-width: 880px)").matches && state?.view==="create";
+}
+function applyCreateMobileCompact(){
+  document.body.classList.toggle("create-mobile-compact",isCreateMobile());
+  if(isCreateMobile()){
+    document.documentElement.style.background="#f7fbff";
+    document.body.style.background="#f7fbff";
+    document.body.style.overflowY="auto";
+    document.body.style.position="static";
+    const main=document.querySelector(".main");
+    if(main){
+      main.style.overflow="visible";
+      main.style.height="auto";
+      main.style.minHeight="0";
+      main.style.maxHeight="none";
+    }
+  }
+}
+function jumpCreateToTop(){
+  if(!isCreateMobile())return;
+  requestAnimationFrame(()=>{
+    try{window.scrollTo(0,0)}catch(e){}
+    const main=document.querySelector(".main");
+    if(main){
+      try{main.scrollTop=0;main.scrollLeft=0}catch(e){}
+    }
+  });
+}
+window.addEventListener("resize",()=>{applyCreateMobileCompact();jumpCreateToTop()});
+window.addEventListener("DOMContentLoaded",()=>{applyCreateMobileCompact();jumpCreateToTop()});
+
+if(typeof renderApp==="function"){
+  const renderAppBeforeNoBlank=renderApp;
+  renderApp=function(){
+    renderAppBeforeNoBlank();
+    applyCreateMobileCompact();
+    if(state.view==="create")jumpCreateToTop();
+  };
+}
+if(typeof renderView==="function"){
+  const renderViewBeforeNoBlank=renderView;
+  renderView=function(){
+    renderViewBeforeNoBlank();
+    applyCreateMobileCompact();
+    if(state.view==="create")jumpCreateToTop();
+  };
+}
+if(typeof setView==="function"){
+  const setViewBeforeNoBlank=setView;
+  setView=function(view){
+    setViewBeforeNoBlank(view);
+    applyCreateMobileCompact();
+    if(view==="create")jumpCreateToTop();
+  };
+}
+if(typeof bindView==="function"){
+  const bindViewBeforeNoBlank=bindView;
+  bindView=function(){
+    bindViewBeforeNoBlank();
+    applyCreateMobileCompact();
+    if(state.view==="create")jumpCreateToTop();
   };
 }
 
