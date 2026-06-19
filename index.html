@@ -1103,6 +1103,94 @@ tr.need-accept-row td:first-child{
 .auto-test-panel strong{display:block;margin-bottom:5px}
 .auto-test-panel small{color:#315783;line-height:1.45}
 
+
+/* =========================================================
+   BOTÓN PRINCIPAL DE RADICACIÓN
+   Más visible, grande y ubicado al lado izquierdo del formulario.
+   ========================================================= */
+.send-request-zone{
+  display:flex;
+  justify-content:flex-start;
+  align-items:center;
+  gap:14px;
+  margin:18px 0 6px;
+  padding:16px;
+  border-radius:26px;
+  background:linear-gradient(135deg,#eaf2ff,#ffffff 58%,#fff7db);
+  border:1px solid rgba(11,59,130,.14);
+  box-shadow:0 18px 38px rgba(11,59,130,.10);
+}
+.big-send-btn{
+  border:0;
+  cursor:pointer;
+  min-width:290px;
+  min-height:82px;
+  border-radius:24px;
+  padding:18px 24px;
+  background:linear-gradient(135deg,#0b3b82,#0d5bd2);
+  color:#ffffff;
+  box-shadow:0 20px 38px rgba(13,91,210,.26);
+  font-family:"Century Gothic",Arial,sans-serif;
+  text-align:left;
+  position:relative;
+  overflow:hidden;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.big-send-btn:before{
+  content:"";
+  position:absolute;
+  right:-38px;
+  top:-38px;
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  background:rgba(247,191,36,.32);
+}
+.big-send-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 24px 46px rgba(13,91,210,.34);
+}
+.big-send-btn span{
+  display:block;
+  font-weight:900;
+  font-size:25px;
+  letter-spacing:.2px;
+  line-height:1.05;
+}
+.big-send-btn small{
+  display:block;
+  margin-top:7px;
+  font-weight:800;
+  color:#fff7db;
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:.9px;
+}
+.send-request-help{
+  max-width:360px;
+  color:#315783;
+  line-height:1.45;
+  font-size:13px;
+  margin:0;
+}
+.send-request-help strong{
+  color:#0b3b82;
+}
+@media(max-width:760px){
+  .send-request-zone{
+    align-items:stretch;
+    flex-direction:column;
+  }
+  .big-send-btn{
+    width:100%;
+    min-width:0;
+    text-align:center;
+  }
+  .send-request-help{
+    max-width:none;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -4221,6 +4309,24 @@ detailHtml=function(t){
   let h=detailHtmlBeforeDailyAutoTest(t);
   if(t?.autoTest){
     h=h.replace('<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">','<div class="auto-test-tag">🤖 Prueba automática diaria</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;margin-top:10px">');
+  }
+  return h;
+};
+
+
+/* =========================================================
+   BOTÓN ENVIAR SOLICITUD GRANDE
+   Se deja un único CTA principal, visible y a la izquierda.
+   ========================================================= */
+const createHtmlBeforeBigSubmit=createHtml;
+createHtml=function(){
+  let h=createHtmlBeforeBigSubmit();
+  const oldButton='<button class="btn primary pulse" type="submit">Enviar solicitud</button>';
+  const newButton=`<div class="send-request-zone"><button class="big-send-btn" type="submit"><span>Enviar solicitud</span><small>Radicar ahora</small></button><p class="send-request-help"><strong>Último paso:</strong> cuando la información esté lista, presiona este botón grande para radicar la solicitud y generar el comprobante.</p></div>`;
+  if(h.includes(oldButton)){
+    h=h.replace(oldButton,newButton);
+  }else if(!h.includes('big-send-btn')){
+    h=h.replace('</form>',newButton+'</form>');
   }
   return h;
 };
