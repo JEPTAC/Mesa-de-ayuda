@@ -1910,6 +1910,188 @@ body.create-mobile-compact{
   }
 }
 
+
+/* =========================================================
+   FIX DEFINITIVO MENÚ MÓVIL
+   Se deja de usar el sidebar de escritorio como menú táctil.
+   En móvil se usa un drawer independiente, sólido, sin blur y con botones reales.
+   ========================================================= */
+@media(max-width:880px){
+  /* El sidebar original no se usa como menú móvil porque hereda estilos de escritorio */
+  .sidebar{
+    display:none!important;
+  }
+
+  .app-shell{
+    display:block!important;
+    grid-template-columns:none!important;
+  }
+
+  .main{
+    width:100%!important;
+    min-width:0!important;
+    margin:0!important;
+    padding:10px 10px calc(22px + env(safe-area-inset-bottom))!important;
+    background:#f7fbff!important;
+  }
+
+  .mobile-drawer-backdrop{
+    position:fixed!important;
+    inset:0!important;
+    z-index:2147483000!important;
+    background:rgba(3,22,45,.38)!important;
+    opacity:0!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+    transition:opacity .18s ease, visibility .18s ease!important;
+  }
+
+  .mobile-drawer{
+    position:fixed!important;
+    top:0!important;
+    left:0!important;
+    bottom:0!important;
+    width:min(315px,86vw)!important;
+    height:100dvh!important;
+    z-index:2147483100!important;
+    transform:translateX(-110%)!important;
+    transition:transform .22s ease!important;
+    background:#ffffff!important;
+    border-radius:0 28px 28px 0!important;
+    box-shadow:28px 0 70px rgba(3,22,45,.28)!important;
+    padding:18px 14px calc(18px + env(safe-area-inset-bottom))!important;
+    overflow-y:auto!important;
+    -webkit-overflow-scrolling:touch!important;
+    pointer-events:auto!important;
+    touch-action:auto!important;
+  }
+
+  body.mobile-real-menu-open{
+    overflow:hidden!important;
+  }
+
+  body.mobile-real-menu-open .mobile-drawer-backdrop{
+    opacity:1!important;
+    visibility:visible!important;
+    pointer-events:auto!important;
+  }
+
+  body.mobile-real-menu-open .mobile-drawer{
+    transform:translateX(0)!important;
+    pointer-events:auto!important;
+  }
+
+  .mobile-drawer-head{
+    display:grid!important;
+    gap:10px!important;
+    justify-items:center!important;
+    padding:4px 4px 14px!important;
+    border-bottom:1px solid rgba(11,59,130,.10)!important;
+    margin-bottom:12px!important;
+  }
+
+  .mobile-drawer-head img{
+    width:142px!important;
+    max-width:80%!important;
+    height:auto!important;
+    object-fit:contain!important;
+    filter:drop-shadow(0 8px 18px rgba(11,59,130,.10))!important;
+  }
+
+  .mobile-drawer-head small{
+    color:#315783!important;
+    text-align:center!important;
+    font-size:11px!important;
+    line-height:1.35!important;
+  }
+
+  .mobile-drawer-user{
+    display:flex!important;
+    align-items:center!important;
+    gap:10px!important;
+    padding:10px!important;
+    margin:0 0 12px!important;
+    border-radius:20px!important;
+    background:#f7fbff!important;
+    border:1px solid rgba(11,59,130,.10)!important;
+  }
+
+  .mobile-drawer-user img{
+    width:48px!important;
+    height:48px!important;
+    border-radius:16px!important;
+    object-fit:cover!important;
+  }
+
+  .mobile-drawer-user strong{
+    display:block!important;
+    color:#0b3b82!important;
+    font-size:13px!important;
+    line-height:1.15!important;
+  }
+
+  .mobile-drawer-user span{
+    display:block!important;
+    color:#60738f!important;
+    font-size:11px!important;
+    margin-top:3px!important;
+  }
+
+  .mobile-drawer-nav{
+    display:grid!important;
+    gap:8px!important;
+  }
+
+  .mobile-drawer-nav button{
+    width:100%!important;
+    min-height:52px!important;
+    display:flex!important;
+    align-items:center!important;
+    gap:12px!important;
+    text-align:left!important;
+    border-radius:18px!important;
+    padding:12px 14px!important;
+    background:#f7fbff!important;
+    color:#0b3b82!important;
+    border:1px solid rgba(11,59,130,.10)!important;
+    font-family:"Century Gothic",Arial,sans-serif!important;
+    font-size:14px!important;
+    font-weight:900!important;
+    pointer-events:auto!important;
+    touch-action:manipulation!important;
+    -webkit-tap-highlight-color:rgba(13,91,210,.14)!important;
+  }
+
+  .mobile-drawer-nav button.active{
+    background:linear-gradient(135deg,#0b3b82,#0d5bd2)!important;
+    color:#ffffff!important;
+    box-shadow:0 12px 26px rgba(13,91,210,.18)!important;
+  }
+
+  .mobile-drawer-nav button .icon{
+    min-width:26px!important;
+    font-size:20px!important;
+  }
+
+  .mobile-drawer-footer{
+    margin-top:14px!important;
+    padding-top:12px!important;
+    border-top:1px solid rgba(11,59,130,.10)!important;
+    display:grid!important;
+    gap:8px!important;
+  }
+
+  .mobile-drawer-footer button{
+    width:100%!important;
+    min-height:46px!important;
+    border-radius:16px!important;
+    background:#ffffff!important;
+    color:#0b3b82!important;
+    border:1px solid rgba(11,59,130,.12)!important;
+    font-weight:900!important;
+  }
+}
+
 </style>
 
   <!-- Iconos APP / iPhone / Navegador -->
@@ -5509,6 +5691,128 @@ if(setViewBeforeMenuFunctional){
 window.addEventListener("resize",()=>{
   if(window.matchMedia("(min-width:881px)").matches)closeMobileMenu();
 });
+
+
+/* =========================================================
+   MENÚ MÓVIL REAL E INDEPENDIENTE
+   No usa el sidebar original; evita blur, backdrop bloqueante y errores iOS.
+   ========================================================= */
+function mobileNavItemsReal(){
+  if(!isInternal()){
+    return [
+      {view:"create",icon:"📝",label:"Radicar / consultar"},
+      {view:"ai",icon:"🤖",label:"IA Calidad"},
+      {view:"game",icon:"🎮",label:"Juegos IA"}
+    ];
+  }
+  const base=[
+    {view:"dashboard",icon:"🏠",label:"Inicio"},
+    {view:"create",icon:"📝",label:"Nueva solicitud"},
+    {view:"tickets",icon:"🎫",label:"Solicitudes"},
+    {view:"ai",icon:"🤖",label:"IA Calidad"},
+    {view:"game",icon:"🎮",label:"Juegos IA"}
+  ];
+  if(hasLead())base.push({view:"kpis",icon:"📊",label:"KPIs"});
+  return base;
+}
+function ensureMobileDrawerReal(){
+  let bg=document.querySelector(".mobile-drawer-backdrop");
+  let drawer=document.querySelector(".mobile-drawer");
+
+  if(!bg){
+    bg=document.createElement("div");
+    bg.className="mobile-drawer-backdrop";
+    bg.addEventListener("click",closeMobileMenuReal);
+    document.body.appendChild(bg);
+  }
+
+  if(!drawer){
+    drawer=document.createElement("aside");
+    drawer.className="mobile-drawer";
+    document.body.appendChild(drawer);
+  }
+
+  const avatar=state.user?.avatar||assets.fun;
+  const items=mobileNavItemsReal();
+  drawer.innerHTML=`<div class="mobile-drawer-head"><img src="${assets.logo}" alt="Dream Team de Calidad"><small>Mesa de ayuda de calidad y mejoramiento continuo.</small></div>
+    <div class="mobile-drawer-user"><img src="${avatar}" onerror="this.src='${assets.fun}'"><div><strong>${escapeHtml(state.user?.name||"Solicitante general")}</strong><span>${escapeHtml(state.user?.role||"Solicitante")}</span></div></div>
+    <nav class="mobile-drawer-nav">
+      ${items.map(i=>`<button type="button" class="${state.view===i.view?'active':''}" data-mobile-view="${i.view}"><span class="icon">${i.icon}</span><span>${i.label}</span></button>`).join("")}
+    </nav>
+    <div class="mobile-drawer-footer"><button type="button" data-mobile-action="refresh">Actualizar</button><button type="button" data-mobile-action="logout">Salir</button></div>`;
+
+  drawer.querySelectorAll("[data-mobile-view]").forEach(btn=>{
+    btn.addEventListener("click",(ev)=>{
+      ev.preventDefault();
+      ev.stopPropagation();
+      const view=btn.dataset.mobileView;
+      closeMobileMenuReal();
+      setTimeout(()=>setView(view),80);
+    });
+  });
+
+  drawer.querySelector('[data-mobile-action="refresh"]')?.addEventListener("click",(ev)=>{
+    ev.preventDefault();
+    ev.stopPropagation();
+    closeMobileMenuReal();
+    setTimeout(()=>refreshData(),80);
+  });
+
+  drawer.querySelector('[data-mobile-action="logout"]')?.addEventListener("click",(ev)=>{
+    ev.preventDefault();
+    ev.stopPropagation();
+    closeMobileMenuReal();
+    setTimeout(()=>logout(),80);
+  });
+
+  return drawer;
+}
+function openMobileMenuReal(){
+  ensureMobileDrawerReal();
+  document.body.classList.add("mobile-real-menu-open");
+}
+function closeMobileMenuReal(){
+  document.body.classList.remove("mobile-real-menu-open");
+}
+toggleMenu=function(){
+  if(window.matchMedia("(max-width:880px)").matches){
+    if(document.body.classList.contains("mobile-real-menu-open"))closeMobileMenuReal();
+    else openMobileMenuReal();
+    return;
+  }
+  document.getElementById("sidebar")?.classList.toggle("open");
+};
+
+const renderAppBeforeMobileDrawerReal=typeof renderApp==="function"?renderApp:null;
+if(renderAppBeforeMobileDrawerReal){
+  renderApp=function(){
+    renderAppBeforeMobileDrawerReal();
+    ensureMobileDrawerReal();
+    closeMobileMenuReal();
+  };
+}
+
+const renderViewBeforeMobileDrawerReal=typeof renderView==="function"?renderView:null;
+if(renderViewBeforeMobileDrawerReal){
+  renderView=function(){
+    renderViewBeforeMobileDrawerReal();
+    ensureMobileDrawerReal();
+  };
+}
+
+const setViewBeforeMobileDrawerReal=typeof setView==="function"?setView:null;
+if(setViewBeforeMobileDrawerReal){
+  setView=function(view){
+    closeMobileMenuReal();
+    setViewBeforeMobileDrawerReal(view);
+    ensureMobileDrawerReal();
+  };
+}
+
+window.addEventListener("resize",()=>{
+  if(!window.matchMedia("(max-width:880px)").matches)closeMobileMenuReal();
+});
+window.addEventListener("DOMContentLoaded",()=>ensureMobileDrawerReal());
 
 window.addEventListener('DOMContentLoaded',async()=>{
   prepareIntroStart();
