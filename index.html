@@ -1410,1253 +1410,62 @@ body.ios-mobile .valor-actions .btn{
 
 
 /* =========================================================
-   IOS MINIMAL PREMIUM
-   Intro más visible, inicio resumido y pop-ups compactos.
+   IOS ESTABLE FINAL: sin bloqueo táctil y sin pantalla blanca
    ========================================================= */
-.mobile-quick-home{
-  display:grid;
-  gap:14px;
-}
-.mobile-home-hero{
-  border-radius:30px;
-  padding:18px;
-  color:#ffffff;
-  background:
-    radial-gradient(circle at 88% 0%,rgba(247,191,36,.35),transparent 34%),
-    linear-gradient(145deg,#0b3b82,#0d5bd2);
-  box-shadow:0 24px 54px rgba(13,91,210,.24);
-}
-.mobile-home-hero small{
-  display:inline-flex;
-  padding:6px 10px;
-  border-radius:999px;
-  background:rgba(255,255,255,.14);
-  border:1px solid rgba(255,255,255,.18);
-  font-weight:900;
-  color:#fff7db;
-  text-transform:uppercase;
-  letter-spacing:.7px;
-  font-size:11px;
-}
-.mobile-home-hero h2{
-  margin:12px 0 7px;
-  font-size:25px;
-  line-height:1.05;
-  letter-spacing:-.6px;
-}
-.mobile-home-hero p{
-  margin:0;
-  color:rgba(255,255,255,.82);
-  line-height:1.45;
-  font-size:13px;
-}
-.mobile-home-actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:15px;
-}
-.mobile-home-actions .btn{
-  min-height:48px;
-  border-radius:18px;
-}
-.mobile-stat-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:10px;
-}
-.mobile-stat{
-  border-radius:24px;
-  padding:14px;
-  background:linear-gradient(180deg,#ffffff,#f7fbff);
-  border:1px solid rgba(11,59,130,.12);
-  box-shadow:0 14px 34px rgba(11,59,130,.07);
-}
-.mobile-stat small{
-  display:block;
-  color:#60738f;
-  font-size:11px;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:.6px;
-}
-.mobile-stat strong{
-  display:block;
-  color:#0b3b82;
-  font-size:26px;
-  line-height:1;
-  margin-top:5px;
-}
-.mobile-mini-list{
-  border-radius:26px;
-  background:#ffffff;
-  border:1px solid rgba(11,59,130,.12);
-  box-shadow:0 14px 34px rgba(11,59,130,.07);
-  overflow:hidden;
-}
-.mobile-mini-list h3{
-  margin:0;
-  padding:14px 16px 8px;
-  color:#0b3b82;
-  font-size:16px;
-}
-.mobile-mini-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  padding:12px 16px;
-  border-top:1px solid rgba(11,59,130,.08);
-}
-.mobile-mini-row strong{
-  display:block;
-  color:#0b3b82;
-  font-size:13px;
-  line-height:1.25;
-}
-.mobile-mini-row span{
-  display:block;
-  color:#60738f;
-  font-size:11px;
-  margin-top:2px;
-}
-.mobile-mini-dot{
-  min-width:10px;
-  width:10px;
-  height:10px;
-  border-radius:50%;
-  background:#0d5bd2;
-}
-.mobile-mini-dot.red{background:#ef4444}
-.mobile-mini-dot.yellow{background:#f7bf24}
-.mobile-mini-dot.green{background:#22c55e}
+html,body,#app,.app-shell,.main{background:#f7fbff!important}
+html,body{overscroll-behavior-y:contain}
 
-/* Pop-ups menos invasivos */
-.compact-swal-popup{
-  border-radius:26px!important;
-  padding:14px!important;
-  width:min(390px,calc(100vw - 28px))!important;
-}
-.compact-swal-popup .popup-layout{
-  gap:12px;
-  align-items:center;
-}
-.compact-swal-popup .popup-gif{
-  width:68px!important;
-  height:68px!important;
-  border-radius:20px!important;
-}
-.compact-swal-popup h3{
-  margin:0 0 4px!important;
-  font-size:17px!important;
-}
-.compact-swal-popup p{
-  margin:0!important;
-  font-size:13px!important;
-  line-height:1.45!important;
-}
-.compact-swal-popup .swal2-actions{
-  margin-top:12px!important;
-}
-.compact-swal-popup .swal2-confirm,
-.compact-swal-popup .swal2-cancel,
-.compact-swal-popup .swal2-deny{
-  border-radius:16px!important;
-  min-height:42px!important;
-  font-size:13px!important;
-}
-@media(max-width:760px){
-  .swal2-container{
-    padding:10px!important;
-  }
-  .swal2-popup{
-    border-radius:26px!important;
-    width:min(360px,calc(100vw - 24px))!important;
-    padding:16px!important;
-  }
-  .swal2-title{
-    font-size:19px!important;
-    line-height:1.15!important;
-    padding:0 8px!important;
-  }
-  .swal2-html-container{
-    margin:9px 4px 0!important;
-    font-size:13px!important;
-  }
-  .wizard-summary{
-    padding:0!important;
-    text-align:left!important;
-  }
-  .wizard-summary p,
-  .wizard-summary li{
-    font-size:13px!important;
-    line-height:1.45!important;
-  }
-  .swal2-input,
-  .swal2-textarea,
-  .swal2-select{
-    width:100%!important;
-    margin:10px 0 0!important;
-    min-height:46px!important;
-    border-radius:16px!important;
-    font-size:15px!important;
-  }
-  .swal2-textarea{
-    min-height:112px!important;
-  }
-  .swal2-actions{
-    gap:8px!important;
-    margin-top:14px!important;
-  }
-  .swal2-confirm,
-  .swal2-cancel,
-  .swal2-deny{
-    border-radius:16px!important;
-    min-height:42px!important;
-    padding:10px 14px!important;
-  }
-}
+/* Intro real */
+#bootLoader.boot-loader{position:fixed!important;inset:0!important;z-index:9999!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:18px!important;overflow:hidden!important;background:#03162d!important}
+#bootLoader .boot-video{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;filter:saturate(1.14) contrast(1.08) brightness(.60)!important;transform:scale(1.025)!important}
+#bootLoader .boot-overlay{position:absolute!important;inset:0!important;background:radial-gradient(circle at center,rgba(2,8,18,.10),rgba(2,8,18,.36) 54%,rgba(2,8,18,.74) 100%)!important;backdrop-filter:none!important}
+#bootLoader #bootCard.mesa-intro-final{position:relative!important;z-index:2!important;width:min(330px,calc(100vw - 44px))!important;max-width:330px!important;min-height:0!important;margin:0 auto!important;padding:22px 20px!important;border-radius:30px!important;display:grid!important;grid-template-columns:1fr!important;gap:14px!important;place-items:center!important;text-align:center!important;background:linear-gradient(180deg,rgba(255,255,255,.17),rgba(255,255,255,.08))!important;border:1px solid rgba(255,255,255,.24)!important;box-shadow:0 26px 76px rgba(0,0,0,.36),inset 0 1px 0 rgba(255,255,255,.18)!important;backdrop-filter:blur(16px)!important}
+#bootLoader #bootCard.mesa-intro-final .boot-copy h2{margin:0!important;color:#fff!important;font-size:27px!important;line-height:1.05!important;letter-spacing:.2px!important;font-weight:900!important;text-transform:uppercase!important}
+#bootLoader #bootCard.mesa-intro-final .boot-dev{display:block!important;width:100%!important;margin:0!important;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;color:rgba(255,255,255,.78)!important;font-size:12px!important;line-height:1.25!important}
+#bootLoader #bootCard.mesa-intro-final .boot-dev strong{color:#fff7db!important}
+#bootLoader #bootStartBtn.boot-start-btn{width:100%!important;min-width:0!important;min-height:52px!important;border-radius:21px!important;padding:14px 18px!important;display:flex!important;justify-content:center!important;align-items:center!important;background:linear-gradient(135deg,#f7bf24,#ffe28a)!important;color:#0b3b82!important;border:0!important;box-shadow:0 18px 40px rgba(247,191,36,.22)!important;font-family:"Century Gothic",Arial,sans-serif!important;font-size:17px!important;font-weight:900!important}
+#bootLoader .boot-brand,#bootLoader .boot-hero,#bootLoader .boot-character-wrap,#bootLoader .boot-copy p,#bootLoader .boot-play-icon,#bootLoader .boot-tip,#bootLoader .boot-tap-hint{display:none!important}
+#bootLoader #bootLoadingBtn,#bootLoader .boot-progress{display:none!important}
 
-/* Intro móvil: cuadro pequeño para dejar ver la animación */
-@media(max-width:760px){
-  .boot-loader{
-    align-items:flex-end!important;
-    justify-content:center!important;
-    padding:14px 14px calc(18px + env(safe-area-inset-bottom))!important;
-  }
-  .boot-video{
-    filter:saturate(1.14) contrast(1.08) brightness(.58)!important;
-    transform:scale(1.02)!important;
-  }
-  .boot-overlay{
-    background:linear-gradient(180deg,rgba(2,8,18,.16),rgba(2,8,18,.18) 38%,rgba(2,8,18,.72) 100%)!important;
-    backdrop-filter:none!important;
-  }
-  .boot-card.cinematic{
-    width:min(338px,calc(100vw - 28px))!important;
-    padding:12px!important;
-    gap:9px!important;
-    border-radius:24px!important;
-    background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.075))!important;
-    backdrop-filter:blur(14px)!important;
-    box-shadow:0 20px 54px rgba(0,0,0,.34)!important;
-  }
-  .boot-card.cinematic.running{
-    transform:scale(.92)!important;
-    opacity:.74!important;
-  }
-  .boot-brand{
-    padding:8px 10px!important;
-    border-radius:16px!important;
-  }
-  .boot-brand strong{
-    font-size:14px!important;
-  }
-  .boot-brand span{
-    font-size:10px!important;
-    margin-top:2px!important;
-  }
-  .boot-hero{
-    grid-template-columns:62px 1fr!important;
-    gap:10px!important;
-    text-align:left!important;
-    justify-items:stretch!important;
-  }
-  .boot-character-wrap{
-    width:62px!important;
-    height:62px!important;
-    border-radius:18px!important;
-    padding:4px!important;
-  }
-  .boot-character-wrap img{
-    border-radius:14px!important;
-  }
-  .boot-copy h2{
-    font-size:20px!important;
-    letter-spacing:-.4px!important;
-  }
-  .boot-copy p{
-    font-size:11px!important;
-    line-height:1.35!important;
-    margin-top:4px!important;
-  }
-  .boot-start-btn,
-  .boot-loader-btn.cinematic-btn{
-    width:100%!important;
-    min-width:0!important;
-    min-height:44px!important;
-    padding:10px 14px!important;
-    border-radius:18px!important;
-    font-size:13px!important;
-  }
-  .boot-play-icon{
-    width:24px!important;
-    height:24px!important;
-  }
-  .boot-progress{
-    height:5px!important;
-  }
-  .boot-dev{
-    padding:7px 9px!important;
-    border-radius:14px!important;
-    font-size:10px!important;
-    text-align:center!important;
-  }
-  .boot-tip{
-    display:none!important;
-  }
-  .boot-status{
-    font-size:11px!important;
-  }
-}
-
-/* iOS app minimal */
-body.ios-mobile{
-  background:#f7fbff!important;
-}
-body.ios-mobile .app-shell{
-  background:#f7fbff!important;
-}
-body.ios-mobile .main{
-  padding:10px!important;
-}
-body.ios-mobile .topbar{
-  position:sticky;
-  top:0;
-  z-index:40;
-  border-radius:0 0 24px 24px!important;
-  padding:10px 10px 12px!important;
-  margin:-10px -10px 10px!important;
-  background:rgba(255,255,255,.86)!important;
-  backdrop-filter:blur(18px)!important;
-  box-shadow:0 12px 30px rgba(11,59,130,.08)!important;
-}
-body.ios-mobile .page-title h1{
-  font-size:19px!important;
-}
-body.ios-mobile .page-title p{
-  display:none!important;
-}
-body.ios-mobile .top-actions{
-  gap:6px!important;
-}
-body.ios-mobile .top-actions .btn{
-  min-height:38px!important;
-  padding:8px 10px!important;
-  font-size:12px!important;
-}
-body.ios-mobile .float-ai{
-  right:14px!important;
-  bottom:calc(14px + env(safe-area-inset-bottom))!important;
-  width:52px!important;
-  height:52px!important;
-  border-radius:20px!important;
-  font-size:0!important;
-}
-body.ios-mobile .float-ai:before{
-  content:"🤖";
-  font-size:22px;
-}
-body.ios-mobile .card,
-body.ios-mobile .executive-card,
-body.ios-mobile .metric{
-  border-radius:24px!important;
-  box-shadow:0 12px 30px rgba(11,59,130,.07)!important;
-}
-body.ios-mobile .sidebar{
-  border-radius:0 24px 24px 0!important;
-}
-
-
-/* =========================================================
-   APP MESA DE AYUDA MINIMAL FUNCIONAL
-   Corrección iOS, intro centrada simple, popups no invasivos,
-   bloqueo de doble envío y adjuntos controlados.
-   ========================================================= */
-:root{
-  --safe-bottom:env(safe-area-inset-bottom);
-}
-html,body{
-  overscroll-behavior-y:none;
-}
-body{
-  min-height:100svh;
-}
-.boot-loader.minimal-intro{
-  align-items:center!important;
-  justify-content:center!important;
-  padding:18px!important;
-  background:#03162d!important;
-}
-.boot-loader.minimal-intro .boot-overlay{
-  background:radial-gradient(circle at center,rgba(2,8,18,.10),rgba(2,8,18,.38) 58%,rgba(2,8,18,.70) 100%)!important;
-  backdrop-filter:none!important;
-}
-.boot-loader.minimal-intro .boot-video{
-  filter:saturate(1.12) contrast(1.08) brightness(.62)!important;
-  transform:scale(1.025)!important;
-}
-.boot-loader.minimal-intro .boot-card.cinematic{
-  width:min(330px,calc(100vw - 42px))!important;
-  min-height:auto!important;
-  padding:18px!important;
-  border-radius:28px!important;
-  gap:14px!important;
-  place-items:center!important;
-  text-align:center!important;
-  background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.08))!important;
-  border:1px solid rgba(255,255,255,.22)!important;
-  box-shadow:0 24px 70px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.18)!important;
-  backdrop-filter:blur(16px)!important;
-}
-.boot-loader.minimal-intro .boot-brand,
-.boot-loader.minimal-intro .boot-character-wrap,
-.boot-loader.minimal-intro .boot-copy p,
-.boot-loader.minimal-intro .boot-loader-btn,
-.boot-loader.minimal-intro .boot-progress,
-.boot-loader.minimal-intro .boot-dev,
-.boot-loader.minimal-intro .boot-tip{
-  display:none!important;
-}
-.boot-loader.minimal-intro .boot-hero{
-  display:block!important;
-  text-align:center!important;
-}
-.boot-loader.minimal-intro .boot-copy h2{
-  display:block!important;
-  margin:0!important;
-  color:#ffffff!important;
-  font-size:25px!important;
-  line-height:1.08!important;
-  letter-spacing:-.6px!important;
-}
-.boot-loader.minimal-intro .boot-start-btn{
-  width:100%!important;
-  min-width:0!important;
-  min-height:52px!important;
-  border-radius:20px!important;
-  padding:13px 16px!important;
-  background:linear-gradient(135deg,#f7bf24,#ffe28a)!important;
-  color:#0b3b82!important;
-  box-shadow:0 18px 38px rgba(247,191,36,.22)!important;
-  font-weight:900!important;
-}
-.boot-loader.minimal-intro .boot-play-icon{
-  width:28px!important;
-  height:28px!important;
-  background:#0b3b82!important;
-  color:#ffffff!important;
-}
-.boot-loader.minimal-intro .boot-card.cinematic.running{
-  transform:scale(.94)!important;
-  opacity:.82!important;
-}
-.app-minimal .main{
-  background:#f7fbff!important;
-}
-.app-minimal .card,
-.app-minimal .executive-card,
-.app-minimal .metric,
-.app-minimal .simple-form-card,
-.app-minimal .simple-assisted-card,
-.app-minimal .simple-submit-card,
-.app-minimal .simple-lookup-card{
-  box-shadow:0 10px 28px rgba(11,59,130,.07)!important;
-}
-.app-minimal .top-actions .btn,
-.app-minimal .valor-actions .btn{
-  white-space:nowrap;
-}
-.submit-lock-overlay{
-  position:fixed;
-  inset:0;
-  z-index:9998;
-  background:rgba(3,22,45,.18);
-  backdrop-filter:blur(2px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-}
-.submit-lock-card{
-  width:min(310px,calc(100vw - 40px));
-  border-radius:24px;
-  padding:18px;
-  background:#ffffff;
-  border:1px solid rgba(11,59,130,.12);
-  box-shadow:0 24px 70px rgba(11,59,130,.24);
-  text-align:center;
-}
-.submit-lock-card strong{
-  display:block;
-  color:#0b3b82;
-  font-size:17px;
-  margin-bottom:5px;
-}
-.submit-lock-card span{
-  color:#315783;
-  font-size:13px;
-}
-.submit-lock-spinner{
-  width:30px;
-  height:30px;
-  border-radius:50%;
-  border:3px solid #eaf2ff;
-  border-top-color:#0d5bd2;
-  animation:bootSpin .85s linear infinite;
-  margin:0 auto 12px;
-}
-.file-helper-line{
-  display:flex;
-  justify-content:space-between;
-  gap:8px;
-  margin-top:7px;
-  color:#60738f;
-  font-size:11px;
-  line-height:1.35;
-}
-.file-helper-line strong{
-  color:#0b3b82;
-}
-.file-error-note{
-  margin-top:8px;
-  padding:10px 12px;
-  border-radius:16px;
-  background:#fff1f2;
-  border:1px solid rgba(239,68,68,.20);
-  color:#991b1b;
-  font-size:12px;
-  line-height:1.4;
-}
-.minimal-success-popup{
-  border-radius:28px!important;
-  width:min(360px,calc(100vw - 28px))!important;
-  padding:18px!important;
-}
-.minimal-success-card{
-  text-align:left;
-}
-.minimal-success-card .success-mark{
-  width:46px;
-  height:46px;
-  display:grid;
-  place-items:center;
-  border-radius:18px;
-  background:linear-gradient(135deg,#0d5bd2,#0b3b82);
-  color:#ffffff;
-  font-size:22px;
-  margin-bottom:12px;
-}
-.minimal-success-card h3{
-  margin:0 0 7px;
-  color:#0b3b82;
-  font-size:20px;
-  line-height:1.1;
-}
-.minimal-success-card p{
-  margin:0;
-  color:#315783;
-  font-size:13px;
-  line-height:1.45;
-}
-.minimal-code-box{
-  margin:13px 0;
-  padding:13px;
-  border-radius:18px;
-  background:#eaf2ff;
-  border:1px solid rgba(13,91,210,.18);
-  color:#0b3b82;
-  font-size:24px;
-  font-weight:900;
-  text-align:center;
-  letter-spacing:.7px;
-}
-@media(max-width:760px){
-  body.app-minimal .main{
-    min-height:100svh!important;
-    max-height:none!important;
-    overflow:visible!important;
-    padding:10px 10px calc(16px + var(--safe-bottom))!important;
-  }
-  body.app-minimal .content,
-  body.app-minimal #view{
-    min-height:auto!important;
-    overflow:visible!important;
-  }
-  body.app-minimal .app-shell{
-    min-height:100svh!important;
-    overflow:visible!important;
-  }
-  body.app-minimal .sidebar{
-    max-height:100svh!important;
-    overflow-y:auto!important;
-  }
-  body.app-minimal .simple-request-shell{
-    gap:10px!important;
-  }
-  body.app-minimal .simple-form-card{
-    padding:14px!important;
-  }
-  body.app-minimal .simple-form-head p{
-    font-size:12px!important;
-  }
-  body.app-minimal .simple-chip:nth-child(n+3){
-    display:none!important;
-  }
-  body.app-minimal .simple-assisted-card{
-    padding:15px!important;
-  }
-  body.app-minimal .simple-assisted-card h2{
-    font-size:18px!important;
-  }
-  body.app-minimal .simple-assisted-card p{
-    font-size:12px!important;
-    margin-bottom:10px!important;
-  }
-  body.app-minimal .assist-big-btn{
-    min-height:58px!important;
-    padding:12px!important;
-  }
-  body.app-minimal .assist-big-btn span{
-    font-size:19px!important;
-  }
-  body.app-minimal .simple-submit-card{
-    position:static!important;
-    padding:12px!important;
-    margin-bottom:10px!important;
-  }
-  body.app-minimal .big-send-btn{
-    min-height:64px!important;
-    padding:14px!important;
-  }
-  body.app-minimal .big-send-btn span{
-    font-size:22px!important;
-  }
-  body.app-minimal .simple-quality-zone .quality-panel{
-    transform:none!important;
-  }
-  body.app-minimal .quality-panel{
-    padding:12px!important;
-    border-radius:22px!important;
-  }
-  body.app-minimal .quality-panel .section-title h2{
-    font-size:16px!important;
-  }
-  body.app-minimal .quality-list li{
-    padding:7px 0!important;
-  }
-  body.app-minimal .swal2-popup,
-  body.app-minimal .compact-swal-popup{
-    width:min(348px,calc(100vw - 24px))!important;
-    padding:14px!important;
-  }
-  body.app-minimal .swal2-title{
-    font-size:18px!important;
-  }
-}
-
-
-/* =========================================================
-   AJUSTE ESTRICTO IOS:
-   - NO bloquea el táctil.
-   - Intro móvil centrada, sin logo, sin icono.
-   - Evita visualmente el rebote blanco superior sin dañar scroll.
-   - Login iOS compacto: reduce cuadro azul.
-   ========================================================= */
-
-/* Base visual para que si iOS hace rebote, no aparezca blanco vacío */
-html,
-body,
-#app,
-.app-shell,
-.main{
-  background:#f7fbff!important;
-}
-html,
-body{
-  overscroll-behavior-y:contain;
-}
-.main{
-  overscroll-behavior-y:contain;
-  -webkit-overflow-scrolling:touch;
-}
-
-/* INTRO MÓVIL: flotante centrado, sin logos, sin personaje, sin icono */
+/* Login iOS: logo+login arriba; power+gif abajo */
+.mobile-login-logo{display:none}
 @media(max-width:880px){
-  #boot.boot-loader,
-  #boot.boot-loader.minimal-intro{
-    position:fixed!important;
-    inset:0!important;
-    display:flex!important;
-    align-items:center!important;
-    justify-content:center!important;
-    padding:18px!important;
-    overflow:hidden!important;
-    background:#03162d!important;
-  }
-  #boot .boot-video{
-    position:absolute!important;
-    inset:0!important;
-    width:100%!important;
-    height:100%!important;
-    object-fit:cover!important;
-    filter:saturate(1.14) contrast(1.08) brightness(.58)!important;
-    transform:scale(1.025)!important;
-  }
-  #boot .boot-overlay{
-    position:absolute!important;
-    inset:0!important;
-    background:radial-gradient(circle at center,rgba(2,8,18,.12),rgba(2,8,18,.34) 52%,rgba(2,8,18,.70) 100%)!important;
-    backdrop-filter:none!important;
-  }
-  #boot #bootCard.boot-card.cinematic,
-  #boot .boot-card.cinematic{
-    position:relative!important;
-    z-index:2!important;
-    width:min(330px,calc(100vw - 44px))!important;
-    max-width:330px!important;
-    min-height:0!important;
-    padding:20px 18px!important;
-    margin:0 auto!important;
-    border-radius:30px!important;
-    display:grid!important;
-    grid-template-columns:1fr!important;
-    gap:14px!important;
-    place-items:center!important;
-    text-align:center!important;
-    background:linear-gradient(180deg,rgba(255,255,255,.17),rgba(255,255,255,.08))!important;
-    border:1px solid rgba(255,255,255,.24)!important;
-    box-shadow:0 26px 76px rgba(0,0,0,.36), inset 0 1px 0 rgba(255,255,255,.18)!important;
-    backdrop-filter:blur(16px)!important;
-  }
-  #boot .boot-brand,
-  #boot .boot-character-wrap,
-  #boot .boot-copy p,
-  #boot #bootLoadingBtn,
-  #boot .boot-loader-btn,
-  #boot .boot-progress,
-  #boot .boot-tip,
-  #boot .boot-status,
-  #boot .boot-tap-hint{
-    display:none!important;
-  }
-  #boot .boot-hero{
-    display:block!important;
-    width:100%!important;
-    margin:0!important;
-    padding:0!important;
-  }
-  #boot .boot-copy{
-    display:block!important;
-    width:100%!important;
-  }
-  #boot .boot-copy h2{
-    display:block!important;
-    margin:0!important;
-    padding:0!important;
-    color:#ffffff!important;
-    font-size:25px!important;
-    line-height:1.05!important;
-    letter-spacing:.2px!important;
-    font-weight:900!important;
-    text-transform:uppercase!important;
-  }
-  #boot .boot-dev{
-    display:block!important;
-    width:100%!important;
-    margin:0!important;
-    padding:0!important;
-    border:0!important;
-    background:transparent!important;
-    color:rgba(255,255,255,.78)!important;
-    font-size:12px!important;
-    line-height:1.25!important;
-    box-shadow:none!important;
-  }
-  #boot .boot-dev strong{
-    color:#fff7db!important;
-  }
-  #boot #bootStartBtn.boot-start-btn,
-  #boot .boot-start-btn{
-    width:100%!important;
-    min-width:0!important;
-    min-height:52px!important;
-    border-radius:21px!important;
-    padding:14px 18px!important;
-    display:flex!important;
-    justify-content:center!important;
-    align-items:center!important;
-    gap:0!important;
-    background:linear-gradient(135deg,#f7bf24,#ffe28a)!important;
-    color:#0b3b82!important;
-    border:0!important;
-    box-shadow:0 18px 40px rgba(247,191,36,.22)!important;
-    font-family:"Century Gothic",Arial,sans-serif!important;
-    font-size:17px!important;
-    font-weight:900!important;
-  }
-  #boot .boot-play-icon{
-    display:none!important;
-  }
+  .login-page{min-height:100svh!important;padding:10px!important;background:#f7fbff!important;display:block!important}
+  .login-card{width:100%!important;display:flex!important;flex-direction:column!important;gap:10px!important;border-radius:28px!important;padding:0!important;overflow:visible!important;background:transparent!important;box-shadow:none!important;border:0!important}
+  .login-form{order:1!important;padding:18px!important;border-radius:28px!important;background:#fff!important;border:1px solid rgba(11,59,130,.12)!important;box-shadow:0 14px 34px rgba(11,59,130,.08)!important}
+  .mobile-login-logo{display:block!important;width:112px!important;height:auto!important;object-fit:contain!important;margin:0 auto 12px!important;padding:10px!important;border-radius:22px!important;background:#fff!important;box-shadow:0 10px 26px rgba(11,59,130,.10)!important}
+  .login-form h2{font-size:22px!important;margin:0 0 6px!important;color:#0b3b82!important}
+  .login-form p{font-size:12px!important;line-height:1.38!important;margin:0 0 12px!important;color:#315783!important}
+  .login-form input,.login-form select{min-height:48px!important;border-radius:17px!important;font-size:15px!important}
+  .login-form .btn{min-height:48px!important;border-radius:18px!important;width:100%!important}
+  .login-form .mode-pill{display:none!important}
+  .login-hero{order:2!important;min-height:0!important;padding:14px!important;border-radius:26px!important;background:radial-gradient(circle at 100% 0%,rgba(247,191,36,.22),transparent 30%),linear-gradient(145deg,#0b3b82,#0d5bd2)!important;box-shadow:0 16px 36px rgba(13,91,210,.18)!important}
+  .login-hero .logo-login,.login-hero .hero-note{display:none!important}
+  .login-hero .dance-box{position:static!important;inset:auto!important;display:flex!important;align-items:center!important;gap:12px!important;padding:0!important;margin:0!important;border:0!important;background:transparent!important;box-shadow:none!important}
+  .login-hero .dance-box img{width:58px!important;height:58px!important;min-width:58px!important;border-radius:18px!important;object-fit:cover!important}
+  .login-hero .dance-box h1{font-size:18px!important;line-height:1.05!important;margin:0 0 4px!important;color:#fff!important}
+  .login-hero .dance-box p{font-size:11px!important;line-height:1.32!important;margin:0!important;color:rgba(255,255,255,.78)!important}
 }
 
-/* RADICAR SOLICITUD MÓVIL: scroll natural, límites visuales claros, sin bloqueo táctil */
+/* Radicación móvil: scroll natural, no body fixed */
 @media(max-width:880px){
-  body.app-minimal,
-  body.ios-mobile{
-    position:static!important;
-    width:auto!important;
-    height:auto!important;
-    min-height:100svh!important;
-    overflow-x:hidden!important;
-    overflow-y:auto!important;
-    background:#f7fbff!important;
-  }
-  #app{
-    min-height:100svh!important;
-    height:auto!important;
-    overflow:visible!important;
-    background:#f7fbff!important;
-  }
-  .app-shell{
-    min-height:100svh!important;
-    height:auto!important;
-    overflow:visible!important;
-    background:#f7fbff!important;
-  }
-  .main{
-    min-height:100svh!important;
-    height:auto!important;
-    max-height:none!important;
-    overflow:visible!important;
-    padding:10px 10px calc(22px + env(safe-area-inset-bottom))!important;
-    background:
-      linear-gradient(180deg,#f7fbff 0%,#f7fbff 120px,#ffffff 100%)!important;
-  }
-  .content,
-  #view{
-    min-height:auto!important;
-    overflow:visible!important;
-    background:transparent!important;
-  }
-  .topbar{
-    position:sticky!important;
-    top:0!important;
-    z-index:50!important;
-    margin:-10px -10px 10px!important;
-    padding:10px 10px 12px!important;
-    border-radius:0 0 24px 24px!important;
-    background:rgba(255,255,255,.94)!important;
-    backdrop-filter:blur(18px)!important;
-    box-shadow:0 12px 30px rgba(11,59,130,.08)!important;
-  }
-  .simple-request-shell{
-    min-height:auto!important;
-    padding-bottom:16px!important;
-    gap:12px!important;
-  }
-  .simple-form-card,
-  .simple-assisted-card,
-  .simple-submit-card,
-  .simple-lookup-card{
-    transform:none!important;
-    will-change:auto!important;
-  }
-  .simple-submit-card{
-    position:static!important;
-    margin-bottom:12px!important;
-  }
-  .simple-form-card{
-    background:linear-gradient(180deg,#ffffff,#f8fbff)!important;
-    border:1px solid rgba(11,59,130,.12)!important;
-  }
-  .simple-form-head h2{
-    font-size:22px!important;
-    letter-spacing:-.4px!important;
-  }
-  .simple-form-head p{
-    font-size:12px!important;
-    max-width:95%!important;
-  }
+  body.app-minimal,body.ios-mobile{position:static!important;min-height:100svh!important;overflow-x:hidden!important;overflow-y:auto!important;touch-action:auto!important;background:#f7fbff!important}
+  #app,.app-shell{min-height:100svh!important;height:auto!important;overflow:visible!important;background:#f7fbff!important}
+  .main{min-height:100svh!important;height:auto!important;max-height:none!important;overflow:visible!important;-webkit-overflow-scrolling:touch!important;touch-action:auto!important;overscroll-behavior-y:contain!important;padding:10px 10px calc(22px + env(safe-area-inset-bottom))!important;background:linear-gradient(180deg,#f7fbff 0,#f7fbff 90px,#fff 90px,#f7fbff 100%)!important}
+  .topbar{position:sticky!important;top:0!important;z-index:50!important;margin:-10px -10px 10px!important;padding:10px 10px 12px!important;border-radius:0 0 24px 24px!important;background:rgba(255,255,255,.94)!important;backdrop-filter:blur(18px)!important;box-shadow:0 12px 30px rgba(11,59,130,.08)!important}
+  .simple-submit-card{position:static!important}
 }
 
-/* LOGIN iOS: menos invasivo, cuadro azul compacto */
-@media(max-width:880px){
-  .login-page,
-  .login-shell{
-    min-height:100svh!important;
-    padding:10px!important;
-    background:#f7fbff!important;
-  }
-  .login-card{
-    display:grid!important;
-    grid-template-columns:1fr!important;
-    gap:10px!important;
-    border-radius:28px!important;
-    padding:0!important;
-    overflow:hidden!important;
-  }
-  .login-hero{
-    min-height:auto!important;
-    padding:16px!important;
-    border-radius:0 0 24px 24px!important;
-    background:
-      radial-gradient(circle at 90% 0%,rgba(247,191,36,.36),transparent 32%),
-      linear-gradient(145deg,#0b3b82,#0d5bd2)!important;
-  }
-  .login-hero .dance-box,
-  .dance-box{
-    gap:8px!important;
-  }
-  .login-hero img,
-  .dance-box img{
-    width:70px!important;
-    height:70px!important;
-    border-radius:20px!important;
-  }
-  .login-hero h1,
-  .dance-box h1{
-    font-size:23px!important;
-    line-height:1.05!important;
-    margin:8px 0 4px!important;
-  }
-  .login-hero p,
-  .dance-box p{
-    font-size:12px!important;
-    line-height:1.35!important;
-    margin:0!important;
-  }
-  .login-hero .hero-note{
-    display:none!important;
-  }
-  .login-form{
-    padding:16px!important;
-    border-radius:24px!important;
-  }
-  .login-form h2{
-    font-size:20px!important;
-    margin-bottom:4px!important;
-  }
-  .login-form p{
-    font-size:12px!important;
-    margin-bottom:10px!important;
-  }
-  .login-form input,
-  .login-form select{
-    min-height:46px!important;
-    border-radius:16px!important;
-  }
-}
-
-
-/* =========================================================
-   FINAL REAL iOS: INTRO, LOGIN, IA AUTO Y SCROLL TÁCTIL
-   ========================================================= */
-
-/* 1. Intro real: id correcto bootLoader, flotante centrado y mínimo */
-#bootLoader.boot-loader{
-  position:fixed!important;
-  inset:0!important;
-  z-index:9999!important;
-  display:flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  padding:18px!important;
-  overflow:hidden!important;
-  background:#03162d!important;
-}
-#bootLoader .boot-video{
-  position:absolute!important;
-  inset:0!important;
-  width:100%!important;
-  height:100%!important;
-  object-fit:cover!important;
-  filter:saturate(1.14) contrast(1.08) brightness(.60)!important;
-  transform:scale(1.025)!important;
-}
-#bootLoader .boot-overlay{
-  position:absolute!important;
-  inset:0!important;
-  background:radial-gradient(circle at center,rgba(2,8,18,.10),rgba(2,8,18,.34) 52%,rgba(2,8,18,.72) 100%)!important;
-  backdrop-filter:none!important;
-}
-#bootLoader #bootCard.mesa-intro-final{
-  position:relative!important;
-  z-index:2!important;
-  width:min(330px,calc(100vw - 44px))!important;
-  max-width:330px!important;
-  min-height:0!important;
-  margin:0 auto!important;
-  padding:22px 20px!important;
-  border-radius:30px!important;
-  display:grid!important;
-  grid-template-columns:1fr!important;
-  gap:14px!important;
-  place-items:center!important;
-  text-align:center!important;
-  background:linear-gradient(180deg,rgba(255,255,255,.17),rgba(255,255,255,.08))!important;
-  border:1px solid rgba(255,255,255,.24)!important;
-  box-shadow:0 26px 76px rgba(0,0,0,.36), inset 0 1px 0 rgba(255,255,255,.18)!important;
-  backdrop-filter:blur(16px)!important;
-}
-#bootLoader #bootCard.mesa-intro-final .boot-copy{
-  width:100%!important;
-}
-#bootLoader #bootCard.mesa-intro-final .boot-copy h2{
-  margin:0!important;
-  padding:0!important;
-  color:#ffffff!important;
-  font-size:27px!important;
-  line-height:1.05!important;
-  letter-spacing:.2px!important;
-  font-weight:900!important;
-  text-transform:uppercase!important;
-}
-#bootLoader #bootCard.mesa-intro-final .boot-dev{
-  display:block!important;
-  width:100%!important;
-  margin:0!important;
-  padding:0!important;
-  border:0!important;
-  background:transparent!important;
-  box-shadow:none!important;
-  color:rgba(255,255,255,.78)!important;
-  font-size:12px!important;
-  line-height:1.25!important;
-}
-#bootLoader #bootCard.mesa-intro-final .boot-dev strong{
-  color:#fff7db!important;
-}
-#bootLoader #bootStartBtn.boot-start-btn{
-  width:100%!important;
-  min-width:0!important;
-  min-height:52px!important;
-  border-radius:21px!important;
-  padding:14px 18px!important;
-  display:flex!important;
-  justify-content:center!important;
-  align-items:center!important;
-  gap:0!important;
-  background:linear-gradient(135deg,#f7bf24,#ffe28a)!important;
-  color:#0b3b82!important;
-  border:0!important;
-  box-shadow:0 18px 40px rgba(247,191,36,.22)!important;
-  font-family:"Century Gothic",Arial,sans-serif!important;
-  font-size:17px!important;
-  font-weight:900!important;
-}
-#bootLoader .boot-brand,
-#bootLoader .boot-hero,
-#bootLoader .boot-character-wrap,
-#bootLoader .boot-copy p,
-#bootLoader .boot-play-icon,
-#bootLoader .boot-tip,
-#bootLoader .boot-tap-hint{
-  display:none!important;
-}
-#bootLoader #bootLoadingBtn,
-#bootLoader .boot-progress{
-  display:none!important;
-}
-
-/* 2. Shell móvil: evita hueco infinito arriba sin matar el táctil */
-@media(max-width:880px){
-  html.mobile-shell,
-  html.mobile-shell body{
-    width:100%!important;
-    height:100dvh!important;
-    min-height:100dvh!important;
-    overflow:hidden!important;
-    background:#f7fbff!important;
-    overscroll-behavior:none!important;
-  }
-  html.mobile-shell body{
-    position:relative!important;
-    touch-action:auto!important;
-  }
-  html.mobile-shell #app{
-    height:100dvh!important;
-    min-height:100dvh!important;
-    overflow:hidden!important;
-    background:#f7fbff!important;
-  }
-  html.mobile-shell .app-shell{
-    height:100dvh!important;
-    min-height:0!important;
-    overflow:hidden!important;
-    background:#f7fbff!important;
-  }
-  html.mobile-shell .main{
-    height:100dvh!important;
-    min-height:0!important;
-    max-height:100dvh!important;
-    overflow-y:auto!important;
-    overflow-x:hidden!important;
-    -webkit-overflow-scrolling:touch!important;
-    overscroll-behavior-y:contain!important;
-    touch-action:pan-y!important;
-    background:
-      linear-gradient(180deg,#f7fbff 0,#f7fbff 92px,#ffffff 92px,#f7fbff 100%)!important;
-    padding:10px 10px calc(24px + env(safe-area-inset-bottom))!important;
-  }
-  html.mobile-shell .content,
-  html.mobile-shell #view{
-    min-height:0!important;
-    overflow:visible!important;
-    background:transparent!important;
-  }
-  html.mobile-shell .topbar{
-    position:sticky!important;
-    top:0!important;
-    z-index:50!important;
-    margin:-10px -10px 10px!important;
-    padding:10px 10px 12px!important;
-    border-radius:0 0 24px 24px!important;
-    background:rgba(255,255,255,.94)!important;
-    backdrop-filter:blur(18px)!important;
-    box-shadow:0 12px 30px rgba(11,59,130,.08)!important;
-  }
-  html.mobile-shell .simple-submit-card{
-    position:static!important;
-  }
-}
-
-/* 3. Login iOS compacto: logo + login arriba, power/gif abajo */
-.mobile-login-logo{
-  display:none;
-}
-@media(max-width:880px){
-  .login-page{
-    min-height:100dvh!important;
-    padding:10px!important;
-    background:#f7fbff!important;
-    display:block!important;
-  }
-  .login-card{
-    width:100%!important;
-    min-height:auto!important;
-    display:flex!important;
-    flex-direction:column!important;
-    gap:10px!important;
-    border-radius:28px!important;
-    padding:0!important;
-    overflow:visible!important;
-    background:transparent!important;
-    box-shadow:none!important;
-    border:0!important;
-  }
-  .login-form{
-    order:1!important;
-    padding:18px!important;
-    border-radius:28px!important;
-    background:#ffffff!important;
-    border:1px solid rgba(11,59,130,.12)!important;
-    box-shadow:0 14px 34px rgba(11,59,130,.08)!important;
-  }
-  .mobile-login-logo{
-    display:block!important;
-    width:112px!important;
-    height:auto!important;
-    object-fit:contain!important;
-    margin:0 auto 12px!important;
-    padding:10px!important;
-    border-radius:22px!important;
-    background:#ffffff!important;
-    box-shadow:0 10px 26px rgba(11,59,130,.10)!important;
-  }
-  .login-form h2{
-    font-size:22px!important;
-    text-align:left!important;
-    margin:0 0 6px!important;
-    color:#0b3b82!important;
-  }
-  .login-form p{
-    font-size:12px!important;
-    line-height:1.38!important;
-    margin:0 0 12px!important;
-    color:#315783!important;
-  }
-  .login-form .mode-pill{
-    display:none!important;
-  }
-  .login-form input,
-  .login-form select{
-    min-height:48px!important;
-    border-radius:17px!important;
-    font-size:15px!important;
-  }
-  .login-form .btn{
-    min-height:48px!important;
-    border-radius:18px!important;
-    width:100%!important;
-  }
-  .login-hero{
-    order:2!important;
-    min-height:0!important;
-    padding:14px!important;
-    border-radius:26px!important;
-    background:
-      radial-gradient(circle at 100% 0%,rgba(247,191,36,.22),transparent 30%),
-      linear-gradient(145deg,#0b3b82,#0d5bd2)!important;
-    box-shadow:0 16px 36px rgba(13,91,210,.18)!important;
-  }
-  .login-hero .logo-login,
-  .login-hero .hero-note{
-    display:none!important;
-  }
-  .login-hero .dance-box{
-    position:static!important;
-    inset:auto!important;
-    display:flex!important;
-    align-items:center!important;
-    gap:12px!important;
-    padding:0!important;
-    margin:0!important;
-    border:0!important;
-    background:transparent!important;
-    box-shadow:none!important;
-  }
-  .login-hero .dance-box img{
-    width:58px!important;
-    height:58px!important;
-    min-width:58px!important;
-    border-radius:18px!important;
-    object-fit:cover!important;
-  }
-  .login-hero .dance-box h1{
-    font-size:18px!important;
-    line-height:1.05!important;
-    margin:0 0 4px!important;
-    color:#ffffff!important;
-  }
-  .login-hero .dance-box p{
-    font-size:11px!important;
-    line-height:1.32!important;
-    margin:0!important;
-    color:rgba(255,255,255,.78)!important;
-  }
-}
-
-/* 4. Radicar solicitud más estable visualmente en iOS */
-@media(max-width:880px){
-  .simple-request-shell{
-    gap:12px!important;
-    padding:0 0 16px!important;
-  }
-  .simple-form-card,
-  .simple-assisted-card,
-  .simple-submit-card,
-  .simple-quality-zone,
-  .simple-lookup-card{
-    transform:none!important;
-    will-change:auto!important;
-  }
-  .simple-form-card{
-    background:linear-gradient(180deg,#ffffff,#f8fbff)!important;
-    border:1px solid rgba(11,59,130,.12)!important;
-    box-shadow:0 12px 30px rgba(11,59,130,.07)!important;
-  }
-}
+/* Pop-up guía IA */
+.guided-clean-popup{width:min(386px,calc(100vw - 24px))!important;border-radius:28px!important;padding:18px!important}
+.guided-clean-popup .swal2-title{font-size:20px!important;line-height:1.16!important;color:#0b3b82!important}
+.guided-step-box{text-align:left;border-radius:22px;padding:14px;background:#f7fbff;border:1px solid rgba(11,59,130,.12);color:#315783;line-height:1.45;font-size:13px}
+.guided-step-box strong{color:#0b3b82}
+.guided-step-box select{width:100%!important;margin-top:10px!important}
+.guided-clean-popup .swal2-actions{display:grid!important;grid-template-columns:1fr!important;gap:8px!important;width:100%!important;margin-top:14px!important}
+.guided-clean-popup .swal2-confirm,.guided-clean-popup .swal2-deny{width:100%!important;min-height:44px!important;border-radius:16px!important;font-weight:900!important}
+.guided-clean-popup .swal2-input,.guided-clean-popup .swal2-textarea,.guided-clean-popup .swal2-select{width:100%!important;margin:10px 0 0!important;border-radius:16px!important}
+.guided-clean-popup .swal2-textarea{min-height:110px!important}
 
 </style>
 </head>
@@ -2671,20 +1480,9 @@ body{
     <div class="boot-copy">
       <h2>MESA DE AYUDA</h2>
     </div>
-
-    <div class="boot-dev">
-      Desarrollado por: <strong>Juan E. Perez</strong>
-    </div>
-
-    <button id="bootStartBtn" class="boot-start-btn" type="button">
-      <span>Iniciar</span>
-    </button>
-
-    <div class="boot-loader-btn cinematic-btn hidden" id="bootLoadingBtn">
-      <span class="boot-spinner"></span>
-      <span id="bootStatus">Iniciando...</span>
-    </div>
-
+    <div class="boot-dev">Desarrollado por: <strong>Juan E. Perez</strong></div>
+    <button id="bootStartBtn" class="boot-start-btn" type="button"><span>Iniciar</span></button>
+    <div class="boot-loader-btn cinematic-btn hidden" id="bootLoadingBtn"><span class="boot-spinner"></span><span id="bootStatus">Iniciando...</span></div>
     <div class="boot-progress hidden"><span id="bootProgressBar"></span></div>
   </div>
 
@@ -5812,409 +4610,45 @@ bindView=function(){
 
 
 /* =========================================================
-   IOS MINIMAL PREMIUM
+   GUÍA IA/MANUAL ESTABLE: sin Cancelar y sin pantalla blanca
    ========================================================= */
-function isMobileMinimalMode(){
-  return window.matchMedia("(max-width: 760px)").matches || document.body.classList.contains("ios-mobile");
-}
-function applyIOSClassEarly(){
-  const ua=navigator.userAgent||"";
-  const isiOS=/iPad|iPhone|iPod/.test(ua) || (navigator.platform==="MacIntel" && navigator.maxTouchPoints>1);
-  const mobile=window.matchMedia("(max-width: 880px)").matches;
-  document.body.classList.toggle("ios-mobile", isiOS && mobile);
-}
-applyIOSClassEarly();
-window.addEventListener("resize",applyIOSClassEarly);
+const GUIDED_MANUAL_VALUE="__MANUAL__";
+let guidedAutoOpening=false;
 
-/* Evita el pop-up automático de registro asistido: ahora la ayuda queda como botón visible e intencional. */
-maybeOfferGuidedRadication=function(){return;};
-
-/* Pop-up de sistema compacto, con menos ruido visual. */
-popup=function(title,text,gif){
-  Swal.fire({
-    html:`<div class="popup-layout"><img class="popup-gif" src="${gif}"><div><h3>${escapeHtml(title)}</h3><p>${escapeHtml(text)}</p></div></div>`,
-    showConfirmButton:true,
-    confirmButtonText:"Entendido",
-    confirmButtonColor:"#0d5bd2",
-    background:"#ffffff",
-    backdrop:isMobileMinimalMode()?"rgba(3,22,45,.22)":"rgba(3,22,45,.36)",
-    customClass:{popup:"compact-swal-popup"}
-  });
-};
-
-/* Inicio resumido para iOS/móvil: menos tarjetas, menos botones, más directo. */
-const dashboardHtmlBeforeIOSMinimal=dashboardHtml;
-dashboardHtml=function(){
-  if(!isMobileMinimalMode())return dashboardHtmlBeforeIOSMinimal();
-  const total=state.tickets.length;
-  const open=state.tickets.filter(t=>!["Resuelta","Cerrada"].includes(t.status)).length;
-  const pendingAccept=state.tickets.filter(t=>["Enviada","Sin aceptar"].includes(t.status)).length;
-  const closed=state.tickets.filter(t=>t.status==="Cerrada").length;
-  const critical=state.tickets.filter(t=>t.priority==="Crítica"||t.priorityBoost===true).length;
-  const recent=state.tickets.slice(0,4);
-  return `<div class="mobile-quick-home"><div class="mobile-home-hero"><small>Mesa de ayuda</small><h2>Radica y consulta sin enredos</h2><p>Inicio compacto para crear solicitudes, revisar pendientes y usar la IA cuando haga falta.</p><div class="mobile-home-actions"><button class="btn gold" onclick="setView('create')">Crear solicitud</button>${isInternal()?`<button class="btn ghost" onclick="setView('tickets')">Ver tickets</button>`:`<button class="btn ghost" onclick="setView('ai')">IA Calidad</button>`}</div></div><div class="mobile-stat-grid"><div class="mobile-stat"><small>Abiertas</small><strong>${open}</strong></div><div class="mobile-stat"><small>Por aceptar</small><strong>${pendingAccept}</strong></div><div class="mobile-stat"><small>Críticas</small><strong>${critical}</strong></div><div class="mobile-stat"><small>Cerradas</small><strong>${closed}</strong></div></div>${semaforoBoardHtml?semaforoBoardHtml(state.tickets):""}<div class="mobile-mini-list"><h3>Últimas solicitudes</h3>${recent.length?recent.map(t=>{const s=semaforoInfo?semaforoInfo(t):{color:"blue"};return `<div class="mobile-mini-row" onclick="openTicket('${t.id}')"><div><strong>${escapeHtml(t.code)} · ${escapeHtml(t.title)}</strong><span>${escapeHtml(t.status)} · ${escapeHtml(userName(t.assignedTo))}</span></div><i class="mobile-mini-dot ${s.color}"></i></div>`}).join(""):`<div class="empty">Aún no hay solicitudes registradas.</div>`}</div></div>`;
-};
-
-/* Intro: al iniciar, el cuadro se reduce un poco para que se vea más la animación. */
-const bootStartBtnIOS=document.getElementById("bootStartBtn");
-if(bootStartBtnIOS){
-  bootStartBtnIOS.addEventListener("click",()=>{
-    const card=document.getElementById("bootCard");
-    if(card)card.classList.add("running");
-  },{once:false});
-}
-
-/* Refuerzo para que cada render mantenga el modo iOS. */
-const renderAppBeforeIOSMinimal=renderApp;
-renderApp=function(){
-  applyIOSClassEarly();
-  renderAppBeforeIOSMinimal();
-  applyIOSClassEarly();
-};
-
-
-/* =========================================================
-   APP MESA DE AYUDA MINIMAL FUNCIONAL
-   - Intro centrada, limpia y no invasiva.
-   - Corrección de pantalla blanca por adjuntos pesados/doble envío.
-   - Flujo de solicitante más estable.
-   ========================================================= */
-const APP_MINIMAL_FUNCTIONAL_VERSION="Mesa de ayuda minimal funcional v1";
-const MAX_ATTACHMENTS_PER_TICKET=3;
-const MAX_ATTACHMENT_SIZE_MB=4;
-const MAX_ATTACHMENTS_TOTAL_MB=8;
-let submitInProgress=false;
-
-function applyMinimalFunctionalMode(){
-  document.body.classList.add("app-minimal");
-  const boot=document.getElementById("boot");
-  if(boot)boot.classList.add("minimal-intro");
-  const bootTitle=document.querySelector("#boot .boot-copy h2");
-  if(bootTitle)bootTitle.textContent="Bienvenido al sistema";
-  const bootStart=document.querySelector("#bootStartBtn span:last-child");
-  if(bootStart)bootStart.textContent="Iniciar";
-}
-applyMinimalFunctionalMode();
-window.addEventListener("DOMContentLoaded",applyMinimalFunctionalMode);
-window.addEventListener("resize",applyMinimalFunctionalMode);
-
-const bootStartBtnMinimal=document.getElementById("bootStartBtn");
-if(bootStartBtnMinimal){
-  bootStartBtnMinimal.addEventListener("click",()=>{
-    const card=document.getElementById("bootCard");
-    if(card)card.classList.add("running");
-  },{once:false});
-}
-
-function showSubmitLock(text="Radicando solicitud..."){
-  hideSubmitLock();
-  const div=document.createElement("div");
-  div.className="submit-lock-overlay";
-  div.id="submitLockOverlay";
-  div.innerHTML=`<div class="submit-lock-card"><div class="submit-lock-spinner"></div><strong>${escapeHtml(text)}</strong><span>Espera un momento, estamos guardando la trazabilidad.</span></div>`;
-  document.body.appendChild(div);
-}
-function hideSubmitLock(){
-  document.getElementById("submitLockOverlay")?.remove();
-}
-function selectedAttachmentSummary(input){
-  const files=[...(input?.files||[])];
-  if(!files.length)return "Ningún archivo seleccionado";
-  const total=files.reduce((a,f)=>a+f.size,0);
-  return `${files.length} archivo(s) · ${humanSize(total)}`;
-}
-function validateAttachmentInput(input,showMessage=true){
-  const files=[...(input?.files||[])];
-  const maxEach=MAX_ATTACHMENT_SIZE_MB*1024*1024;
-  const maxTotal=MAX_ATTACHMENTS_TOTAL_MB*1024*1024;
-  const total=files.reduce((a,f)=>a+f.size,0);
-  let msg="";
-  if(files.length>MAX_ATTACHMENTS_PER_TICKET)msg=`Puedes adjuntar máximo ${MAX_ATTACHMENTS_PER_TICKET} archivos por solicitud.`;
-  else if(files.some(f=>f.size>maxEach))msg=`Cada archivo debe pesar máximo ${MAX_ATTACHMENT_SIZE_MB} MB.`;
-  else if(total>maxTotal)msg=`El total de adjuntos debe ser máximo ${MAX_ATTACHMENTS_TOTAL_MB} MB.`;
-  const old=document.getElementById("fileErrorNote");
-  if(old)old.remove();
-  if(msg && showMessage){
-    const note=document.createElement("div");
-    note.id="fileErrorNote";
-    note.className="file-error-note";
-    note.textContent=msg;
-    input?.closest(".field")?.appendChild(note);
-  }
-  return {ok:!msg,msg,files,total};
-}
-async function filesToAttachments(list){
-  const inputLike={files:list||[]};
-  const check=validateAttachmentInput(inputLike,false);
-  if(!check.ok)throw new Error(check.msg);
-  const files=[...(list||[])].slice(0,MAX_ATTACHMENTS_PER_TICKET);
-  const readFile=(file)=>new Promise((resolve,reject)=>{
-    const r=new FileReader();
-    r.onerror=()=>reject(new Error("No se pudo leer el archivo "+file.name));
-    r.onload=()=>resolve({id:uid("file"),name:file.name,type:file.type||"application/octet-stream",size:file.size||0,data:r.result,uploadedAt:now()});
-    r.readAsDataURL(file);
-  });
-  const out=[];
-  for(const file of files){
-    out.push(await readFile(file));
-  }
-  return out;
-}
-
-function bindMinimalAttachmentEvents(){
-  const input=document.getElementById("ticketAttachments");
-  if(!input || input.dataset.minimalBound==="1")return;
-  input.dataset.minimalBound="1";
-  const field=input.closest(".field");
-  if(field && !field.querySelector(".file-helper-line")){
-    const helper=document.createElement("div");
-    helper.className="file-helper-line";
-    helper.innerHTML=`<span>Máx. ${MAX_ATTACHMENTS_PER_TICKET} archivos</span><strong id="fileSummaryText">Sin adjuntos</strong>`;
-    field.appendChild(helper);
-  }
-  input.addEventListener("change",()=>{
-    const check=validateAttachmentInput(input,true);
-    const summary=document.getElementById("fileSummaryText");
-    if(summary)summary.textContent=check.ok?selectedAttachmentSummary(input):"Revisar adjuntos";
-    if(!check.ok){
-      input.value="";
-      if(summary)summary.textContent="Sin adjuntos";
-    }
-  });
-}
-
-function minimalSuccessPopup(ticket){
-  Swal.fire({
-    html:`<div class="minimal-success-card"><div class="success-mark">✓</div><h3>Solicitud enviada</h3><p>Tu radicado fue creado correctamente. Guárdalo para consultar el estado.</p><div class="minimal-code-box">${escapeHtml(ticket.code)}</div><p>Responsable: <strong>${escapeHtml(userName(ticket.assignedTo))}</strong>${ticket.requesterEmail?'<br>Comprobante enviado al correo registrado.':''}</p></div>`,
-    showConfirmButton:true,
-    confirmButtonText:"Entendido",
-    confirmButtonColor:"#0d5bd2",
-    backdrop:"rgba(3,22,45,.22)",
-    customClass:{popup:"minimal-success-popup"}
-  });
-}
-
-async function submitTicket(e){
-  e.preventDefault();
-  if(submitInProgress)return;
-  const form=e.target;
-  const fileInput=document.getElementById("ticketAttachments");
-  const attachmentCheck=validateAttachmentInput(fileInput,true);
-  if(!attachmentCheck.ok){
-    popup("Revisa los adjuntos",attachmentCheck.msg,assets.missing);
-    return;
-  }
-  submitInProgress=true;
-  const submitBtn=form.querySelector('button[type="submit"], .big-send-btn') || document.querySelector('.big-send-btn[form="ticketForm"]');
-  if(submitBtn)submitBtn.disabled=true;
-  showSubmitLock("Radicando solicitud...");
-  try{
-    const fd=new FormData(form);
-    const attachments=await filesToAttachments(fileInput?.files);
-    const ticketId=uid('ticket');
-    const priorityCode=String(fd.get('priorityCode')||'').trim().toUpperCase();
-    let boostResult=null;
-    if(priorityCode){
-      boostResult=await redeemPriorityCode(priorityCode,ticketId);
-      if(!boostResult.ok){
-        popup('Código de prioridad no válido',boostResult.message||'El código no existe, ya fue usado o no está activo.',assets.missing);
-        return;
-      }
-    }
-    const templateData=typeof collectTemplateData==="function"?collectTemplateData(fd):{};
-    let description=typeof appendTemplateToDescription==="function"?appendTemplateToDescription(fd.get('description'),templateData):fd.get('description');
-    description=typeof sanitizeFormalText==="function"?sanitizeFormalText(description):description;
-    const ticket={
-      id:ticketId,
-      code:'DT-'+String(maxTicketCode()+1).padStart(4,'0'),
-      requesterName:fd.get('requesterName'),
-      requesterEmail:fd.get('requesterEmail'),
-      requesterArea:fd.get('requesterArea'),
-      assignedTo:fd.get('assignedTo'),
-      category:fd.get('category'),
-      priority:fd.get('priority'),
-      modality:fd.get('modality'),
-      title:fd.get('title'),
-      description,
-      evidence:fd.get('evidence'),
-      attachments:(attachments||[]).map(a=>({...a,ticketId:ticketId,scope:'general'})),
-      resolutionFiles:[],
-      templateData,
-      status:'Enviada',
-      createdBy:state.user.id,
-      acceptedAt:null,
-      finishedAt:null,
-      extendedReason:'',
-      satisfaction:null,
-      emailLog:[],
-      chat:[{by:state.user.name,text:'Solicitud radicada.',at:now()}],
-      timeline:[{label:'Radicación',text:'Solicitud enviada al responsable.',at:now()}],
-      created_at:now(),
-      updated_at:now()
-    };
-    if(boostResult?.ok){
-      ticket.priority='Crítica';
-      ticket.priorityBoost=true;
-      ticket.priorityCode=priorityCode;
-      ticket.priorityBoostCost=boostResult.cost;
-      ticket.timeline.push({label:'Prioridad por monedas',text:`Código ${priorityCode} aplicado. La solicitud sube por prioridad de monedas del ranking.`,at:now()});
-      ticket.chat.push({by:'Sistema de monedas',text:`Se aplicó código de prioridad ${priorityCode}. Esta solicitud entra por encima de la fila normal.`,at:now()});
-    }
-    if(typeof ticketQualityFromObject==="function")ticket.quality=ticketQualityFromObject(ticket);
-    if(typeof makeSlaMeta==="function")ticket.sla=makeSlaMeta(ticket);
-    await saveRecord(tables.tickets,ticket);
-    state.tickets=await listRecords(tables.tickets);
-    try{playSound(sounds.created)}catch(_){}
-    try{await sendTicketEmailAutomatic(ticket,"created",true)}catch(err){console.warn("Comprobante no enviado",err)}
-    minimalSuccessPopup(ticket);
-    if(window.confetti && !isMobileMinimalMode())confetti({particleCount:70,spread:62,origin:{y:.76}});
-    form.reset();
-    const summary=document.getElementById("fileSummaryText");
-    if(summary)summary.textContent="Sin adjuntos";
-    state.view='detail';
-    state.selectedTicket=ticket;
-    renderApp();
-  }catch(err){
-    console.error("Error radicando solicitud",err);
-    popup("No se pudo radicar","La solicitud no se guardó. Revisa los adjuntos, la conexión y vuelve a intentar.",assets.missing);
-  }finally{
-    hideSubmitLock();
-    submitInProgress=false;
-    if(submitBtn)submitBtn.disabled=false;
-  }
-}
-
-/* Vista solicitante más limpia: pocas acciones y sin tablero invasivo. */
-const navHtmlBeforeMinimalFunctional=navHtml;
-navHtml=function(){
-  if(state.user?.role==="Solicitante"){
-    return `<button class="${state.view==='dashboard'?'active':''}" onclick="setView('dashboard')">Inicio</button><button class="${state.view==='create'?'active':''}" onclick="setView('create')">Crear solicitud</button><button class="${state.view==='ai'?'active':''}" onclick="setView('ai')">IA Calidad</button>`;
-  }
-  return navHtmlBeforeMinimalFunctional();
-};
-
-const bindViewBeforeMinimalFunctional=bindView;
-bindView=function(){
-  bindViewBeforeMinimalFunctional();
-  applyMinimalFunctionalMode();
-  bindMinimalAttachmentEvents();
-};
-
-/* Inicio simple también para solicitantes en PC, estilo app funcional. */
-const dashboardHtmlBeforeMinimalFunctional=dashboardHtml;
-dashboardHtml=function(){
-  if(state.user?.role==="Solicitante"){
-    const mine=state.tickets.filter(t=>t.createdBy===state.user.id || String(t.requesterName||"").toLowerCase()===String(state.user.name||"").toLowerCase()).slice(0,4);
-    return `<div class="mobile-quick-home"><div class="mobile-home-hero"><small>Mesa de ayuda</small><h2>¿Necesitas apoyo de Calidad?</h2><p>Crea tu solicitud con ayuda o consulta el estado de tus radicados.</p><div class="mobile-home-actions"><button class="btn gold" onclick="setView('create')">Crear solicitud</button><button class="btn ghost" onclick="setView('ai')">IA Calidad</button></div></div><div class="mobile-mini-list"><h3>Mis solicitudes recientes</h3>${mine.length?mine.map(t=>{const s=semaforoInfo?semaforoInfo(t):{color:"blue"};return `<div class="mobile-mini-row" onclick="openTicket('${t.id}')"><div><strong>${escapeHtml(t.code)} · ${escapeHtml(t.title)}</strong><span>${escapeHtml(t.status)} · ${escapeHtml(userName(t.assignedTo))}</span></div><i class="mobile-mini-dot ${s.color}"></i></div>`}).join(""):`<div class="empty">Aún no tienes solicitudes registradas.</div>`}</div></div>`;
-  }
-  return dashboardHtmlBeforeMinimalFunctional();
-};
-
-const renderAppBeforeMinimalFunctional=renderApp;
-renderApp=function(){
-  applyMinimalFunctionalMode();
-  renderAppBeforeMinimalFunctional();
-  applyMinimalFunctionalMode();
-  bindMinimalAttachmentEvents();
-};
-
-
-/* =========================================================
-   AJUSTE ESTRICTO: INTRO MÓVIL + SCROLL TÁCTIL NATURAL
-   ========================================================= */
-function strictMobileIntro(){
-  const boot=document.getElementById("boot");
-  const card=document.getElementById("bootCard");
-  const title=document.querySelector("#boot .boot-copy h2");
-  const startBtn=document.getElementById("bootStartBtn");
-  const startText=startBtn?.querySelector("span:last-child");
-  const icon=startBtn?.querySelector(".boot-play-icon");
-  const dev=document.querySelector("#boot .boot-dev");
-  if(boot)boot.classList.add("minimal-intro");
-  if(card)card.classList.add("cinematic");
-  if(title)title.textContent="MESA DE AYUDA";
-  if(startText)startText.textContent="Iniciar";
-  if(icon)icon.remove();
-  if(dev)dev.innerHTML='Desarrollado por: <strong>Juan E. Perez</strong>';
-}
-function unlockTouchScroll(){
-  document.documentElement.style.overflow="";
-  document.documentElement.style.height="";
-  document.body.style.position="";
-  document.body.style.inset="";
-  document.body.style.height="";
-  document.body.style.overflowY="";
-  document.body.style.touchAction="pan-y";
-  const app=document.getElementById("app");
-  const shell=document.querySelector(".app-shell");
+function isMobileStable(){return window.matchMedia("(max-width: 880px)").matches}
+function safeTop(){
+  try{window.scrollTo({top:0,left:0,behavior:"auto"})}catch(e){window.scrollTo(0,0)}
   const main=document.querySelector(".main");
-  [app,shell,main].forEach(el=>{
-    if(!el)return;
-    el.style.height="";
-    el.style.maxHeight="";
-    el.style.overflow="";
-    el.style.touchAction="pan-y";
-  });
+  if(main){try{main.scrollTo({top:0,left:0,behavior:"auto"})}catch(e){main.scrollTop=0;main.scrollLeft=0}}
 }
-function applyStrictMobileFix(){
-  strictMobileIntro();
-  unlockTouchScroll();
-  document.documentElement.style.background="#f7fbff";
-  document.body.style.background="#f7fbff";
+function ensureCreateViewStable(){
+  state.view="create";
+  if(!document.getElementById("ticketForm"))renderApp();
+  setTimeout(safeTop,30);setTimeout(safeTop,160);
 }
-strictMobileIntro();
-window.addEventListener("DOMContentLoaded",applyStrictMobileFix);
-window.addEventListener("resize",applyStrictMobileFix);
-const bootBtnStrict=document.getElementById("bootStartBtn");
-if(bootBtnStrict){
-  bootBtnStrict.addEventListener("click",()=>{
-    strictMobileIntro();
-    const txt=bootBtnStrict.querySelector("span:last-child") || bootBtnStrict;
-    if(txt)txt.textContent="Iniciando...";
-  },{once:false});
+function chooseManualRadication(){
+  state.guidedManualMode=true;
+  state.guidedOfferVisible=false;
+  state.guidedOfferShown=true;
+  ensureCreateViewStable();
+  const first=document.querySelector('#ticketForm input[name="requesterName"]');
+  setTimeout(()=>{try{first?.focus({preventScroll:true})}catch(e){}},220);
 }
-if(typeof renderApp==="function"){
-  const renderAppBeforeStrictMobileFix=renderApp;
-  renderApp=function(){
-    unlockTouchScroll();
-    renderAppBeforeStrictMobileFix();
-    applyStrictMobileFix();
-  };
-}
-if(typeof bindView==="function"){
-  const bindViewBeforeStrictMobileFix=bindView;
-  bindView=function(){
-    bindViewBeforeStrictMobileFix();
-    applyStrictMobileFix();
-  };
-}
-
-
-/* =========================================================
-   FINAL REAL iOS: aplicación estricta
-   ========================================================= */
-function isRealMobile(){
-  return window.matchMedia("(max-width: 880px)").matches;
-}
-function applyMobileShellFinal(){
-  document.documentElement.classList.toggle("mobile-shell",isRealMobile());
-  document.documentElement.style.background="#f7fbff";
-  document.body.style.background="#f7fbff";
-  const bootTitle=document.querySelector("#bootLoader #bootCard .boot-copy h2");
-  const bootDev=document.querySelector("#bootLoader #bootCard .boot-dev");
-  const bootBtn=document.getElementById("bootStartBtn");
-  const bootBtnText=bootBtn?.querySelector("span:last-child")||bootBtn?.querySelector("span");
+function applyIntroAndLoginText(){
+  const title=document.querySelector("#bootLoader #bootCard .boot-copy h2");
+  const dev=document.querySelector("#bootLoader #bootCard .boot-dev");
+  const btn=document.getElementById("bootStartBtn");
+  const span=btn?.querySelector("span:last-child")||btn?.querySelector("span");
   const icon=document.querySelector("#bootLoader .boot-play-icon");
-  if(bootTitle)bootTitle.textContent="MESA DE AYUDA";
-  if(bootDev)bootDev.innerHTML='Desarrollado por: <strong>Juan E. Perez</strong>';
-  if(bootBtnText)bootBtnText.textContent="Iniciar";
+  if(title)title.textContent="MESA DE AYUDA";
+  if(dev)dev.innerHTML='Desarrollado por: <strong>Juan E. Perez</strong>';
+  if(span)span.textContent="Iniciar";
   if(icon)icon.remove();
 }
-applyMobileShellFinal();
-window.addEventListener("DOMContentLoaded",applyMobileShellFinal);
-window.addEventListener("resize",applyMobileShellFinal);
+applyIntroAndLoginText();
+window.addEventListener("DOMContentLoaded",()=>{applyIntroAndLoginText();safeTop()});
+window.addEventListener("resize",applyIntroAndLoginText);
 
-/* Login simplificado y correcto */
 setupLogin=function(){
   const app=document.getElementById("app");
   app.innerHTML=`<div class="login-page"><div class="login-card">
@@ -6239,70 +4673,142 @@ setupLogin=function(){
   document.getElementById("pinBox").style.display="none";
   document.getElementById("guestBtn").onclick=()=>loginGuest();
   document.getElementById("loginBtn").onclick=login;
-  applyMobileShellFinal();
+  safeTop();
   try{gsap.from(".login-card",{opacity:0,y:18,duration:.42,ease:"power2.out"})}catch(e){}
 };
 
-/* IA automática para solicitante en celular */
-let mobileGuidedRadicationOpening=false;
-function shouldAutoStartGuided(){
-  return isRealMobile() && state.user?.role==="Solicitante" && state.view==="create";
-}
-function autoStartGuidedRadicationMobile(){
-  if(!shouldAutoStartGuided())return;
-  if(mobileGuidedRadicationOpening)return;
-  mobileGuidedRadicationOpening=true;
-  setTimeout(()=>{
-    try{
-      if(shouldAutoStartGuided() && typeof startGuidedRadication==="function"){
-        startGuidedRadication();
-      }
-    }finally{
-      setTimeout(()=>{mobileGuidedRadicationOpening=false},1200);
+offerGuidedRadication=async function(){
+  if(state.guidedOfferVisible||state.guidedManualMode)return;
+  if(!isTicketFormEmpty())return;
+  state.guidedOfferVisible=true;
+  const result=await Swal.fire({
+    title:"¿Quieres crearla con ayuda?",
+    html:`<div class="guided-step-box"><strong>Recomendado:</strong> te hago pocas preguntas y organizo la solicitud por ti. También puedes hacerla manual si prefieres llenar el formulario directamente.</div>`,
+    showDenyButton:true,showCancelButton:false,
+    confirmButtonText:"Crear con ayuda",denyButtonText:"Quiero hacerlo manual",
+    confirmButtonColor:"#0d5bd2",denyButtonColor:"#f7bf24",
+    allowOutsideClick:false,customClass:{popup:"guided-clean-popup"}
+  });
+  state.guidedOfferVisible=false;
+  if(result.isConfirmed)await startGuidedRadication(true); else chooseManualRadication();
+};
+
+guidedAskStep=async function(cfg){
+  const options=cfg.options||null;
+  const htmlOptions=options?`<select id="guided-input" class="swal2-select">${options.map(o=>`<option ${o===cfg.value?'selected':''}>${escapeHtml(o)}</option>`).join("")}</select>`:"";
+  const result=await Swal.fire({
+    title:cfg.title,
+    html:`<div class="guided-step-box"><p>${escapeHtml(cfg.text)}</p>${htmlOptions}</div>`,
+    input:options?undefined:(cfg.input||"text"),
+    inputValue:options?undefined:(cfg.value||""),
+    inputPlaceholder:cfg.placeholder||"",
+    showDenyButton:true,showCancelButton:false,
+    confirmButtonText:"Siguiente",denyButtonText:"Quiero hacerlo manual",
+    confirmButtonColor:"#0d5bd2",denyButtonColor:"#f7bf24",
+    allowOutsideClick:false,customClass:{popup:"guided-clean-popup"},
+    preConfirm:(v)=>{
+      const val=options?document.getElementById("guided-input")?.value:v;
+      if(cfg.required!==false&&!String(val||"").trim()){Swal.showValidationMessage("Este dato es necesario para organizar bien la solicitud.");return false}
+      return String(val||"").trim();
     }
-  },650);
+  });
+  if(result.isDenied||!result.isConfirmed){chooseManualRadication();return GUIDED_MANUAL_VALUE}
+  return result.value||"";
+};
+function isManualStop(v){return v===GUIDED_MANUAL_VALUE||v===null}
+
+startGuidedRadication=async function(fromOffer=false){
+  state.guidedManualMode=false;
+  ensureCreateViewStable();
+  const current=guidedCurrentFormData();
+  const data={};
+  if(state.user?.role==="Solicitante"){
+    data.requesterName=await guidedAskStep({title:"Tu nombre",text:"Escribe tu nombre completo.",placeholder:"Nombre del solicitante",value:current.requesterName});
+    if(isManualStop(data.requesterName))return;
+    data.requesterEmail=await guidedAskStep({title:"Correo",text:"Escribe tu correo para enviarte el comprobante. Si no tienes, puedes dejarlo vacío.",placeholder:"correo@empresa.com",value:current.requesterEmail,required:false});
+    if(isManualStop(data.requesterEmail))return;
+  }else{
+    data.requesterName=current.requesterName||state.user?.name||"";
+    data.requesterEmail=current.requesterEmail||"";
+  }
+  data.area=await guidedAskStep({title:"Área o proceso",text:"¿De qué área o proceso viene la solicitud?",placeholder:"Ej. Cartera, logística, ventas, producción",value:current.requesterArea});
+  if(isManualStop(data.area))return;
+  data.need=await guidedAskStep({title:"Necesidad",text:"Cuéntame qué necesitas o qué problema ocurrió.",input:"textarea",placeholder:"Ej. No puedo subir el PDF de una factura y se queda cargando",value:current.description||current.title});
+  if(isManualStop(data.need))return;
+  data.caseType=await guidedAskStep({title:"Tipo de caso",text:"Selecciona lo que más se parece a tu caso.",options:["Documento","Procedimiento","Auditoría","Indicador/KPI","Riesgo/Hallazgo","Capacitación","Mejora continua","Consulta general"],value:current.category||"Documento"});
+  if(isManualStop(data.caseType))return;
+  data.evidence=await guidedAskStep({title:"Evidencia",text:"¿Tienes evidencia, enlace, captura, PDF, acta, matriz o archivo?",input:"textarea",placeholder:"Ej. Tengo captura y PDF / No tengo evidencia todavía",value:current.evidence||""});
+  if(isManualStop(data.evidence))return;
+  data.expected=await guidedAskStep({title:"Resultado esperado",text:"¿Qué esperas que entregue el equipo de Calidad?",input:"textarea",placeholder:"Ej. Que revisen el documento y dejen respuesta trazable"});
+  if(isManualStop(data.expected))return;
+  data.urgency=await guidedAskStep({title:"Urgencia o plazo",text:"¿Tiene fecha límite o urgencia?",placeholder:"Ej. Esta semana / Auditoría mañana / Sin urgencia",required:false});
+  if(isManualStop(data.urgency))return;
+  if(!data.urgency)data.urgency="Sin urgencia indicada";
+  const draft=guidedBuildDraft(data);
+  applyGuidedDraft(draft);
+  const quality=ticketQualityFromObject(collectTicketFormObject());
+  await Swal.fire({
+    title:"Solicitud lista",
+    html:`<div class="guided-step-box"><p><strong>Asunto:</strong> ${escapeHtml(draft.title)}</p><p><strong>Categoría:</strong> ${escapeHtml(draft.category)} · <strong>Prioridad:</strong> ${escapeHtml(draft.priority)}</p><p><strong>Responsable:</strong> ${escapeHtml(userName(draft.assignedTo))}</p><p><strong>Calidad:</strong> ${quality.score}%</p><p>Revisa el formulario y presiona <strong>Enviar solicitud</strong>.</p></div>`,
+    confirmButtonText:"Revisar formulario",confirmButtonColor:"#0d5bd2",customClass:{popup:"guided-clean-popup"}
+  });
+  ensureCreateViewStable();
+};
+
+maybeOfferGuidedRadication=function(){
+  if(state.view!=="create"||state.guidedOfferShown||state.guidedManualMode)return;
+  setTimeout(()=>{
+    if(state.view==="create"&&isTicketFormEmpty()&&!state.guidedManualMode){
+      state.guidedOfferShown=true;offerGuidedRadication();
+    }
+  },320);
+};
+
+function autoOpenGuideForMobileSolicitante(){
+  if(!isMobileStable())return;
+  if(state.user?.role!=="Solicitante"||state.view!=="create")return;
+  if(state.guidedManualMode||guidedAutoOpening)return;
+  guidedAutoOpening=true;
+  setTimeout(async()=>{
+    try{
+      if(state.view==="create"&&isTicketFormEmpty()&&!state.guidedManualMode)await offerGuidedRadication();
+    }finally{
+      setTimeout(()=>{guidedAutoOpening=false},900);
+    }
+  },520);
 }
+
 loginGuest=async function(view="create"){
   state.user={id:"guest_"+Date.now(),name:"Solicitante general",role:"Solicitante",area:"Usuario general",statusText:"Radicando solicitudes",avatar:assets.fun,gameAlias:""};
   state.view=view;
+  state.guidedOfferShown=false;
+  state.guidedOfferVisible=false;
+  state.guidedManualMode=false;
   renderApp();
-  applyMobileShellFinal();
-  if(view==="create" && isRealMobile()){
-    autoStartGuidedRadicationMobile();
-  }else if(view!=="create"){
-    // Sin pop-up de bienvenida invasivo.
-  }
+  safeTop();
+  if(view==="create")autoOpenGuideForMobileSolicitante();
 };
 
-/* Al cambiar a crear solicitud en móvil, arranca la guía y corrige posición */
-const setViewBeforeFinalReal = typeof setView==="function" ? setView : null;
-if(setViewBeforeFinalReal){
+const setViewBeforeStableFinal=typeof setView==="function"?setView:null;
+if(setViewBeforeStableFinal){
   setView=function(view){
-    setViewBeforeFinalReal(view);
-    applyMobileShellFinal();
     if(view==="create"){
-      const main=document.querySelector(".main");
-      if(main)main.scrollTo({top:0,left:0,behavior:"auto"});
-      if(shouldAutoStartGuided())autoStartGuidedRadicationMobile();
+      state.guidedOfferShown=false;state.guidedOfferVisible=false;state.guidedManualMode=false;
     }
+    setViewBeforeStableFinal(view);
+    safeTop();
+    if(view==="create")autoOpenGuideForMobileSolicitante();
   };
 }
-
-const renderAppBeforeFinalReal = typeof renderApp==="function" ? renderApp : null;
-if(renderAppBeforeFinalReal){
-  renderApp=function(){
-    renderAppBeforeFinalReal();
-    applyMobileShellFinal();
-    const main=document.querySelector(".main");
-    if(state.view==="create" && main)main.scrollTo({top:0,left:0,behavior:"auto"});
-  };
+const renderAppBeforeStableFinal=typeof renderApp==="function"?renderApp:null;
+if(renderAppBeforeStableFinal){
+  renderApp=function(){renderAppBeforeStableFinal();safeTop();};
 }
-const bindViewBeforeFinalReal = typeof bindView==="function" ? bindView : null;
-if(bindViewBeforeFinalReal){
+const bindViewBeforeStableFinal=typeof bindView==="function"?bindView:null;
+if(bindViewBeforeStableFinal){
   bindView=function(){
-    bindViewBeforeFinalReal();
-    applyMobileShellFinal();
-    if(shouldAutoStartGuided())autoStartGuidedRadicationMobile();
+    bindViewBeforeStableFinal();
+    if(state.view==="create"){setTimeout(safeTop,40);autoOpenGuideForMobileSolicitante();}
   };
 }
 
