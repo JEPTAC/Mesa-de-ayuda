@@ -1191,6 +1191,223 @@ tr.need-accept-row td:first-child{
   }
 }
 
+
+/* =========================================================
+   RADICACIÓN SIMPLE + FORMATO IOS
+   ========================================================= */
+.simple-request-shell{
+  display:grid;
+  grid-template-columns:minmax(0,1.18fr) minmax(320px,.82fr);
+  gap:18px;
+  align-items:start;
+}
+.simple-form-card{
+  border-radius:30px;
+  overflow:hidden;
+}
+.simple-form-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:14px;
+}
+.simple-form-head h2{
+  margin:0;
+  color:#0b3b82;
+}
+.simple-form-head p{
+  margin:5px 0 0;
+  color:#315783;
+  line-height:1.45;
+  font-size:13px;
+}
+.simple-request-mini{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:10px 0 4px;
+}
+.simple-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  border:1px solid rgba(11,59,130,.12);
+  background:#eaf2ff;
+  color:#0b3b82;
+  padding:7px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+}
+.simple-side{
+  display:grid;
+  gap:14px;
+}
+.simple-assisted-card{
+  border-radius:30px;
+  padding:20px;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(247,191,36,.20),transparent 30%),
+    linear-gradient(180deg,#ffffff,#f7fbff);
+  border:1px solid rgba(11,59,130,.13);
+  box-shadow:0 18px 42px rgba(11,59,130,.08);
+}
+.simple-assisted-card h2{
+  margin:0 0 8px;
+  color:#0b3b82;
+}
+.simple-assisted-card p{
+  margin:0 0 14px;
+  color:#315783;
+  line-height:1.55;
+  font-size:14px;
+}
+.assist-big-btn{
+  width:100%;
+  border:0;
+  cursor:pointer;
+  min-height:74px;
+  border-radius:24px;
+  padding:16px 18px;
+  background:linear-gradient(135deg,#f7bf24,#ffe28a);
+  color:#0b3b82;
+  box-shadow:0 18px 36px rgba(247,191,36,.22);
+  font-family:"Century Gothic",Arial,sans-serif;
+  font-weight:900;
+  text-align:left;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.assist-big-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 24px 46px rgba(247,191,36,.30);
+}
+.assist-big-btn span{
+  display:block;
+  font-size:22px;
+}
+.assist-big-btn small{
+  display:block;
+  margin-top:4px;
+  color:#315783;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.8px;
+}
+.simple-submit-card{
+  border-radius:30px;
+  padding:16px;
+  background:linear-gradient(145deg,#0b3b82,#0d5bd2);
+  box-shadow:0 22px 50px rgba(13,91,210,.24);
+}
+.simple-submit-card .big-send-btn{
+  width:100%;
+  min-width:0;
+  background:linear-gradient(135deg,#ffffff,#fff7db);
+  color:#0b3b82;
+  box-shadow:none;
+}
+.simple-submit-card .big-send-btn small{
+  color:#0d5bd2;
+}
+.simple-submit-note{
+  color:rgba(255,255,255,.82);
+  margin:10px 4px 0;
+  line-height:1.45;
+  font-size:12px;
+}
+.simple-quality-zone .quality-panel{
+  margin:0;
+}
+.simple-lookup-card{
+  border-radius:28px;
+}
+
+/* iOS / móvil compacto */
+body.ios-mobile .app-shell,
+body.ios-mobile .content,
+body.ios-mobile main{
+  max-width:100%;
+}
+body.ios-mobile .simple-request-shell{
+  display:block;
+}
+body.ios-mobile .simple-form-card,
+body.ios-mobile .simple-assisted-card,
+body.ios-mobile .simple-submit-card,
+body.ios-mobile .simple-lookup-card{
+  border-radius:26px;
+  margin-bottom:12px;
+}
+body.ios-mobile .simple-form-head{
+  display:block;
+}
+body.ios-mobile .simple-form-head h2{
+  font-size:22px;
+}
+body.ios-mobile .form .field label{
+  font-size:12px;
+}
+body.ios-mobile .form input,
+body.ios-mobile .form select,
+body.ios-mobile .form textarea{
+  min-height:48px;
+  border-radius:18px;
+  font-size:15px;
+}
+body.ios-mobile .form textarea{
+  min-height:118px;
+}
+body.ios-mobile .grid.cols-2,
+body.ios-mobile .grid.cols-3{
+  grid-template-columns:1fr!important;
+}
+body.ios-mobile .simple-side{
+  gap:10px;
+}
+body.ios-mobile .assist-big-btn,
+body.ios-mobile .big-send-btn{
+  min-height:72px;
+  border-radius:22px;
+  text-align:center;
+}
+body.ios-mobile .simple-submit-card{
+  position:sticky;
+  bottom:12px;
+  z-index:30;
+  padding:12px;
+  box-shadow:0 20px 54px rgba(13,91,210,.32);
+}
+body.ios-mobile .simple-submit-note{
+  display:none;
+}
+body.ios-mobile .quality-list{
+  font-size:12px;
+}
+body.ios-mobile .filters,
+body.ios-mobile .executive-strip{
+  overflow-x:auto;
+  flex-wrap:nowrap;
+  -webkit-overflow-scrolling:touch;
+}
+body.ios-mobile .top-actions,
+body.ios-mobile .valor-actions{
+  gap:7px;
+}
+body.ios-mobile .top-actions .btn,
+body.ios-mobile .valor-actions .btn{
+  min-height:44px;
+  border-radius:16px;
+}
+@media(max-width:880px){
+  .simple-request-shell{
+    grid-template-columns:1fr;
+  }
+  .simple-submit-card{
+    order:-1;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -4329,6 +4546,36 @@ createHtml=function(){
     h=h.replace('</form>',newButton+'</form>');
   }
   return h;
+};
+
+
+/* =========================================================
+   RADICACIÓN SIMPLE FINAL + IOS COMPACTO
+   - Sin plantilla inteligente en la pantalla de radicación.
+   - Registro asistido como acción principal.
+   - Botón enviar debajo del registro asistido.
+   - Semáforo debajo del botón enviar.
+   ========================================================= */
+function enableIOSMobileMode(){
+  const ua=navigator.userAgent||"";
+  const isiOS=/iPad|iPhone|iPod/.test(ua) || (navigator.platform==="MacIntel" && navigator.maxTouchPoints>1);
+  const mobile=window.matchMedia("(max-width: 880px)").matches;
+  document.body.classList.toggle("ios-mobile", isiOS && mobile);
+}
+window.addEventListener("resize",enableIOSMobileMode);
+
+createHtml=function(){
+  return `<div class="simple-request-shell"><div class="card simple-form-card"><div class="simple-form-head"><div><h2>Radicar solicitud</h2><p>Completa lo esencial. Si no sabes cómo escribirla, usa el registro asistido.</p></div><div class="simple-request-mini"><span class="simple-chip">📝 Simple</span><span class="simple-chip">✅ Trazable</span><span class="simple-chip">📩 Comprobante</span></div></div><form class="form" id="ticketForm"><div class="grid cols-2"><div class="field"><label>Nombre del solicitante</label><input name="requesterName" required value="${state.user.role==='Solicitante'?'':escapeHtml(state.user.name)}"></div><div class="field"><label>Correo</label><input name="requesterEmail" type="email" placeholder="correo@empresa.com"></div></div><div class="grid cols-2"><div class="field"><label>Área / proceso</label><input name="requesterArea" required placeholder="Ej. Cartera, logística, ventas, producción"></div><div class="field"><label>Responsable</label><select name="assignedTo" required>${responders().map(u=>`<option value="${u.id}">${escapeHtml(u.name)} · ${escapeHtml(u.role)}</option>`).join("")}</select></div></div><div class="grid cols-3"><div class="field"><label>Categoría</label><select name="category">${categories.map(c=>`<option>${c}</option>`).join("")}</select></div><div class="field"><label>Prioridad</label><select name="priority">${priorities.map(p=>`<option ${p==='Media'?'selected':''}>${p}</option>`).join("")}</select></div><div class="field"><label>Modalidad</label><select name="modality"><option>Documental</option><option>Presencial</option><option>Mixta</option></select></div></div><div class="field"><label>Asunto</label><input name="title" required placeholder="Describe el tema en una línea"></div><div class="field"><label>Descripción</label><textarea name="description" required placeholder="Cuéntanos qué necesitas, qué pasó y qué esperas recibir"></textarea></div><div class="grid cols-2"><div class="field"><label>Evidencia o enlace opcional</label><input name="evidence" placeholder="Drive, PDF, imagen, acta, formato, captura"></div><div class="field"><label>Adjuntar documentos</label><input id="ticketAttachments" type="file" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.png,.jpg,.jpeg,.webp,.txt"></div></div><div class="field"><label>Código de prioridad por monedas</label><input name="priorityCode" placeholder="Ej. EI-PRIO-ABCD12"><small class="mini-note">Solo úsalo si tienes un código generado en Juegos IA.</small></div></form></div><div class="simple-side"><div class="simple-assisted-card"><h2>Registro asistido</h2><p>La IA te ayuda paso a paso y completa la solicitud. Es la opción recomendada para radicar sin enredos.</p><button class="assist-big-btn" type="button" onclick="startGuidedRadication()"><span>Crear con ayuda</span><small>Guía rápida por preguntas</small></button></div><div class="simple-submit-card"><button class="big-send-btn" type="submit" form="ticketForm"><span>Enviar solicitud</span><small>Radicar ahora</small></button><p class="simple-submit-note">Cuando la información esté lista, presiona aquí. Se genera el radicado y el comprobante.</p></div><div class="simple-quality-zone" id="qualityPreview">${qualityPanelHtml({})}</div><div class="card simple-lookup-card"><div class="section-title"><h2>Consultar radicado</h2><span>rápido</span></div><div class="form"><div class="field"><label>Código de solicitud</label><input id="lookupCode" placeholder="DT-0001"></div><button class="btn ghost" onclick="lookupTicket()">Buscar solicitud</button></div></div></div></div>`;
+};
+
+const bindViewBeforeSimpleRequest=bindView;
+bindView=function(){
+  bindViewBeforeSimpleRequest();
+  enableIOSMobileMode();
+  if(state.view==="create"){
+    bindValorFormEvents();
+    maybeOfferGuidedRadication();
+  }
 };
 
 window.addEventListener('DOMContentLoaded',async()=>{
