@@ -1851,6 +1851,65 @@ body.create-mobile-compact{
   }
 }
 
+
+/* =========================================================
+   QA FIX: MENÚ 3 RAYAS FUNCIONAL EN IOS/MÓVIL
+   Problema: el menú salía superpuesto, pero la capa/backdrop podía interceptar
+   los toques o el sidebar heredaba pointer-events bloqueados.
+   ========================================================= */
+@media(max-width:880px){
+  .sidebar{
+    z-index:2147483000!important;
+  }
+
+  .sidebar.open{
+    transform:translateX(0)!important;
+    left:0!important;
+    pointer-events:auto!important;
+    touch-action:auto!important;
+  }
+
+  .sidebar.open,
+  .sidebar.open *,
+  .sidebar.open button,
+  .sidebar.open a,
+  .sidebar.open .nav,
+  .sidebar.open .nav button{
+    pointer-events:auto!important;
+  }
+
+  .sidebar.open .nav button,
+  .sidebar.open .side-footer button,
+  .sidebar.open button{
+    position:relative!important;
+    z-index:2147483001!important;
+    cursor:pointer!important;
+    -webkit-tap-highlight-color:rgba(13,91,210,.16)!important;
+  }
+
+  .menu-backdrop{
+    z-index:2147482000!important;
+    pointer-events:none!important;
+  }
+
+  body.mobile-menu-open .menu-backdrop{
+    pointer-events:auto!important;
+  }
+
+  body.mobile-menu-open .sidebar.open{
+    pointer-events:auto!important;
+  }
+
+  /* Al abrir el menú, el contenido queda debajo y no recibe toques */
+  body.mobile-menu-open .main{
+    pointer-events:none!important;
+  }
+
+  body.mobile-menu-open .sidebar.open{
+    pointer-events:auto!important;
+  }
+}
+
 </style>
 
   <!-- Iconos APP / iPhone / Navegador -->
@@ -5370,6 +5429,85 @@ document.addEventListener("click",(e)=>{
   if(btn && window.matchMedia("(max-width:880px)").matches){
     setTimeout(()=>closeMobileMenu(),60);
   }
+});
+
+
+/* =========================================================
+   QA FIX: navegación real desde drawer móvil
+   ========================================================= */
+function ensureMenuBackdrop(){
+  let bg=document.querySelector(".menu-backdrop");
+  if(!bg){
+    bg=document.createElement("div");
+    bg.className="menu-backdrop";
+    bg.addEventListener("click",(ev)=>{
+      ev.preventDefault();
+      ev.stopPropagation();
+      closeMobileMenu();
+    });
+    document.body.appendChild(bg);
+  }
+  return bg;
+}
+function closeMobileMenu(){
+  const side=document.getElementById("sidebar");
+  if(side)side.classList.remove("open");
+  document.body.classList.remove("mobile-menu-open");
+}
+function openMobileMenu(){
+  ensureMenuBackdrop();
+  const side=document.getElementById("sidebar");
+  if(side){
+    side.classList.add("open");
+    side.style.pointerEvents="auto";
+  }
+  document.body.classList.add("mobile-menu-open");
+}
+toggleMenu=function(){
+  const side=document.getElementById("sidebar");
+  if(!side)return;
+  if(side.classList.contains("open"))closeMobileMenu();
+  else openMobileMenu();
+};
+
+/* Navegación móvil explícita: si se toca una opción, ejecuta su onclick y luego cierra */
+document.addEventListener("click",(ev)=>{
+  const side=document.getElementById("sidebar");
+  if(!side || !side.classList.contains("open"))return;
+
+  const navBtn=ev.target.closest(".sidebar .nav button, .sidebar .side-footer button");
+  if(navBtn){
+    // No bloquear el onclick original; solo cerrar después.
+    setTimeout(()=>closeMobileMenu(),140);
+    return;
+  }
+
+  // Si el toque fue dentro del sidebar pero no sobre opción, no cerrar ni bloquear.
+  if(ev.target.closest(".sidebar")){
+    return;
+  }
+},true);
+
+/* Al renderizar, asegurar backdrop pero no dejar el menú bloqueando */
+const renderAppBeforeMenuFunctional=typeof renderApp==="function"?renderApp:null;
+if(renderAppBeforeMenuFunctional){
+  renderApp=function(){
+    renderAppBeforeMenuFunctional();
+    ensureMenuBackdrop();
+    closeMobileMenu();
+  };
+}
+
+const setViewBeforeMenuFunctional=typeof setView==="function"?setView:null;
+if(setViewBeforeMenuFunctional){
+  setView=function(view){
+    closeMobileMenu();
+    setViewBeforeMenuFunctional(view);
+  };
+}
+
+window.addEventListener("resize",()=>{
+  if(window.matchMedia("(min-width:881px)").matches)closeMobileMenu();
 });
 
 window.addEventListener('DOMContentLoaded',async()=>{
