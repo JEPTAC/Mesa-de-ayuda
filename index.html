@@ -1408,6 +1408,365 @@ body.ios-mobile .valor-actions .btn{
   }
 }
 
+
+/* =========================================================
+   IOS MINIMAL PREMIUM
+   Intro más visible, inicio resumido y pop-ups compactos.
+   ========================================================= */
+.mobile-quick-home{
+  display:grid;
+  gap:14px;
+}
+.mobile-home-hero{
+  border-radius:30px;
+  padding:18px;
+  color:#ffffff;
+  background:
+    radial-gradient(circle at 88% 0%,rgba(247,191,36,.35),transparent 34%),
+    linear-gradient(145deg,#0b3b82,#0d5bd2);
+  box-shadow:0 24px 54px rgba(13,91,210,.24);
+}
+.mobile-home-hero small{
+  display:inline-flex;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.18);
+  font-weight:900;
+  color:#fff7db;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+  font-size:11px;
+}
+.mobile-home-hero h2{
+  margin:12px 0 7px;
+  font-size:25px;
+  line-height:1.05;
+  letter-spacing:-.6px;
+}
+.mobile-home-hero p{
+  margin:0;
+  color:rgba(255,255,255,.82);
+  line-height:1.45;
+  font-size:13px;
+}
+.mobile-home-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:15px;
+}
+.mobile-home-actions .btn{
+  min-height:48px;
+  border-radius:18px;
+}
+.mobile-stat-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.mobile-stat{
+  border-radius:24px;
+  padding:14px;
+  background:linear-gradient(180deg,#ffffff,#f7fbff);
+  border:1px solid rgba(11,59,130,.12);
+  box-shadow:0 14px 34px rgba(11,59,130,.07);
+}
+.mobile-stat small{
+  display:block;
+  color:#60738f;
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+}
+.mobile-stat strong{
+  display:block;
+  color:#0b3b82;
+  font-size:26px;
+  line-height:1;
+  margin-top:5px;
+}
+.mobile-mini-list{
+  border-radius:26px;
+  background:#ffffff;
+  border:1px solid rgba(11,59,130,.12);
+  box-shadow:0 14px 34px rgba(11,59,130,.07);
+  overflow:hidden;
+}
+.mobile-mini-list h3{
+  margin:0;
+  padding:14px 16px 8px;
+  color:#0b3b82;
+  font-size:16px;
+}
+.mobile-mini-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:12px 16px;
+  border-top:1px solid rgba(11,59,130,.08);
+}
+.mobile-mini-row strong{
+  display:block;
+  color:#0b3b82;
+  font-size:13px;
+  line-height:1.25;
+}
+.mobile-mini-row span{
+  display:block;
+  color:#60738f;
+  font-size:11px;
+  margin-top:2px;
+}
+.mobile-mini-dot{
+  min-width:10px;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#0d5bd2;
+}
+.mobile-mini-dot.red{background:#ef4444}
+.mobile-mini-dot.yellow{background:#f7bf24}
+.mobile-mini-dot.green{background:#22c55e}
+
+/* Pop-ups menos invasivos */
+.compact-swal-popup{
+  border-radius:26px!important;
+  padding:14px!important;
+  width:min(390px,calc(100vw - 28px))!important;
+}
+.compact-swal-popup .popup-layout{
+  gap:12px;
+  align-items:center;
+}
+.compact-swal-popup .popup-gif{
+  width:68px!important;
+  height:68px!important;
+  border-radius:20px!important;
+}
+.compact-swal-popup h3{
+  margin:0 0 4px!important;
+  font-size:17px!important;
+}
+.compact-swal-popup p{
+  margin:0!important;
+  font-size:13px!important;
+  line-height:1.45!important;
+}
+.compact-swal-popup .swal2-actions{
+  margin-top:12px!important;
+}
+.compact-swal-popup .swal2-confirm,
+.compact-swal-popup .swal2-cancel,
+.compact-swal-popup .swal2-deny{
+  border-radius:16px!important;
+  min-height:42px!important;
+  font-size:13px!important;
+}
+@media(max-width:760px){
+  .swal2-container{
+    padding:10px!important;
+  }
+  .swal2-popup{
+    border-radius:26px!important;
+    width:min(360px,calc(100vw - 24px))!important;
+    padding:16px!important;
+  }
+  .swal2-title{
+    font-size:19px!important;
+    line-height:1.15!important;
+    padding:0 8px!important;
+  }
+  .swal2-html-container{
+    margin:9px 4px 0!important;
+    font-size:13px!important;
+  }
+  .wizard-summary{
+    padding:0!important;
+    text-align:left!important;
+  }
+  .wizard-summary p,
+  .wizard-summary li{
+    font-size:13px!important;
+    line-height:1.45!important;
+  }
+  .swal2-input,
+  .swal2-textarea,
+  .swal2-select{
+    width:100%!important;
+    margin:10px 0 0!important;
+    min-height:46px!important;
+    border-radius:16px!important;
+    font-size:15px!important;
+  }
+  .swal2-textarea{
+    min-height:112px!important;
+  }
+  .swal2-actions{
+    gap:8px!important;
+    margin-top:14px!important;
+  }
+  .swal2-confirm,
+  .swal2-cancel,
+  .swal2-deny{
+    border-radius:16px!important;
+    min-height:42px!important;
+    padding:10px 14px!important;
+  }
+}
+
+/* Intro móvil: cuadro pequeño para dejar ver la animación */
+@media(max-width:760px){
+  .boot-loader{
+    align-items:flex-end!important;
+    justify-content:center!important;
+    padding:14px 14px calc(18px + env(safe-area-inset-bottom))!important;
+  }
+  .boot-video{
+    filter:saturate(1.14) contrast(1.08) brightness(.58)!important;
+    transform:scale(1.02)!important;
+  }
+  .boot-overlay{
+    background:linear-gradient(180deg,rgba(2,8,18,.16),rgba(2,8,18,.18) 38%,rgba(2,8,18,.72) 100%)!important;
+    backdrop-filter:none!important;
+  }
+  .boot-card.cinematic{
+    width:min(338px,calc(100vw - 28px))!important;
+    padding:12px!important;
+    gap:9px!important;
+    border-radius:24px!important;
+    background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.075))!important;
+    backdrop-filter:blur(14px)!important;
+    box-shadow:0 20px 54px rgba(0,0,0,.34)!important;
+  }
+  .boot-card.cinematic.running{
+    transform:scale(.92)!important;
+    opacity:.74!important;
+  }
+  .boot-brand{
+    padding:8px 10px!important;
+    border-radius:16px!important;
+  }
+  .boot-brand strong{
+    font-size:14px!important;
+  }
+  .boot-brand span{
+    font-size:10px!important;
+    margin-top:2px!important;
+  }
+  .boot-hero{
+    grid-template-columns:62px 1fr!important;
+    gap:10px!important;
+    text-align:left!important;
+    justify-items:stretch!important;
+  }
+  .boot-character-wrap{
+    width:62px!important;
+    height:62px!important;
+    border-radius:18px!important;
+    padding:4px!important;
+  }
+  .boot-character-wrap img{
+    border-radius:14px!important;
+  }
+  .boot-copy h2{
+    font-size:20px!important;
+    letter-spacing:-.4px!important;
+  }
+  .boot-copy p{
+    font-size:11px!important;
+    line-height:1.35!important;
+    margin-top:4px!important;
+  }
+  .boot-start-btn,
+  .boot-loader-btn.cinematic-btn{
+    width:100%!important;
+    min-width:0!important;
+    min-height:44px!important;
+    padding:10px 14px!important;
+    border-radius:18px!important;
+    font-size:13px!important;
+  }
+  .boot-play-icon{
+    width:24px!important;
+    height:24px!important;
+  }
+  .boot-progress{
+    height:5px!important;
+  }
+  .boot-dev{
+    padding:7px 9px!important;
+    border-radius:14px!important;
+    font-size:10px!important;
+    text-align:center!important;
+  }
+  .boot-tip{
+    display:none!important;
+  }
+  .boot-status{
+    font-size:11px!important;
+  }
+}
+
+/* iOS app minimal */
+body.ios-mobile{
+  background:#f7fbff!important;
+}
+body.ios-mobile .app-shell{
+  background:#f7fbff!important;
+}
+body.ios-mobile .main{
+  padding:10px!important;
+}
+body.ios-mobile .topbar{
+  position:sticky;
+  top:0;
+  z-index:40;
+  border-radius:0 0 24px 24px!important;
+  padding:10px 10px 12px!important;
+  margin:-10px -10px 10px!important;
+  background:rgba(255,255,255,.86)!important;
+  backdrop-filter:blur(18px)!important;
+  box-shadow:0 12px 30px rgba(11,59,130,.08)!important;
+}
+body.ios-mobile .page-title h1{
+  font-size:19px!important;
+}
+body.ios-mobile .page-title p{
+  display:none!important;
+}
+body.ios-mobile .top-actions{
+  gap:6px!important;
+}
+body.ios-mobile .top-actions .btn{
+  min-height:38px!important;
+  padding:8px 10px!important;
+  font-size:12px!important;
+}
+body.ios-mobile .float-ai{
+  right:14px!important;
+  bottom:calc(14px + env(safe-area-inset-bottom))!important;
+  width:52px!important;
+  height:52px!important;
+  border-radius:20px!important;
+  font-size:0!important;
+}
+body.ios-mobile .float-ai:before{
+  content:"🤖";
+  font-size:22px;
+}
+body.ios-mobile .card,
+body.ios-mobile .executive-card,
+body.ios-mobile .metric{
+  border-radius:24px!important;
+  box-shadow:0 12px 30px rgba(11,59,130,.07)!important;
+}
+body.ios-mobile .sidebar{
+  border-radius:0 24px 24px 0!important;
+}
+
 </style>
 </head>
 <body>
@@ -4576,6 +4935,68 @@ bindView=function(){
     bindValorFormEvents();
     maybeOfferGuidedRadication();
   }
+};
+
+
+/* =========================================================
+   IOS MINIMAL PREMIUM
+   ========================================================= */
+function isMobileMinimalMode(){
+  return window.matchMedia("(max-width: 760px)").matches || document.body.classList.contains("ios-mobile");
+}
+function applyIOSClassEarly(){
+  const ua=navigator.userAgent||"";
+  const isiOS=/iPad|iPhone|iPod/.test(ua) || (navigator.platform==="MacIntel" && navigator.maxTouchPoints>1);
+  const mobile=window.matchMedia("(max-width: 880px)").matches;
+  document.body.classList.toggle("ios-mobile", isiOS && mobile);
+}
+applyIOSClassEarly();
+window.addEventListener("resize",applyIOSClassEarly);
+
+/* Evita el pop-up automático de registro asistido: ahora la ayuda queda como botón visible e intencional. */
+maybeOfferGuidedRadication=function(){return;};
+
+/* Pop-up de sistema compacto, con menos ruido visual. */
+popup=function(title,text,gif){
+  Swal.fire({
+    html:`<div class="popup-layout"><img class="popup-gif" src="${gif}"><div><h3>${escapeHtml(title)}</h3><p>${escapeHtml(text)}</p></div></div>`,
+    showConfirmButton:true,
+    confirmButtonText:"Entendido",
+    confirmButtonColor:"#0d5bd2",
+    background:"#ffffff",
+    backdrop:isMobileMinimalMode()?"rgba(3,22,45,.22)":"rgba(3,22,45,.36)",
+    customClass:{popup:"compact-swal-popup"}
+  });
+};
+
+/* Inicio resumido para iOS/móvil: menos tarjetas, menos botones, más directo. */
+const dashboardHtmlBeforeIOSMinimal=dashboardHtml;
+dashboardHtml=function(){
+  if(!isMobileMinimalMode())return dashboardHtmlBeforeIOSMinimal();
+  const total=state.tickets.length;
+  const open=state.tickets.filter(t=>!["Resuelta","Cerrada"].includes(t.status)).length;
+  const pendingAccept=state.tickets.filter(t=>["Enviada","Sin aceptar"].includes(t.status)).length;
+  const closed=state.tickets.filter(t=>t.status==="Cerrada").length;
+  const critical=state.tickets.filter(t=>t.priority==="Crítica"||t.priorityBoost===true).length;
+  const recent=state.tickets.slice(0,4);
+  return `<div class="mobile-quick-home"><div class="mobile-home-hero"><small>Mesa de ayuda</small><h2>Radica y consulta sin enredos</h2><p>Inicio compacto para crear solicitudes, revisar pendientes y usar la IA cuando haga falta.</p><div class="mobile-home-actions"><button class="btn gold" onclick="setView('create')">Crear solicitud</button>${isInternal()?`<button class="btn ghost" onclick="setView('tickets')">Ver tickets</button>`:`<button class="btn ghost" onclick="setView('ai')">IA Calidad</button>`}</div></div><div class="mobile-stat-grid"><div class="mobile-stat"><small>Abiertas</small><strong>${open}</strong></div><div class="mobile-stat"><small>Por aceptar</small><strong>${pendingAccept}</strong></div><div class="mobile-stat"><small>Críticas</small><strong>${critical}</strong></div><div class="mobile-stat"><small>Cerradas</small><strong>${closed}</strong></div></div>${semaforoBoardHtml?semaforoBoardHtml(state.tickets):""}<div class="mobile-mini-list"><h3>Últimas solicitudes</h3>${recent.length?recent.map(t=>{const s=semaforoInfo?semaforoInfo(t):{color:"blue"};return `<div class="mobile-mini-row" onclick="openTicket('${t.id}')"><div><strong>${escapeHtml(t.code)} · ${escapeHtml(t.title)}</strong><span>${escapeHtml(t.status)} · ${escapeHtml(userName(t.assignedTo))}</span></div><i class="mobile-mini-dot ${s.color}"></i></div>`}).join(""):`<div class="empty">Aún no hay solicitudes registradas.</div>`}</div></div>`;
+};
+
+/* Intro: al iniciar, el cuadro se reduce un poco para que se vea más la animación. */
+const bootStartBtnIOS=document.getElementById("bootStartBtn");
+if(bootStartBtnIOS){
+  bootStartBtnIOS.addEventListener("click",()=>{
+    const card=document.getElementById("bootCard");
+    if(card)card.classList.add("running");
+  },{once:false});
+}
+
+/* Refuerzo para que cada render mantenga el modo iOS. */
+const renderAppBeforeIOSMinimal=renderApp;
+renderApp=function(){
+  applyIOSClassEarly();
+  renderAppBeforeIOSMinimal();
+  applyIOSClassEarly();
 };
 
 window.addEventListener('DOMContentLoaded',async()=>{
