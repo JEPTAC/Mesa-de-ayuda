@@ -2348,6 +2348,316 @@ body{
   }
 }
 
+
+/* =========================================================
+   FINAL REAL iOS: INTRO, LOGIN, IA AUTO Y SCROLL TÁCTIL
+   ========================================================= */
+
+/* 1. Intro real: id correcto bootLoader, flotante centrado y mínimo */
+#bootLoader.boot-loader{
+  position:fixed!important;
+  inset:0!important;
+  z-index:9999!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:18px!important;
+  overflow:hidden!important;
+  background:#03162d!important;
+}
+#bootLoader .boot-video{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  filter:saturate(1.14) contrast(1.08) brightness(.60)!important;
+  transform:scale(1.025)!important;
+}
+#bootLoader .boot-overlay{
+  position:absolute!important;
+  inset:0!important;
+  background:radial-gradient(circle at center,rgba(2,8,18,.10),rgba(2,8,18,.34) 52%,rgba(2,8,18,.72) 100%)!important;
+  backdrop-filter:none!important;
+}
+#bootLoader #bootCard.mesa-intro-final{
+  position:relative!important;
+  z-index:2!important;
+  width:min(330px,calc(100vw - 44px))!important;
+  max-width:330px!important;
+  min-height:0!important;
+  margin:0 auto!important;
+  padding:22px 20px!important;
+  border-radius:30px!important;
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:14px!important;
+  place-items:center!important;
+  text-align:center!important;
+  background:linear-gradient(180deg,rgba(255,255,255,.17),rgba(255,255,255,.08))!important;
+  border:1px solid rgba(255,255,255,.24)!important;
+  box-shadow:0 26px 76px rgba(0,0,0,.36), inset 0 1px 0 rgba(255,255,255,.18)!important;
+  backdrop-filter:blur(16px)!important;
+}
+#bootLoader #bootCard.mesa-intro-final .boot-copy{
+  width:100%!important;
+}
+#bootLoader #bootCard.mesa-intro-final .boot-copy h2{
+  margin:0!important;
+  padding:0!important;
+  color:#ffffff!important;
+  font-size:27px!important;
+  line-height:1.05!important;
+  letter-spacing:.2px!important;
+  font-weight:900!important;
+  text-transform:uppercase!important;
+}
+#bootLoader #bootCard.mesa-intro-final .boot-dev{
+  display:block!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:rgba(255,255,255,.78)!important;
+  font-size:12px!important;
+  line-height:1.25!important;
+}
+#bootLoader #bootCard.mesa-intro-final .boot-dev strong{
+  color:#fff7db!important;
+}
+#bootLoader #bootStartBtn.boot-start-btn{
+  width:100%!important;
+  min-width:0!important;
+  min-height:52px!important;
+  border-radius:21px!important;
+  padding:14px 18px!important;
+  display:flex!important;
+  justify-content:center!important;
+  align-items:center!important;
+  gap:0!important;
+  background:linear-gradient(135deg,#f7bf24,#ffe28a)!important;
+  color:#0b3b82!important;
+  border:0!important;
+  box-shadow:0 18px 40px rgba(247,191,36,.22)!important;
+  font-family:"Century Gothic",Arial,sans-serif!important;
+  font-size:17px!important;
+  font-weight:900!important;
+}
+#bootLoader .boot-brand,
+#bootLoader .boot-hero,
+#bootLoader .boot-character-wrap,
+#bootLoader .boot-copy p,
+#bootLoader .boot-play-icon,
+#bootLoader .boot-tip,
+#bootLoader .boot-tap-hint{
+  display:none!important;
+}
+#bootLoader #bootLoadingBtn,
+#bootLoader .boot-progress{
+  display:none!important;
+}
+
+/* 2. Shell móvil: evita hueco infinito arriba sin matar el táctil */
+@media(max-width:880px){
+  html.mobile-shell,
+  html.mobile-shell body{
+    width:100%!important;
+    height:100dvh!important;
+    min-height:100dvh!important;
+    overflow:hidden!important;
+    background:#f7fbff!important;
+    overscroll-behavior:none!important;
+  }
+  html.mobile-shell body{
+    position:relative!important;
+    touch-action:auto!important;
+  }
+  html.mobile-shell #app{
+    height:100dvh!important;
+    min-height:100dvh!important;
+    overflow:hidden!important;
+    background:#f7fbff!important;
+  }
+  html.mobile-shell .app-shell{
+    height:100dvh!important;
+    min-height:0!important;
+    overflow:hidden!important;
+    background:#f7fbff!important;
+  }
+  html.mobile-shell .main{
+    height:100dvh!important;
+    min-height:0!important;
+    max-height:100dvh!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    -webkit-overflow-scrolling:touch!important;
+    overscroll-behavior-y:contain!important;
+    touch-action:pan-y!important;
+    background:
+      linear-gradient(180deg,#f7fbff 0,#f7fbff 92px,#ffffff 92px,#f7fbff 100%)!important;
+    padding:10px 10px calc(24px + env(safe-area-inset-bottom))!important;
+  }
+  html.mobile-shell .content,
+  html.mobile-shell #view{
+    min-height:0!important;
+    overflow:visible!important;
+    background:transparent!important;
+  }
+  html.mobile-shell .topbar{
+    position:sticky!important;
+    top:0!important;
+    z-index:50!important;
+    margin:-10px -10px 10px!important;
+    padding:10px 10px 12px!important;
+    border-radius:0 0 24px 24px!important;
+    background:rgba(255,255,255,.94)!important;
+    backdrop-filter:blur(18px)!important;
+    box-shadow:0 12px 30px rgba(11,59,130,.08)!important;
+  }
+  html.mobile-shell .simple-submit-card{
+    position:static!important;
+  }
+}
+
+/* 3. Login iOS compacto: logo + login arriba, power/gif abajo */
+.mobile-login-logo{
+  display:none;
+}
+@media(max-width:880px){
+  .login-page{
+    min-height:100dvh!important;
+    padding:10px!important;
+    background:#f7fbff!important;
+    display:block!important;
+  }
+  .login-card{
+    width:100%!important;
+    min-height:auto!important;
+    display:flex!important;
+    flex-direction:column!important;
+    gap:10px!important;
+    border-radius:28px!important;
+    padding:0!important;
+    overflow:visible!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    border:0!important;
+  }
+  .login-form{
+    order:1!important;
+    padding:18px!important;
+    border-radius:28px!important;
+    background:#ffffff!important;
+    border:1px solid rgba(11,59,130,.12)!important;
+    box-shadow:0 14px 34px rgba(11,59,130,.08)!important;
+  }
+  .mobile-login-logo{
+    display:block!important;
+    width:112px!important;
+    height:auto!important;
+    object-fit:contain!important;
+    margin:0 auto 12px!important;
+    padding:10px!important;
+    border-radius:22px!important;
+    background:#ffffff!important;
+    box-shadow:0 10px 26px rgba(11,59,130,.10)!important;
+  }
+  .login-form h2{
+    font-size:22px!important;
+    text-align:left!important;
+    margin:0 0 6px!important;
+    color:#0b3b82!important;
+  }
+  .login-form p{
+    font-size:12px!important;
+    line-height:1.38!important;
+    margin:0 0 12px!important;
+    color:#315783!important;
+  }
+  .login-form .mode-pill{
+    display:none!important;
+  }
+  .login-form input,
+  .login-form select{
+    min-height:48px!important;
+    border-radius:17px!important;
+    font-size:15px!important;
+  }
+  .login-form .btn{
+    min-height:48px!important;
+    border-radius:18px!important;
+    width:100%!important;
+  }
+  .login-hero{
+    order:2!important;
+    min-height:0!important;
+    padding:14px!important;
+    border-radius:26px!important;
+    background:
+      radial-gradient(circle at 100% 0%,rgba(247,191,36,.22),transparent 30%),
+      linear-gradient(145deg,#0b3b82,#0d5bd2)!important;
+    box-shadow:0 16px 36px rgba(13,91,210,.18)!important;
+  }
+  .login-hero .logo-login,
+  .login-hero .hero-note{
+    display:none!important;
+  }
+  .login-hero .dance-box{
+    position:static!important;
+    inset:auto!important;
+    display:flex!important;
+    align-items:center!important;
+    gap:12px!important;
+    padding:0!important;
+    margin:0!important;
+    border:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+  }
+  .login-hero .dance-box img{
+    width:58px!important;
+    height:58px!important;
+    min-width:58px!important;
+    border-radius:18px!important;
+    object-fit:cover!important;
+  }
+  .login-hero .dance-box h1{
+    font-size:18px!important;
+    line-height:1.05!important;
+    margin:0 0 4px!important;
+    color:#ffffff!important;
+  }
+  .login-hero .dance-box p{
+    font-size:11px!important;
+    line-height:1.32!important;
+    margin:0!important;
+    color:rgba(255,255,255,.78)!important;
+  }
+}
+
+/* 4. Radicar solicitud más estable visualmente en iOS */
+@media(max-width:880px){
+  .simple-request-shell{
+    gap:12px!important;
+    padding:0 0 16px!important;
+  }
+  .simple-form-card,
+  .simple-assisted-card,
+  .simple-submit-card,
+  .simple-quality-zone,
+  .simple-lookup-card{
+    transform:none!important;
+    will-change:auto!important;
+  }
+  .simple-form-card{
+    background:linear-gradient(180deg,#ffffff,#f8fbff)!important;
+    border:1px solid rgba(11,59,130,.12)!important;
+    box-shadow:0 12px 30px rgba(11,59,130,.07)!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2357,43 +2667,25 @@ body{
   </video>
   <div class="boot-overlay"></div>
 
-  <div class="boot-card cinematic" id="bootCard">
-    <div class="boot-brand no-logo">
-      <div>
-        <strong>Mesa de Ayuda de Calidad</strong>
-        <span>Dream Team de Calidad y Mejoramiento Continuo</span>
-      </div>
+  <div class="boot-card cinematic mesa-intro-final" id="bootCard">
+    <div class="boot-copy">
+      <h2>MESA DE AYUDA</h2>
     </div>
-
-    <div class="boot-hero">
-      <div class="boot-character-wrap">
-        <img src="assets/intro_pointer.gif" alt="Asistente de carga">
-      </div>
-      <div class="boot-copy">
-        <h2>Bienvenido al sistema</h2>
-        <p>Presiona iniciar. El video y la música correrán juntos, y la app abrirá automáticamente al finalizar.</p>
-      </div>
-    </div>
-
-    <button id="bootStartBtn" class="boot-start-btn" type="button">
-      <span class="boot-play-icon">▶</span>
-      <span>Iniciar mesa de ayuda</span>
-    </button>
-
-    <div class="boot-loader-btn cinematic-btn hidden" id="bootLoadingBtn">
-      <span class="boot-spinner"></span>
-      <span id="bootStatus">Preparando contenido...</span>
-    </div>
-
-    <div class="boot-progress"><span id="bootProgressBar"></span></div>
 
     <div class="boot-dev">
       Desarrollado por: <strong>Juan E. Perez</strong>
     </div>
 
-    <div class="boot-tip">
-      El sistema cargará usuarios, solicitudes, IA, juegos y configuración durante la intro.
+    <button id="bootStartBtn" class="boot-start-btn" type="button">
+      <span>Iniciar</span>
+    </button>
+
+    <div class="boot-loader-btn cinematic-btn hidden" id="bootLoadingBtn">
+      <span class="boot-spinner"></span>
+      <span id="bootStatus">Iniciando...</span>
     </div>
+
+    <div class="boot-progress hidden"><span id="bootProgressBar"></span></div>
   </div>
 
   <audio id="bootAudio" preload="auto" src="assets/intro_logo.mp3"></audio>
@@ -5894,6 +6186,123 @@ if(typeof bindView==="function"){
   bindView=function(){
     bindViewBeforeStrictMobileFix();
     applyStrictMobileFix();
+  };
+}
+
+
+/* =========================================================
+   FINAL REAL iOS: aplicación estricta
+   ========================================================= */
+function isRealMobile(){
+  return window.matchMedia("(max-width: 880px)").matches;
+}
+function applyMobileShellFinal(){
+  document.documentElement.classList.toggle("mobile-shell",isRealMobile());
+  document.documentElement.style.background="#f7fbff";
+  document.body.style.background="#f7fbff";
+  const bootTitle=document.querySelector("#bootLoader #bootCard .boot-copy h2");
+  const bootDev=document.querySelector("#bootLoader #bootCard .boot-dev");
+  const bootBtn=document.getElementById("bootStartBtn");
+  const bootBtnText=bootBtn?.querySelector("span:last-child")||bootBtn?.querySelector("span");
+  const icon=document.querySelector("#bootLoader .boot-play-icon");
+  if(bootTitle)bootTitle.textContent="MESA DE AYUDA";
+  if(bootDev)bootDev.innerHTML='Desarrollado por: <strong>Juan E. Perez</strong>';
+  if(bootBtnText)bootBtnText.textContent="Iniciar";
+  if(icon)icon.remove();
+}
+applyMobileShellFinal();
+window.addEventListener("DOMContentLoaded",applyMobileShellFinal);
+window.addEventListener("resize",applyMobileShellFinal);
+
+/* Login simplificado y correcto */
+setupLogin=function(){
+  const app=document.getElementById("app");
+  app.innerHTML=`<div class="login-page"><div class="login-card">
+    <section class="login-form">
+      <img class="mobile-login-logo" src="${assets.logo}" alt="Dream Team de Calidad">
+      <h2>Ingresar</h2>
+      <p>Selecciona tu perfil. Si eres solicitante, entra sin cuenta y la IA te ayudará a crear la solicitud.</p>
+      <div class="field"><label>Perfil</label><select id="loginUser"><option value="guest">Radicar o consultar sin usuario</option>${responders().map(u=>`<option value="${u.id}">${escapeHtml(u.name)} · ${escapeHtml(u.role)}</option>`).join("")}</select></div>
+      <div class="field" id="pinBox"><label>PIN</label><input id="loginPin" type="password" inputmode="numeric" autocomplete="current-password" placeholder="PIN del usuario interno"></div>
+      <button class="btn primary" id="loginBtn">Entrar a la mesa</button>
+      <button class="btn ghost" id="guestBtn">Entrar como solicitante</button>
+      <button class="btn gold" type="button" onclick="loginGuest('ai')">Probar IA</button>
+      <div class="mode-pill"><span class="dot ${modeOn()?"on":""}"></span>${modeLabel()}</div>
+    </section>
+    <section class="login-hero">
+      <img class="logo-login" src="${assets.logo}" alt="Dream Team de Calidad">
+      <div class="hero-note">Mesa de Ayuda de Calidad y Mejoramiento Continuo.</div>
+      <div class="dance-box pulse"><img src="${assets.fun}" alt="Animación"><div><h1>Una mesa de ayuda con power.</h1><p>Radica, consulta y conversa con la IA sin enredos.</p></div></div>
+    </section>
+  </div></div>`;
+  document.getElementById("loginUser").addEventListener("change",e=>{document.getElementById("pinBox").style.display=e.target.value==="guest"?"none":"grid"});
+  document.getElementById("pinBox").style.display="none";
+  document.getElementById("guestBtn").onclick=()=>loginGuest();
+  document.getElementById("loginBtn").onclick=login;
+  applyMobileShellFinal();
+  try{gsap.from(".login-card",{opacity:0,y:18,duration:.42,ease:"power2.out"})}catch(e){}
+};
+
+/* IA automática para solicitante en celular */
+let mobileGuidedRadicationOpening=false;
+function shouldAutoStartGuided(){
+  return isRealMobile() && state.user?.role==="Solicitante" && state.view==="create";
+}
+function autoStartGuidedRadicationMobile(){
+  if(!shouldAutoStartGuided())return;
+  if(mobileGuidedRadicationOpening)return;
+  mobileGuidedRadicationOpening=true;
+  setTimeout(()=>{
+    try{
+      if(shouldAutoStartGuided() && typeof startGuidedRadication==="function"){
+        startGuidedRadication();
+      }
+    }finally{
+      setTimeout(()=>{mobileGuidedRadicationOpening=false},1200);
+    }
+  },650);
+}
+loginGuest=async function(view="create"){
+  state.user={id:"guest_"+Date.now(),name:"Solicitante general",role:"Solicitante",area:"Usuario general",statusText:"Radicando solicitudes",avatar:assets.fun,gameAlias:""};
+  state.view=view;
+  renderApp();
+  applyMobileShellFinal();
+  if(view==="create" && isRealMobile()){
+    autoStartGuidedRadicationMobile();
+  }else if(view!=="create"){
+    // Sin pop-up de bienvenida invasivo.
+  }
+};
+
+/* Al cambiar a crear solicitud en móvil, arranca la guía y corrige posición */
+const setViewBeforeFinalReal = typeof setView==="function" ? setView : null;
+if(setViewBeforeFinalReal){
+  setView=function(view){
+    setViewBeforeFinalReal(view);
+    applyMobileShellFinal();
+    if(view==="create"){
+      const main=document.querySelector(".main");
+      if(main)main.scrollTo({top:0,left:0,behavior:"auto"});
+      if(shouldAutoStartGuided())autoStartGuidedRadicationMobile();
+    }
+  };
+}
+
+const renderAppBeforeFinalReal = typeof renderApp==="function" ? renderApp : null;
+if(renderAppBeforeFinalReal){
+  renderApp=function(){
+    renderAppBeforeFinalReal();
+    applyMobileShellFinal();
+    const main=document.querySelector(".main");
+    if(state.view==="create" && main)main.scrollTo({top:0,left:0,behavior:"auto"});
+  };
+}
+const bindViewBeforeFinalReal = typeof bindView==="function" ? bindView : null;
+if(bindViewBeforeFinalReal){
+  bindView=function(){
+    bindViewBeforeFinalReal();
+    applyMobileShellFinal();
+    if(shouldAutoStartGuided())autoStartGuidedRadicationMobile();
   };
 }
 
