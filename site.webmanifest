@@ -1,0 +1,31 @@
+{
+  "name": "Mesa de Ayuda de Calidad",
+  "short_name": "Mesa Ayuda",
+  "description": "Mesa de Ayuda de Calidad y Mejoramiento Continuo",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#0b3b82",
+  "icons": [
+    {
+      "src": "./android-chrome-192x192.png?v=3",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./android-chrome-512x512.png?v=3",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./apple-touch-icon.png?v=3",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
